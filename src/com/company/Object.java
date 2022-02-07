@@ -1,11 +1,16 @@
 package com.company;
 
 /** JEngine.Object (c) Noah Freelove
- * An object is a simple class that has a transform
- *
- *
+ * A object is a simple class that has a transform
+ * A object cannot be controlled by the player, but it's position can be updated
  * **/
 
 
 public class Object {
+    public Transform transform;
+
+    public Object(Transform transform) {
+        this.transform = transform;
+    }
+
 }
