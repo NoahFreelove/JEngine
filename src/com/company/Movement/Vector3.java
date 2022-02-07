@@ -1,9 +1,9 @@
-package com.company;
+package com.company.Movement;
 
 public class Vector3 {
-    float x;
-    float y;
-    float z;
+    public float x;
+    public float y;
+    public float z;
 
     public Vector3(float _x, float _y, float _z) {
         x = _x;

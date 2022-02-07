@@ -1,9 +1,9 @@
-package com.company;
+package com.company.Movement;
 
 public class Transform {
-    Vector3 position;
-    Vector3 rotation;
-    Vector3 scale;
+    public Vector3 position;
+    public Vector3 rotation;
+    public Vector3 scale;
 
     public Transform(Vector3 newPosition, Vector3 newRotation, Vector3 newScale) {
         position = newPosition;
