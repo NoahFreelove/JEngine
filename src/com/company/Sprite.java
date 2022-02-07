@@ -1,5 +1,8 @@
 package com.company;
 
+import com.company.PrimitiveTypes.Object;
+import com.company.PrimitiveTypes.Position.Transform;
+
 import java.awt.*;
 
 /** JEngine.Sprite (c) Noah Freelove
@@ -15,7 +18,7 @@ public class Sprite {
     public void migrateObject(Object newObject) {object = newObject;}
     
     public Sprite(Transform transform, Image newSprite) {
-        object.Transform = transform;
+        object = new Object(transform);
         setSprite(newSprite);
     }
 }

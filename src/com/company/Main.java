@@ -1,10 +1,15 @@
 package com.company;
 
-import com.company.Movement.Transform;
-import com.company.Movement.Vector3;
+import com.company.PrimitiveTypes.Position.Transform;
+import com.company.PrimitiveTypes.Position.Vector3;
+import com.company.PrimitiveTypes.Object;
 
 public class Main {
-    static Object obj = new Object(new Transform(new Vector3(1,1,1), new Vector3(2,2,2), new Vector3(3,3,3)));
+    static Vector3 position = new Vector3(25,25,0);
+    static Vector3 rotation = new Vector3(0,0,0);
+    static Vector3 scale = new Vector3(1,1,1);
+
+    static Object obj = new Object(new Transform(position, rotation, scale));
 
     public static void main(String[] args) {
         obj.transform.setPosition(new Vector3(2,1,1));

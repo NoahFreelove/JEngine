@@ -1,4 +1,4 @@
-package com.company.Movement;
+package com.company.PrimitiveTypes.Position;
 
 public class Transform {
     public Vector3 position;
