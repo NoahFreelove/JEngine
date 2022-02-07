@@ -5,10 +5,16 @@ public class Transform {
     Vector3 rotation;
     Vector3 scale;
 
-    public void setTransform(Transform newTransform) {
-        position = newTransform.position;
-        rotation = newTransform.rotation;
-        scale = newTransform.scale;
+    public Transform(Vector3 newPosition, Vector3 newRotation, Vector3 newScale) {
+        position = newPosition;
+        rotation = newRotation;
+        scale = newScale;
+    }
+
+    public void setTransform(Vector3 newPosition, Vector3 newRotation, Vector3 newScale) {
+        position = newPosition;
+        rotation = newRotation;
+        scale = newScale;
     }
 
     public void setPosition(Vector3 newPosition){position = newPosition;}
