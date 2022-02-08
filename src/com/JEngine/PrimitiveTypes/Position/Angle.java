@@ -7,7 +7,6 @@ package com.JEngine.PrimitiveTypes.Position;
 
 public class Angle {
     public double angle;
-
     public Angle(double degrees) {
         this.angle = degrees;
     }
