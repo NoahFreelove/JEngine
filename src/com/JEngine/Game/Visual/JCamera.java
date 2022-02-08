@@ -7,15 +7,13 @@ import java.awt.*;
 
 // Convert objects in the viewport to a visual representation
 // Requires JViewport
-public class JCamera {
-    public JViewport viewport;
+public class JCamera extends Object{
     public JScene scene;
     public JWindow window;
 
-    public JCamera(JWindow window, JScene scene, JViewport viewport) {
+    public JCamera(JWindow window, JScene scene) {
         this.window = window;
         this.scene = scene;
-        this.viewport = viewport;
     }
 
     public void Render()
