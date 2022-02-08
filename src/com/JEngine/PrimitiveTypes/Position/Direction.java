@@ -9,7 +9,6 @@ package com.JEngine.PrimitiveTypes.Position;
  * **/
 
 public enum Direction {
-    none,
     Up,
     UpRight,
     Right,
