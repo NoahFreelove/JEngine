@@ -36,7 +36,7 @@ public class Main {
         Scanner s = new Scanner(System.in);
         s.next();*/
 
-        JWindow window = new JWindow(800,800,"Suuuup", true);
+        JWindow window = new JWindow(800,800,"Suuuup", false);
         JScene scene = new JScene(window, 10);
         JViewport viewport = new JViewport(scene);
         JCamera camera = new JCamera(window,scene,viewport);
@@ -44,6 +44,6 @@ public class Main {
 
         scene.add(pawn);
 
-        pawn.Move(Direction.UpRight, 1);
+        //pawn.Move(Direction.UpRight, 1);
     }
 }

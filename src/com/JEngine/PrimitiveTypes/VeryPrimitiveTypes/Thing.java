@@ -18,7 +18,7 @@ public class Thing {
     {
         if(Main.savedArgs.length>=1) {
             if (Main.savedArgs[0].equals("logs")) {
-                System.out.println("INFO: " + log);
+                System.out.println("Info: " + log);
             }
         }
     }
@@ -27,7 +27,7 @@ public class Thing {
     {
         if(Main.savedArgs.length>=1) {
             if (Main.savedArgs[0].equals("logs")) {
-                System.out.println("INFO: " + log);
+                System.out.println("WARNING: " + log);
             }
         }
     }
@@ -36,7 +36,7 @@ public class Thing {
     {
         if(Main.savedArgs.length>=1) {
             if (Main.savedArgs[0].equals("logs")) {
-                System.out.println("INFO: " + log);
+                System.out.println("CAUGHT ERROR: " + log);
             }
         }
     }
