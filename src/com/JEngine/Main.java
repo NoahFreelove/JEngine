@@ -14,6 +14,11 @@ import java.awt.*;
 import java.io.File;
 import java.util.Scanner;
 
+/*
+    Scene holds all objects
+    Viewport gets all objects which should be visible
+    Camera creates a sprite using JWindow at desired location
+*/
 public class Main {
     static Vector3 position = new Vector3(25,25,0);
     static Vector3 rotation = new Vector3(0,0,0);
@@ -23,7 +28,7 @@ public class Main {
 
     public static String[] savedArgs;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         savedArgs = args;
         /*try {
             File wavFile = new File("Sounds\\\\piano2.wav");
@@ -36,13 +41,16 @@ public class Main {
         Scanner s = new Scanner(System.in);
         s.next();*/
 
-        JWindow window = new JWindow(800,800,"Suuuup", false);
+        JWindow window = new JWindow(800,800,"Suuuup", true);
         JScene scene = new JScene(window, 10);
         JViewport viewport = new JViewport(scene);
         JCamera camera = new JCamera(window,scene,viewport);
         Pawn pawn = new Pawn(t, new JImage(true, "bin\\\\image.png"));
 
         scene.add(pawn);
+
+        Thread.sleep(1000);
+        camera.Render();
 
         //pawn.Move(Direction.UpRight, 1);
     }
