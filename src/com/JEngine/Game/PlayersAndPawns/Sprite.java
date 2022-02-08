@@ -1,6 +1,6 @@
-package com.JEngine.Game;
+package com.JEngine.Game.PlayersAndPawns;
 
-import com.JEngine.PrimitiveTypes.Object;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Object;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 
 import java.awt.*;

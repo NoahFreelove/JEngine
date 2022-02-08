@@ -1,4 +1,4 @@
-package com.JEngine.Game;
+package com.JEngine.Game.PlayersAndPawns;
 
 import com.JEngine.PrimitiveTypes.Position.Angle;
 import com.JEngine.PrimitiveTypes.Position.Direction;
@@ -21,8 +21,25 @@ public class Pawn extends Sprite {
         Move(Direction.none, new Angle(0), 5f);
     }
 
-    public void Move(Direction direction, Angle angle, float magnitude)
+    // 1 unit = 1m
+    // Therefore, 1 speed = 1m/s
+    public void Move(Direction direction, Angle angle, float speed)
     {
-
+        if(direction == Direction.none)
+        {
+            
+            return;
+        }
+        switch (direction)
+        {
+            case Up -> angle.angle = 0;
+            case UpRight -> angle.angle = 45;
+            case Right -> angle.angle = 90;
+            case DownRight -> angle.angle = 135;
+            case Down -> angle.angle = 180;
+            case DownLeft -> angle.angle = 225;
+            case Left -> angle.angle = 270;
+            case UpLeft -> angle.angle = 315;
+        }
     }
 }

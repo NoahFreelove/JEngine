@@ -2,16 +2,9 @@ package com.JEngine;
 
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.Position.Vector3;
-import com.JEngine.PrimitiveTypes.Object;
-
-
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Object;
+import javax.sound.sampled.*;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
@@ -32,6 +25,7 @@ public class Main {
         }
         Scanner s = new Scanner(System.in);
         s.next();
+
         /*obj.transform.setPosition(new Vector3(2,1,1));
 
         System.out.println(obj.transform.position.x);*/
