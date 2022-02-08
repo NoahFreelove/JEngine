@@ -3,10 +3,16 @@ package com.JEngine;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.Position.Vector3;
 import com.JEngine.PrimitiveTypes.Object;
-import javax.sound.sampled.*;
 
+
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Objects;
+import java.util.Scanner;
 
 public class Main {
     static Vector3 position = new Vector3(25,25,0);
@@ -15,13 +21,17 @@ public class Main {
 
     static Object obj = new Object(new Transform(position, rotation, scale));
 
-    public static void main(String[] args) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
-        Clip clip = AudioSystem.getClip();
-        AudioInputStream inputStream = AudioSystem.getAudioInputStream(
-                Objects.requireNonNull(Main.class.getResourceAsStream("src/Sounds/piano2.wav")));
-        clip.open(inputStream);
-        clip.start();
-
+    public static void main(String[] args) {
+        try {
+            File wavFile = new File("Sounds\\\\piano2.wav");
+            Clip clip = AudioSystem.getClip();
+            clip.open(AudioSystem.getAudioInputStream(wavFile));
+            clip.start();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        Scanner s = new Scanner(System.in);
+        s.next();
         /*obj.transform.setPosition(new Vector3(2,1,1));
 
         System.out.println(obj.transform.position.x);*/
