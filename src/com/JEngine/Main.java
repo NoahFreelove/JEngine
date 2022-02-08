@@ -1,8 +1,8 @@
-package com.company;
+package com.JEngine;
 
-import com.company.PrimitiveTypes.Position.Transform;
-import com.company.PrimitiveTypes.Position.Vector3;
-import com.company.PrimitiveTypes.Object;
+import com.JEngine.PrimitiveTypes.Position.Transform;
+import com.JEngine.PrimitiveTypes.Position.Vector3;
+import com.JEngine.PrimitiveTypes.Object;
 
 public class Main {
     static Vector3 position = new Vector3(25,25,0);

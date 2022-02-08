@@ -1,8 +1,12 @@
-package com.company.PrimitiveTypes.Position;
+package com.JEngine.PrimitiveTypes.Position;
 
 /** JEngine.Vector3 (c) Noah Freelove
+ * Brief Explanation:
  * A Vector 3 is a simple structure that has an x y and z value.
+ *
+ * Usage:
  * Vector3's are the foundation for all movement, rotation, and scale values.
+ * Vector3 values can also be handy for holding simple points or structures with 3 float values
  * **/
 
 public class Vector3 {
