@@ -4,14 +4,9 @@ import com.JEngine.Game.PlayersAndPawns.Pawn;
 import com.JEngine.Game.Visual.JCamera;
 import com.JEngine.Game.Visual.JScene;
 import com.JEngine.Game.Visual.JWindow;
+import com.JEngine.PrimitiveTypes.Worker;
 import com.JEngine.PrimitiveTypes.*;
 import com.JEngine.PrimitiveTypes.Position.*;
-
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Object;
-import javax.sound.sampled.*;
-import java.awt.*;
-import java.io.File;
-import java.util.Scanner;
 
 /*
     Scene holds all objects
@@ -44,7 +39,7 @@ public class Main {
         JWindow window = new JWindow(800,800,"Suuuup", true);
 
         // create a new scene
-        JScene scene = new JScene(window, 10);
+        JScene scene = new JScene(window, 1);
 
         // create a pawn object
         Pawn pawn = new Pawn(t, new JImage(true, "bin\\\\image.png"));
@@ -54,16 +49,20 @@ public class Main {
 
         // set main camera
         window.setCamera(camera);
+
         // add pawn to scene
         scene.add(pawn);
-        // set FPS
-        window.setDesiredFPS(5f);
-        // start window.update() function
-        window.start();
-        /*
-        Thread.sleep(1000);
-        camera.Render();*/
 
-        //pawn.Move(Direction.UpRight, 1);
+        // set FPS
+        window.setDesiredFPS(1f);
+
+        Worker w = () -> {
+            pawn.Move(Direction.Up, 10);
+        };
+        window.AddUpdateBehavior(w);
+        window.start();
+
     }
+
 }
+

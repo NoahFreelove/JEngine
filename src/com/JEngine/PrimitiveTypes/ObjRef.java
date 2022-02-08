@@ -1,5 +1,6 @@
 package com.JEngine.PrimitiveTypes;
 
+import com.JEngine.Game.PlayersAndPawns.Sprite;
 import com.JEngine.PrimitiveTypes.Position.Vector3;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Object;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
@@ -12,12 +13,12 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
  * Really just provides an easier way to get an object's position. Object.Transform.position works as well.
  * **/
 
-public class ObjRef extends Thing {
-    public Object objRef;
+public class ObjRef {
+    public Sprite objRef;
     public Vector3 position;
 
-    public ObjRef(Object objRef, Vector3 position) {
-        super(true);
+    public ObjRef(Sprite objRef, Vector3 position) {
+        super();
         this.objRef = objRef;
         this.position = position;
     }

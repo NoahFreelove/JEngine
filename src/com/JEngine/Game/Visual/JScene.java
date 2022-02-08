@@ -1,5 +1,6 @@
 package com.JEngine.Game.Visual;
 
+import com.JEngine.Game.PlayersAndPawns.Sprite;
 import com.JEngine.PrimitiveTypes.ObjRef;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Object;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
@@ -14,7 +15,7 @@ public class JScene extends Thing {
         sceneObjects = new ObjRef[maxObjects];
     }
 
-    public void add(Object o)
+    public void add(Sprite o)
     {
         if(o == null || o.transform == null)
         {
