@@ -3,7 +3,6 @@ package com.JEngine;
 import com.JEngine.Game.PlayersAndPawns.Pawn;
 import com.JEngine.Game.Visual.JCamera;
 import com.JEngine.Game.Visual.JScene;
-import com.JEngine.Game.Visual.JViewport;
 import com.JEngine.Game.Visual.JWindow;
 import com.JEngine.PrimitiveTypes.*;
 import com.JEngine.PrimitiveTypes.Position.*;
@@ -41,16 +40,29 @@ public class Main {
         Scanner s = new Scanner(System.in);
         s.next();*/
 
+        // create a new window
         JWindow window = new JWindow(800,800,"Suuuup", true);
+
+        // create a new scene
         JScene scene = new JScene(window, 10);
-        JViewport viewport = new JViewport(scene);
-        JCamera camera = new JCamera(window,scene,viewport);
+
+        // create a pawn object
         Pawn pawn = new Pawn(t, new JImage(true, "bin\\\\image.png"));
 
-        scene.add(pawn);
+        // create camera
+        JCamera camera = new JCamera(window,scene, pawn, 25);
 
+        // set main camera
+        window.setCamera(camera);
+        // add pawn to scene
+        scene.add(pawn);
+        // set FPS
+        window.setDesiredFPS(5f);
+        // start window.update() function
+        window.start();
+        /*
         Thread.sleep(1000);
-        camera.Render();
+        camera.Render();*/
 
         //pawn.Move(Direction.UpRight, 1);
     }
