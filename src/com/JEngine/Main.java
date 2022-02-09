@@ -1,6 +1,7 @@
 package com.JEngine;
 
 import com.JEngine.Game.PlayersAndPawns.Pawn;
+import com.JEngine.Game.Sound.JAudioPlayer;
 import com.JEngine.Game.Visual.JCamera;
 import com.JEngine.Game.Visual.JScene;
 import com.JEngine.Game.Visual.JWindow;
@@ -21,19 +22,11 @@ public class Main {
 
     public static String[] savedArgs;
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         savedArgs = args;
-        /*try {
-            File wavFile = new File("Sounds\\\\piano2.wav");
-            Clip clip = AudioSystem.getClip();
-            clip.open(AudioSystem.getAudioInputStream(wavFile));
-            clip.start();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        Scanner s = new Scanner(System.in);
-        s.next();*/
 
+        JAudioPlayer ap = new JAudioPlayer("bin\\\\piano2.wav");
+        ap.startClip();
         // create a new window
         JWindow window = new JWindow(800,800,"JEngine", true, 1);
 
@@ -56,7 +49,7 @@ public class Main {
         // set FPS
         window.setTargetFPS(10);
 
-        Behavior behavior = () -> {
+        Behavior behavior = (int totalFrameCount) -> {
             pawn.Move(Direction.Right, 20);
         };
 

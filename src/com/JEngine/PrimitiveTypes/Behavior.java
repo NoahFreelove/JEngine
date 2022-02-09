@@ -6,12 +6,14 @@ package com.JEngine.PrimitiveTypes;
  *
  * Example:
  * ------------
- * Behavior behavior = () -> {Player.Move(Direction.Up, 50); }
+ * Behavior behavior = (int totalFrameCount) -> {Player.Move(Direction.Up, 50); }
  * window.AddUpdateBehavior(behavior);
  * ------------
  * This will move the player every frame
+ *
+ * int totalFrameCount is an argument to allow for easy testing
  * **/
 
 public interface Behavior {
-    void behave();
+    void behave(int totalFrameCount);
 }

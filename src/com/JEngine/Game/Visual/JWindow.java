@@ -106,7 +106,7 @@ public class JWindow extends Thing {
     private void runUpdateBehaviors() {
         for (Behavior behavior : behaviors) {
             if (behavior != null) {
-                behavior.behave();
+                behavior.behave(totalFrames);
             }
         }
     }
