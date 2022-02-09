@@ -1,12 +1,10 @@
 package com.JEngine.Game.Visual;
 
-import com.JEngine.Game.PlayersAndPawns.Pawn;
 import com.JEngine.Game.PlayersAndPawns.Sprite;
-import com.JEngine.PrimitiveTypes.JImage;
 import com.JEngine.PrimitiveTypes.ObjRef;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.Position.Vector3;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Identity;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Object;
 
 import javax.swing.*;
@@ -20,11 +18,11 @@ public class JCamera extends Object {
     public JWindow window;
     public Object parent;
     public Object[] objectsInView;
-    public JCamera(Vector3 position, JWindow window, JScene scene, Object parent, int fov, Identity identity) {
-        super(parent.transform, identity);
+    public JCamera(Vector3 position, JWindow window, JScene scene, Object parent, int fov, JIdentity JIdentity) {
+        super(parent.transform, JIdentity);
 
         if(parent.transform == null){
-            LogWarning(String.format("Camera: '%s' parent property is null. The camera will not move.",identity.getName()));
+            LogWarning(String.format("Camera: '%s' parent property is null. The camera will not move.", JIdentity.getName()));
             super.transform = new Transform(position, new Vector3(0,0,0), new Vector3(1,1,1));
         }
 
@@ -109,7 +107,7 @@ public class JCamera extends Object {
                 panel.add(jl);
             } catch (Exception ignore)
             {
-                LogExtra("Didn't add object: " + objectsInView[i].identity.getName() + " to render queue because it doesn't have a sprite");
+                LogExtra("Didn't add object: " + objectsInView[i].JIdentity.getName() + " to render queue because it doesn't have a sprite");
             }
          }
         LogExtra("Rendered Objects");

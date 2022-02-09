@@ -1,6 +1,5 @@
 package com.JEngine.Game.Visual;
 
-import com.JEngine.Game.PlayersAndPawns.Sprite;
 import com.JEngine.PrimitiveTypes.ObjRef;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Object;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
@@ -43,7 +42,7 @@ public class JScene extends Thing {
 
         int count = 0;
         for (int i = 0; i < sceneObjects.length; i++) {
-            if (sceneObjects[i].objRef.identity.compareTag(tag))
+            if (sceneObjects[i].objRef.JIdentity.compareTag(tag))
                 count++;
         }
         // if 0 matches, don't bother looking through all scene objects again
@@ -51,7 +50,7 @@ public class JScene extends Thing {
 
         Object[] tmpArr = new Object[count];
         for (int i = 0; i < sceneObjects.length; i++) {
-            if(sceneObjects[i].objRef.identity.compareTag(tag))
+            if(sceneObjects[i].objRef.JIdentity.compareTag(tag))
                 tmpArr[i] = sceneObjects[i].objRef;
         }
 

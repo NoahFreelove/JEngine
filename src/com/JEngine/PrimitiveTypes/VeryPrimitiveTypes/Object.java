@@ -1,6 +1,5 @@
 package com.JEngine.PrimitiveTypes.VeryPrimitiveTypes;
 import com.JEngine.PrimitiveTypes.Position.Transform;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 
 /** JEngine.Object (c) Noah Freelove
  * Brief Explanation:
@@ -13,11 +12,11 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 
 public class Object extends Thing {
     public Transform transform;
-    public Identity identity;
+    public JIdentity JIdentity;
 
-    public Object(Transform transform, Identity identity) {
+    public Object(Transform transform, JIdentity JIdentity) {
         super(true);
         this.transform = transform;
-        this.identity = identity;
+        this.JIdentity = JIdentity;
     }
 }

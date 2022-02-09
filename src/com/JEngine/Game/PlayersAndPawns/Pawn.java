@@ -1,13 +1,11 @@
 package com.JEngine.Game.PlayersAndPawns;
 
-import com.JEngine.Main;
 import com.JEngine.PrimitiveTypes.JImage;
 import com.JEngine.PrimitiveTypes.Position.Angle;
 import com.JEngine.PrimitiveTypes.Position.Direction;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.Position.Vector3;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Identity;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Object;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 
 /** JEngine.Pawn (c) Noah Freelove
  * Brief Explanation:
@@ -19,8 +17,8 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Object;
  * **/
 
 public class Pawn extends Sprite {
-    public Pawn(Transform transform, JImage newSprite, Identity identity) {
-        super(transform,newSprite, identity);
+    public Pawn(Transform transform, JImage newSprite, JIdentity JIdentity) {
+        super(transform,newSprite, JIdentity);
 
     }
 

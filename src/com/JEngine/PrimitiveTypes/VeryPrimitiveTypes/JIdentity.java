@@ -1,10 +1,10 @@
 package com.JEngine.PrimitiveTypes.VeryPrimitiveTypes;
 
-public class Identity {
+public class JIdentity {
     String name;
     String tag;
 
-    public Identity(String name, String tag) {
+    public JIdentity(String name, String tag) {
         this.name = name;
         this.tag = tag;
     }

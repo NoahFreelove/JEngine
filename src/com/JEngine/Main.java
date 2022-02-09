@@ -7,7 +7,7 @@ import com.JEngine.Game.Visual.JWindow;
 import com.JEngine.PrimitiveTypes.Behavior;
 import com.JEngine.PrimitiveTypes.*;
 import com.JEngine.PrimitiveTypes.Position.*;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Identity;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Object;
 
 /*
@@ -40,16 +40,16 @@ public class Main {
         JScene scene = new JScene(window, 2);
 
         // create a pawn object
-        Pawn pawn = new Pawn(transform, new JImage(true, "bin/gradient.png", 128,128), new Identity("Pawn 1", "pawn"));
+        Pawn pawn = new Pawn(transform, new JImage(true, "bin/gradient.png", 128,128), new JIdentity("Pawn 1", "pawn"));
 
         // create camera
-        JCamera camera = new JCamera(new Vector3(400,400,1),window,scene, new Object(null, null), 350, new Identity("camera","MainCamera"));
+        JCamera camera = new JCamera(new Vector3(400,400,1),window,scene, new Object(null, null), 350, new JIdentity("Main Camera","MainCamera"));
 
         // set main camera
         window.setCamera(camera);
 
         // create object without a sprite
-        Object o = new Object(transform, new Identity("Obj","tag"));
+        Object o = new Object(transform, new JIdentity("Obj","tag"));
 
         // set window icon
         window.setIcon(new JImage(true, "bin/jengineicon.png", 128,128));
