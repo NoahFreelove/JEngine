@@ -2,8 +2,6 @@ package com.JEngine.PrimitiveTypes;
 
 import com.JEngine.Game.PlayersAndPawns.Sprite;
 import com.JEngine.PrimitiveTypes.Position.Vector3;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Object;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 
 /** JEngine.ObjRef (c) Noah Freelove
  * Brief Explanation:

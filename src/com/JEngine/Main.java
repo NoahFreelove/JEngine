@@ -1,16 +1,17 @@
 package com.JEngine;
 
 import com.JEngine.Game.PlayersAndPawns.Pawn;
+import com.JEngine.Game.PlayersAndPawns.Sprite;
 import com.JEngine.Game.Visual.JCamera;
 import com.JEngine.Game.Visual.JScene;
 import com.JEngine.Game.Visual.JWindow;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Object;
 import com.JEngine.PrimitiveTypes.Worker;
 import com.JEngine.PrimitiveTypes.*;
 import com.JEngine.PrimitiveTypes.Position.*;
 
 /*
     Scene holds all objects
-    Viewport gets all objects which should be visible
     Camera creates a sprite using JWindow at desired location
 */
 public class Main {
@@ -52,15 +53,15 @@ public class Main {
 
         // add pawn to scene
         scene.add(pawn);
+        scene.add(null);
 
         // set FPS
-        window.setDesiredFPS(1f);
+        window.setDesiredFPS(10);
 
         Worker w = () -> {
             pawn.Move(Direction.UpRight, 20);
         };
-        
-        window.AddUpdateBehavior(w);
+        //window.AddUpdateBehavior(w);
         window.start();
         // Nothing after window.start() is run as Update will loop until stopped
     }

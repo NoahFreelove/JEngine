@@ -4,9 +4,10 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 import com.JEngine.PrimitiveTypes.Worker;
 
 import javax.swing.*;
+import java.sql.Time;
 
 public class JWindow extends Thing {
-    public JFrame frame;
+    private JFrame frame;
     public JCamera activeCamera;
     public boolean isActive;
     private float desiredFPS = 5;
@@ -49,31 +50,27 @@ public class JWindow extends Thing {
 
     public void setDesiredFPS(float newDesiredFPS) {desiredFPS = newDesiredFPS;}
 
-    public void start() throws InterruptedException {
+    public void start() {
         run();
     }
 
-    double interpolation = 0;
-    final int SKIP_TICKS = (int) (1000 / desiredFPS);
-    final int MAX_FRAMESKIP = 5;
-
+    // Refresh rate logic
     public void run() {
+        final int maxFrameSkip = 5;
+        int SKIP_TICKS = (int) (1000 / desiredFPS);
         double next_game_tick = System.currentTimeMillis();
         int loops;
 
         while (isActive) {
             loops = 0;
             while (System.currentTimeMillis() > next_game_tick
-                    && loops < MAX_FRAMESKIP) {
+                    && loops < maxFrameSkip) {
                 totalFrames++;
                 update(totalFrames);
-
                 next_game_tick += SKIP_TICKS;
                 loops++;
-            }
 
-            interpolation = (System.currentTimeMillis() + SKIP_TICKS - next_game_tick
-                    / (double) SKIP_TICKS);
+            }
         }
     }
 
@@ -85,7 +82,7 @@ public class JWindow extends Thing {
 
     void update(int frameNumber)
     {
-        LogInfo(String.format("New frame (#%d)", frameNumber));
+        LogExtra(String.format("New frame (#%d)", frameNumber));
 
         if(activeCamera !=null)
         {

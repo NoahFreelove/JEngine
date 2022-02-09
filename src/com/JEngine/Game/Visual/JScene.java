@@ -19,7 +19,7 @@ public class JScene extends Thing {
     {
         if(o == null || o.transform == null)
         {
-            super.LogWarning("Tried to add null object to scene!");
+            super.LogWarning("Tried to add null object or transform to scene!");
             return;
         }
         for (int i = 0; i < sceneObjects.length; i++) {
@@ -27,7 +27,7 @@ public class JScene extends Thing {
             {
                 sceneObjects[i] = new ObjRef(o, o.transform.position);
 
-                super.LogInfo("Added object to scene successfully? " + ((sceneObjects[i] != null)? "Yes" : "No"));
+                super.LogInfo("Added object to scene " + ((sceneObjects[i] != null)? "successfully" : "UNSUCCESSFULLY"));
                 break;
             }
         }

@@ -2,7 +2,6 @@ package com.JEngine.PrimitiveTypes;
 
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 import javax.swing.*;
-import java.awt.*;
 
 /** JEngine.Object (c) Noah Freelove
  * Brief Explanation:

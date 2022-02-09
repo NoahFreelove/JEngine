@@ -1,5 +1,7 @@
 package com.JEngine.Game.Visual;
 
+import com.JEngine.Game.PlayersAndPawns.Pawn;
+import com.JEngine.Game.PlayersAndPawns.Sprite;
 import com.JEngine.PrimitiveTypes.JImage;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Object;
 
@@ -36,7 +38,7 @@ public class JCamera extends Object {
 
     private void Render()
     {
-        JPanel panel = (JPanel) window.frame.getContentPane();
+        JPanel panel = (JPanel) window.getWindow().getContentPane();
         panel.removeAll();
         for (int i = 0; i < scene.sceneObjects.length; i++) {
 
@@ -44,14 +46,14 @@ public class JCamera extends Object {
             {
                 continue;
             }
-            JLabel jl = new JLabel(scene.sceneObjects[i].objRef.getSprite().getImage());
+
+            JLabel jl = new JLabel((scene.sceneObjects[i].objRef.getSprite().getImage()));
             Dimension size = jl.getPreferredSize();
-            System.out.println();
             jl.setBounds((int)scene.sceneObjects[i].objRef.transform.position.x, (int)scene.sceneObjects[i].objRef.transform.position.y, size.width, size.height);
 
             panel.add(jl);
         }
-        LogInfo("Rendered Objects");
+        LogExtra("Rendered Objects");
         window.refreshWindow(panel);
     }
 }

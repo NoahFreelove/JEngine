@@ -40,4 +40,13 @@ public class Thing {
             }
         }
     }
+
+    public void LogExtra(String log)
+    {
+        if(Main.savedArgs.length>=2) {
+            if (Main.savedArgs[0].equals("logs") && Main.savedArgs[1].equals("extra")) {
+                System.out.println("Extra: " + log);
+            }
+        }
+    }
 }
