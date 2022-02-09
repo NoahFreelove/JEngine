@@ -89,21 +89,27 @@ public class JCamera extends Object {
         panel.removeAll();
         for (int i = 0; i < objectsInView.length; i++) {
 
-            if(objectsInView[i] == null) { continue; }
-
-            // make sure we don't render inactive things
-            if(!objectsInView[i].getActive()) { continue; }
-            System.out.println("Object: " + objectsInView[i].identity.getName() + " : " + objectsInView[i].getClass().);
-            if(!(objectsInView[i].getClass().isInstance(Sprite.class)))
-            {
+            if (objectsInView[i] == null) {
                 continue;
             }
 
-            JLabel jl = new JLabel(((Sprite)objectsInView[i]).getSprite().getImage());
-            Dimension size = jl.getPreferredSize();
-            jl.setBounds((int)scene.sceneObjects[i].objRef.transform.position.x, (int)scene.sceneObjects[i].objRef.transform.position.y, size.width, size.height);
-            panel.add(jl);
-        }
+            // make sure we don't render inactive things
+            if (!objectsInView[i].getActive()) {
+                continue;
+            }
+            //System.out.println("Object: " + objectsInView[i].identity.getName() + " : " + objectsInView[i].getClass().);
+            try
+            {
+                Sprite s = (Sprite)objectsInView[i];
+                JLabel jl = new JLabel(s.getSprite().getImage());
+                Dimension size = jl.getPreferredSize();
+                jl.setBounds((int)scene.sceneObjects[i].objRef.transform.position.x, (int)scene.sceneObjects[i].objRef.transform.position.y, size.width, size.height);
+                panel.add(jl);
+            } catch (Exception ignore)
+            {
+                LogExtra("Didn't add object: " + objectsInView[i].identity.getName() + " to render queue because it doesn't have a sprite");
+            }
+         }
         LogExtra("Rendered Objects");
         window.refreshWindow(panel);
     }

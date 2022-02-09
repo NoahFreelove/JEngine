@@ -37,7 +37,7 @@ public class Main {
         JWindow window = new JWindow(800,800,"JEngine", true, 1);
 
         // create a new scene
-        JScene scene = new JScene(window, 1);
+        JScene scene = new JScene(window, 2);
 
         // create a pawn object
         Pawn pawn = new Pawn(transform, new JImage(true, "bin\\\\image.png", 64,64), new Identity("Pawn 1", "pawn"));
@@ -47,9 +47,10 @@ public class Main {
 
         // set main camera
         window.setCamera(camera);
-
+        Object o = new Object(transform, new Identity("Obj","tag"));
         // add pawn to scene
         scene.add(pawn);
+        scene.add(o);
 
         pawn.setActive(true);
 
