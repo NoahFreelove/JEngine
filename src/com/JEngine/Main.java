@@ -8,6 +8,7 @@ import com.JEngine.Game.Visual.JWindow;
 import com.JEngine.PrimitiveTypes.Behavior;
 import com.JEngine.PrimitiveTypes.*;
 import com.JEngine.PrimitiveTypes.Position.*;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Identity;
 
 /*
     Scene holds all objects
@@ -30,8 +31,8 @@ public class Main {
     public static void main(String[] args) {
         savedArgs = args;
 
-        JAudioPlayer ap = new JAudioPlayer("bin\\\\piano2.wav");
-        ap.startClip();
+        //JAudioPlayer ap = new JAudioPlayer("bin\\\\piano2.wav");
+        //ap.startClip();
         // create a new window
         JWindow window = new JWindow(800,800,"JEngine", true, 1);
 
@@ -39,28 +40,31 @@ public class Main {
         JScene scene = new JScene(window, 1);
 
         // create a pawn object
-        Pawn pawn = new Pawn(t, new JImage(true, "bin\\\\image.png", 64,64));
+        Pawn pawn = new Pawn(t, new JImage(true, "bin\\\\image.png", 64,64), new Identity("Pawn 1", "pawn"));
 
         // create camera
-        JCamera camera = new JCamera(window,scene, pawn, 25);
+        JCamera camera = new JCamera(window,scene, pawn, 25, new Identity("camera","MainCamera"));
 
         // set main camera
         window.setCamera(camera);
 
         // add pawn to scene
         scene.add(pawn);
-        pawn.setActive(false);
+        pawn.setActive(true);
 
         // set FPS
         window.setTargetFPS(10);
 
         Behavior behavior = (int totalFrameCount) -> {
+            if(totalFrameCount >= 25)
+            {
+                window.stop();
+            }
             pawn.Move(Direction.Right, 20);
         };
 
         // run Start function on other thread so the update functions doesn't stop the rest of the main function
-        new Thread(window::refresh).start();
-
+        window.start();
         window.AddUpdateBehavior(behavior);
     }
 }

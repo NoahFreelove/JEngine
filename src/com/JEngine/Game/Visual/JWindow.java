@@ -19,15 +19,23 @@ public class JWindow extends Thing {
     public JCamera activeCamera;
     public boolean isActive;
     public int totalFrames;
-
+    private Thread t;
     private float targetFPS = 5;
 
     JPanel panel;
     Behavior[] behaviors;
 
-    public JFrame getWindow() {return frame;}
-    public void setWindow(JFrame newFrame) {frame = newFrame;}
-    public void setVisibility(boolean newVisibility) {frame.setVisible(newVisibility);}
+    public JFrame getWindow() {
+        return frame;
+    }
+
+    public void setWindow(JFrame newFrame) {
+        frame = newFrame;
+    }
+
+    public void setVisibility(boolean newVisibility) {
+        frame.setVisible(newVisibility);
+    }
 
     public JWindow(int sizeX, int sizeY, String title, boolean defaultVisibilityState, int maxBehaviors) {
         super(true);
@@ -40,30 +48,55 @@ public class JWindow extends Thing {
         panel.setLayout(null);
         frame.setSize(sizeX, sizeY);
         frame.setVisible(defaultVisibilityState);
-        isActive = defaultVisibilityState;
         behaviors = new Behavior[maxBehaviors];
     }
 
-    public void AddUpdateBehavior(Behavior newBehavior)
-    {
+    public void AddUpdateBehavior(Behavior newBehavior) {
         for (int i = 0; i < behaviors.length; i++) {
-            if(behaviors[i] == null)
-            {
+            if (behaviors[i] == null) {
                 behaviors[i] = newBehavior;
                 break;
             }
         }
     }
 
-    public void refreshWindow(JPanel newPanel)
-    {
+    public void refreshWindow(JPanel newPanel) {
         newPanel.setLayout(null);
         panel = newPanel;
         panel.repaint();
     }
 
-    public void setTargetFPS(float newTargetFPS) { targetFPS = newTargetFPS; }
+    public void setTargetFPS(float newTargetFPS) {
+        targetFPS = newTargetFPS;
+    }
 
+    public void start()
+    {
+        if(isActive)
+        {
+            LogError("Window is already active! Cannot start another update thread.");
+            return;
+        }
+        isActive = true;
+        t = new Thread(this::refresh);
+        t.start();
+        LogInfo("Successfully started window");
+
+    }
+
+    public void stop()
+    {
+        try
+        {
+            t.interrupt();
+            isActive = false;
+            LogInfo("Successfully stopped window");
+        }
+        catch (Exception ignored)
+        {
+            LogError("Could not stop window thread");
+        }
+    }
 
     // Refresh rate logic
     public void refresh() {
@@ -89,6 +122,7 @@ public class JWindow extends Thing {
     public void setCamera(JCamera camera)
     {
         this.activeCamera = camera;
+        LogInfo("Set Camera");
     }
 
     void update(int frameNumber) {

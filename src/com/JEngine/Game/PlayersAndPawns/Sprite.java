@@ -1,6 +1,7 @@
 package com.JEngine.Game.PlayersAndPawns;
 
 import com.JEngine.PrimitiveTypes.JImage;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Identity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Object;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 
@@ -21,8 +22,8 @@ public class Sprite extends Object {
     public JImage getSprite() {return sprite;}
     public void setSprite(JImage newSprite) {sprite = newSprite;}
 
-    public Sprite(Transform transform, JImage newSprite) {
-        super(transform);
+    public Sprite(Transform transform, JImage newSprite, Identity identity) {
+        super(transform, identity);
         setSprite(newSprite);
     }
 }

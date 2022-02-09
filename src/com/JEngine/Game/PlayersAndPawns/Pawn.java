@@ -6,6 +6,7 @@ import com.JEngine.PrimitiveTypes.Position.Angle;
 import com.JEngine.PrimitiveTypes.Position.Direction;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.Position.Vector3;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Identity;
 
 /** JEngine.Pawn (c) Noah Freelove
  * Brief Explanation:
@@ -17,8 +18,8 @@ import com.JEngine.PrimitiveTypes.Position.Vector3;
  * **/
 
 public class Pawn extends Sprite {
-    public Pawn(Transform transform, JImage newSprite) {
-        super(transform, newSprite);
+    public Pawn(Transform transform, JImage newSprite, Identity identity) {
+        super(transform, newSprite, identity);
     }
 
     public void Move(Direction direction, float speed)
@@ -71,6 +72,6 @@ public class Pawn extends Sprite {
 
         // actual logic that moves pawn
         super.transform.setPosition(new Vector3(super.transform.position.x + totalXMovement, super.transform.position.y + totalYMovement, super.transform.position.z));
-        super.LogInfo(String.format("Moved pawn %.2f° %.2f unit(s) | OLD POS {%.2f,%.2f,%.2f} | NEW POS {%.2f,%.2f,%.2f}", angle.angle, speed, oldPos.x, oldPos.y, oldPos.z, super.transform.position.x, super.transform.position.y, super.transform.position.z));
+        super.LogExtra(String.format("Moved pawn %.2f° %.2f unit(s) | OLD POS {%.2f,%.2f,%.2f} | NEW POS {%.2f,%.2f,%.2f}", angle.angle, speed, oldPos.x, oldPos.y, oldPos.z, super.transform.position.x, super.transform.position.y, super.transform.position.z));
     }
 }

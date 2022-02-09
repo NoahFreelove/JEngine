@@ -13,8 +13,11 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 
 public class Object extends Thing {
     public Transform transform;
-    public Object(Transform transform) {
+    public Identity identity;
+
+    public Object(Transform transform, Identity identity) {
         super(true);
         this.transform = transform;
+        this.identity = identity;
     }
 }

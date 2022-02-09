@@ -2,6 +2,7 @@ package com.JEngine.Game.PlayersAndPawns;
 
 import com.JEngine.PrimitiveTypes.JImage;
 import com.JEngine.PrimitiveTypes.Position.Transform;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Identity;
 
 /** JEngine.Player (c) Noah Freelove
  * Brief Explanation:
@@ -13,7 +14,7 @@ import com.JEngine.PrimitiveTypes.Position.Transform;
 
 public class Player extends Pawn{
 
-    public Player(Transform transform, JImage newSprite) {
-        super(transform, newSprite);
+    public Player(Transform transform, JImage newSprite, Identity identity) {
+        super(transform, newSprite, identity);
     }
 }

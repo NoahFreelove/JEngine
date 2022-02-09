@@ -3,6 +3,7 @@ package com.JEngine.Game.Visual;
 import com.JEngine.Game.PlayersAndPawns.Pawn;
 import com.JEngine.Game.PlayersAndPawns.Sprite;
 import com.JEngine.PrimitiveTypes.JImage;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Identity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Object;
 
 import javax.swing.*;
@@ -17,8 +18,8 @@ public class JCamera extends Object {
     public Object parent;
 
     public Object[] objectsInView;
-    public JCamera(JWindow window, JScene scene, Object parent, float fov) {
-        super(parent.transform);
+    public JCamera(JWindow window, JScene scene, Object parent, float fov, Identity identity) {
+        super(parent.transform, identity);
         this.window = window;
         this.scene = scene;
         this.parent = parent;
