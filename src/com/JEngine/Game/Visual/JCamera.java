@@ -37,6 +37,7 @@ public class JCamera extends Object {
     private void Render()
     {
         JPanel panel = (JPanel) window.frame.getContentPane();
+        panel.removeAll();
         for (int i = 0; i < scene.sceneObjects.length; i++) {
 
             if(scene.sceneObjects[i] == null)

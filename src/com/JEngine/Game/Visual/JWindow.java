@@ -44,7 +44,7 @@ public class JWindow extends Thing {
     {
         newPanel.setLayout(null);
         panel = newPanel;
-        frame.repaint();
+        panel.repaint();
     }
 
     public void setDesiredFPS(float newDesiredFPS) {desiredFPS = newDesiredFPS;}
@@ -91,6 +91,13 @@ public class JWindow extends Thing {
         {
             activeCamera.InitiateRender();
         }
+
+        runUpdateBehaviors();
+
+    }
+
+    private void runUpdateBehaviors()
+    {
         for (Worker worker : workers) {
             if (worker != null) {
                 worker.work();

@@ -57,11 +57,12 @@ public class Main {
         window.setDesiredFPS(1f);
 
         Worker w = () -> {
-            pawn.Move(Direction.Up, 10);
+            pawn.Move(Direction.UpRight, 20);
         };
+        
         window.AddUpdateBehavior(w);
         window.start();
-
+        // Nothing after window.start() is run as Update will loop until stopped
     }
 
 }
