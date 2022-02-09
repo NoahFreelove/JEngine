@@ -13,6 +13,11 @@ import com.JEngine.PrimitiveTypes.Position.*;
     Scene holds all objects
     Camera creates a sprite using JWindow at desired location
 */
+
+//TODO: Only have objects be visible in camera's range
+//TODO: UI classes
+//TODO: Networking?
+
 public class Main {
     static Vector3 position = new Vector3(25,25,0);
     static Vector3 rotation = new Vector3(0,0,0);
