@@ -52,8 +52,7 @@ public class JCamera extends Object {
         int rightBound = (int)transform.position.x + fov;
         int upBound = (int)transform.position.y + fov;
         int downBound = (int)transform.position.y - fov;
-        /*System.out.println("Left bound:" + leftBound);
-        System.out.println("Right bound:" + rightBound);*/
+
         objectsInView = new Object[scene.getMaxObjects()];
 
         int i = 0;
@@ -64,16 +63,15 @@ public class JCamera extends Object {
                 LogError("Tried to get object that doesn't exist! Try lowering your maxObjects parameter");
                 break;
             }
-            if(obj.getClass().isInstance(Sprite.class))
-            {
-                Sprite objSprite = (Sprite)obj.objRef;
-                if((objSprite.transform.getPosition().x+objSprite.getSprite().getXSize()) >= leftBound && obj.objRef.transform.getPosition().x <=rightBound)
+            try {
+                Sprite objSprite = (Sprite) obj.objRef;
+                if(((objSprite.transform.getPosition().x+objSprite.getSprite().getXSize()) >= leftBound && obj.objRef.transform.getPosition().x <=rightBound) && (objSprite.transform.getPosition().y+objSprite.getSprite().getYSize()) >= downBound && obj.objRef.transform.getPosition().y <=upBound)
                 {
-                    System.out.println(obj.objRef.identity.getName() + "InRange");
+                    //System.out.println(obj.objRef.identity.getName() + "InRange");
                     objectsInView[i] = objSprite;
                 }
             }
-            else
+            catch (Exception ignore)
             {
                 if((obj.objRef.transform.getPosition().x >= leftBound && obj.objRef.transform.getPosition().x <=rightBound))
                 {
@@ -82,7 +80,6 @@ public class JCamera extends Object {
             }
             i++;
         }
-        //System.out.println("render");
         Render();
     }
 
@@ -90,8 +87,9 @@ public class JCamera extends Object {
     {
         JPanel panel = (JPanel) window.getWindow().getContentPane();
         panel.removeAll();
+        LogExtra("Start Render");
         for (int i = 0; i < objectsInView.length; i++) {
-
+            LogExtra("Render: " + i);
             if (objectsInView[i] == null) {
                 continue;
             }

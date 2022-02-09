@@ -15,7 +15,6 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Object;
     Camera creates a sprite using JWindow at desired location
 */
 
-//TODO: Only have objects be visible in camera's range
 //TODO: UI classes
 //TODO: Networking?
 
@@ -41,7 +40,7 @@ public class Main {
         JScene scene = new JScene(window, 2);
 
         // create a pawn object
-        Pawn pawn = new Pawn(transform, new JImage(true, "bin\\\\image.png", 64,64), new Identity("Pawn 1", "pawn"));
+        Pawn pawn = new Pawn(transform, new JImage(true, "bin\\\\image.png", 128,128), new Identity("Pawn 1", "pawn"));
 
         // create camera
         JCamera camera = new JCamera(new Vector3(400,400,1),window,scene, new Object(null, null), 350, new Identity("camera","MainCamera"));
@@ -59,7 +58,7 @@ public class Main {
         window.setTargetFPS(30);
 
         Behavior behavior = (int totalFrameCount) -> {
-            pawn.Move(Direction.Right, 10);
+            pawn.Move(Direction.DownRight, 10);
         };
 
         // run Start function on other thread so the update functions doesn't stop the rest of the main function

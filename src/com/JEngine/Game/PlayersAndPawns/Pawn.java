@@ -35,7 +35,7 @@ public class Pawn extends Sprite {
         {
             case Up -> {
                 angle.angle = 0;
-                totalYMovement = speed;
+                totalYMovement = speed*-1;
             }
             case UpRight -> {
                 angle.angle = 45;
