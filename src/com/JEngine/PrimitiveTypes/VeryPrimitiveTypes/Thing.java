@@ -5,6 +5,8 @@ import com.JEngine.Main;
 /** JEngine.Thing (c) Noah Freelove
  * Brief Explanation:
  * A Thing is the most basic type in JEngine. It does not require a transform, just an active state.
+ *
+ * Inactive objects can still be interacted with, but they won't be rendered.
  * **/
 
 public class Thing {
@@ -14,6 +16,8 @@ public class Thing {
         this.isActive = isActive;
     }
 
+    public boolean getActive() {return isActive;}
+    public void setActive(boolean newActiveState) {isActive = newActiveState;}
     public void LogInfo(String log)
     {
         if(Main.savedArgs.length>=1) {

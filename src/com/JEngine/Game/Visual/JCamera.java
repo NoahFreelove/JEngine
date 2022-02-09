@@ -12,7 +12,7 @@ import java.awt.*;
 // Requires JViewport
 public class JCamera extends Object {
     public float fov;
-    public JScene scene;
+    private JScene scene;
     public JWindow window;
     public Object parent;
 
@@ -41,11 +41,9 @@ public class JCamera extends Object {
         JPanel panel = (JPanel) window.getWindow().getContentPane();
         panel.removeAll();
         for (int i = 0; i < scene.sceneObjects.length; i++) {
-
-            if(scene.sceneObjects[i] == null)
-            {
-                continue;
-            }
+            if(scene.sceneObjects[i] == null) { continue; }
+            // make sure we don't render inactive things
+            if(!scene.sceneObjects[i].objRef.getActive()) { continue; }
 
             JLabel jl = new JLabel((scene.sceneObjects[i].objRef.getSprite().getImage()));
             Dimension size = jl.getPreferredSize();
@@ -55,5 +53,10 @@ public class JCamera extends Object {
         }
         LogExtra("Rendered Objects");
         window.refreshWindow(panel);
+    }
+
+    public void setActiveScene(JScene activeScene){
+        scene = activeScene;
+        LogInfo("Changed active scene");
     }
 }

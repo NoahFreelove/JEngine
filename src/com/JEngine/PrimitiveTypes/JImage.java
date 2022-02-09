@@ -13,11 +13,18 @@ import javax.swing.*;
 
 public class JImage extends Thing {
     private ImageIcon image;
-    public JImage(boolean isActive, String filepath) {
+    private int xSize;
+    private int ySize;
+
+    public JImage(boolean isActive, String filepath, int xSize, int ySize) {
         super(isActive);
-        image = new ImageIcon(filepath) {
-        };
+        this.xSize = xSize;
+        this.ySize = ySize;
+        image = new ImageIcon(filepath);
     }
+
+    public int getXSize(){return xSize;}
+    public int getYSize(){return ySize;}
 
     public ImageIcon getImage() {return image;}
     public void setImage(ImageIcon newImage) {image = newImage;}

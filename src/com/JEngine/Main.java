@@ -35,13 +35,13 @@ public class Main {
         s.next();*/
 
         // create a new window
-        JWindow window = new JWindow(800,800,"Suuuup", true);
+        JWindow window = new JWindow(800,800,"JEngine", true, 1);
 
         // create a new scene
         JScene scene = new JScene(window, 1);
 
         // create a pawn object
-        Pawn pawn = new Pawn(t, new JImage(true, "bin\\\\image.png"));
+        Pawn pawn = new Pawn(t, new JImage(true, "bin\\\\image.png", 64,64));
 
         // create camera
         JCamera camera = new JCamera(window,scene, pawn, 25);
@@ -51,13 +51,13 @@ public class Main {
 
         // add pawn to scene
         scene.add(pawn);
-        scene.add(null);
+        pawn.setActive(false);
 
         // set FPS
         window.setTargetFPS(10);
 
         Behavior behavior = () -> {
-            pawn.Move(Direction.UpRight, 20);
+            pawn.Move(Direction.Right, 20);
         };
 
         // run Start function on other thread so the update functions doesn't stop the rest of the main function
@@ -66,4 +66,3 @@ public class Main {
         window.AddUpdateBehavior(behavior);
     }
 }
-

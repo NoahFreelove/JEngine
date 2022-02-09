@@ -9,6 +9,7 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 public class JScene extends Thing {
     public JWindow window;
     public ObjRef[] sceneObjects;
+
     public JScene(JWindow window, int maxObjects) {
         super(true);
         this.window = window;

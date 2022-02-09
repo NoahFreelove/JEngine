@@ -5,31 +5,45 @@ import com.JEngine.PrimitiveTypes.Behavior;
 
 import javax.swing.*;
 
+/** JEngine.JWindow (c) Noah Freelove
+ * Brief Explanation:
+ * JWindow is a way to create a window and have it display camera content.
+ *
+ * Usage:
+ * JWindow provides an update function and a way to set FPS
+ * **/
+
 public class JWindow extends Thing {
+
     private JFrame frame;
     public JCamera activeCamera;
     public boolean isActive;
-    private float targetFPS = 5;
-    JPanel panel;
     public int totalFrames;
-    Behavior[] behaviors = new Behavior[10];
+
+    private float targetFPS = 5;
+
+    JPanel panel;
+    Behavior[] behaviors;
 
     public JFrame getWindow() {return frame;}
     public void setWindow(JFrame newFrame) {frame = newFrame;}
     public void setVisibility(boolean newVisibility) {frame.setVisible(newVisibility);}
 
-    public JWindow(int sizeX, int sizeY, String title, boolean defaultVisibilityState) throws InterruptedException {
+    public JWindow(int sizeX, int sizeY, String title, boolean defaultVisibilityState, int maxBehaviors) {
         super(true);
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle(title);
+        frame.setResizable(false);
 
         panel = (JPanel) frame.getContentPane();
         panel.setLayout(null);
         frame.setSize(sizeX, sizeY);
         frame.setVisible(defaultVisibilityState);
         isActive = defaultVisibilityState;
+        behaviors = new Behavior[maxBehaviors];
     }
+
     public void AddUpdateBehavior(Behavior newBehavior)
     {
         for (int i = 0; i < behaviors.length; i++) {
@@ -40,6 +54,7 @@ public class JWindow extends Thing {
             }
         }
     }
+
     public void refreshWindow(JPanel newPanel)
     {
         newPanel.setLayout(null);
@@ -76,8 +91,7 @@ public class JWindow extends Thing {
         this.activeCamera = camera;
     }
 
-    void update(int frameNumber)
-    {
+    void update(int frameNumber) {
         LogExtra(String.format("New frame (#%d)", frameNumber));
 
         if(activeCamera !=null)
@@ -89,8 +103,7 @@ public class JWindow extends Thing {
 
     }
 
-    private void runUpdateBehaviors()
-    {
+    private void runUpdateBehaviors() {
         for (Behavior behavior : behaviors) {
             if (behavior != null) {
                 behavior.behave();

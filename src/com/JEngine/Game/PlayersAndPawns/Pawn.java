@@ -37,7 +37,7 @@ public class Pawn extends Sprite {
             case UpRight -> {
                 angle.angle = 45;
                 totalXMovement = speed;
-                totalYMovement = speed;
+                totalYMovement = speed*-1;
             }
             case Right -> {
                 angle.angle = 90;
@@ -46,16 +46,16 @@ public class Pawn extends Sprite {
             case DownRight -> {
                 angle.angle = 135;
                 totalXMovement = speed;
-                totalYMovement = speed*-1;
+                totalYMovement = speed;
             }
             case Down ->{
                 angle.angle = 180;
-                totalYMovement = speed*-1;
+                totalYMovement = speed;
             }
             case DownLeft -> {
                 angle.angle = 225;
                 totalXMovement = -speed;
-                totalYMovement = -speed;
+                totalYMovement = -speed*-1;
             }
             case Left -> {
                 angle.angle = 270;
@@ -64,7 +64,7 @@ public class Pawn extends Sprite {
             case UpLeft -> {
                 angle.angle = 315;
                 totalXMovement = -speed;
-                totalYMovement = speed;
+                totalYMovement = speed*-1;
             }
         }
 
