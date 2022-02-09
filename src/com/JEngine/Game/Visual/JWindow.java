@@ -1,19 +1,18 @@
 package com.JEngine.Game.Visual;
 
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
-import com.JEngine.PrimitiveTypes.Worker;
+import com.JEngine.PrimitiveTypes.Behavior;
 
 import javax.swing.*;
-import java.sql.Time;
 
 public class JWindow extends Thing {
     private JFrame frame;
     public JCamera activeCamera;
     public boolean isActive;
-    private float desiredFPS = 5;
+    private float targetFPS = 5;
     JPanel panel;
     public int totalFrames;
-    Worker[] workers = new Worker[10];
+    Behavior[] behaviors = new Behavior[10];
 
     public JFrame getWindow() {return frame;}
     public void setWindow(JFrame newFrame) {frame = newFrame;}
@@ -31,12 +30,12 @@ public class JWindow extends Thing {
         frame.setVisible(defaultVisibilityState);
         isActive = defaultVisibilityState;
     }
-    public void AddUpdateBehavior(Worker newWorker)
+    public void AddUpdateBehavior(Behavior newBehavior)
     {
-        for (int i = 0; i < workers.length; i++) {
-            if(workers[i] == null)
+        for (int i = 0; i < behaviors.length; i++) {
+            if(behaviors[i] == null)
             {
-                workers[i] = newWorker;
+                behaviors[i] = newBehavior;
                 break;
             }
         }
@@ -48,16 +47,13 @@ public class JWindow extends Thing {
         panel.repaint();
     }
 
-    public void setDesiredFPS(float newDesiredFPS) {desiredFPS = newDesiredFPS;}
+    public void setTargetFPS(float newTargetFPS) { targetFPS = newTargetFPS; }
 
-    public void start() {
-        run();
-    }
 
     // Refresh rate logic
-    public void run() {
+    public void refresh() {
         final int maxFrameSkip = 5;
-        int SKIP_TICKS = (int) (1000 / desiredFPS);
+        int SKIP_TICKS = (int) (1000 / targetFPS);
         double next_game_tick = System.currentTimeMillis();
         int loops;
 
@@ -95,9 +91,9 @@ public class JWindow extends Thing {
 
     private void runUpdateBehaviors()
     {
-        for (Worker worker : workers) {
-            if (worker != null) {
-                worker.work();
+        for (Behavior behavior : behaviors) {
+            if (behavior != null) {
+                behavior.behave();
             }
         }
     }

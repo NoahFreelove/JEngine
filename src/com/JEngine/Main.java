@@ -1,12 +1,10 @@
 package com.JEngine;
 
 import com.JEngine.Game.PlayersAndPawns.Pawn;
-import com.JEngine.Game.PlayersAndPawns.Sprite;
 import com.JEngine.Game.Visual.JCamera;
 import com.JEngine.Game.Visual.JScene;
 import com.JEngine.Game.Visual.JWindow;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Object;
-import com.JEngine.PrimitiveTypes.Worker;
+import com.JEngine.PrimitiveTypes.Behavior;
 import com.JEngine.PrimitiveTypes.*;
 import com.JEngine.PrimitiveTypes.Position.*;
 
@@ -56,15 +54,16 @@ public class Main {
         scene.add(null);
 
         // set FPS
-        window.setDesiredFPS(10);
+        window.setTargetFPS(10);
 
-        Worker w = () -> {
+        Behavior behavior = () -> {
             pawn.Move(Direction.UpRight, 20);
         };
-        //window.AddUpdateBehavior(w);
-        window.start();
-        // Nothing after window.start() is run as Update will loop until stopped
-    }
 
+        // run Start function on other thread so the update functions doesn't stop the rest of the main function
+        new Thread(window::refresh).start();
+
+        window.AddUpdateBehavior(behavior);
+    }
 }
 
