@@ -11,4 +11,7 @@ public class Identity {
 
     public void setName(String newName){name = newName;}
     public void setTag(String newTag){tag = newTag;}
+    public String getName(){return name;}
+    public String getTag(){return tag;}
+    public boolean compareTag(String tagToCompare) {return (tag.equals(tagToCompare));}
 }

@@ -19,4 +19,6 @@ public class Vector3 {
         y = _y;
         z = _z;
     }
+
+    public String toString() {return String.format("{x: %f y: %f z: %f", x,y,z);}
 }

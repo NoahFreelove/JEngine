@@ -2,6 +2,7 @@ package com.JEngine.PrimitiveTypes;
 
 import com.JEngine.Game.PlayersAndPawns.Sprite;
 import com.JEngine.PrimitiveTypes.Position.Vector3;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Object;
 
 /** JEngine.ObjRef (c) Noah Freelove
  * Brief Explanation:
@@ -12,12 +13,11 @@ import com.JEngine.PrimitiveTypes.Position.Vector3;
  * **/
 
 public class ObjRef {
-    public Sprite objRef;
-    public Vector3 position;
+    public Object objRef;
 
-    public ObjRef(Sprite objRef, Vector3 position) {
+    public ObjRef(Object objRef) {
         super();
         this.objRef = objRef;
-        this.position = position;
     }
+    public Vector3 getPosition() {return objRef.transform.position;}
 }

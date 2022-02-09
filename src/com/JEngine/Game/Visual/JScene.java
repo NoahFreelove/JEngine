@@ -9,14 +9,16 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 public class JScene extends Thing {
     public JWindow window;
     public ObjRef[] sceneObjects;
+    private int maxObjects;
 
     public JScene(JWindow window, int maxObjects) {
         super(true);
         this.window = window;
+        this.maxObjects = maxObjects;
         sceneObjects = new ObjRef[maxObjects];
     }
 
-    public void add(Sprite o)
+    public void add(Object o)
     {
         if(o == null || o.transform == null)
         {
@@ -26,11 +28,33 @@ public class JScene extends Thing {
         for (int i = 0; i < sceneObjects.length; i++) {
             if(sceneObjects[i] == null)
             {
-                sceneObjects[i] = new ObjRef(o, o.transform.position);
+                sceneObjects[i] = new ObjRef(o);
 
                 super.LogInfo("Added object to scene " + ((sceneObjects[i] != null)? "successfully" : "UNSUCCESSFULLY"));
                 break;
             }
+            super.LogError("Could not add object to full scene! Try increasing the maxObjects parameter.");
         }
     }
+
+    // very inefficent as of right now
+    public Object[] getObjectsByTag(String tag) {
+
+        int count = 0;
+        for (int i = 0; i < sceneObjects.length; i++) {
+            if (sceneObjects[i].objRef.identity.compareTag(tag))
+                count++;
+        }
+        // if 0 matches, don't bother looking through all scene objects again
+        if (count == 0) { return new Object[0]; }
+
+        Object[] tmpArr = new Object[count];
+        for (int i = 0; i < sceneObjects.length; i++) {
+            if(sceneObjects[i].objRef.identity.compareTag(tag))
+                tmpArr[i] = sceneObjects[i].objRef;
+        }
+
+        return tmpArr;
+    }
+    public int getMaxObjects() {return maxObjects;}
 }

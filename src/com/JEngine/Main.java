@@ -1,7 +1,6 @@
 package com.JEngine;
 
 import com.JEngine.Game.PlayersAndPawns.Pawn;
-import com.JEngine.Game.Sound.JAudioPlayer;
 import com.JEngine.Game.Visual.JCamera;
 import com.JEngine.Game.Visual.JScene;
 import com.JEngine.Game.Visual.JWindow;
@@ -9,6 +8,7 @@ import com.JEngine.PrimitiveTypes.Behavior;
 import com.JEngine.PrimitiveTypes.*;
 import com.JEngine.PrimitiveTypes.Position.*;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Identity;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Object;
 
 /*
     Scene holds all objects
@@ -24,7 +24,7 @@ public class Main {
     static Vector3 rotation = new Vector3(0,0,0);
     static Vector3 scale = new Vector3(1,1,1);
 
-    static Transform t = new Transform(position, rotation, scale);
+    static Transform transform = new Transform(position, rotation, scale);
 
     public static String[] savedArgs;
 
@@ -40,27 +40,24 @@ public class Main {
         JScene scene = new JScene(window, 1);
 
         // create a pawn object
-        Pawn pawn = new Pawn(t, new JImage(true, "bin\\\\image.png", 64,64), new Identity("Pawn 1", "pawn"));
+        Pawn pawn = new Pawn(transform, new JImage(true, "bin\\\\image.png", 64,64), new Identity("Pawn 1", "pawn"));
 
         // create camera
-        JCamera camera = new JCamera(window,scene, pawn, 25, new Identity("camera","MainCamera"));
+        JCamera camera = new JCamera(new Vector3(400,400,1),window,scene, new Object(null, null), 100, new Identity("camera","MainCamera"));
 
         // set main camera
         window.setCamera(camera);
 
         // add pawn to scene
         scene.add(pawn);
+
         pawn.setActive(true);
 
         // set FPS
         window.setTargetFPS(10);
 
         Behavior behavior = (int totalFrameCount) -> {
-            if(totalFrameCount >= 25)
-            {
-                window.stop();
-            }
-            pawn.Move(Direction.Right, 20);
+            pawn.Move(Direction.Right, 10);
         };
 
         // run Start function on other thread so the update functions doesn't stop the rest of the main function
