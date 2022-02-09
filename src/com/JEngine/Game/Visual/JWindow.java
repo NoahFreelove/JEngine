@@ -1,5 +1,6 @@
 package com.JEngine.Game.Visual;
 
+import com.JEngine.PrimitiveTypes.JImage;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 import com.JEngine.PrimitiveTypes.Behavior;
 
@@ -35,6 +36,16 @@ public class JWindow extends Thing {
 
     public void setVisibility(boolean newVisibility) {
         frame.setVisible(newVisibility);
+    }
+
+    public void setIcon(JImage newIcon) {
+        if (newIcon.getImage() != null)
+        {
+            frame.setIconImage(newIcon.getImage().getImage());
+            return;
+        }
+        LogWarning("Tried to set window icon to a null image");
+
     }
 
     public JWindow(int sizeX, int sizeY, String title, boolean defaultVisibilityState, int maxBehaviors) {

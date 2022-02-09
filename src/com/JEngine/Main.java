@@ -40,14 +40,20 @@ public class Main {
         JScene scene = new JScene(window, 2);
 
         // create a pawn object
-        Pawn pawn = new Pawn(transform, new JImage(true, "bin\\\\image.png", 128,128), new Identity("Pawn 1", "pawn"));
+        Pawn pawn = new Pawn(transform, new JImage(true, "bin/gradient.png", 128,128), new Identity("Pawn 1", "pawn"));
 
         // create camera
         JCamera camera = new JCamera(new Vector3(400,400,1),window,scene, new Object(null, null), 350, new Identity("camera","MainCamera"));
 
         // set main camera
         window.setCamera(camera);
+
+        // create object without a sprite
         Object o = new Object(transform, new Identity("Obj","tag"));
+
+        // set window icon
+        window.setIcon(new JImage(true, "bin/jengineicon.png", 128,128));
+
         // add pawn to scene
         scene.add(pawn);
         scene.add(o);

@@ -2,6 +2,7 @@ package com.JEngine.PrimitiveTypes;
 
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 import javax.swing.*;
+import java.io.File;
 
 /** JEngine.Object (c) Noah Freelove
  * Brief Explanation:
@@ -20,7 +21,13 @@ public class JImage extends Thing {
         super(isActive);
         this.xSize = xSize;
         this.ySize = ySize;
-        image = new ImageIcon(filepath);
+        File imgFile = new File(filepath);
+        if(imgFile.exists())
+        {
+            image = new ImageIcon(filepath);
+            return;
+        }
+        LogWarning(String.format("Image File: '%s' does not exist!", filepath));
     }
 
     public int getXSize(){return xSize;}

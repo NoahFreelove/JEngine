@@ -24,9 +24,10 @@ public class JCamera extends Object {
         super(parent.transform, identity);
 
         if(parent.transform == null){
-            System.out.println("Parent was null");
+            LogWarning(String.format("Camera: '%s' parent property is null. The camera will not move.",identity.getName()));
             super.transform = new Transform(position, new Vector3(0,0,0), new Vector3(1,1,1));
         }
+
         this.window = window;
         this.scene = scene;
         this.parent = parent;
