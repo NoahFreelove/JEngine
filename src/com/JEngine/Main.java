@@ -20,7 +20,7 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Object;
 //TODO: Networking?
 
 public class Main {
-    static Vector3 position = new Vector3(25,25,0);
+    static Vector3 position = new Vector3(0,50,0);
     static Vector3 rotation = new Vector3(0,0,0);
     static Vector3 scale = new Vector3(1,1,1);
 
@@ -33,6 +33,7 @@ public class Main {
 
         //JAudioPlayer ap = new JAudioPlayer("bin\\\\piano2.wav");
         //ap.startClip();
+
         // create a new window
         JWindow window = new JWindow(800,800,"JEngine", true, 1);
 
@@ -43,7 +44,7 @@ public class Main {
         Pawn pawn = new Pawn(transform, new JImage(true, "bin\\\\image.png", 64,64), new Identity("Pawn 1", "pawn"));
 
         // create camera
-        JCamera camera = new JCamera(new Vector3(400,400,1),window,scene, new Object(null, null), 100, new Identity("camera","MainCamera"));
+        JCamera camera = new JCamera(new Vector3(400,400,1),window,scene, new Object(null, null), 350, new Identity("camera","MainCamera"));
 
         // set main camera
         window.setCamera(camera);
@@ -55,7 +56,7 @@ public class Main {
         pawn.setActive(true);
 
         // set FPS
-        window.setTargetFPS(10);
+        window.setTargetFPS(30);
 
         Behavior behavior = (int totalFrameCount) -> {
             pawn.Move(Direction.Right, 10);

@@ -59,8 +59,11 @@ public class JCamera extends Object {
         int i = 0;
 
         for (ObjRef obj: scene.sceneObjects) {
-            //System.out.println("Object");
-            //System.out.println("Object:" + obj.objRef.transform.getPosition().toString());
+            if(obj==null)
+            {
+                LogError("Tried to get object that doesn't exist! Try lowering your maxObjects parameter");
+                break;
+            }
             if(obj.getClass().isInstance(Sprite.class))
             {
                 Sprite objSprite = (Sprite)obj.objRef;

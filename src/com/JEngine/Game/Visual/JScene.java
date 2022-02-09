@@ -31,10 +31,11 @@ public class JScene extends Thing {
                 sceneObjects[i] = new ObjRef(o);
 
                 super.LogInfo("Added object to scene " + ((sceneObjects[i] != null)? "successfully" : "UNSUCCESSFULLY"));
-                break;
+                return;
             }
-            super.LogError("Could not add object to full scene! Try increasing the maxObjects parameter.");
         }
+        super.LogError("Could not add object to full scene! Try increasing the maxObjects parameter.");
+
     }
 
     // very inefficent as of right now
