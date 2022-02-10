@@ -10,6 +10,7 @@ import com.JEngine.PrimitiveTypes.Position.*;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
 import com.JEngine.UserInterface.JText;
+import com.JEngine.Utility.About.JAppInfo;
 import com.JEngine.Utility.Settings.JSetting;
 import com.JEngine.Utility.Settings.SettingTypes.JSettingDropdown;
 
@@ -18,7 +19,6 @@ import java.awt.*;
 
 import static com.Examples.Settings.settingManager;
 
-//TODO: Settings Classes
 //TODO: UI classes
 //TODO: Networking?
 
@@ -29,11 +29,13 @@ public class Main {
 
     static Transform transform = new Transform(position, rotation, scale);
 
+
     public static String[] savedArgs;
+    public static JAppInfo appInfo = new JAppInfo("JEngine Example", "Noah Freelove", 2022, 0,1, true);
 
     public static void main(String[] args) {
         savedArgs = args;
-
+        System.out.println(appInfo.getInfo());
         JSettingDropdown js = (JSettingDropdown) settingManager.getSpecificSetting("General Settings", "DropdownExample");
         //System.out.println(js.getNumberOfOptions());
 
