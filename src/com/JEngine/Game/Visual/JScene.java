@@ -2,6 +2,7 @@ package com.JEngine.Game.Visual;
 
 import com.JEngine.PrimitiveTypes.ObjRef;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JUIObject;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 
 /** JEngine.JScene (c) Noah Freelove
@@ -20,6 +21,7 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 public class JScene extends Thing {
     public JWindow window;
     public ObjRef[] sceneObjects;
+    public JUIObject[] juiObjects;
     private final int maxObjects;
     private String sceneName;
 
@@ -29,6 +31,7 @@ public class JScene extends Thing {
         this.maxObjects = maxObjects;
         this.sceneName = sceneName;
         sceneObjects = new ObjRef[maxObjects];
+        juiObjects = new JUIObject[maxObjects];
     }
 
     public void add(JObject o)
@@ -44,6 +47,24 @@ public class JScene extends Thing {
                 sceneObjects[i] = new ObjRef(o);
                 sceneObjects[i].objRef.Start();
                 super.LogInfo("Added object to scene " + ((sceneObjects[i] != null)? "successfully" : "UNSUCCESSFULLY"));
+                return;
+            }
+        }
+        super.LogError("Could not add object to full scene! Try increasing the maxObjects parameter.");
+    }
+    public void addUI(JUIObject o)
+    {
+        if(o == null || o.transform == null)
+        {
+            super.LogWarning("Tried to add null object or transform to scene!");
+            return;
+        }
+        for (int i = 0; i < juiObjects.length; i++) {
+            if(juiObjects[i] == null)
+            {
+                juiObjects[i] = o;
+                juiObjects[i].Start();
+                super.LogInfo("Added UI element to scene " + ((juiObjects[i] != null)? "successfully" : "UNSUCCESSFULLY"));
                 return;
             }
         }

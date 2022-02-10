@@ -101,29 +101,40 @@ public class JCamera extends JObject {
     {
         JPanel panel = (JPanel) window.getWindow().getContentPane();
         panel.removeAll();
-        LogExtra("Start Render");
-        for (int i = 0; i < objectsInView.length; i++) {
-            if (objectsInView[i] == null) {
+        LogExtra("Start UI Render");
+        for (int i = 0; i < scene.juiObjects.length; i++) {
+            if (scene.juiObjects[i] == null) {
                 continue;
             }
 
             // make sure we don't render inactive things
+            if (!scene.juiObjects[i].getActive()) {
+                continue;
+            }
+            if(scene.juiObjects[i].getClass().equals(JText.class))
+            {
+                JText jText = (JText)scene.juiObjects[i];
+                JLabel jl = new JLabel(jText.getText());
+                jl.setBounds((int)scene.juiObjects[i].transform.position.x,(int)scene.juiObjects[i].transform.position.y,100,100);
+                panel.add(jl);
+            }
+
+        }
+
+        LogExtra("Start Sprite Render");
+        for (int i = 0; i < objectsInView.length; i++) {
+            if (objectsInView[i] == null) {
+                continue;
+            }
+            // make sure we don't render inactive things
             if (!objectsInView[i].getActive()) {
                 continue;
             }
-            //System.out.println("Object: " + objectsInView[i].identity.getName() + " : " + objectsInView[i].getClass().);
+
+            //System.out.println("Object: " + objectsInView[i].identity.getName() + " : " + objectsInView[i].getClass().)
             try
             {
                 //System.out.println(objectsInView[i].getClass());
-                if(objectsInView[i].getClass().equals(JText.class))
-                {
-                    JText jText = (JText)objectsInView[i];
-                    JLabel jl = new JLabel(jText.getText());
-                    jText.getLabel().setBounds(200,200,1000,1000);
-                    panel.add(jl);
-                }
-
-
                     Sprite s = (Sprite)objectsInView[i];
                     JLabel jl = new JLabel(s.getSprite().getImage());
                     Dimension size = jl.getPreferredSize();
@@ -137,6 +148,7 @@ public class JCamera extends JObject {
                 LogExtra("Didn't add object: " + objectsInView[i].JIdentity.getName() + " to render queue because it doesn't have a sprite");
             }
          }
+
         LogExtra("Rendered Objects");
         window.refreshWindow(panel);
     }
