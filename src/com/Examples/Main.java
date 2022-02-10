@@ -1,6 +1,6 @@
-package com.JEngine;
+package com.Examples;
 
-import com.JEngine.Game.PlayersAndPawns.Pawn;
+import com.Examples.CustomPlayer;
 import com.JEngine.Game.Visual.JCamera;
 import com.JEngine.Game.Visual.JScene;
 import com.JEngine.Game.Visual.JWindow;
@@ -10,6 +10,10 @@ import com.JEngine.PrimitiveTypes.Position.*;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
 
+
+import static com.Examples.Settings.settingManager;
+
+//TODO: Settings Classes
 //TODO: UI classes
 //TODO: Networking?
 
@@ -25,6 +29,9 @@ public class Main {
     public static void main(String[] args) {
         savedArgs = args;
 
+        //settingManager.getSettingCategoryByName("General Settings").getSettingByName("Name").setValue("NewName");
+        System.out.println(settingManager.getSpecificSetting("General Settings", "Name"));
+
         //JAudioPlayer ap = new JAudioPlayer("bin\\\\piano2.wav");
         //ap.startClip();
 
@@ -35,8 +42,7 @@ public class Main {
         JScene scene = new JScene(window, 2, "Scene 1");
 
         // create a pawn object
-        Pawn pawn = new Pawn(transform, new JImage(true, "bin/gradient.png", 128,128), new JIdentity("Pawn 1", "sceneObj"));
-
+        CustomPlayer player = new CustomPlayer(transform, new JImage(true, "bin/gradient.png", 128,128), new JIdentity("Player 1", "Player"));
         // create camera
         JCamera camera = new JCamera(new Vector3(400,400,1),window,scene, new JObject(null, null), 350, new JIdentity("Main Camera","sceneObj"));
 
@@ -47,7 +53,7 @@ public class Main {
         window.setIcon(new JImage(true, "bin/jengineicon.png", 128,128));
 
         // add objects to scene
-        scene.add(pawn);
+        scene.add(player);
         scene.add(camera);
 
         // set FPS
@@ -55,7 +61,7 @@ public class Main {
 
         // run Start function on other thread so the update functions doesn't stop the rest of the main function
         window.start();
-
+        /*
         // Example of how to use findObjectsByIdentity
         JObject[] searchResult = scene.findObjectsByIdentity(null, "sceneObj", SearchType.SearchByTag);
         if(searchResult.length>0)
@@ -65,5 +71,6 @@ public class Main {
                 System.out.println(result.JIdentity.getName());
             }
         }
+        */
     }
 }

@@ -12,9 +12,9 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
  * A player is the main pawn. When placed it will take user input.
  * **/
 
-public class Player extends Pawn{
+public class JPlayer extends JPawn {
 
-    public Player(Transform transform, JImage newSprite, JIdentity JIdentity) {
+    public JPlayer(Transform transform, JImage newSprite, JIdentity JIdentity) {
         super(transform, newSprite, JIdentity);
     }
 }

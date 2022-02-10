@@ -16,8 +16,8 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
  * The player class extends off the pawn class
  * **/
 
-public class Pawn extends Sprite {
-    public Pawn(Transform transform, JImage newSprite, JIdentity JIdentity) {
+public class JPawn extends Sprite {
+    public JPawn(Transform transform, JImage newSprite, JIdentity JIdentity) {
         super(transform,newSprite, JIdentity);
 
     }

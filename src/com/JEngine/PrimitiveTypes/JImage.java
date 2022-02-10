@@ -1,7 +1,11 @@
 package com.JEngine.PrimitiveTypes;
 
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 
 /** JEngine.Object (c) Noah Freelove
@@ -35,4 +39,5 @@ public class JImage extends Thing {
 
     public ImageIcon getImage() {return image;}
     public void setImage(ImageIcon newImage) {image = newImage;}
+
 }

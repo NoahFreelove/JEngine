@@ -1,6 +1,6 @@
 package com.JEngine.PrimitiveTypes.VeryPrimitiveTypes;
 
-import com.JEngine.Main;
+import com.Examples.Main;
 
 /** JEngine.Thing (c) Noah Freelove
  * Brief Explanation:

@@ -35,10 +35,6 @@ public class JCamera extends JObject {
         this.parent = parent;
         this.fov = fov;
     }
-    @Override
-    public void Start(){
-        scene.purge(-1);
-    }
 
     public void setParent(JObject newParent) {parent = newParent;}
     public JObject getParent() {return parent;}
