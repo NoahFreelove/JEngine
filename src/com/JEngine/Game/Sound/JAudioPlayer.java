@@ -41,5 +41,11 @@ public class JAudioPlayer extends Thing {
         clip.stop();
         LogExtra("Stopped clip:" + filePath);
     }
+    public void restartClip()
+    {
+        clip.flush();
+        clip.start();
+        LogExtra("Restarted clip:" + filePath);
+    }
 
 }
