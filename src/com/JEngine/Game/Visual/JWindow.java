@@ -52,7 +52,7 @@ public class JWindow extends Thing {
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle(title);
-        frame.setResizable(true);
+        frame.setResizable(false);
 
         panel = (JPanel) frame.getContentPane();
         panel.setLayout(null);
