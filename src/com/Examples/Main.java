@@ -9,9 +9,12 @@ import com.JEngine.PrimitiveTypes.*;
 import com.JEngine.PrimitiveTypes.Position.*;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
+import com.JEngine.UserInterface.JText;
 import com.JEngine.Utility.Settings.JSetting;
 import com.JEngine.Utility.Settings.SettingTypes.JSettingDropdown;
 
+
+import java.awt.*;
 
 import static com.Examples.Settings.settingManager;
 
@@ -20,7 +23,7 @@ import static com.Examples.Settings.settingManager;
 //TODO: Networking?
 
 public class Main {
-    static Vector3 position = new Vector3(0,50,0);
+    static Vector3 position = new Vector3(40,50,0);
     static Vector3 rotation = new Vector3(0,0,0);
     static Vector3 scale = new Vector3(1,1,1);
 
@@ -41,7 +44,7 @@ public class Main {
         JWindow window = new JWindow(800,800,"JEngine", true, 1);
 
         // create a new scene
-        JScene scene = new JScene(window, 2, "Scene 1");
+        JScene scene = new JScene(window, 3, "Scene 1");
 
         // create a pawn object
         CustomPlayer player = new CustomPlayer(transform, new JImage(true, "bin/gradient.png", 128,128), new JIdentity("Player 1", "Player"));
@@ -54,9 +57,10 @@ public class Main {
         // set window icon
         window.setIcon(new JImage(true, "bin/jengineicon.png", 128,128));
 
+        JText text = new JText(transform, new JIdentity("Test Text", "Text"), "Hello World!", new Font("Arial", Font.BOLD, 24));
         // add objects to scene
+        scene.add(text);
         scene.add(player);
-        scene.add(camera);
 
         // set FPS
         window.setTargetFPS(30);

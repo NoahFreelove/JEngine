@@ -6,6 +6,8 @@ import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.Position.Vector3;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JUIObject;
+import com.JEngine.UserInterface.JText;
 
 import javax.swing.*;
 import java.awt.*;
@@ -66,6 +68,7 @@ public class JCamera extends JObject {
                 LogExtra("Tried to get object that doesn't exist! Try lowering your maxObjects parameter");
                 continue;
             }
+
             try {
                 Sprite objSprite = (Sprite) obj.objRef;
                 if(((objSprite.transform.getPosition().x+objSprite.getSprite().getXSize()) >= leftBound && obj.objRef.transform.getPosition().x <=rightBound) && (objSprite.transform.getPosition().y+objSprite.getSprite().getYSize()) >= downBound && obj.objRef.transform.getPosition().y <=upBound)
@@ -76,9 +79,17 @@ public class JCamera extends JObject {
             }
             catch (Exception ignore)
             {
+                if(obj.objRef.getClass().equals(JText.class))
+                {
+                    objectsInView[i] = obj.objRef;
+                    continue;
+                }
+
+
                 if((obj.objRef.transform.getPosition().x >= leftBound && obj.objRef.transform.getPosition().x <=rightBound))
                 {
                     objectsInView[i] = obj.objRef;
+                    //System.out.println(objectsInView[i].getClass());
                 }
             }
             i++;
@@ -92,7 +103,6 @@ public class JCamera extends JObject {
         panel.removeAll();
         LogExtra("Start Render");
         for (int i = 0; i < objectsInView.length; i++) {
-            LogExtra("Render: " + i);
             if (objectsInView[i] == null) {
                 continue;
             }
@@ -104,11 +114,27 @@ public class JCamera extends JObject {
             //System.out.println("Object: " + objectsInView[i].identity.getName() + " : " + objectsInView[i].getClass().);
             try
             {
-                Sprite s = (Sprite)objectsInView[i];
-                JLabel jl = new JLabel(s.getSprite().getImage());
-                Dimension size = jl.getPreferredSize();
-                jl.setBounds((int)scene.sceneObjects[i].objRef.transform.position.x, (int)scene.sceneObjects[i].objRef.transform.position.y, size.width, size.height);
-                panel.add(jl);
+                //System.out.println(objectsInView[i].getClass());
+                if(objectsInView[i].getClass().equals(JText.class))
+                {
+                    JText jText = (JText)objectsInView[i];
+                    jText.getLabel().setBounds(200,200,1000,1000);
+                    window.frame.add(jText.getLabel());
+
+                    //panel.add();
+
+
+                }
+                else
+                {
+                    Sprite s = (Sprite)objectsInView[i];
+                    JLabel jl = new JLabel(s.getSprite().getImage());
+                    Dimension size = jl.getPreferredSize();
+                    jl.setBounds((int)scene.sceneObjects[i].objRef.transform.position.x, (int)scene.sceneObjects[i].objRef.transform.position.y, size.width, size.height);
+                    window.frame.add(jl);
+
+                    //panel.add(jl);
+                }
             } catch (Exception ignore)
             {
                 LogExtra("Didn't add object: " + objectsInView[i].JIdentity.getName() + " to render queue because it doesn't have a sprite");

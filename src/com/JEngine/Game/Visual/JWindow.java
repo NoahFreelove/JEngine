@@ -16,7 +16,7 @@ import javax.swing.*;
 
 public class JWindow extends Thing {
 
-    private JFrame frame;
+    public JFrame frame;
     public JCamera activeCamera;
     public boolean isActive;
     public int totalFrames;
@@ -52,7 +52,7 @@ public class JWindow extends Thing {
         frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle(title);
-        frame.setResizable(false);
+        frame.setResizable(true);
 
         panel = (JPanel) frame.getContentPane();
         panel.setLayout(null);
@@ -70,9 +70,12 @@ public class JWindow extends Thing {
     }*/
 
     public void refreshWindow(JPanel newPanel) {
-        newPanel.setLayout(null);
+        //newPanel.setLayout(null);
         panel = newPanel;
+        panel.revalidate();
+
         panel.repaint();
+        frame.repaint();
     }
 
     public void setTargetFPS(float newTargetFPS) {

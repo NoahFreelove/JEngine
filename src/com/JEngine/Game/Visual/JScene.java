@@ -53,6 +53,7 @@ public class JScene extends Thing {
 
     // because objects can have the same name and tag, we must return an array of objects in the event of duplicates
     // findObjectsByIdentity can get you the name of objects you only have the tag for or vice versa
+
     public JObject[] findObjectsByIdentity(String name, String tag, SearchType searchType) {
         int count = 0;
         JObject[] sceneSize = new JObject[maxObjects];

@@ -13,6 +13,6 @@ public class CustomPlayer extends JPlayer {
     @Override
     public void Update()
     {
-        Move(Direction.DownRight, 15);
+        Move(Direction.Down, 5);
     }
 }
