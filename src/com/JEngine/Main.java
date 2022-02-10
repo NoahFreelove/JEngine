@@ -32,7 +32,7 @@ public class Main {
         JWindow window = new JWindow(800,800,"JEngine", true, 1);
 
         // create a new scene
-        JScene scene = new JScene(window, 2);
+        JScene scene = new JScene(window, 2, "Scene 1");
 
         // create a pawn object
         Pawn pawn = new Pawn(transform, new JImage(true, "bin/gradient.png", 128,128), new JIdentity("Pawn 1", "sceneObj"));

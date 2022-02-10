@@ -21,11 +21,13 @@ public class JScene extends Thing {
     public JWindow window;
     public ObjRef[] sceneObjects;
     private final int maxObjects;
+    private String sceneName;
 
-    public JScene(JWindow window, int maxObjects) {
+    public JScene(JWindow window, int maxObjects, String sceneName) {
         super(true);
         this.window = window;
         this.maxObjects = maxObjects;
+        this.sceneName = sceneName;
         sceneObjects = new ObjRef[maxObjects];
     }
 
@@ -56,25 +58,23 @@ public class JScene extends Thing {
         JObject[] sceneSize = new JObject[maxObjects];
 
         for (int i = 0; i < sceneObjects.length; i++) {
-            if(searchType == SearchType.SearchByName)
-            {
-                if (sceneObjects[i].objRef.JIdentity.compareName(name)) {
-                    sceneSize[i] = sceneObjects[i].objRef;
-                    count++;
-                }
-            }
-            else if(searchType == SearchType.SearchByTag)
-            {
-                if (sceneObjects[i].objRef.JIdentity.compareTag(tag))
-                {
-                    sceneSize[i] = sceneObjects[i].objRef;
-                    count++;
-                }
-            }
-            else {
-                if (sceneObjects[i].objRef.JIdentity.compareTag(tag) && sceneObjects[i].objRef.JIdentity.compareName(name)) {
-                    sceneSize[i] = sceneObjects[i].objRef;
-                    count++;
+            if (sceneObjects[i] != null) {
+
+                if (searchType == SearchType.SearchByName) {
+                    if (sceneObjects[i].objRef.JIdentity.compareName(name)) {
+                        sceneSize[i] = sceneObjects[i].objRef;
+                        count++;
+                    }
+                } else if (searchType == SearchType.SearchByTag) {
+                    if (sceneObjects[i].objRef.JIdentity.compareTag(tag)) {
+                        sceneSize[i] = sceneObjects[i].objRef;
+                        count++;
+                    }
+                } else {
+                    if (sceneObjects[i].objRef.JIdentity.compareTag(tag) && sceneObjects[i].objRef.JIdentity.compareName(name)) {
+                        sceneSize[i] = sceneObjects[i].objRef;
+                        count++;
+                    }
                 }
             }
         }
@@ -110,9 +110,17 @@ public class JScene extends Thing {
     }
 
     public int getMaxObjects() {return maxObjects;}
+    public String getSceneName() {return sceneName;}
 
-    public void purge()
+    public void setSceneName(String newSceneName) {sceneName = newSceneName;}
+
+    public void purge(int newMaxObjects)
     {
-
+        if(newMaxObjects<0)
+        {
+            newMaxObjects = maxObjects;
+        }
+        LogInfo(String.format("Purged scene: '%s' of ALL contents.", getSceneName()));
+        sceneObjects = new ObjRef[newMaxObjects];
     }
 }

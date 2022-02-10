@@ -148,6 +148,8 @@ public class JWindow extends Thing {
 
     private void runUpdateBehaviors() {
         for (ObjRef objRef : activeCamera.getActiveScene().sceneObjects) {
+            if(objRef == null)
+                return;
             objRef.objRef.Update();
         }
     }

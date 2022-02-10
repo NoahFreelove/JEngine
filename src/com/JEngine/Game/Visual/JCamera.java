@@ -10,14 +10,18 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
 import javax.swing.*;
 import java.awt.*;
 
-// Convert objects in the viewport to a visual representation
-// Requires JViewport
+/** JEngine.JCamera (c) Noah Freelove
+ * Brief Explanation:
+ * JCamera converts the objects in a scene to a rendered panel which JWindow can show.
+ * JCamera's output depends on its position and FOV (in pixels)
+ * **/
 public class JCamera extends JObject {
     public int fov;
     private JScene scene;
     public JWindow window;
     public JObject parent;
     public JObject[] objectsInView;
+
     public JCamera(Vector3 position, JWindow window, JScene scene, JObject parent, int fov, JIdentity JIdentity) {
         super(parent.transform, JIdentity);
 
@@ -32,7 +36,9 @@ public class JCamera extends JObject {
         this.fov = fov;
     }
     @Override
-    public void Update(){}
+    public void Start(){
+        scene.purge(-1);
+    }
 
     public void setParent(JObject newParent) {parent = newParent;}
     public JObject getParent() {return parent;}
@@ -61,7 +67,7 @@ public class JCamera extends JObject {
         for (ObjRef obj: scene.sceneObjects) {
             if(obj==null)
             {
-                LogError("Tried to get object that doesn't exist! Try lowering your maxObjects parameter");
+                LogExtra("Tried to get object that doesn't exist! Try lowering your maxObjects parameter");
                 continue;
             }
             try {
