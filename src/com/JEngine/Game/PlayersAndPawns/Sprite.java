@@ -2,7 +2,7 @@ package com.JEngine.Game.PlayersAndPawns;
 
 import com.JEngine.PrimitiveTypes.JImage;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Object;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 
 /** JEngine.Sprite (c) Noah Freelove
@@ -14,7 +14,7 @@ import com.JEngine.PrimitiveTypes.Position.Transform;
  * Like an object, a sprite cannot be moved directly but can be updated with the parent's transform functions
  * **/
 
-public class Sprite extends Object {
+public class Sprite extends JObject {
     private JImage sprite;
 
     public JImage getSprite() {return sprite;}

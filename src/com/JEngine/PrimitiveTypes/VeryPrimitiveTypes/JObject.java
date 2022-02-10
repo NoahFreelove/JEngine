@@ -1,7 +1,7 @@
 package com.JEngine.PrimitiveTypes.VeryPrimitiveTypes;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 
-/** JEngine.Object (c) Noah Freelove
+/** JEngine.JObject (c) Noah Freelove
  * Brief Explanation:
  * A object is a simple class that has a transform value and is a primitive base for (nearly) everything that exists.
  *
@@ -10,19 +10,19 @@ import com.JEngine.PrimitiveTypes.Position.Transform;
  * An object cannot be controlled directly, but it's position can be updated by doing Object.transform.setTransform
  * **/
 
-public class Object extends Thing {
+public class JObject extends Thing {
     public Transform transform;
     public JIdentity JIdentity;
 
-    public Object(Transform transform, JIdentity JIdentity) {
+    public JObject(Transform transform, JIdentity JIdentity) {
         super(true);
         this.transform = transform;
         this.JIdentity = JIdentity;
     }
 
-    // Called upon object's creation or scene start
+    // Called upon object's creation
     public void Start(){}
-    
+
     // Called once every frame
     public void Update(){}
 }

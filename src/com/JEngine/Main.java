@@ -8,12 +8,7 @@ import com.JEngine.Game.Visual.SearchType;
 import com.JEngine.PrimitiveTypes.*;
 import com.JEngine.PrimitiveTypes.Position.*;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Object;
-
-/*
-    Scene holds all objects
-    Camera creates a sprite using JWindow at desired location
-*/
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
 
 //TODO: UI classes
 //TODO: Networking?
@@ -43,7 +38,7 @@ public class Main {
         Pawn pawn = new Pawn(transform, new JImage(true, "bin/gradient.png", 128,128), new JIdentity("Pawn 1", "sceneObj"));
 
         // create camera
-        JCamera camera = new JCamera(new Vector3(400,400,1),window,scene, new Object(null, null), 350, new JIdentity("Main Camera","sceneObj"));
+        JCamera camera = new JCamera(new Vector3(400,400,1),window,scene, new JObject(null, null), 350, new JIdentity("Main Camera","sceneObj"));
 
         // set main camera
         window.setCamera(camera);
@@ -62,10 +57,10 @@ public class Main {
         window.start();
 
         // Example of how to use findObjectsByIdentity
-        Object[] searchResult = scene.findObjectsByIdentity(null, "sceneObj", SearchType.SearchByTag);
+        JObject[] searchResult = scene.findObjectsByIdentity(null, "sceneObj", SearchType.SearchByTag);
         if(searchResult.length>0)
         {
-            for (Object result :
+            for (JObject result :
                     searchResult) {
                 System.out.println(result.JIdentity.getName());
             }

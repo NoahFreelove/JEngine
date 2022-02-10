@@ -5,20 +5,20 @@ import com.JEngine.PrimitiveTypes.ObjRef;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.Position.Vector3;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Object;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
 
 import javax.swing.*;
 import java.awt.*;
 
 // Convert objects in the viewport to a visual representation
 // Requires JViewport
-public class JCamera extends Object {
+public class JCamera extends JObject {
     public int fov;
     private JScene scene;
     public JWindow window;
-    public Object parent;
-    public Object[] objectsInView;
-    public JCamera(Vector3 position, JWindow window, JScene scene, Object parent, int fov, JIdentity JIdentity) {
+    public JObject parent;
+    public JObject[] objectsInView;
+    public JCamera(Vector3 position, JWindow window, JScene scene, JObject parent, int fov, JIdentity JIdentity) {
         super(parent.transform, JIdentity);
 
         if(parent.transform == null){
@@ -34,8 +34,8 @@ public class JCamera extends Object {
     @Override
     public void Update(){}
 
-    public void setParent(Object newParent) {parent = newParent;}
-    public Object getParent() {return parent;}
+    public void setParent(JObject newParent) {parent = newParent;}
+    public JObject getParent() {return parent;}
 
     public void InitiateRender()
     {
@@ -54,7 +54,7 @@ public class JCamera extends Object {
         int upBound = (int)transform.position.y + fov;
         int downBound = (int)transform.position.y - fov;
 
-        objectsInView = new Object[scene.getMaxObjects()];
+        objectsInView = new JObject[scene.getMaxObjects()];
 
         int i = 0;
 

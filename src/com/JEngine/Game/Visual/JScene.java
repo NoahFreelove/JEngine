@@ -1,7 +1,7 @@
 package com.JEngine.Game.Visual;
 
 import com.JEngine.PrimitiveTypes.ObjRef;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Object;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 
 /** JEngine.JScene (c) Noah Freelove
@@ -29,7 +29,7 @@ public class JScene extends Thing {
         sceneObjects = new ObjRef[maxObjects];
     }
 
-    public void add(Object o)
+    public void add(JObject o)
     {
         if(o == null || o.transform == null)
         {
@@ -51,9 +51,9 @@ public class JScene extends Thing {
 
     // because objects can have the same name and tag, we must return an array of objects in the event of duplicates
     // findObjectsByIdentity can get you the name of objects you only have the tag for or vice versa
-    public Object[] findObjectsByIdentity(String name, String tag, SearchType searchType) {
+    public JObject[] findObjectsByIdentity(String name, String tag, SearchType searchType) {
         int count = 0;
-        Object[] sceneSize = new Object[maxObjects];
+        JObject[] sceneSize = new JObject[maxObjects];
 
         for (int i = 0; i < sceneObjects.length; i++) {
             if(searchType == SearchType.SearchByName)
@@ -79,7 +79,7 @@ public class JScene extends Thing {
             }
         }
 
-        Object[] searchResult = new Object[count];
+        JObject[] searchResult = new JObject[count];
         System.arraycopy(sceneSize, 0, searchResult, 0, count);
         return searchResult;
     }
