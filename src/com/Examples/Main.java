@@ -3,14 +3,13 @@ package com.Examples;
 import com.JEngine.Game.Visual.JCamera;
 import com.JEngine.Game.Visual.JScene;
 import com.JEngine.Game.Visual.JWindow;
-import com.JEngine.Game.Visual.SearchType;
 import com.JEngine.PrimitiveTypes.*;
 import com.JEngine.PrimitiveTypes.Position.*;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JUIObject;
 import com.JEngine.UserInterface.JText;
 import com.JEngine.Utility.About.JAppInfo;
-import com.JEngine.Utility.Settings.JSetting;
 import com.JEngine.Utility.Settings.SettingTypes.JSettingDropdown;
 
 
@@ -48,9 +47,9 @@ public class Main {
         JScene scene = new JScene(window, 3, "Scene 1");
 
         // create a pawn object
-        CustomPlayer player = new CustomPlayer(transform, new JImage(true, "bin/player1.png", 128,128), new JIdentity("Player 1", "Player"));
+        CustomPlayer player = new CustomPlayer(transform, new JIcon(true, "bin/player1.png", 128,128), new JIdentity("Player 1", "Player"));
 
-        CustomPlayer player2 = new CustomPlayer(new Transform(new Vector3(300,50,0), rotation, scale), new JImage(true, "bin/player2.png", 128,128), new JIdentity("Player 2", "Player"));
+        CustomPlayer player2 = new CustomPlayer(new Transform(new Vector3(300,50,0), rotation, scale), new JIcon(true, "bin/player2.png", 128,128), new JIdentity("Player 2", "Player"));
 
 
         // create camera
@@ -60,13 +59,13 @@ public class Main {
         window.setCamera(camera);
 
         // set window icon
-        window.setIcon(new JImage(true, "bin/jengineicon.png", 128,128));
+        window.setIcon(new JIcon(true, "bin/jengineicon.png", 128,128));
 
-        JText text = new JText(new Transform(new Vector3(400,400,1),new Vector3(0,0,0),new Vector3(1,1,1)), new JIdentity("Test Text", "Text"), "Hello World!", new Font("Arial", Font.PLAIN, 24));
-        JText text2 = new JText(new Transform(new Vector3(400,600,1),new Vector3(0,0,0),new Vector3(1,1,1)), new JIdentity("Test Text", "Text"), "Finally Working", new Font("Arial", Font.PLAIN, 32));
+        JText text = new JText(new Transform(new Vector3(400,400,1),new Vector3(0,0,0),new Vector3(1,1,1)), new JIdentity("Test Text", "Text"), "Hello World!", new Font("Arial", Font.PLAIN, 24), 1000, 100);
+        JUIObject uiImage = new JUIObject(new Transform(new Vector3(400,600,1),new Vector3(0,0,0),new Vector3(1f,1,1)),new JIdentity("Test JUIElement", "JUIElement"), (new JIcon(true, "bin/player2.png", 128,128).getIcon().getImage()), 128, 128);
 
         // add objects to scene
-        scene.addUI(text2);
+        scene.addUI(uiImage);
 
         scene.add(player);
         scene.add(player2);

@@ -1,6 +1,6 @@
 package com.JEngine.Game.PlayersAndPawns;
 
-import com.JEngine.PrimitiveTypes.JImage;
+import com.JEngine.PrimitiveTypes.JIcon;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
 import com.JEngine.PrimitiveTypes.Position.Transform;
@@ -15,12 +15,12 @@ import com.JEngine.PrimitiveTypes.Position.Transform;
  * **/
 
 public class Sprite extends JObject {
-    private JImage sprite;
+    private JIcon sprite;
 
-    public JImage getSprite() {return sprite;}
-    public void setSprite(JImage newSprite) {sprite = newSprite;}
+    public JIcon getSprite() {return sprite;}
+    public void setSprite(JIcon newSprite) {sprite = newSprite;}
 
-    public Sprite(Transform transform, JImage newSprite, JIdentity JIdentity) {
+    public Sprite(Transform transform, JIcon newSprite, JIdentity JIdentity) {
         super(transform, JIdentity);
         setSprite(newSprite);
     }

@@ -111,11 +111,24 @@ public class JCamera extends JObject {
             if (!scene.juiObjects[i].getActive()) {
                 continue;
             }
-            if(scene.juiObjects[i].getClass().equals(JText.class))
+
+            int totalScaleX = (int)(scene.juiObjects[i].transform.getScale().x * scene.juiObjects[i].sizeX);
+            int totalScaleY = (int)(scene.juiObjects[i].transform.getScale().y * scene.juiObjects[i].sizeY);
+
+           /* if(scene.juiObjects[i].getClass().equals(JText.class))
             {
                 JText jText = (JText)scene.juiObjects[i];
                 JLabel jl = new JLabel(jText.getText());
-                jl.setBounds((int)scene.juiObjects[i].transform.position.x,(int)scene.juiObjects[i].transform.position.y,1000,100);
+                jl.setBounds((int)scene.juiObjects[i].transform.position.x,(int)scene.juiObjects[i].transform.position.y ,totalScaleX,totalScaleY);
+                panel.add(jl);
+                continue;
+            }*/
+            if(scene.juiObjects[i].getClass().isAssignableFrom(JUIObject.class))
+            {
+                Image image = scene.juiObjects[i].getImage().getScaledInstance(totalScaleX, totalScaleY, Image.SCALE_DEFAULT);
+                JLabel jl = new JLabel(new ImageIcon(image));
+
+                jl.setBounds((int)scene.juiObjects[i].transform.position.x,(int)scene.juiObjects[i].transform.position.y,totalScaleX,totalScaleY);
                 panel.add(jl);
             }
 
@@ -136,7 +149,7 @@ public class JCamera extends JObject {
             {
                 //System.out.println(objectsInView[i].getClass());
                     Sprite s = (Sprite)objectsInView[i];
-                    JLabel jl = new JLabel(s.getSprite().getImage());
+                    JLabel jl = new JLabel(s.getSprite().getIcon());
                     Dimension size = jl.getPreferredSize();
                     jl.setBounds((int)scene.sceneObjects[i].objRef.transform.position.x, (int)scene.sceneObjects[i].objRef.transform.position.y, size.width, size.height);
                     panel.add(jl);

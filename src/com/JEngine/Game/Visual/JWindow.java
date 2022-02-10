@@ -1,6 +1,6 @@
 package com.JEngine.Game.Visual;
 
-import com.JEngine.PrimitiveTypes.JImage;
+import com.JEngine.PrimitiveTypes.JIcon;
 import com.JEngine.PrimitiveTypes.ObjRef;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 
@@ -37,10 +37,10 @@ public class JWindow extends Thing {
         frame.setVisible(newVisibility);
     }
 
-    public void setIcon(JImage newIcon) {
-        if (newIcon.getImage() != null)
+    public void setIcon(JIcon newIcon) {
+        if (newIcon.getIcon() != null)
         {
-            frame.setIconImage(newIcon.getImage().getImage());
+            frame.setIconImage(newIcon.getIcon().getImage());
             return;
         }
         LogWarning("Tried to set window icon to a null image");

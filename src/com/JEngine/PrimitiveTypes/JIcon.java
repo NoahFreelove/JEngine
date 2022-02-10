@@ -2,10 +2,7 @@ package com.JEngine.PrimitiveTypes;
 
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.File;
 
 /** JEngine.Object (c) Noah Freelove
@@ -16,12 +13,12 @@ import java.io.File;
  * JImage is used primarily for sprites and UI images
  * **/
 
-public class JImage extends Thing {
+public class JIcon extends Thing {
     private ImageIcon image;
     private int xSize;
     private int ySize;
 
-    public JImage(boolean isActive, String filepath, int xSize, int ySize) {
+    public JIcon(boolean isActive, String filepath, int xSize, int ySize) {
         super(isActive);
         this.xSize = xSize;
         this.ySize = ySize;
@@ -37,7 +34,7 @@ public class JImage extends Thing {
     public int getXSize(){return xSize;}
     public int getYSize(){return ySize;}
 
-    public ImageIcon getImage() {return image;}
+    public ImageIcon getIcon() {return image;}
     public void setImage(ImageIcon newImage) {image = newImage;}
 
 }
