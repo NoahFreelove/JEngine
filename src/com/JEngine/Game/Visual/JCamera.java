@@ -118,23 +118,20 @@ public class JCamera extends JObject {
                 if(objectsInView[i].getClass().equals(JText.class))
                 {
                     JText jText = (JText)objectsInView[i];
+                    JLabel jl = new JLabel(jText.getText());
                     jText.getLabel().setBounds(200,200,1000,1000);
-                    window.frame.add(jText.getLabel());
-
-                    //panel.add();
-
-
+                    panel.add(jl);
                 }
-                else
-                {
+
+
                     Sprite s = (Sprite)objectsInView[i];
                     JLabel jl = new JLabel(s.getSprite().getImage());
                     Dimension size = jl.getPreferredSize();
                     jl.setBounds((int)scene.sceneObjects[i].objRef.transform.position.x, (int)scene.sceneObjects[i].objRef.transform.position.y, size.width, size.height);
-                    window.frame.add(jl);
+                    panel.add(jl);
 
                     //panel.add(jl);
-                }
+
             } catch (Exception ignore)
             {
                 LogExtra("Didn't add object: " + objectsInView[i].JIdentity.getName() + " to render queue because it doesn't have a sprite");
