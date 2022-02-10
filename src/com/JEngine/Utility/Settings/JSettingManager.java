@@ -40,7 +40,7 @@ public class JSettingManager {
             return false;
         }
 
-        return setting.getValue();
+        return setting;
     }
 
     public void saveSettings(String filepath){}

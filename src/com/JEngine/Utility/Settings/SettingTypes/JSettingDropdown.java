@@ -17,4 +17,5 @@ public class JSettingDropdown extends JSetting {
     {
         dropdownOptions = (String[]) newValue;
     }
+    public int getNumberOfOptions() {return dropdownOptions.length;}
 }

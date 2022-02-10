@@ -9,6 +9,8 @@ import com.JEngine.PrimitiveTypes.*;
 import com.JEngine.PrimitiveTypes.Position.*;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
+import com.JEngine.Utility.Settings.JSetting;
+import com.JEngine.Utility.Settings.SettingTypes.JSettingDropdown;
 
 
 import static com.Examples.Settings.settingManager;
@@ -29,8 +31,8 @@ public class Main {
     public static void main(String[] args) {
         savedArgs = args;
 
-        //settingManager.getSettingCategoryByName("General Settings").getSettingByName("Name").setValue("NewName");
-        System.out.println(settingManager.getSpecificSetting("General Settings", "Name"));
+        JSettingDropdown js = (JSettingDropdown) settingManager.getSpecificSetting("General Settings", "DropdownExample");
+        //System.out.println(js.getNumberOfOptions());
 
         //JAudioPlayer ap = new JAudioPlayer("bin\\\\piano2.wav");
         //ap.startClip();
