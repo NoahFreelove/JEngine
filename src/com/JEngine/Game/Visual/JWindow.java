@@ -1,8 +1,8 @@
 package com.JEngine.Game.Visual;
 
 import com.JEngine.PrimitiveTypes.JImage;
+import com.JEngine.PrimitiveTypes.ObjRef;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
-import com.JEngine.PrimitiveTypes.Behavior;
 
 import javax.swing.*;
 
@@ -20,11 +20,10 @@ public class JWindow extends Thing {
     public JCamera activeCamera;
     public boolean isActive;
     public int totalFrames;
-    private Thread t;
+    private Thread updateThread;
     private float targetFPS = 5;
 
     JPanel panel;
-    Behavior[] behaviors;
 
     public JFrame getWindow() {
         return frame;
@@ -59,17 +58,16 @@ public class JWindow extends Thing {
         panel.setLayout(null);
         frame.setSize(sizeX, sizeY);
         frame.setVisible(defaultVisibilityState);
-        behaviors = new Behavior[maxBehaviors];
     }
 
-    public void AddUpdateBehavior(Behavior newBehavior) {
+/*    public void AddUpdateBehavior(Behavior newBehavior) {
         for (int i = 0; i < behaviors.length; i++) {
             if (behaviors[i] == null) {
                 behaviors[i] = newBehavior;
                 break;
             }
         }
-    }
+    }*/
 
     public void refreshWindow(JPanel newPanel) {
         newPanel.setLayout(null);
@@ -89,8 +87,8 @@ public class JWindow extends Thing {
             return;
         }
         isActive = true;
-        t = new Thread(this::refresh);
-        t.start();
+        updateThread = new Thread(this::refresh);
+        updateThread.start();
         LogInfo("Successfully started window");
 
     }
@@ -99,7 +97,7 @@ public class JWindow extends Thing {
     {
         try
         {
-            t.interrupt();
+            updateThread.interrupt();
             isActive = false;
             LogInfo("Successfully stopped window");
         }
@@ -149,10 +147,8 @@ public class JWindow extends Thing {
     }
 
     private void runUpdateBehaviors() {
-        for (Behavior behavior : behaviors) {
-            if (behavior != null) {
-                behavior.behave(totalFrames);
-            }
+        for (ObjRef objRef : activeCamera.getActiveScene().sceneObjects) {
+            objRef.objRef.Update();
         }
     }
 }

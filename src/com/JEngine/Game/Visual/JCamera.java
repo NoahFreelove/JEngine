@@ -31,6 +31,8 @@ public class JCamera extends Object {
         this.parent = parent;
         this.fov = fov;
     }
+    @Override
+    public void Update(){}
 
     public void setParent(Object newParent) {parent = newParent;}
     public Object getParent() {return parent;}
@@ -60,7 +62,7 @@ public class JCamera extends Object {
             if(obj==null)
             {
                 LogError("Tried to get object that doesn't exist! Try lowering your maxObjects parameter");
-                break;
+                continue;
             }
             try {
                 Sprite objSprite = (Sprite) obj.objRef;
@@ -118,4 +120,5 @@ public class JCamera extends Object {
         scene = activeScene;
         LogInfo("Changed active scene");
     }
+    public JScene getActiveScene() {return scene;}
 }

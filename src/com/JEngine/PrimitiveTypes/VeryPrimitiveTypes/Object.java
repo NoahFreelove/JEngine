@@ -19,4 +19,10 @@ public class Object extends Thing {
         this.transform = transform;
         this.JIdentity = JIdentity;
     }
+
+    // Called upon object's creation or scene start
+    public void Start(){}
+    
+    // Called once every frame
+    public void Update(){}
 }

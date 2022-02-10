@@ -4,11 +4,23 @@ import com.JEngine.PrimitiveTypes.ObjRef;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Object;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 
-// JScene holds list all objects in scene
+/** JEngine.JScene (c) Noah Freelove
+ * Brief Explanation:
+ * JScene is how you hold load all the objects in your scene into memory.
+ * Use scene.add(Object) to add an object into the scene. The camera uses sceneObjects[] to determine what to render
+ *
+ * maxObjects is final and cannot be changed mid-gameplay.
+ * to change the max objects create a new scene with a higher object count and transfer the objects over with
+ * scene.migrateScene
+ *
+ * scene.findObjectsByIdentity is a very useful method that allows you to pick out specific objects in a scene.
+ * it is not very efficient though, so it should NEVER be called in an update function. Call it once and create a ref
+ * to the object instead.
+ * **/
 public class JScene extends Thing {
     public JWindow window;
     public ObjRef[] sceneObjects;
-    private int maxObjects;
+    private final int maxObjects;
 
     public JScene(JWindow window, int maxObjects) {
         super(true);
@@ -28,7 +40,7 @@ public class JScene extends Thing {
             if(sceneObjects[i] == null)
             {
                 sceneObjects[i] = new ObjRef(o);
-
+                sceneObjects[i].objRef.Start();
                 super.LogInfo("Added object to scene " + ((sceneObjects[i] != null)? "successfully" : "UNSUCCESSFULLY"));
                 return;
             }
@@ -37,24 +49,70 @@ public class JScene extends Thing {
 
     }
 
-    // very inefficent as of right now
-    public Object[] getObjectsByTag(String tag) {
-
+    // because objects can have the same name and tag, we must return an array of objects in the event of duplicates
+    // findObjectsByIdentity can get you the name of objects you only have the tag for or vice versa
+    public Object[] findObjectsByIdentity(String name, String tag, SearchType searchType) {
         int count = 0;
-        for (int i = 0; i < sceneObjects.length; i++) {
-            if (sceneObjects[i].objRef.JIdentity.compareTag(tag))
-                count++;
-        }
-        // if 0 matches, don't bother looking through all scene objects again
-        if (count == 0) { return new Object[0]; }
+        Object[] sceneSize = new Object[maxObjects];
 
-        Object[] tmpArr = new Object[count];
         for (int i = 0; i < sceneObjects.length; i++) {
-            if(sceneObjects[i].objRef.JIdentity.compareTag(tag))
-                tmpArr[i] = sceneObjects[i].objRef;
+            if(searchType == SearchType.SearchByName)
+            {
+                if (sceneObjects[i].objRef.JIdentity.compareName(name)) {
+                    sceneSize[i] = sceneObjects[i].objRef;
+                    count++;
+                }
+            }
+            else if(searchType == SearchType.SearchByTag)
+            {
+                if (sceneObjects[i].objRef.JIdentity.compareTag(tag))
+                {
+                    sceneSize[i] = sceneObjects[i].objRef;
+                    count++;
+                }
+            }
+            else {
+                if (sceneObjects[i].objRef.JIdentity.compareTag(tag) && sceneObjects[i].objRef.JIdentity.compareName(name)) {
+                    sceneSize[i] = sceneObjects[i].objRef;
+                    count++;
+                }
+            }
         }
 
-        return tmpArr;
+        Object[] searchResult = new Object[count];
+        System.arraycopy(sceneSize, 0, searchResult, 0, count);
+        return searchResult;
     }
+    public void migrateScene(JScene newScene, boolean force, boolean switchSceneUponCompletion, JCamera camera)
+    {
+        if((newScene.maxObjects < maxObjects) && !force)
+        {
+            LogWarning("CANNOT MIGRATE TO NEW SCENE: NEW SCENE HAS LOWER MAX OBJECT COUNT AND WOULD DESTROY OBJECTS" +
+                    " USE force=true TO BYPASS THIS WARNING");
+            return;
+        }
+        for (int i = 0; i < newScene.maxObjects; i++) {
+            try{
+                newScene.sceneObjects[i] = sceneObjects[i];
+            }
+            catch (Exception e)
+            {
+                break;
+            }
+        }
+        if(switchSceneUponCompletion)
+        {
+            camera.setActiveScene(newScene);
+            LogInfo("Successfully Migrated scene content and activated scene.");
+            return;
+        }
+        LogInfo("Successfully Migrated scene content. do camera.setActiveScene(newScene) to switch to new scene");
+    }
+
     public int getMaxObjects() {return maxObjects;}
+
+    public void purge()
+    {
+
+    }
 }
