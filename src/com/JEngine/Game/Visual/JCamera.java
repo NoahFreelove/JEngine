@@ -115,7 +115,7 @@ public class JCamera extends JObject {
             {
                 JText jText = (JText)scene.juiObjects[i];
                 JLabel jl = new JLabel(jText.getText());
-                jl.setBounds((int)scene.juiObjects[i].transform.position.x,(int)scene.juiObjects[i].transform.position.y,100,100);
+                jl.setBounds((int)scene.juiObjects[i].transform.position.x,(int)scene.juiObjects[i].transform.position.y,1000,100);
                 panel.add(jl);
             }
 

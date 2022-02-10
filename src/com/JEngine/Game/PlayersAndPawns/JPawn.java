@@ -22,7 +22,7 @@ public class JPawn extends Sprite {
 
     }
 
-    public void Move(Direction direction, float speed)
+    public void Move(Direction direction, int speed)
     {
         Angle angle = new Angle(0);
         Vector3 oldPos = super.transform.position;
@@ -31,47 +31,82 @@ public class JPawn extends Sprite {
 
         switch (direction)
         {
+            // need to check collision on every move
             case Up -> {
                 angle.angle = 0;
-                totalYMovement = speed*-1;
+                while (speed>0)
+                {
+                    totalYMovement -= 1;
+                    speed--;
+                }
             }
             case UpRight -> {
                 angle.angle = 45;
-                totalXMovement = speed;
-                totalYMovement = speed*-1;
+                while (speed>0)
+                {
+                    totalXMovement += 1;
+                    totalYMovement -= 1;
+                    speed--;
+                }
             }
             case Right -> {
                 angle.angle = 90;
-                totalXMovement = speed;
+                while (speed>0)
+                {
+                    totalXMovement += 1;
+                    speed--;
+                }
             }
             case DownRight -> {
                 angle.angle = 135;
-                totalXMovement = speed;
-                totalYMovement = speed;
+                while (speed>0)
+                {
+                    totalXMovement += 1;
+                    totalYMovement += 1;
+                    speed--;
+                }
             }
             case Down ->{
                 angle.angle = 180;
-                totalYMovement = speed;
+                while (speed>0)
+                {
+                    totalYMovement += 1;
+                    speed--;
+                }
             }
             case DownLeft -> {
                 angle.angle = 225;
                 totalXMovement = -speed;
                 totalYMovement = -speed*-1;
+                while (speed>0)
+                {
+                    totalXMovement -= 1;
+                    totalYMovement += 1;
+                    speed--;
+                }
             }
             case Left -> {
                 angle.angle = 270;
-                totalXMovement = -speed;
+                while (speed>0)
+                {
+                    totalXMovement -= 1;
+                    speed--;
+                }
             }
             case UpLeft -> {
                 angle.angle = 315;
-                totalXMovement = -speed;
-                totalYMovement = speed*-1;
+                while (speed>0)
+                {
+                    totalXMovement -= 1;
+                    totalYMovement -= -1;
+                    speed--;
+                }
             }
         }
 
 
         // actual logic that moves pawn
         super.transform.setPosition(new Vector3(super.transform.position.x + totalXMovement, super.transform.position.y + totalYMovement, super.transform.position.z));
-        super.LogExtra(String.format("Moved pawn %.2f° %.2f unit(s) | OLD POS {%.2f,%.2f,%.2f} | NEW POS {%.2f,%.2f,%.2f}", angle.angle, speed, oldPos.x, oldPos.y, oldPos.z, super.transform.position.x, super.transform.position.y, super.transform.position.z));
+        super.LogExtra(String.format("Moved pawn %.2f° %d unit(s) | OLD POS {%.2f,%.2f,%.2f} | NEW POS {%.2f,%.2f,%.2f}", angle.angle, speed, oldPos.x, oldPos.y, oldPos.z, super.transform.position.x, super.transform.position.y, super.transform.position.z));
     }
 }

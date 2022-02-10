@@ -1,6 +1,5 @@
 package com.Examples;
 
-import com.Examples.CustomPlayer;
 import com.JEngine.Game.Visual.JCamera;
 import com.JEngine.Game.Visual.JScene;
 import com.JEngine.Game.Visual.JWindow;
@@ -49,9 +48,9 @@ public class Main {
         JScene scene = new JScene(window, 3, "Scene 1");
 
         // create a pawn object
-        CustomPlayer player = new CustomPlayer(transform, new JImage(true, "bin/gradient.png", 128,128), new JIdentity("Player 1", "Player"));
+        CustomPlayer player = new CustomPlayer(transform, new JImage(true, "bin/player1.png", 128,128), new JIdentity("Player 1", "Player"));
 
-        CustomPlayer player2 = new CustomPlayer(new Transform(new Vector3(100,50,0), rotation, scale), new JImage(true, "bin/jengineicon.png", 128,128), new JIdentity("Player 1", "Player"));
+        CustomPlayer player2 = new CustomPlayer(new Transform(new Vector3(300,50,0), rotation, scale), new JImage(true, "bin/player2.png", 128,128), new JIdentity("Player 2", "Player"));
 
 
         // create camera
@@ -63,8 +62,8 @@ public class Main {
         // set window icon
         window.setIcon(new JImage(true, "bin/jengineicon.png", 128,128));
 
-        JText text = new JText(new Transform(new Vector3(400,400,1),new Vector3(0,0,0),new Vector3(1,1,1)), new JIdentity("Test Text", "Text"), "Hello World!", new Font("Arial", Font.BOLD, 24));
-        JText text2 = new JText(new Transform(new Vector3(400,600,1),new Vector3(0,0,0),new Vector3(1,1,1)), new JIdentity("Test Text", "Text"), "finally working", new Font("Arial", Font.BOLD, 24));
+        JText text = new JText(new Transform(new Vector3(400,400,1),new Vector3(0,0,0),new Vector3(1,1,1)), new JIdentity("Test Text", "Text"), "Hello World!", new Font("Arial", Font.PLAIN, 24));
+        JText text2 = new JText(new Transform(new Vector3(400,600,1),new Vector3(0,0,0),new Vector3(1,1,1)), new JIdentity("Test Text", "Text"), "Finally Working", new Font("Arial", Font.PLAIN, 32));
 
         // add objects to scene
         scene.addUI(text2);
