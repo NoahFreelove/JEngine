@@ -28,7 +28,7 @@ public class JPawn extends Sprite {
         Vector3 oldPos = super.transform.position;
         float totalXMovement = 0;
         float totalYMovement = 0;
-
+        int originalSpeed = speed;
         switch (direction)
         {
             // need to check collision on every move
@@ -107,6 +107,6 @@ public class JPawn extends Sprite {
 
         // actual logic that moves pawn
         super.transform.setPosition(new Vector3(super.transform.position.x + totalXMovement, super.transform.position.y + totalYMovement, super.transform.position.z));
-        super.LogExtra(String.format("Moved pawn %.2f° %d unit(s) | OLD POS {%.2f,%.2f,%.2f} | NEW POS {%.2f,%.2f,%.2f}", angle.angle, speed, oldPos.x, oldPos.y, oldPos.z, super.transform.position.x, super.transform.position.y, super.transform.position.z));
+        super.LogExtra(String.format("Moved pawn %.2f° %d unit(s) | OLD POS {%.2f,%.2f,%.2f} | NEW POS {%.2f,%.2f,%.2f}", angle.angle, originalSpeed, oldPos.x, oldPos.y, oldPos.z, super.transform.position.x, super.transform.position.y, super.transform.position.z));
     }
 }

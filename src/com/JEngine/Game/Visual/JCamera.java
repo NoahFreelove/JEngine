@@ -19,6 +19,7 @@ import java.awt.*;
  * JCamera's output depends on its position and FOV (in pixels)
  * **/
 public class JCamera extends JObject {
+    // fov is added to the right and bottom of the camera, does not start from the middle of the camera
     public int fov;
     private JScene scene;
     public JWindow window;
@@ -59,10 +60,10 @@ public class JCamera extends JObject {
             super.transform.position = parent.transform.position;
         }
 
-        int leftBound = (int)transform.position.x - fov;
-        int rightBound = (int)transform.position.x + fov;
-        int upBound = (int)transform.position.y - fov;
-        int downBound = (int)transform.position.y + fov;
+        int leftBound = (int)transform.getPosition().x;
+        int rightBound = (int)transform.getPosition().x + fov;
+        int upBound = (int)transform.getPosition().y;
+        int downBound = (int)transform.getPosition().y + fov;
 
         objectsInView = new JObject[scene.getMaxObjects()];
         int i = 0;
@@ -128,11 +129,13 @@ public class JCamera extends JObject {
             int totalScaleX = (int)(scene.juiObjects[i].transform.getScale().x * scene.juiObjects[i].sizeX);
             int totalScaleY = (int)(scene.juiObjects[i].transform.getScale().y * scene.juiObjects[i].sizeY);
 
+            int xPos = (int)(scene.juiObjects[i].transform.position.x - transform.position.x);
+            int yPos = (int)(scene.juiObjects[i].transform.position.y - transform.position.y);
             if(scene.juiObjects[i].getClass().equals(JText.class))
             {
                 JText jText = (JText)scene.juiObjects[i];
                 JLabel jl = new JLabel(jText.getText());
-                jl.setBounds((int)scene.juiObjects[i].transform.position.x,(int)scene.juiObjects[i].transform.position.y ,totalScaleX,totalScaleY);
+                jl.setBounds(xPos,yPos ,totalScaleX,totalScaleY);
                 panel.add(jl);
                 continue;
             }
@@ -141,7 +144,7 @@ public class JCamera extends JObject {
                 Image image = scene.juiObjects[i].getImage().getScaledInstance(totalScaleX, totalScaleY, Image.SCALE_DEFAULT);
                 JLabel jl = new JLabel(new ImageIcon(image));
 
-                jl.setBounds((int)scene.juiObjects[i].transform.position.x,(int)scene.juiObjects[i].transform.position.y,totalScaleX,totalScaleY);
+                jl.setBounds(xPos,yPos,totalScaleX,totalScaleY);
                 panel.add(jl);
             }
 
@@ -164,7 +167,10 @@ public class JCamera extends JObject {
                     Sprite s = (Sprite)objectsInView[i];
                     JLabel jl = new JLabel(new ImageIcon(s.getSprite().getIcon().getImage().getScaledInstance((int)(objectsInView[i].transform.getScale().x* s.getSprite().getXSize()), (int)(objectsInView[i].transform.getScale().y* s.getSprite().getYSize()), Image.SCALE_DEFAULT)));
                     Dimension size = jl.getPreferredSize();
-                    jl.setBounds((int)scene.sceneObjects[i].objRef.transform.position.x, (int)scene.sceneObjects[i].objRef.transform.position.y, size.width, size.height);
+                    int xPos = (int)(scene.sceneObjects[i].objRef.transform.position.x - transform.position.x);
+                    int yPos = (int)(scene.sceneObjects[i].objRef.transform.position.y - transform.position.y);
+
+                jl.setBounds(xPos, yPos, size.width, size.height);
                     panel.add(jl);
             } catch (Exception ignore)
             {
