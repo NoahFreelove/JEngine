@@ -77,16 +77,16 @@ public class JCamera extends JObject {
             try {
                 Sprite objSprite = (Sprite) obj.objRef;
                 // right tip of object is in frame
-                boolean con1 = (objSprite.transform.getPosition().x + (objSprite.getSprite().getXSize() * obj.objRef.transform.getScale().x)/2) >= leftBound;
+                boolean con1 = (obj.objRef.transform.getPosition().x + (objSprite.getSprite().getXSize() * obj.objRef.transform.getScale().x)) >= leftBound;
                 // right tip of object isn't out of frame
-                boolean con2 = (obj.objRef.transform.getPosition().x - (objSprite.getSprite().getXSize()/2f) + objSprite.getSprite().getXSize()* obj.objRef.transform.getScale().x) <= rightBound;
+                boolean con2 = (obj.objRef.transform.getPosition().x) <= rightBound;
                 // bottom tip of object isn't out of frame
-                boolean con3 = (objSprite.transform.getPosition().y-(objSprite.getSprite().getYSize() * obj.objRef.transform.getScale().y/2)) <= downBound;
+                boolean con3 = (obj.objRef.transform.getPosition().y + (objSprite.getSprite().getYSize() * obj.objRef.transform.getScale().y)) >=upBound;
                 // bottom tip of object is in frame
-                boolean con4 = (obj.objRef.transform.getPosition().y + (objSprite.getSprite().getYSize()/2f) - objSprite.getSprite().getYSize()* obj.objRef.transform.getScale().y)>=upBound;
+                boolean con4 = (obj.objRef.transform.getPosition().y)<=downBound;
+
                 if( con1 && con2 && con3 && con4)
                 {
-                    System.out.println(obj.objRef.JIdentity.getName() + "InRange");
                     objectsInView[i] = objSprite;
                 }
             }

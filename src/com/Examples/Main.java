@@ -23,7 +23,7 @@ import static com.Examples.Settings.settingManager;
 public class Main {
     static Vector3 position = new Vector3(40,600,0);
     static Vector3 rotation = new Vector3(0,0,0);
-    static Vector3 scale = new Vector3(1,1,1);
+    static Vector3 scale = new Vector3(1f,1,1);
 
     static Transform transform = new Transform(position, rotation, scale);
 
@@ -47,13 +47,13 @@ public class Main {
         JScene scene = new JScene(window, 3, "Scene 1");
 
         // create a pawn object
-        CustomPlayer player = new CustomPlayer(transform, new JIcon(true, "bin/player1.png", 128,128), new JIdentity("Player 1", "Player"));
+        CustomPlayer player = new CustomPlayer(transform, new JIcon(true, "bin/player2.png", 128,128), new JIdentity("Player 1", "Player"));
 
-        CustomPlayer player2 = new CustomPlayer(new Transform(new Vector3(300,50,0), rotation, scale), new JIcon(true, "bin/player2.png", 128,128), new JIdentity("Player 2", "Player"));
+        //CustomPlayer player2 = new CustomPlayer(new Transform(new Vector3(300,50,0), rotation, scale), new JIcon(true, "bin/player2.png", 128,128), new JIdentity("Player 2", "Player"));
 
 
         // create camera
-        JCamera camera = new JCamera(new Vector3(400,400,1),window,scene, new JObject(null, null), 350, new JIdentity("Main Camera","sceneObj"));
+        JCamera camera = new JCamera(new Vector3(400,400,1),window,scene, new JObject(null, null), 400, new JIdentity("Main Camera","sceneObj"));
 
         // set main camera
         window.setCamera(camera);
@@ -68,7 +68,7 @@ public class Main {
         //scene.addUI(uiImage);
 
         scene.add(player);
-        scene.add(player2);
+        //scene.add(player2);
         scene.addUI(text);
 
         // set FPS
