@@ -23,7 +23,7 @@ public class JWindow extends Thing {
     private Thread updateThread;
     private float targetFPS = 5;
 
-    JPanel panel;
+    JLayeredPane panel;
 
     public JFrame getWindow() {
         return frame;
@@ -54,8 +54,10 @@ public class JWindow extends Thing {
         frame.setTitle(title);
         frame.setResizable(false);
 
-        panel = (JPanel) frame.getContentPane();
+        panel = new JLayeredPane();
         panel.setLayout(null);
+        frame.setContentPane(panel);
+
         frame.setSize(sizeX, sizeY);
         frame.setVisible(defaultVisibilityState);
     }
@@ -69,7 +71,7 @@ public class JWindow extends Thing {
         }
     }*/
 
-    public void refreshWindow(JPanel newPanel) {
+    public void refreshWindow(JLayeredPane newPanel) {
         //newPanel.setLayout(null);
         panel = newPanel;
         panel.revalidate();

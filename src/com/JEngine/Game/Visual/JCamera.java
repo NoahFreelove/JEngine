@@ -9,6 +9,7 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JUIObject;
 import com.JEngine.UserInterface.JText;
+import com.JEngine.UserInterface.JUIBackgroundImage;
 
 import javax.swing.*;
 import java.awt.*;
@@ -99,7 +100,6 @@ public class JCamera extends JObject {
                     continue;
                 }
 
-
                 if((obj.objRef.transform.getPosition().x >= leftBound && obj.objRef.transform.getPosition().x <=rightBound))
                 {
                     objectsInView[i] = obj.objRef;
@@ -113,9 +113,10 @@ public class JCamera extends JObject {
 
     private void Render()
     {
-        JPanel panel = (JPanel) window.getWindow().getContentPane();
+        JLayeredPane panel = (JLayeredPane) window.getWindow().getContentPane();
         panel.removeAll();
         LogExtra("Start UI Render");
+        int layerIndex = scene.getMaxObjects();
         for (int i = 0; i < scene.juiObjects.length; i++) {
             if (scene.juiObjects[i] == null) {
                 continue;
@@ -131,27 +132,41 @@ public class JCamera extends JObject {
 
             int xPos = (int)(scene.juiObjects[i].transform.position.x - transform.position.x);
             int yPos = (int)(scene.juiObjects[i].transform.position.y - transform.position.y);
+
+            if(scene.juiObjects[i].getClass().equals(JUIBackgroundImage.class))
+            {
+                Image image = scene.juiObjects[i].getImage();
+                JLabel jl = new JLabel(new ImageIcon(image));
+                jl.setBounds(0,0 , scene.juiObjects[i].sizeX, scene.juiObjects[i].sizeY);
+                panel.add(jl,101);
+                continue;
+            }
+
             if(scene.juiObjects[i].getClass().equals(JText.class))
             {
                 JText jText = (JText)scene.juiObjects[i];
                 JLabel jl = new JLabel(jText.getText());
                 jl.setBounds(xPos,yPos ,totalScaleX,totalScaleY);
-                panel.add(jl);
+                panel.add(jl, 100);
+
                 continue;
             }
+
+
             if(scene.juiObjects[i].getClass().isAssignableFrom(JUIObject.class))
             {
                 Image image = scene.juiObjects[i].getImage().getScaledInstance(totalScaleX, totalScaleY, Image.SCALE_DEFAULT);
                 JLabel jl = new JLabel(new ImageIcon(image));
 
                 jl.setBounds(xPos,yPos,totalScaleX,totalScaleY);
-                panel.add(jl);
-            }
+                panel.add(jl,99);
 
+            }
         }
 
         LogExtra("Start Sprite Render");
         for (int i = 0; i < objectsInView.length; i++) {
+            layerIndex--;
             if (objectsInView[i] == null) {
                 continue;
             }
@@ -171,7 +186,7 @@ public class JCamera extends JObject {
                     int yPos = (int)(scene.sceneObjects[i].objRef.transform.position.y - transform.position.y);
 
                 jl.setBounds(xPos, yPos, size.width, size.height);
-                    panel.add(jl);
+                    panel.add(jl,layerIndex);
             } catch (Exception ignore)
             {
                 LogExtra("Didn't add object: " + objectsInView[i].JIdentity.getName() + " to render queue because it doesn't have a sprite");

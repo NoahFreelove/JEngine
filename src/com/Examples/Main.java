@@ -9,6 +9,7 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JUIObject;
 import com.JEngine.UserInterface.JText;
+import com.JEngine.UserInterface.JUIBackgroundImage;
 import com.JEngine.Utility.About.JAppInfo;
 import com.JEngine.Utility.Settings.SettingTypes.JSettingDropdown;
 
@@ -61,16 +62,18 @@ public class Main {
         window.setIcon(new JIcon(true, "bin/jengineicon.png", 128,128));
 
         JText text = new JText(new Transform(new Vector3(0,200,1),new Vector3(0,0,0),new Vector3(1,1,1)), new JIdentity("Test Text", "Text"), "Hello World!", new Font("Arial", Font.PLAIN, 24), 1000, 100);
-        JUIObject uiImage = new JUIObject(new Transform(new Vector3(400,600,1),new Vector3(0,0,0),new Vector3(1f,1,1)),new JIdentity("Test JUIElement", "JUIElement"), (new JIcon(true, "bin/player2.png", 128,128).getIcon().getImage()), 128, 128);
+        JUIObject uiImage = new JUIObject(new Transform(new Vector3(100,100,1),new Vector3(0,0,0),new Vector3(1,1,1)),new JIdentity("Test JUIElement", "JUIElement"), (new JIcon(true, "bin/jengineicon.png", 128,128).getImage()), 128, 128);
+        JUIBackgroundImage background = new JUIBackgroundImage(new JIdentity("Scene Background", "JUIElement"), (new JIcon(true, "bin/background.png", 800,800).getImage()), 800, 800);
 
         // add objects to scene
-        //scene.addUI(uiImage);
+        scene.addUI(uiImage);
 
         scene.add(player);
         scene.add(camera);
 
         scene.add(player2);
         scene.addUI(text);
+        scene.addUI(background);
 
         // set FPS
         window.setTargetFPS(30);

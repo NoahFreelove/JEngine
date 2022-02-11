@@ -3,6 +3,7 @@ package com.JEngine.PrimitiveTypes;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 
 /** JEngine.Object (c) Noah Freelove
@@ -35,6 +36,8 @@ public class JIcon extends Thing {
     public int getYSize(){return ySize;}
 
     public ImageIcon getIcon() {return image;}
+    public Image getImage() {return image.getImage();}
+
     public void setImage(ImageIcon newImage) {image = newImage;}
 
 }
