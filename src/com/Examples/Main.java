@@ -21,7 +21,7 @@ import static com.Examples.Settings.settingManager;
 //TODO: Networking?
 
 public class Main {
-    static Vector3 position = new Vector3(40,100,0);
+    static Vector3 position = new Vector3(40,600,0);
     static Vector3 rotation = new Vector3(0,0,0);
     static Vector3 scale = new Vector3(1,1,1);
 
@@ -65,7 +65,7 @@ public class Main {
         JUIObject uiImage = new JUIObject(new Transform(new Vector3(400,600,1),new Vector3(0,0,0),new Vector3(1f,1,1)),new JIdentity("Test JUIElement", "JUIElement"), (new JIcon(true, "bin/player2.png", 128,128).getIcon().getImage()), 128, 128);
 
         // add objects to scene
-        scene.addUI(uiImage);
+        //scene.addUI(uiImage);
 
         scene.add(player);
         scene.add(player2);

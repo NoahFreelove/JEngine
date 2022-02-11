@@ -1,6 +1,7 @@
 package com.JEngine.Game.Visual;
 
 import com.JEngine.Game.PlayersAndPawns.Sprite;
+import com.JEngine.PrimitiveTypes.JIcon;
 import com.JEngine.PrimitiveTypes.ObjRef;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.Position.Vector3;
@@ -46,20 +47,24 @@ public class JCamera extends JObject {
         GetObjectsInView();
     }
 
+    float scaleSize(int size, float scaleFactor)
+    {
+        return ((size*scaleFactor)/2 - 1);
+    }
+
     private void GetObjectsInView()
     {
-        if(parent.transform != null)
+        if (parent.transform != null)
         {
             super.transform.position = parent.transform.position;
         }
 
         int leftBound = (int)transform.position.x - fov;
         int rightBound = (int)transform.position.x + fov;
-        int upBound = (int)transform.position.y + fov;
-        int downBound = (int)transform.position.y - fov;
+        int upBound = (int)transform.position.y - fov;
+        int downBound = (int)transform.position.y + fov;
 
         objectsInView = new JObject[scene.getMaxObjects()];
-
         int i = 0;
 
         for (ObjRef obj: scene.sceneObjects) {
@@ -71,9 +76,17 @@ public class JCamera extends JObject {
 
             try {
                 Sprite objSprite = (Sprite) obj.objRef;
-                if(((objSprite.transform.getPosition().x+objSprite.getSprite().getXSize()) >= leftBound && obj.objRef.transform.getPosition().x <=rightBound) && (objSprite.transform.getPosition().y+objSprite.getSprite().getYSize()) >= downBound && obj.objRef.transform.getPosition().y <=upBound)
+                // right tip of object is in frame
+                boolean con1 = (objSprite.transform.getPosition().x + (objSprite.getSprite().getXSize() * obj.objRef.transform.getScale().x)/2) >= leftBound;
+                // right tip of object isn't out of frame
+                boolean con2 = (obj.objRef.transform.getPosition().x - (objSprite.getSprite().getXSize()/2f) + objSprite.getSprite().getXSize()* obj.objRef.transform.getScale().x) <= rightBound;
+                // bottom tip of object isn't out of frame
+                boolean con3 = (objSprite.transform.getPosition().y-(objSprite.getSprite().getYSize() * obj.objRef.transform.getScale().y/2)) <= downBound;
+                // bottom tip of object is in frame
+                boolean con4 = (obj.objRef.transform.getPosition().y + (objSprite.getSprite().getYSize()/2f) - objSprite.getSprite().getYSize()* obj.objRef.transform.getScale().y)>=upBound;
+                if( con1 && con2 && con3 && con4)
                 {
-                    //System.out.println(obj.objRef.identity.getName() + "InRange");
+                    System.out.println(obj.objRef.JIdentity.getName() + "InRange");
                     objectsInView[i] = objSprite;
                 }
             }
@@ -115,14 +128,14 @@ public class JCamera extends JObject {
             int totalScaleX = (int)(scene.juiObjects[i].transform.getScale().x * scene.juiObjects[i].sizeX);
             int totalScaleY = (int)(scene.juiObjects[i].transform.getScale().y * scene.juiObjects[i].sizeY);
 
-           /* if(scene.juiObjects[i].getClass().equals(JText.class))
+            if(scene.juiObjects[i].getClass().equals(JText.class))
             {
                 JText jText = (JText)scene.juiObjects[i];
                 JLabel jl = new JLabel(jText.getText());
                 jl.setBounds((int)scene.juiObjects[i].transform.position.x,(int)scene.juiObjects[i].transform.position.y ,totalScaleX,totalScaleY);
                 panel.add(jl);
                 continue;
-            }*/
+            }
             if(scene.juiObjects[i].getClass().isAssignableFrom(JUIObject.class))
             {
                 Image image = scene.juiObjects[i].getImage().getScaledInstance(totalScaleX, totalScaleY, Image.SCALE_DEFAULT);
@@ -149,13 +162,10 @@ public class JCamera extends JObject {
             {
                 //System.out.println(objectsInView[i].getClass());
                     Sprite s = (Sprite)objectsInView[i];
-                    JLabel jl = new JLabel(s.getSprite().getIcon());
+                    JLabel jl = new JLabel(new ImageIcon(s.getSprite().getIcon().getImage().getScaledInstance((int)(objectsInView[i].transform.getScale().x* s.getSprite().getXSize()), (int)(objectsInView[i].transform.getScale().y* s.getSprite().getYSize()), Image.SCALE_DEFAULT)));
                     Dimension size = jl.getPreferredSize();
                     jl.setBounds((int)scene.sceneObjects[i].objRef.transform.position.x, (int)scene.sceneObjects[i].objRef.transform.position.y, size.width, size.height);
                     panel.add(jl);
-
-                    //panel.add(jl);
-
             } catch (Exception ignore)
             {
                 LogExtra("Didn't add object: " + objectsInView[i].JIdentity.getName() + " to render queue because it doesn't have a sprite");
