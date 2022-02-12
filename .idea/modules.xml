@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/NoahFreelove.iml" filepath="$PROJECT_DIR$/NoahFreelove.iml" />
+      <module fileurl="file://$PROJECT_DIR$/JEngine.iml" filepath="$PROJECT_DIR$/JEngine.iml" />
     </modules>
   </component>
 </project>

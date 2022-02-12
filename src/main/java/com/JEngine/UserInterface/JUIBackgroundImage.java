@@ -4,8 +4,8 @@ import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.Position.Vector3;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JUIObject;
+import javafx.scene.image.Image;
 
-import java.awt.*;
 
 public class JUIBackgroundImage extends JUIObject {
     public JUIBackgroundImage(JIdentity JIdentity, Image image, int sizeX, int sizeY) {

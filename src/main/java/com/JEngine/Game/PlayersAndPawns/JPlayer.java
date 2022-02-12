@@ -1,6 +1,6 @@
 package com.JEngine.Game.PlayersAndPawns;
 
-import com.JEngine.PrimitiveTypes.JIcon;
+import com.JEngine.PrimitiveTypes.JImage;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 
@@ -14,7 +14,7 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 
 public class JPlayer extends JPawn {
 
-    public JPlayer(Transform transform, JIcon newSprite, JIdentity JIdentity) {
+    public JPlayer(Transform transform, JImage newSprite, JIdentity JIdentity) {
         super(transform, newSprite, JIdentity);
     }
 }

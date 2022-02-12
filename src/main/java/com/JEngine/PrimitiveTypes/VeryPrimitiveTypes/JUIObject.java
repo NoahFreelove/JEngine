@@ -2,10 +2,7 @@ package com.JEngine.PrimitiveTypes.VeryPrimitiveTypes;
 
 import com.JEngine.PrimitiveTypes.Position.Transform;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
+import javafx.scene.image.Image;
 
 public class JUIObject extends JObject{
     Image defaultImage = null;
@@ -25,31 +22,6 @@ public class JUIObject extends JObject{
     }
     public Image getImage()
     {
-        return defaultImage == null? new Image() {
-            @Override
-            public int getWidth(ImageObserver observer) {
-                return 0;
-            }
-
-            @Override
-            public int getHeight(ImageObserver observer) {
-                return 0;
-            }
-
-            @Override
-            public ImageProducer getSource() {
-                return null;
-            }
-
-            @Override
-            public Graphics getGraphics() {
-                return null;
-            }
-
-            @Override
-            public Object getProperty(String name, ImageObserver observer) {
-                return null;
-            }
-        } : defaultImage;
+        return defaultImage == null? null : defaultImage;
     }
 }

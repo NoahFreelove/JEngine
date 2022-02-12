@@ -130,6 +130,7 @@ public class JScene extends Thing {
         }
         LogInfo("Successfully Migrated scene content. do camera.setActiveScene(newScene) to switch to new scene");
     }
+    public int getMaxUIObjects() {return juiObjects.length;}
 
     public int getMaxObjects() {return maxObjects;}
     public String getSceneName() {return sceneName;}

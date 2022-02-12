@@ -1,7 +1,6 @@
 package com.JEngine.Game.Visual;
 
 import com.JEngine.Game.PlayersAndPawns.Sprite;
-import com.JEngine.PrimitiveTypes.JIcon;
 import com.JEngine.PrimitiveTypes.ObjRef;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.Position.Vector3;
@@ -10,9 +9,12 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JUIObject;
 import com.JEngine.UserInterface.JText;
 import com.JEngine.UserInterface.JUIBackgroundImage;
+import javafx.application.Platform;
+import javafx.scene.Group;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 
-import javax.swing.*;
-import java.awt.*;
 
 /** JEngine.JCamera (c) Noah Freelove
  * Brief Explanation:
@@ -49,10 +51,6 @@ public class JCamera extends JObject {
         GetObjectsInView();
     }
 
-    float scaleSize(int size, float scaleFactor)
-    {
-        return ((size*scaleFactor)/2 - 1);
-    }
 
     private void GetObjectsInView()
     {
@@ -108,15 +106,11 @@ public class JCamera extends JObject {
             }
             i++;
         }
-        Render();
-    }
 
-    private void Render()
+        Platform.runLater(this::Render);
+    }
+    private void RenderUI(Group uiObjects)
     {
-        JLayeredPane panel = (JLayeredPane) window.getWindow().getContentPane();
-        panel.removeAll();
-        LogExtra("Start UI Render");
-        int layerIndex = scene.getMaxObjects();
         for (int i = 0; i < scene.juiObjects.length; i++) {
             if (scene.juiObjects[i] == null) {
                 continue;
@@ -135,38 +129,46 @@ public class JCamera extends JObject {
 
             if(scene.juiObjects[i].getClass().equals(JUIBackgroundImage.class))
             {
-                Image image = scene.juiObjects[i].getImage();
-                JLabel jl = new JLabel(new ImageIcon(image));
-                jl.setBounds(0,0 , scene.juiObjects[i].sizeX, scene.juiObjects[i].sizeY);
-                panel.add(jl,101);
+                /*Image image = scene.juiObjects[i].getImage();
+                BackgroundImage bImg = new BackgroundImage(image,
+                        BackgroundRepeat.NO_REPEAT,
+                        BackgroundRepeat.NO_REPEAT,
+                        BackgroundPosition.DEFAULT,
+                        BackgroundSize.DEFAULT);
+                Background bGround = new Background(bImg);
+                StackPane sp = new StackPane();
+                ImageView imageView = new ImageView(image);
+                imageView.setX(xPos);
+                imageView.setY(yPos);
+                imageView.toBack();
+                uiObjects.getChildren().add(imageView);*/
                 continue;
             }
 
             if(scene.juiObjects[i].getClass().equals(JText.class))
             {
                 JText jText = (JText)scene.juiObjects[i];
-                JLabel jl = new JLabel(jText.getText());
-                jl.setBounds(xPos,yPos ,totalScaleX,totalScaleY);
-                panel.add(jl, 100);
-
+                jText.getLabel().setX(xPos);
+                jText.getLabel().setY(xPos);
+                uiObjects.getChildren().add(jText.getLabel());
                 continue;
             }
 
 
             if(scene.juiObjects[i].getClass().isAssignableFrom(JUIObject.class))
             {
-                Image image = scene.juiObjects[i].getImage().getScaledInstance(totalScaleX, totalScaleY, Image.SCALE_DEFAULT);
-                JLabel jl = new JLabel(new ImageIcon(image));
-
-                jl.setBounds(xPos,yPos,totalScaleX,totalScaleY);
-                panel.add(jl,99);
-
+                Image image = scene.juiObjects[i].getImage();
+                ImageView imageView = new ImageView(image);
+                imageView.setX(xPos);
+                imageView.setY(yPos);
+                uiObjects.getChildren().add(imageView);
             }
         }
+    }
 
-        LogExtra("Start Sprite Render");
+    private void RenderObjects(Group gameObjects)
+    {
         for (int i = 0; i < objectsInView.length; i++) {
-            layerIndex--;
             if (objectsInView[i] == null) {
                 continue;
             }
@@ -178,23 +180,42 @@ public class JCamera extends JObject {
             //System.out.println("Object: " + objectsInView[i].identity.getName() + " : " + objectsInView[i].getClass().)
             try
             {
-                //System.out.println(objectsInView[i].getClass());
-                    Sprite s = (Sprite)objectsInView[i];
-                    JLabel jl = new JLabel(new ImageIcon(s.getSprite().getIcon().getImage().getScaledInstance((int)(objectsInView[i].transform.getScale().x* s.getSprite().getXSize()), (int)(objectsInView[i].transform.getScale().y* s.getSprite().getYSize()), Image.SCALE_DEFAULT)));
-                    Dimension size = jl.getPreferredSize();
-                    int xPos = (int)(scene.sceneObjects[i].objRef.transform.position.x - transform.position.x);
-                    int yPos = (int)(scene.sceneObjects[i].objRef.transform.position.y - transform.position.y);
+                int xPos = (int)(scene.sceneObjects[i].objRef.transform.position.x - transform.position.x);
+                int yPos = (int)(scene.sceneObjects[i].objRef.transform.position.y - transform.position.y);
 
-                jl.setBounds(xPos, yPos, size.width, size.height);
-                    panel.add(jl,layerIndex);
+                Sprite s = (Sprite)objectsInView[i];
+                Image image = s.getSprite().getImage();
+                ImageView imageView = new ImageView(image);
+                imageView.setFitWidth(objectsInView[i].transform.getScale().x*s.getSprite().getXSize());
+                imageView.setFitHeight(objectsInView[i].transform.getScale().y*s.getSprite().getYSize());
+
+                imageView.setX(xPos);
+                imageView.setY(yPos);
+                gameObjects.getChildren().add(imageView);
+                //JLabel jl = new JLabel(new ImageIcon(s.getSprite().getIcon().getImage().getScaledInstance((int)(objectsInView[i].transform.getScale().x* s.getSprite().getXSize()), (int)(objectsInView[i].transform.getScale().y* s.getSprite().getYSize()), Image.SCALE_DEFAULT)));
+
             } catch (Exception ignore)
             {
                 LogExtra("Didn't add object: " + objectsInView[i].JIdentity.getName() + " to render queue because it doesn't have a sprite");
             }
-         }
+        }
+    }
+
+    private void Render()
+    {
+        Group gameObjects = new Group();
+        Group uiObjects = new Group();
+
+
+        LogExtra("Start Sprite Render");
+        RenderObjects(gameObjects);
+
+        LogExtra("Start UI Render");
+        RenderUI(uiObjects);
+
 
         LogExtra("Rendered Objects");
-        window.refreshWindow(panel);
+        window.refreshWindow(gameObjects, uiObjects);
     }
 
     public void setActiveScene(JScene activeScene){

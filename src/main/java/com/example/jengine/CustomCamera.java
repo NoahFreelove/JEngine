@@ -1,4 +1,4 @@
-package com.Examples;
+package com.example.jengine;
 
 import com.JEngine.Game.Visual.JCamera;
 import com.JEngine.Game.Visual.JScene;
@@ -15,6 +15,6 @@ public class CustomCamera extends JCamera {
     @Override
     public void Update()
     {
-        transform.setPosition(new Vector3(transform.getPosition().x-10,transform.getPosition().y,0));
+        //transform.setPosition(new Vector3(transform.getPosition().x-10,transform.getPosition().y,0));
     }
 }

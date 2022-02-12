@@ -1,10 +1,12 @@
 package com.JEngine.Game.Visual;
 
-import com.JEngine.PrimitiveTypes.JIcon;
+import com.JEngine.PrimitiveTypes.JImage;
 import com.JEngine.PrimitiveTypes.ObjRef;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
-
-import javax.swing.*;
+import javafx.application.Platform;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 /** JEngine.JWindow (c) Noah Freelove
  * Brief Explanation:
@@ -14,52 +16,49 @@ import javax.swing.*;
  * JWindow provides an update function and a way to set FPS
  * **/
 
-public class JWindow extends Thing {
+public class JWindow extends Thing{
 
-    public JFrame frame;
+    public Scene scene;
+    public Stage window;
+    Group root = new Group();
     public JCamera activeCamera;
     public boolean isActive;
     public int totalFrames;
     private Thread updateThread;
     private float targetFPS = 5;
+    Group objects = new Group();
+    Group uiObjects = new Group();
 
-    JLayeredPane panel;
-
-    public JFrame getWindow() {
-        return frame;
+    public Scene getScene() {
+        return scene;
     }
 
-    public void setWindow(JFrame newFrame) {
-        frame = newFrame;
+    public void setScene(Scene newScene) {
+        scene = newScene;
     }
 
-    public void setVisibility(boolean newVisibility) {
-        frame.setVisible(newVisibility);
-    }
 
-    public void setIcon(JIcon newIcon) {
-        if (newIcon.getIcon() != null)
+    public void setIcon(JImage newIcon) {
+        if (newIcon.getImage() != null)
         {
-            frame.setIconImage(newIcon.getIcon().getImage());
+            window.getIcons().add(newIcon.getImage());
             return;
         }
         LogWarning("Tried to set window icon to a null image");
 
     }
 
-    public JWindow(int sizeX, int sizeY, String title, boolean defaultVisibilityState, int maxBehaviors) {
+    public JWindow(int sizeX, int sizeY, String title, Stage window) {
         super(true);
-        frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle(title);
-        frame.setResizable(false);
+        scene = new Scene(root, sizeX,sizeY);
+        root.getChildren().add(objects);
+        root.getChildren().add(uiObjects);
+        this.window = window;
+        this.window.setTitle(title);
+        this.window.setResizable(false);
+        this.window.setScene(scene);
+        this.window.show();
 
-        panel = new JLayeredPane();
-        panel.setLayout(null);
-        frame.setContentPane(panel);
-
-        frame.setSize(sizeX, sizeY);
-        frame.setVisible(defaultVisibilityState);
     }
 
 /*    public void AddUpdateBehavior(Behavior newBehavior) {
@@ -71,13 +70,16 @@ public class JWindow extends Thing {
         }
     }*/
 
-    public void refreshWindow(JLayeredPane newPanel) {
+    public void refreshWindow(Group gameObjects, Group newUIObjects) {
         //newPanel.setLayout(null);
-        panel = newPanel;
-        panel.revalidate();
+        Platform.runLater(() -> {
+            objects = gameObjects;
+            uiObjects = newUIObjects;
+            root.getChildren().clear();
 
-        panel.repaint();
-        frame.repaint();
+            root.getChildren().add(objects);
+            root.getChildren().add(uiObjects);
+        });
     }
 
     public void setTargetFPS(float newTargetFPS) {

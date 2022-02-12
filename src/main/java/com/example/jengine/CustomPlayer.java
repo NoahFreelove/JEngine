@@ -1,18 +1,18 @@
-package com.Examples;
+package com.example.jengine;
 
 import com.JEngine.Game.PlayersAndPawns.JPlayer;
-import com.JEngine.PrimitiveTypes.JIcon;
+import com.JEngine.PrimitiveTypes.JImage;
 import com.JEngine.PrimitiveTypes.Position.Direction;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 
 public class CustomPlayer extends JPlayer {
-    public CustomPlayer(Transform transform, JIcon newSprite, com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity JIdentity) {
+    public CustomPlayer(Transform transform, JImage newSprite, com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity JIdentity) {
         super(transform, newSprite, JIdentity);
     }
 
     @Override
     public void Update()
     {
-        Move(Direction.Left, 4);
+        Move(Direction.Right, 4);
     }
 }
