@@ -201,7 +201,7 @@ public class JScene extends Thing {
         }
         catch (Exception e)
         {
-            LogError("Error when loading scene from file. Details:");
+            LogError("Error when loading scene from file. Enable (log) extra for details:");
             LogExtra(e.toString());
         }
     }

@@ -17,5 +17,6 @@ public class JSettingInt extends JSetting {
     public void setValue(Object newValue)
     {
         value = (int) newValue;
+        onValueChanged();
     }
 }

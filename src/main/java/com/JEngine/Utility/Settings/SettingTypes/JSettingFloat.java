@@ -17,5 +17,6 @@ public class JSettingFloat extends JSetting {
     public void setValue(Object newValue)
     {
         value = (float) newValue;
+        onValueChanged();
     }
 }

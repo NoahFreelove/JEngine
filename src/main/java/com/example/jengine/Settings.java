@@ -1,4 +1,4 @@
-package com.Examples;
+package com.example.jengine;
 
 import com.JEngine.Utility.Settings.JSetting;
 import com.JEngine.Utility.Settings.JSettingCategory;
@@ -12,7 +12,7 @@ public class Settings {
     // Make sure settings are static, so they can be accessed anywhere.
     public static JSetting[] generalSettings = new JSetting[]{
             new JSettingString("Name", "username"),
-            new JSettingDropdown("DropdownExample", new String[]{"Option1","Option2"})
+            new CustomBoolSetting("Bool Set", true)
     };
     public static JSetting[] audioSettings = new JSetting[]{
             new JSettingFloat("volume", 50f)

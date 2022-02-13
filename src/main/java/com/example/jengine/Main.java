@@ -1,24 +1,18 @@
 package com.example.jengine;
 
-import com.JEngine.Game.Sound.JAudioPlayer;
-import com.JEngine.Game.Visual.JScene;
-import com.JEngine.Game.Visual.JWindow;
+import com.JEngine.Game.Visual.*;
 import com.JEngine.PrimitiveTypes.*;
 import com.JEngine.PrimitiveTypes.Position.*;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JUIObject;
-import com.JEngine.UserInterface.JText;
-import com.JEngine.UserInterface.JUIBackgroundImage;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.*;
+import com.JEngine.UserInterface.*;
 import com.JEngine.Utility.About.JAppInfo;
-import com.JEngine.Utility.Settings.SettingTypes.JSettingDropdown;
+import com.JEngine.Utility.Settings.ValueChangedEvent;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import static com.Examples.Settings.settingManager;
-import static javafx.application.Application.launch;
+import static com.example.jengine.Settings.settingManager;
 
 //TODO: UI classes
 //TODO: Networking?
@@ -32,12 +26,13 @@ public class Main extends Application {
 
 
     public static String[] savedArgs;
-    public static JAppInfo appInfo = new JAppInfo("JEngine Example", "Noah Freelove", 2022, 0,2, true);
+    static JAppInfo appInfo = new JAppInfo("JEngine Example", "Noah Freelove", 2022, 0,2, true);
+
     public void start(Stage stage) throws IOException {
         System.out.println(appInfo.getInfo());
-        JSettingDropdown js = (JSettingDropdown) settingManager.getSpecificSetting("General Settings", "DropdownExample");
+        //JSettingDropdown js = (JSettingDropdown) settingManager.getSpecificSetting("General Settings", "DropdownExample");
 
-        JAudioPlayer ap = new JAudioPlayer("C:\\Users\\noahf\\IdeaProjects\\JEngine\\bin\\piano2.wav");
+        //JAudioPlayer ap = new JAudioPlayer("C:\\Users\\noahf\\IdeaProjects\\JEngine\\bin\\piano2.wav");
         //ap.startClip();
 
         // create a new window
@@ -47,9 +42,16 @@ public class Main extends Application {
         JScene scene = new JScene(window, 3, "Scene 1");
         String fp = "C:\\Users\\noahf\\IdeaProjects\\JEngine\\bin\\player2.png";
         String fp2 = "C:\\Users\\noahf\\IdeaProjects\\JEngine\\bin\\jengineicon.png";
-        String jScenePath = "C:\\Users\\noahf\\IdeaProjects\\JEngine\\bin\\scene1.JScene";
+        String jScenePath = ".\\bin\\scene1.JScene";
 
-        scene.loadFromFile(jScenePath);
+        //scene.loadFromFile(jScenePath);
+        CustomBoolSetting cbs = (CustomBoolSetting) settingManager.getSpecificSetting("General Settings", "Bool Set");
+
+        ValueChangedEvent newValueChangedEvent = () -> System.out.println("yo");
+        cbs.setEventValueChanged(newValueChangedEvent);
+        cbs.setValue(false);
+
+
         // create a pawn object
         //CustomPlayer player = new CustomPlayer(transform, new JImage(true, fp, 128,128), new JIdentity("Player 1", "Player"));
         //CustomPlayer player2 = new CustomPlayer(new Transform(new Vector3(300,50,0), rotation, scale), new JImage(true, fp, 128,128), new JIdentity("Player 2", "Player"));

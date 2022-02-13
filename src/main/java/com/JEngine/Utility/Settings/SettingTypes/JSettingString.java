@@ -17,5 +17,6 @@ public class JSettingString extends JSetting {
     public void setValue(Object newValue)
     {
         value = (String) newValue;
+        onValueChanged();
     }
 }
