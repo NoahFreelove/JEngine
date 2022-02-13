@@ -1,7 +1,7 @@
 package com.JEngine.Utility.Settings;
 
 public class JSettingCategory {
-    public String categoryName;
+    private final String categoryName;
     JSetting[] settings;
 
     public JSettingCategory(String name, JSetting[] settings) {

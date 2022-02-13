@@ -1,5 +1,6 @@
 package com.example.jengine;
 
+import com.JEngine.Game.Sound.JAudioPlayer;
 import com.JEngine.Game.Visual.JScene;
 import com.JEngine.Game.Visual.JWindow;
 import com.JEngine.PrimitiveTypes.*;
@@ -36,7 +37,7 @@ public class Main extends Application {
         System.out.println(appInfo.getInfo());
         JSettingDropdown js = (JSettingDropdown) settingManager.getSpecificSetting("General Settings", "DropdownExample");
 
-        //JAudioPlayer ap = new JAudioPlayer("bin\\\\piano2.wav");
+        JAudioPlayer ap = new JAudioPlayer("C:\\Users\\noahf\\IdeaProjects\\JEngine\\bin\\piano2.wav");
         //ap.startClip();
 
         // create a new window
@@ -46,10 +47,12 @@ public class Main extends Application {
         JScene scene = new JScene(window, 3, "Scene 1");
         String fp = "C:\\Users\\noahf\\IdeaProjects\\JEngine\\bin\\player2.png";
         String fp2 = "C:\\Users\\noahf\\IdeaProjects\\JEngine\\bin\\jengineicon.png";
+        String jScenePath = "C:\\Users\\noahf\\IdeaProjects\\JEngine\\bin\\scene1.JScene";
 
+        scene.loadFromFile(jScenePath);
         // create a pawn object
-        CustomPlayer player = new CustomPlayer(transform, new JImage(true, fp, 128,128), new JIdentity("Player 1", "Player"));
-        CustomPlayer player2 = new CustomPlayer(new Transform(new Vector3(300,50,0), rotation, scale), new JImage(true, fp, 128,128), new JIdentity("Player 2", "Player"));
+        //CustomPlayer player = new CustomPlayer(transform, new JImage(true, fp, 128,128), new JIdentity("Player 1", "Player"));
+        //CustomPlayer player2 = new CustomPlayer(new Transform(new Vector3(300,50,0), rotation, scale), new JImage(true, fp, 128,128), new JIdentity("Player 2", "Player"));
 
         // create camera
         CustomCamera camera = new CustomCamera(new Vector3(0,0,1),window,scene, new JObject(null, null), 800, new JIdentity("Main Camera","sceneObj"));
@@ -60,23 +63,20 @@ public class Main extends Application {
         // set window icon
         window.setIcon(new JImage(true, fp, 128,128));
 
-        JText text = new JText(new Transform(new Vector3(0,200,1),new Vector3(0,0,0),new Vector3(1,1,1)), new JIdentity("Test Text", "Text"), "Hello World!", null, 1000, 100);
+        JText text = new JText(new Transform(new Vector3(15,300,1),new Vector3(0,0,0),new Vector3(1,1,1)), new JIdentity("Test Text", "Text"), "Hello World!", null, 1000, 0);
         JUIObject uiImage = new JUIObject(new Transform(new Vector3(100,100,1),new Vector3(0,0,0),new Vector3(1,1,1)),new JIdentity("Test JUIElement", "JUIElement"), (new JImage(true, fp2, 128,128).getImage()), 128, 128);
         JUIBackgroundImage background = new JUIBackgroundImage(new JIdentity("Scene Background", "JUIElement"), new JImage(true, fp2, 800,800).getImage(), 800, 800);
 
         // add objects to scene
-
         scene.add(camera);
-
-        scene.add(player);
-        scene.add(player2);
-        scene.addUI(text);
-        scene.addUI(background);
-        scene.addUI(uiImage);
+        //scene.add(player);
+        //scene.add(player2);
+        //scene.addUI(text);
+        //scene.addUI(background);
+        //scene.addUI(uiImage);
 
         // set FPS
         window.setTargetFPS(30);
-
 
         // run Start function on other thread so the update functions doesn't stop the rest of the main function
         window.start();

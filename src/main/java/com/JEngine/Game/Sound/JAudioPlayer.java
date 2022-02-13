@@ -19,9 +19,8 @@ public class JAudioPlayer extends Thing {
 
     public void openClip(String filepath)
     {
-        wavFile = new File(filepath);
-
         try{
+            wavFile = new File(filepath);
             clip = AudioSystem.getClip();
             clip.open(AudioSystem.getAudioInputStream(wavFile));
         }

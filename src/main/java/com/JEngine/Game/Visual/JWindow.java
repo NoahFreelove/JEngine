@@ -4,9 +4,11 @@ import com.JEngine.PrimitiveTypes.JImage;
 import com.JEngine.PrimitiveTypes.ObjRef;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /** JEngine.JWindow (c) Noah Freelove
  * Brief Explanation:
@@ -58,8 +60,9 @@ public class JWindow extends Thing{
         this.window.setResizable(false);
         this.window.setScene(scene);
         this.window.show();
-
+        this.window.setOnCloseRequest(e -> Platform.exit());
     }
+
 
 /*    public void AddUpdateBehavior(Behavior newBehavior) {
         for (int i = 0; i < behaviors.length; i++) {
@@ -76,7 +79,6 @@ public class JWindow extends Thing{
             objects = gameObjects;
             uiObjects = newUIObjects;
             root.getChildren().clear();
-
             root.getChildren().add(objects);
             root.getChildren().add(uiObjects);
         });
