@@ -70,7 +70,7 @@ public class JCamera extends JObject {
         for (ObjRef obj: scene.sceneObjects) {
             if(obj==null)
             {
-                LogExtra("Tried to get object that doesn't exist! Try lowering your maxObjects parameter");
+                LogAnnoyance("Tried to get object that doesn't exist! Try lowering your maxObjects parameter");
                 continue;
             }
 
@@ -196,7 +196,7 @@ public class JCamera extends JObject {
 
             } catch (Exception ignore)
             {
-                LogExtra("Didn't add object: " + objectsInView[i].JIdentity.getName() + " to render queue because it doesn't have a sprite");
+                LogAnnoyance("Didn't add object: " + objectsInView[i].JIdentity.getName() + " to render queue because it doesn't have a sprite");
             }
         }
     }
@@ -207,10 +207,10 @@ public class JCamera extends JObject {
         Group uiObjects = new Group();
 
 
-        LogExtra("Start Sprite Render");
+        LogAnnoyance("Start Sprite Render");
         RenderObjects(gameObjects);
 
-        LogExtra("Start UI Render");
+        LogAnnoyance("Start UI Render");
         RenderUI(uiObjects);
 
 

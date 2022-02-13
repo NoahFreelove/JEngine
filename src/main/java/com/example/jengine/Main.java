@@ -6,6 +6,7 @@ import com.JEngine.PrimitiveTypes.Position.*;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.*;
 import com.JEngine.UserInterface.*;
 import com.JEngine.Utility.About.JAppInfo;
+import com.JEngine.Utility.Settings.EnginePrefs;
 import com.JEngine.Utility.Settings.ValueChangedEvent;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -29,7 +30,12 @@ public class Main extends Application {
     static JAppInfo appInfo = new JAppInfo("JEngine Example", "Noah Freelove", 2022, 0,2, true);
 
     public void start(Stage stage) throws IOException {
-        System.out.println(appInfo.getInfo());
+        EnginePrefs.log = true;
+        EnginePrefs.logExtra = false;
+        EnginePrefs.logAnnoyance = true;
+
+        appInfo.logInfo();
+
         //JSettingDropdown js = (JSettingDropdown) settingManager.getSpecificSetting("General Settings", "DropdownExample");
 
         //JAudioPlayer ap = new JAudioPlayer("C:\\Users\\noahf\\IdeaProjects\\JEngine\\bin\\piano2.wav");
@@ -44,10 +50,10 @@ public class Main extends Application {
         String fp2 = "C:\\Users\\noahf\\IdeaProjects\\JEngine\\bin\\jengineicon.png";
         String jScenePath = ".\\bin\\scene1.JScene";
 
-        //scene.loadFromFile(jScenePath);
+        scene.loadFromFile(jScenePath);
         CustomBoolSetting cbs = (CustomBoolSetting) settingManager.getSpecificSetting("General Settings", "Bool Set");
 
-        ValueChangedEvent newValueChangedEvent = () -> System.out.println("yo");
+        ValueChangedEvent newValueChangedEvent = (Object newValue) -> System.out.println(newValue.toString());
         cbs.setEventValueChanged(newValueChangedEvent);
         cbs.setValue(false);
 

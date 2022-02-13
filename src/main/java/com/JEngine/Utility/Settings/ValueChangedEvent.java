@@ -1,5 +1,5 @@
 package com.JEngine.Utility.Settings;
 
 public interface ValueChangedEvent {
-    void valueChanged();
+    void valueChanged(Object newValue);
 }

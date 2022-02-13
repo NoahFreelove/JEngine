@@ -116,7 +116,7 @@ public class JScene extends Thing {
             int scaleZ = 0;
 
             while((line = br.readLine()) != null) {
-                LogExtra("SCENE LOAD FROM FILE: " + line);
+                LogAnnoyance("SCENE LOAD FROM FILE: " + line);
                 if(line.equals("startObject"))
                 {
                     inObject = true;

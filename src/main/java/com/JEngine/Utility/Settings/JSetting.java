@@ -20,7 +20,7 @@ public class JSetting {
     protected void onValueChanged(){
         if(valueChangedEvent != null)
         {
-            valueChangedEvent.valueChanged();
+            valueChangedEvent.valueChanged(getValue());
         }
     }
 }

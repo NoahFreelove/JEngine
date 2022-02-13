@@ -1,6 +1,8 @@
 package com.JEngine.Utility.About;
 
-public class JAppInfo {
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
+
+public class JAppInfo extends Thing {
     public String appName;
     public String author;
     public int year;
@@ -9,6 +11,7 @@ public class JAppInfo {
     public boolean isCopyright;
 
     public JAppInfo(String appName, String author, int year, int appVersionMajor, int appVersionMinor, boolean isCopyright) {
+        super(true);
         this.appName = appName;
         this.author = author;
         this.year = year;
@@ -26,5 +29,9 @@ public class JAppInfo {
         else {
             return String.format("%s : %s : Version %d.%d", appName, author, appVersionMajor, appVersionMinor);
         }
+    }
+    public void logInfo()
+    {
+        LogInfo(getInfo());
     }
 }
