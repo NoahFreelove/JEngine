@@ -1,7 +1,8 @@
 package com.JEngine.PrimitiveTypes.Position;
 
-/** JEngine.Vector3 (c) Noah Freelove
- * Brief Explanation:
+/**
+ * @author Noah Freelove
+ * @version 1
  * A Vector 3 is a simple structure that has an x y and z value.
  *
  * Usage:
@@ -14,15 +15,31 @@ public class Vector3 {
     public float y;
     public float z;
 
+    /**
+     * Create a new Vector 3
+     * @param _x the x Value
+     * @param _y the y Value
+     * @param _z the z Value
+     */
     public Vector3(float _x, float _y, float _z) {
         x = _x;
         y = _y;
         z = _z;
     }
 
+    /**
+     * Multiply 2 vectors
+     * @param a Vector to multiply by
+     * @return product of two vectors
+     */
     public Vector3 multiply(Vector3 a){
         return new Vector3(x*a.x, y*a.y, z*a.z);
     }
+    /**
+     * Multiply vector by float
+     * @param a float to multiply by
+     * @return product of two
+     */
     public Vector3 multiply(float a)
     {
         return new Vector3(x*a, y*a, z*a);

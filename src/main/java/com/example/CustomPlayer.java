@@ -13,11 +13,30 @@ public class CustomPlayer extends JPlayer {
     }
     float time = 0f;
     Vector3 position = new Vector3(100,500,0);
+    Vector3 position2 = new Vector3(100,500,0);
+    boolean posSwitch = false;
+
     @Override
     public void Update()
     {
         time+=0.01;
         //transform.rotation.x +=1;
-        transform.setPosition(JMath.interpolateClamped(transform.position, position, time));
+        if(posSwitch){
+            transform.setPosition(JMath.interpolateClamped(transform.position, position, time));
+        }
+        else
+        {
+            transform.setPosition(JMath.interpolateClamped(transform.position, position2, time));
+        }
+        if(transform.position == position)
+        {
+            time = 0;
+            posSwitch = true;
+        }
+        else if (transform.position == position2)
+        {
+            time = 0;
+            posSwitch = false;
+        }
     }
 }
