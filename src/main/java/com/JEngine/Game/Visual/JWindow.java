@@ -3,6 +3,7 @@ package com.JEngine.Game.Visual;
 import com.JEngine.PrimitiveTypes.JImage;
 import com.JEngine.PrimitiveTypes.ObjRef;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
+import com.JEngine.Utility.JUtility;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -60,7 +61,7 @@ public class JWindow extends Thing{
         this.window.setResizable(false);
         this.window.setScene(scene);
         this.window.show();
-        this.window.setOnCloseRequest(e -> Platform.exit());
+        this.window.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, JUtility::exitHandler);
     }
 
 

@@ -196,7 +196,10 @@ public class JCamera extends JObject {
 
             } catch (Exception ignore)
             {
-                LogAnnoyance("Didn't add object: " + objectsInView[i].JIdentity.getName() + " to render queue because it doesn't have a sprite");
+                if(objectsInView[i] !=null)
+                {
+                    LogAnnoyance("Didn't add object: " + objectsInView[i].JIdentity.getName() + " to render queue because it doesn't have a sprite");
+                }
             }
         }
     }

@@ -6,10 +6,14 @@ import com.JEngine.PrimitiveTypes.Position.*;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.*;
 import com.JEngine.UserInterface.*;
 import com.JEngine.Utility.About.JAppInfo;
+import com.JEngine.Utility.JMath;
+import com.JEngine.Utility.JUtility;
 import com.JEngine.Utility.Settings.EnginePrefs;
 import com.JEngine.Utility.Settings.ValueChangedEvent;
+import com.JEngine.Utility.WaitForSecondsEvent;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 
@@ -19,25 +23,25 @@ import static com.example.jengine.Settings.settingManager;
 //TODO: Networking?
 
 public class Main extends Application {
-    static Vector3 position = new Vector3(40,300,0);
+    static Vector3 position = new Vector3(0,0,0);
     static Vector3 rotation = new Vector3(0,0,0);
     static Vector3 scale = new Vector3(2f,1,1);
 
     static Transform transform = new Transform(position, rotation, scale);
 
-
     public static String[] savedArgs;
     static JAppInfo appInfo = new JAppInfo("JEngine Example", "Noah Freelove", 2022, 0,2, true);
 
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) {
         EnginePrefs.log = true;
         EnginePrefs.logExtra = false;
-        EnginePrefs.logAnnoyance = true;
-
+        EnginePrefs.logAnnoyance = false;
         appInfo.logInfo();
 
-        //JSettingDropdown js = (JSettingDropdown) settingManager.getSpecificSetting("General Settings", "DropdownExample");
+        WaitForSecondsEvent event = () -> System.out.println("Done waiting");
 
+        JUtility.waitForSeconds(3000, event);
+        //JSettingDropdown js = (JSettingDropdown) settingManager.getSpecificSetting("General Settings", "DropdownExample");
         //JAudioPlayer ap = new JAudioPlayer("C:\\Users\\noahf\\IdeaProjects\\JEngine\\bin\\piano2.wav");
         //ap.startClip();
 
@@ -59,7 +63,7 @@ public class Main extends Application {
 
 
         // create a pawn object
-        //CustomPlayer player = new CustomPlayer(transform, new JImage(true, fp, 128,128), new JIdentity("Player 1", "Player"));
+        CustomPlayer player = new CustomPlayer(transform, new JImage(true, fp, 128,128), new JIdentity("Player 1", "Player"));
         //CustomPlayer player2 = new CustomPlayer(new Transform(new Vector3(300,50,0), rotation, scale), new JImage(true, fp, 128,128), new JIdentity("Player 2", "Player"));
 
         // create camera
@@ -77,7 +81,7 @@ public class Main extends Application {
 
         // add objects to scene
         scene.add(camera);
-        //scene.add(player);
+        scene.add(player);
         //scene.add(player2);
         //scene.addUI(text);
         //scene.addUI(background);
