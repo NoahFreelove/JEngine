@@ -9,32 +9,35 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JUIObject;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
+import com.JEngine.Utility.Settings.EnginePrefs;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 
-/** JEngine.JScene (c) Noah Freelove
- * Brief Explanation:
+/**
+ * @author Noah Freelove
+ * @version 1
  * JScene is how you hold load all the objects in your scene into memory.
- * Use scene.add(Object) to add an object into the scene. The camera uses sceneObjects[] to determine what to render
- *
- * maxObjects is final and cannot be changed mid-gameplay.
- * to change the max objects create a new scene with a higher object count and transfer the objects over with
- * scene.migrateScene
  *
  * scene.findObjectsByIdentity is a very useful method that allows you to pick out specific objects in a scene.
  * it is not very efficient though, so it should NEVER be called in an update function. Call it once and create a ref
  * to the object instead.
- * **/
+ */
 public class JScene extends Thing {
+
     public JWindow window;
     public ObjRef[] sceneObjects;
     public JUIObject[] juiObjects;
     private final int maxObjects;
     private String sceneName;
 
+    /**
+     * @param window Window that the scene will project to.
+     * @param maxObjects Max objects allowed in the scene. You cannot change this number after the scene has been created.
+     * @param sceneName Name of the scene. Can be changed with setSceneName(String newName)
+     */
     public JScene(JWindow window, int maxObjects, String sceneName) {
         super(true);
         this.window = window;
@@ -44,6 +47,10 @@ public class JScene extends Thing {
         juiObjects = new JUIObject[maxObjects];
     }
 
+    /**
+     * Adds an object to the active scene
+     * @param o Object to add to the scene
+     */
     public void add(JObject o) {
         if (o == null || o.transform == null) {
             super.LogWarning("Tried to add null object or transform to scene!");
@@ -60,6 +67,10 @@ public class JScene extends Thing {
         super.LogError("Could not add object to full scene! Try increasing the maxObjects parameter.");
     }
 
+    /**
+     * Adds an UIObject to the active scene
+     * @param o JUIObject to add to the scene
+     */
     public void addUI(JUIObject o) {
         if (o == null || o.transform == null) {
             super.LogWarning("Tried to add null object or transform to scene!");
@@ -77,6 +88,18 @@ public class JScene extends Thing {
 
     }
 
+    /**
+     * converts literal strings to a JObject
+     * @param className The object's classname
+     * @param name The object's JIdentity name
+     * @param tag The object's JIdentity tag
+     * @param isActive Is the object active by default?
+     * @param filePath The object's image filepath (if applicable)
+     * @param sizeX The object's image xSize (if applicable)
+     * @param sizeY The object's image ySize (if applicable)
+     * @param transform The object's transform (if applicable)
+     * @return JObject with the inputted parameters
+     */
     private JObject convertTextToObject(String className, String name, String tag, boolean isActive, String filePath, int sizeX, int sizeY, Transform transform)
     {
         if(className.equals("JPawn"))
@@ -87,6 +110,10 @@ public class JScene extends Thing {
         return null;
     }
 
+    /**
+     * Loads a JScene from a .JScene file
+     * @param filepath The filepath to the JScene file
+     */
     public void loadFromFile(String filepath)
     {
         try {
@@ -201,13 +228,26 @@ public class JScene extends Thing {
         }
         catch (Exception e)
         {
-            LogError("Error when loading scene from file. Enable (log) extra for details:");
-            LogExtra(e.toString());
+            if(!EnginePrefs.logExtra)
+            {
+                LogError("Error when loading scene from file. EnginePrefs.logExtra = true; for more details:");
+                return;
+            }
+
+            LogExtra("Error when loading scene from file: \n" + e);
         }
     }
 
     // because objects can have the same name and tag, we must return an array of objects in the event of duplicates
     // findObjectsByIdentity can get you the name of objects you only have the tag for or vice versa
+
+    /**
+     * Find an object in the scene by Name, Tag, or Both
+     * @param name The name of the object you would like to search for. Leave empty if not searching by name
+     * @param tag The tag of the object you would like to search for. Leave empty if not searching by tag
+     * @param searchType The type of search you would like to do. (SearchByName, SearchByTag, SearchByNameAndTag)
+     * @return JObject reference from the scene
+     */
     public JObject[] findObjectsByIdentity(String name, String tag, SearchType searchType) {
         int count = 0;
         JObject[] sceneSize = new JObject[maxObjects];
@@ -238,6 +278,14 @@ public class JScene extends Thing {
         System.arraycopy(sceneSize, 0, searchResult, 0, count);
         return searchResult;
     }
+
+    /**
+     *
+     * @param newScene The new JScene to migrate to
+     * @param force If the new scene has a lower maxObjectCount, discard the objects that cannot fit in
+     * @param switchSceneUponCompletion Automatically switch scenes when migration is complete?
+     * @param camera Camera to setActiveScene. Only necessary if switchSceneUponCompletion = true.
+     */
     public void migrateScene(JScene newScene, boolean force, boolean switchSceneUponCompletion, JCamera camera)
     {
         if((newScene.maxObjects < maxObjects) && !force)
@@ -264,12 +312,28 @@ public class JScene extends Thing {
         LogInfo("Successfully Migrated scene content. do camera.setActiveScene(newScene) to switch to new scene");
     }
 
-    public int getMaxUIObjects() {return juiObjects.length;}
+    /**
+     * Returns maxObjects in the scene
+     * @return maxObjects
+     */
     public int getMaxObjects() {return maxObjects;}
+
+    /**
+     * Returns the scene's name
+     * @return Scene's name
+     */
     public String getSceneName() {return sceneName;}
+
+    /**
+     * Set the scene's name
+     * @param newSceneName The new name of the scene
+     */
     public void setSceneName(String newSceneName) {sceneName = newSceneName;}
 
-
+    /**
+     * Remove all objects from the scene
+     * @param newMaxObjects set a new max objects value
+     */
     public void purge(int newMaxObjects)
     {
         if(newMaxObjects<0)

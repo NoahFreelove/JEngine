@@ -2,7 +2,6 @@ package com.example;
 
 import com.JEngine.Game.PlayersAndPawns.JPlayer;
 import com.JEngine.PrimitiveTypes.JImage;
-import com.JEngine.PrimitiveTypes.Position.Direction;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.Position.Vector3;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
@@ -17,8 +16,8 @@ public class CustomPlayer extends JPlayer {
     @Override
     public void Update()
     {
-        time+=0.005;
+        time+=0.01;
         //transform.rotation.x +=1;
-        transform.setPosition(JMath.lerp(transform.position, position, JMath.clamp(0,1,time)));
+        transform.setPosition(JMath.interpolateClamped(transform.position, position, time));
     }
 }

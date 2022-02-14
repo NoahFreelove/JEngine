@@ -9,13 +9,10 @@ public class JMath {
             return min;
         return Math.min(value, max);
     }
-    public static Vector3 lerp(Vector3 vA, Vector3 vB, float t)
+    public static Vector3 interpolateClamped(Vector3 vA, Vector3 vB, float t)
     {
-        vA.x = vB.x*(1.f-t);
-        vA.y = vB.y*(1.f-t);
-        vA.z = vB.z*(1.f-t);
-
-        return  vA;
+        t = JMath.clamp(0,1,t);
+        return vB.multiply(1.f-t);
     }
 
 }

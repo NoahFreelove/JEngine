@@ -20,5 +20,37 @@ public class Vector3 {
         z = _z;
     }
 
-    public String toString() {return String.format("{x: %f y: %f z: %f", x,y,z);}
+    public Vector3 multiply(Vector3 a){
+        return new Vector3(x*a.x, y*a.y, z*a.z);
+    }
+    public Vector3 multiply(float a)
+    {
+        return new Vector3(x*a, y*a, z*a);
+    }
+    public Vector3 divide(Vector3 a)
+    {
+        return new Vector3(x/a.x, y/a.y, z/a.z);
+    }
+    public Vector3 divide(float a)
+    {
+        return new Vector3(x/a, y/a, z/a);
+    }
+    public Vector3 add(Vector3 a)
+    {
+        return new Vector3(x+a.x, y+a.y, z+a.z);
+    }
+    public Vector3 add(float a)
+    {
+        return new Vector3(x+a, y+a, z+a);
+    }
+    public Vector3 subtract(Vector3 a)
+    {
+        return new Vector3(x-a.x, y-a.y, z-a.z);
+    }
+    public Vector3 subtract(float a)
+    {
+        return new Vector3(x-a, y-a, z-a);
+    }
+
+    public String toString() {return String.format("{x: %f y: %f z: %f}", x,y,z);}
 }
