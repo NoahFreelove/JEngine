@@ -161,6 +161,7 @@ public class JCamera extends JObject {
                 ImageView imageView = new ImageView(image);
                 imageView.setX(xPos);
                 imageView.setY(yPos);
+                imageView.setRotate(scene.juiObjects[i].transform.rotation.x);
                 uiObjects.getChildren().add(imageView);
             }
         }
@@ -191,6 +192,8 @@ public class JCamera extends JObject {
 
                 imageView.setX(xPos);
                 imageView.setY(yPos);
+                imageView.setRotate(scene.sceneObjects[i].objRef.transform.rotation.x);
+
                 gameObjects.getChildren().add(imageView);
                 //JLabel jl = new JLabel(new ImageIcon(s.getSprite().getIcon().getImage().getScaledInstance((int)(objectsInView[i].transform.getScale().x* s.getSprite().getXSize()), (int)(objectsInView[i].transform.getScale().y* s.getSprite().getYSize()), Image.SCALE_DEFAULT)));
 

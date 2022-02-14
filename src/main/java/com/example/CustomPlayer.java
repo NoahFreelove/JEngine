@@ -1,4 +1,4 @@
-package com.example.jengine;
+package com.example;
 
 import com.JEngine.Game.PlayersAndPawns.JPlayer;
 import com.JEngine.PrimitiveTypes.JImage;
@@ -18,6 +18,7 @@ public class CustomPlayer extends JPlayer {
     public void Update()
     {
         time+=0.005;
+        //transform.rotation.x +=1;
         transform.setPosition(JMath.lerp(transform.position, position, JMath.clamp(0,1,time)));
     }
 }

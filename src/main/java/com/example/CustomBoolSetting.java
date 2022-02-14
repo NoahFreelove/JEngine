@@ -1,4 +1,4 @@
-package com.example.jengine;
+package com.example;
 
 import com.JEngine.Utility.Settings.SettingTypes.JSettingBool;
 

@@ -7,10 +7,11 @@ public class JUtility {
     public static void waitForSeconds(long seconds, WaitForSecondsEvent event) {
         new Thread(() -> {
             try {
-                Thread.sleep((seconds*1000));
+                long milliseconds = seconds * 1000;
+                Thread.sleep(milliseconds);
                 event.finishedWaiting();
             } catch (InterruptedException e) {
-                //Ignore
+                System.out.println(e);
             }
         }).start();
     }

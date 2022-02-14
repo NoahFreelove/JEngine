@@ -1,4 +1,4 @@
-package com.example.jengine;
+package com.example;
 
 import com.JEngine.Game.Visual.*;
 import com.JEngine.PrimitiveTypes.*;
@@ -6,18 +6,14 @@ import com.JEngine.PrimitiveTypes.Position.*;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.*;
 import com.JEngine.UserInterface.*;
 import com.JEngine.Utility.About.JAppInfo;
-import com.JEngine.Utility.JMath;
 import com.JEngine.Utility.JUtility;
 import com.JEngine.Utility.Settings.EnginePrefs;
 import com.JEngine.Utility.Settings.ValueChangedEvent;
 import com.JEngine.Utility.WaitForSecondsEvent;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
-import java.io.IOException;
-
-import static com.example.jengine.Settings.settingManager;
+import static com.example.Settings.settingManager;
 
 //TODO: UI classes
 //TODO: Networking?
@@ -25,7 +21,7 @@ import static com.example.jengine.Settings.settingManager;
 public class Main extends Application {
     static Vector3 position = new Vector3(0,0,0);
     static Vector3 rotation = new Vector3(0,0,0);
-    static Vector3 scale = new Vector3(2f,1,1);
+    static Vector3 scale = new Vector3(1f,1,1);
 
     static Transform transform = new Transform(position, rotation, scale);
 
@@ -40,7 +36,8 @@ public class Main extends Application {
 
         WaitForSecondsEvent event = () -> System.out.println("Done waiting");
 
-        JUtility.waitForSeconds(3000, event);
+        JUtility.waitForSeconds(3, event);
+
         //JSettingDropdown js = (JSettingDropdown) settingManager.getSpecificSetting("General Settings", "DropdownExample");
         //JAudioPlayer ap = new JAudioPlayer("C:\\Users\\noahf\\IdeaProjects\\JEngine\\bin\\piano2.wav");
         //ap.startClip();
@@ -50,16 +47,16 @@ public class Main extends Application {
 
         // create a new scene
         JScene scene = new JScene(window, 3, "Scene 1");
-        String fp = "C:\\Users\\noahf\\IdeaProjects\\JEngine\\bin\\player2.png";
-        String fp2 = "C:\\Users\\noahf\\IdeaProjects\\JEngine\\bin\\jengineicon.png";
-        String jScenePath = ".\\bin\\scene1.JScene";
+        String fp = "C:\\Users\\s201063813\\Desktop\\JEngine\\bin\\player2.png";
+        String fp2 = "C:\\Users\\s201063813\\Desktop\\JEngine\\bin\\jengineicon.png";
+        String jScenePath = "C:\\Users\\s201063813\\Desktop\\JEngine\\bin\\scene1.JScene";
 
-        scene.loadFromFile(jScenePath);
-        CustomBoolSetting cbs = (CustomBoolSetting) settingManager.getSpecificSetting("General Settings", "Bool Set");
+        //scene.loadFromFile(jScenePath);
+        /*CustomBoolSetting cbs = (CustomBoolSetting) settingManager.getSpecificSetting("General Settings", "Bool Set");
 
         ValueChangedEvent newValueChangedEvent = (Object newValue) -> System.out.println(newValue.toString());
         cbs.setEventValueChanged(newValueChangedEvent);
-        cbs.setValue(false);
+        cbs.setValue(false);*/
 
 
         // create a pawn object

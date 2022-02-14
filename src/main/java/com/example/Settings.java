@@ -1,10 +1,8 @@
-package com.example.jengine;
+package com.example;
 
 import com.JEngine.Utility.Settings.JSetting;
 import com.JEngine.Utility.Settings.JSettingCategory;
 import com.JEngine.Utility.Settings.JSettingManager;
-import com.JEngine.Utility.Settings.SettingTypes.JSettingBool;
-import com.JEngine.Utility.Settings.SettingTypes.JSettingDropdown;
 import com.JEngine.Utility.Settings.SettingTypes.JSettingFloat;
 import com.JEngine.Utility.Settings.SettingTypes.JSettingString;
 
