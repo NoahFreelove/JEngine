@@ -33,4 +33,16 @@ public class Transform {
     public Vector3 getPosition() { return position;}
     public Vector3 getRotation() { return rotation;}
     public Vector3 getScale() { return scale;}
+    public static Vector3 defaultRotation() {return new Vector3(0,0,0);}
+    public static Vector3 defaultScale() {return new Vector3(1,1,1);}
+
+    public static Transform simpleTransform(Vector3 pos)
+    {
+        return new Transform(pos,defaultRotation(),defaultScale());
+    }
+    public static Transform exSimpleTransform(float x, float y)
+    {
+        return new Transform(new Vector3(x,y,0),defaultRotation(),defaultScale());
+    }
+
 }

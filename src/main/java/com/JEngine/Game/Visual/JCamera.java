@@ -7,10 +7,12 @@ import com.JEngine.PrimitiveTypes.Position.Vector3;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JUIObject;
+import com.JEngine.UserInterface.JButton;
 import com.JEngine.UserInterface.JText;
 import com.JEngine.UserInterface.JUIBackgroundImage;
 import javafx.application.Platform;
 import javafx.scene.Group;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -151,6 +153,16 @@ public class JCamera extends JObject {
                 jText.getLabel().setX(xPos);
                 jText.getLabel().setY(xPos);
                 uiObjects.getChildren().add(jText.getLabel());
+                continue;
+            }
+
+            if(scene.juiObjects[i].getClass().equals(JButton.class))
+            {
+                JButton jButton = (JButton)scene.juiObjects[i];
+                Button b = jButton.getButton();
+                b.setLayoutX(xPos);
+                b.setLayoutY(yPos);
+                uiObjects.getChildren().add(b);
                 continue;
             }
 

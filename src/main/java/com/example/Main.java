@@ -77,7 +77,11 @@ public class Main extends Application {
         JText text = new JText(new Transform(new Vector3(15,300,1),new Vector3(0,0,0),new Vector3(1,1,1)), new JIdentity("Test Text", "Text"), "Hello World!", null, 1000, 0);
         JUIObject uiImage = new JUIObject(new Transform(new Vector3(100,100,1),new Vector3(0,0,0),new Vector3(1,1,1)),new JIdentity("Test JUIElement", "JUIElement"), (new JImage(true, fp2, 128,128).getImage()), 128, 128);
         JUIBackgroundImage background = new JUIBackgroundImage(new JIdentity("Scene Background", "JUIElement"), new JImage(true, fp2, 800,800).getImage(), 800, 800);
-        System.out.println(Arrays.toString(JUtility.readFile(jScenePath)));
+
+        JButton button = new JButton(Transform.exSimpleTransform(100,300), new JIdentity("Test Text", "Text"), null, 150,200, 300, 300);
+
+        scene.addUI(button);
+
         // add objects to scene
         scene.add(camera);
         scene.add(player);
