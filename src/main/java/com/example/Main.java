@@ -50,7 +50,6 @@ public class Main extends Application {
         // create a new scene
         JScene scene = new JScene(window, 3, "Scene 1");
         String  binFolder = System.getProperty("user.home") + "\\Documents\\JEngine\\bin\\";
-
         String fp =  binFolder + "player2.png";
         String fp2 =  binFolder + "jengineicon.png";
         String jScenePath =  binFolder + "scene1.JScene";
