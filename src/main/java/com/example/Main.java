@@ -62,7 +62,6 @@ public class Main extends Application {
         cbs.setEventValueChanged(newValueChangedEvent);
         cbs.setValue(false);*/
 
-
         // create a pawn object
         CustomPlayer player = new CustomPlayer(transform, new JImage(true, fp, 128,128), new JIdentity("Player 1", "Player"));
         //CustomPlayer player2 = new CustomPlayer(new Transform(new Vector3(300,50,0), rotation, scale), new JImage(true, fp, 128,128), new JIdentity("Player 2", "Player"));
@@ -93,11 +92,7 @@ public class Main extends Application {
 
         // run Start function on other thread so the update functions doesn't stop the rest of the main function
         window.start();
-    }
-    public static void main(String[] args) {
-        savedArgs = args;
 
-        launch();
         /*
         // Example of how to use findObjectsByIdentity
         JObject[] searchResult = scene.findObjectsByIdentity(null, "sceneObj", SearchType.SearchByTag);
@@ -109,5 +104,12 @@ public class Main extends Application {
             }
         }
         */
+
+    }
+    public static void main(String[] args) {
+        savedArgs = args;
+
+        launch();
+
     }
 }
