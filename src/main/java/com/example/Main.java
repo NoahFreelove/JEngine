@@ -13,6 +13,8 @@ import com.JEngine.Utility.WaitForSecondsEvent;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import java.util.Arrays;
+
 import static com.example.Settings.settingManager;
 
 //TODO: UI classes
@@ -47,9 +49,11 @@ public class Main extends Application {
 
         // create a new scene
         JScene scene = new JScene(window, 3, "Scene 1");
-        String fp = "C:\\Users\\s201063813\\Desktop\\JEngine\\bin\\player2.png";
-        String fp2 = "C:\\Users\\s201063813\\Desktop\\JEngine\\bin\\jengineicon.png";
-        String jScenePath = "C:\\Users\\s201063813\\Desktop\\JEngine\\bin\\scene1.JScene";
+        String  binFolder = System.getProperty("user.home") + "\\Documents\\JEngine\\bin\\";
+
+        String fp =  binFolder + "player2.png";
+        String fp2 =  binFolder + "jengineicon.png";
+        String jScenePath =  binFolder + "scene1.JScene";
 
         //scene.loadFromFile(jScenePath);
         /*CustomBoolSetting cbs = (CustomBoolSetting) settingManager.getSpecificSetting("General Settings", "Bool Set");
@@ -75,7 +79,7 @@ public class Main extends Application {
         JText text = new JText(new Transform(new Vector3(15,300,1),new Vector3(0,0,0),new Vector3(1,1,1)), new JIdentity("Test Text", "Text"), "Hello World!", null, 1000, 0);
         JUIObject uiImage = new JUIObject(new Transform(new Vector3(100,100,1),new Vector3(0,0,0),new Vector3(1,1,1)),new JIdentity("Test JUIElement", "JUIElement"), (new JImage(true, fp2, 128,128).getImage()), 128, 128);
         JUIBackgroundImage background = new JUIBackgroundImage(new JIdentity("Scene Background", "JUIElement"), new JImage(true, fp2, 800,800).getImage(), 800, 800);
-
+        System.out.println(Arrays.toString(JUtility.readFile(jScenePath)));
         // add objects to scene
         scene.add(camera);
         scene.add(player);
