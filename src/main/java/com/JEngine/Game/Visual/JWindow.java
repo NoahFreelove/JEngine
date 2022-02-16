@@ -11,7 +11,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-/** JEngine.JWindow (c) Noah Freelove
+/**
+ * @author Noah Freelove
+ * @version 1.0
  * Brief Explanation:
  * JWindow is a way to create a window and have it display camera content.
  *
