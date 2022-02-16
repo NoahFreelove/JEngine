@@ -74,8 +74,8 @@ public class Main extends Application {
         // set window icon
         window.setIcon(new JImage(true, fp, 128,128));
 
-        JText text = new JText(new Transform(new Vector3(15,300,1),new Vector3(0,0,0),new Vector3(1,1,1)), new JIdentity("Test Text", "Text"), "Hello World!", null, 1000, 0);
-        JUIObject uiImage = new JUIObject(new Transform(new Vector3(100,100,1),new Vector3(0,0,0),new Vector3(1,1,1)),new JIdentity("Test JUIElement", "JUIElement"), (new JImage(true, fp2, 128,128).getImage()), 128, 128);
+        JText text = new JText(Transform.exSimpleTransform(15,300), new JIdentity("Test Text", "Text"), "Hello World!", null, 1000, 0);
+        JUIObject uiImage = new JUIObject(Transform.exSimpleTransform(100,100),new JIdentity("Test JUIElement", "JUIElement"), (new JImage(true, fp2, 128,128).getImage()), 128, 128);
         JUIBackgroundImage background = new JUIBackgroundImage(new JIdentity("Scene Background", "JUIElement"), new JImage(true, fp2, 800,800).getImage(), 800, 800);
 
         JButton button = new JButton(Transform.exSimpleTransform(100,300), new JIdentity("Test Text", "Text"), null, 150,200, 300, 300);

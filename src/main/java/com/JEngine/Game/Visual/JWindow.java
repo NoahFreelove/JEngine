@@ -34,25 +34,13 @@ public class JWindow extends Thing{
     Group objects = new Group();
     Group uiObjects = new Group();
 
-    public Scene getScene() {
-        return scene;
-    }
-
-    public void setScene(Scene newScene) {
-        scene = newScene;
-    }
-
-
-    public void setIcon(JImage newIcon) {
-        if (newIcon.getImage() != null)
-        {
-            window.getIcons().add(newIcon.getImage());
-            return;
-        }
-        LogWarning("Tried to set window icon to a null image");
-
-    }
-
+    /**
+     * Default constructor
+     * @param sizeX Window size x
+     * @param sizeY Window size Y
+     * @param title Title of the window
+     * @param window Default stage (Typically given by JavaFX public void start(Stage stage)
+     */
     public JWindow(int sizeX, int sizeY, String title, Stage window) {
         super(true);
         scene = new Scene(root, sizeX,sizeY);
@@ -66,18 +54,42 @@ public class JWindow extends Thing{
         this.window.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, JUtility::exitHandler);
     }
 
+    /**
+     * Get the scene's name
+     * @return Scene name (String)
+     */
+    public Scene getScene() {
+        return scene;
+    }
 
-/*    public void AddUpdateBehavior(Behavior newBehavior) {
-        for (int i = 0; i < behaviors.length; i++) {
-            if (behaviors[i] == null) {
-                behaviors[i] = newBehavior;
-                break;
-            }
+    /**
+     * Set the window's scene
+     * @param newScene New scene to set
+     */
+    public void setScene(Scene newScene) {
+        scene = newScene;
+    }
+
+    /**
+     * Set the window's icon
+     * @param newIcon New JImage to set as icon
+     */
+    public void setIcon(JImage newIcon) {
+        if (newIcon.getImage() != null)
+        {
+            window.getIcons().add(newIcon.getImage());
+            return;
         }
-    }*/
+        LogWarning("Tried to set window icon to a null image");
 
+    }
+
+    /**
+     * Is called every frame. The method that actually repaints the window. Not recommend calling this manually
+     * @param gameObjects Game object group
+     * @param newUIObjects UI object group
+     */
     public void refreshWindow(Group gameObjects, Group newUIObjects) {
-        //newPanel.setLayout(null);
         Platform.runLater(() -> {
             objects = gameObjects;
             uiObjects = newUIObjects;
@@ -87,10 +99,17 @@ public class JWindow extends Thing{
         });
     }
 
+    /**
+     * Set number of times the window is updated. (Also affects Update() functions!)
+     * @param newTargetFPS new times per second to update
+     */
     public void setTargetFPS(float newTargetFPS) {
         targetFPS = newTargetFPS;
     }
 
+    /**
+     * Start updating the window
+     */
     public void start()
     {
         if(isActive)
@@ -105,6 +124,10 @@ public class JWindow extends Thing{
 
     }
 
+    /**
+     * Stop updating the window.
+     * I don't know when you would actually want to do this, but it's built in anyway.
+     */
     public void stop()
     {
         try
@@ -119,8 +142,10 @@ public class JWindow extends Thing{
         }
     }
 
-    // Refresh rate logic
-    public void refresh() {
+    /**
+     * Math to update the window targetFPS times/second
+     */
+    private void refresh() {
         final int maxFrameSkip = 5;
         int SKIP_TICKS = (int) (1000 / targetFPS);
         double next_game_tick = System.currentTimeMillis();
@@ -139,14 +164,21 @@ public class JWindow extends Thing{
         }
     }
 
-
+    /**
+     * Set the camera for the window to render from
+     * @param camera new camera to set
+     */
     public void setCamera(JCamera camera)
     {
         this.activeCamera = camera;
         LogInfo("Set Camera");
     }
 
-    void update(int frameNumber) {
+    /**
+     * JWindow's update method. Called every refresh cycle to start the render and run the Update() behaviors
+     * @param frameNumber Total frame number. Useful for keeping track of frames.
+     */
+    private void update(int frameNumber) {
         LogExtra(String.format("New frame (#%d)", frameNumber));
 
         if(activeCamera !=null)
@@ -158,6 +190,10 @@ public class JWindow extends Thing{
 
     }
 
+    /**
+     * Goes through every object in the scene to run their Update() functions.
+     * Objects which don't override the function will not have any function
+     */
     private void runUpdateBehaviors() {
         for (ObjRef objRef : activeCamera.getActiveScene().sceneObjects) {
             if(objRef == null)
