@@ -117,6 +117,7 @@ public class JWindow extends Thing{
             LogError("Window is already active! Cannot start another update thread.");
             return;
         }
+        JSceneManager.getScene().StartObjects();
         isActive = true;
         updateThread = new Thread(this::refresh);
         updateThread.start();

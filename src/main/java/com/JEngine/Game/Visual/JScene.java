@@ -59,7 +59,6 @@ public class JScene extends Thing {
         for (int i = 0; i < sceneObjects.length; i++) {
             if (sceneObjects[i] == null) {
                 sceneObjects[i] = new ObjRef(o);
-                sceneObjects[i].objRef.Start();
                 super.LogInfo("Added object to scene " + ((sceneObjects[i] != null) ? "successfully" : "UNSUCCESSFULLY"));
                 return;
             }
@@ -86,6 +85,20 @@ public class JScene extends Thing {
         }
         super.LogError("Could not add object to full scene! Try increasing the maxObjects parameter.");
 
+    }
+
+    public void StartObjects()
+    {
+        for (ObjRef sceneObject : sceneObjects) {
+            if (sceneObject != null) {
+                sceneObject.objRef.Start();
+            }
+        }
+        for (JUIObject juiObject : juiObjects) {
+            if (juiObject != null) {
+                juiObject.Start();
+            }
+        }
     }
 
     /**

@@ -49,7 +49,9 @@ public class Main extends Application {
 
         // create a new scene
         JScene scene = new JScene(window, 3, "Scene 1");
-        String  binFolder = System.getProperty("user.home") + "\\Documents\\JEngine\\bin\\";
+        JSceneManager.setScene(scene);
+
+        String binFolder = System.getProperty("user.home") + "\\Documents\\JEngine\\bin\\";
         String fp =  binFolder + "player2.png";
         String fp2 =  binFolder + "jengineicon.png";
         String jScenePath =  binFolder + "scene1.JScene";
@@ -62,8 +64,9 @@ public class Main extends Application {
         cbs.setValue(false);*/
 
         // create a pawn object
-        CustomPlayer player = new CustomPlayer(transform, new JImage(true, fp, 128,128), new JIdentity("Player 1", "Player"));
+        CustomPlayer player = new CustomPlayer(Transform.exSimpleTransform(100,300), new JImage(true, fp, 128,128), new JIdentity("Player 1", "Player"),false);
         //CustomPlayer player2 = new CustomPlayer(new Transform(new Vector3(300,50,0), rotation, scale), new JImage(true, fp, 128,128), new JIdentity("Player 2", "Player"));
+        CustomPlayer player2 = new CustomPlayer(Transform.exSimpleTransform(500,400), new JImage(true, fp, 128,128), new JIdentity("Player 2", "Player"),true);
 
         // create camera
         CustomCamera camera = new CustomCamera(new Vector3(0,0,1),window,scene, new JObject(null, null), 800, new JIdentity("Main Camera","sceneObj"));
@@ -74,17 +77,18 @@ public class Main extends Application {
         // set window icon
         window.setIcon(new JImage(true, fp, 128,128));
 
-        JText text = new JText(Transform.exSimpleTransform(15,300), new JIdentity("Test Text", "Text"), "Hello World!", null, 1000, 0);
-        JUIObject uiImage = new JUIObject(Transform.exSimpleTransform(100,100),new JIdentity("Test JUIElement", "JUIElement"), (new JImage(true, fp2, 128,128).getImage()), 128, 128);
-        JUIBackgroundImage background = new JUIBackgroundImage(new JIdentity("Scene Background", "JUIElement"), new JImage(true, fp2, 800,800).getImage(), 800, 800);
+        //JText text = new JText(Transform.exSimpleTransform(15,300), new JIdentity("Test Text", "Text"), "Hello World!", null, 1000, 0);
+        //JUIObject uiImage = new JUIObject(Transform.exSimpleTransform(100,100),new JIdentity("Test JUIElement", "JUIElement"), (new JImage(true, fp2, 128,128).getImage()), 128, 128);
+        //JUIBackgroundImage background = new JUIBackgroundImage(new JIdentity("Scene Background", "JUIElement"), new JImage(true, fp2, 800,800).getImage(), 800, 800);
 
-        JButton button = new JButton(Transform.exSimpleTransform(100,300), new JIdentity("Test Text", "Text"), null, 150,200, 300, 300);
+        //JButton button = new JButton(Transform.exSimpleTransform(100,300), new JIdentity("Test Text", "Text"), null, 150,200, 300, 300);
 
-        scene.addUI(button);
+        //scene.addUI(button);
 
         // add objects to scene
         scene.add(camera);
         scene.add(player);
+        scene.add(player2);
         //scene.add(player2);
         //scene.addUI(text);
         //scene.addUI(background);

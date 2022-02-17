@@ -238,6 +238,7 @@ public class JCamera extends JObject {
 
     public void setActiveScene(JScene activeScene){
         scene = activeScene;
+        JSceneManager.setScene(activeScene);
         LogInfo("Changed active scene");
     }
     public JScene getActiveScene() {return scene;}
