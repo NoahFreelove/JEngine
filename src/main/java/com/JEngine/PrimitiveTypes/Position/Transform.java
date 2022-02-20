@@ -45,4 +45,9 @@ public class Transform {
         return new Transform(new Vector3(x,y,0),defaultRotation(),defaultScale());
     }
 
+    public String toString() {
+        return String.format("Position{x: %f y: %f z: %f} Rotation{x: %f y: %f z: %f} Scale{x: %f y: %f z: %f}", position.x,position.y,position.z,rotation.x,rotation.y,rotation.z,scale.x,scale.y,scale.z);
+    }
+
+
 }

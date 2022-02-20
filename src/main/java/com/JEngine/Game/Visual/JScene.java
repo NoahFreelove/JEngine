@@ -286,9 +286,16 @@ public class JScene extends Thing {
                 }
             }
         }
-
         JObject[] searchResult = new JObject[count];
-        System.arraycopy(sceneSize, 0, searchResult, 0, count);
+        int i = 0;
+        for (JObject o:
+             sceneSize) {
+            if(o != null)
+            {
+                searchResult[i] = o;
+                i++;
+            }
+        }
         return searchResult;
     }
 

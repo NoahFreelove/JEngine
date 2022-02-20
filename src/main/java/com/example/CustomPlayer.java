@@ -5,30 +5,39 @@ import com.JEngine.Game.PlayersAndPawns.JPlayer;
 import com.JEngine.Game.Visual.JSceneManager;
 import com.JEngine.Game.Visual.SearchType;
 import com.JEngine.PrimitiveTypes.JImage;
-import com.JEngine.PrimitiveTypes.ObjRef;
-import com.JEngine.PrimitiveTypes.Position.Direction;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.Position.Vector3;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
 import com.JEngine.Utility.JMath;
 
+
 public class CustomPlayer extends JPlayer {
-    public boolean move = false;
+    public boolean move;
+    float time = 0f;
+    Vector3 position = new Vector3(700,400,0);
+    Vector3 position2 = new Vector3(100,250,0);
+    JBoxCollider collider;
+    boolean posSwitch = false;
+    CustomPlayer player1ref;
 
     public CustomPlayer(Transform transform, JImage newSprite, JIdentity JIdentity, boolean move) {
         super(transform, newSprite, JIdentity);
+        if(JIdentity.compareName("Player 1"))
+        {
+            collider = new JBoxCollider(transform, JIdentity, false, 128, 128);
+        }
+        else {
+            collider = new JBoxCollider(transform, JIdentity, false, 100, 100);
+        }
         this.move = move;
     }
-    float time = 0f;
-    Vector3 position = new Vector3(700,400,0);
-    Vector3 position2 = new Vector3(100,300,0);
-    JBoxCollider collider = new JBoxCollider(transform, JIdentity, false);
-    boolean posSwitch = false;
-    CustomPlayer player1ref;
+
+
+
     @Override
     public void Start() {
-        if(JIdentity.getName() == "Player 1")
+        if(JIdentity.getName().equals("Player 1"))
             return;
         for (JObject obj :
                 JSceneManager.getScene().findObjectsByIdentity("Player 1",null, SearchType.SearchByName)) {
@@ -48,8 +57,7 @@ public class CustomPlayer extends JPlayer {
         time+=0.01;
         if(player1ref !=null)
         {
-            collider.collides(player1ref.collider);
-            System.out.println("adasd");
+            System.out.println(collider.collides(player1ref.collider));
         }
 
         //transform.rotation.x +=1;
