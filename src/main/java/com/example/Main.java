@@ -1,5 +1,6 @@
 package com.example;
 
+import com.JEngine.Game.PlayersAndPawns.JPawn;
 import com.JEngine.Game.Visual.JScene;
 import com.JEngine.Game.Visual.JSceneManager;
 import com.JEngine.Game.Visual.JWindow;
@@ -20,11 +21,12 @@ import javafx.stage.Stage;
 //TODO: Networking?
 
 public class Main extends Application {
-    static Vector3 position = new Vector3(0,0,0);
-    static Vector3 rotation = new Vector3(0,0,0);
-    static Vector3 scale = new Vector3(1f,1,1);
+    Vector3 position = new Vector3(0,0,0);
+    Vector3 rotation = new Vector3(0,0,0);
+    Vector3 scale = new Vector3(1f,1,1);
 
-    static Transform transform = new Transform(position, rotation, scale);
+    Transform transform = new Transform(position, rotation, scale);
+
 
     public static String[] savedArgs;
     static JAppInfo appInfo = new JAppInfo("JEngine Example", "Noah Freelove", 2022, 0,2, true);
@@ -35,25 +37,26 @@ public class Main extends Application {
         EnginePrefs.logAnnoyance = false;
         appInfo.logInfo();
 
-        WaitForSecondsEvent event = () -> System.out.println("Done waiting");
+        String binFolder = System.getProperty("user.home") + "\\Documents\\JEngine\\bin\\";
+        String fp =  binFolder + "player2.png";
+        String fp2 =  binFolder + "jengineicon.png";
+        String jScenePath =  binFolder + "scene1.JScene";
 
-        JUtility.waitForSeconds(3, event);
+        /*WaitForSecondsEvent event = () -> System.out.println("Done waiting");
+        JUtility.waitForSeconds(3, event);*/
 
         //JSettingDropdown js = (JSettingDropdown) settingManager.getSpecificSetting("General Settings", "DropdownExample");
-        //JAudioPlayer ap = new JAudioPlayer("C:\\Users\\noahf\\IdeaProjects\\JEngine\\bin\\piano2.wav");
+        //JAudioPlayer ap = new JAudioPlayer(binFolder + "piano2.wav");
         //ap.startClip();
 
         // create a new window
         JWindow window = new JWindow(800,800,"JEngine", stage);
 
         // create a new scene
-        JScene scene = new JScene(window, 3, "Scene 1");
+        JScene scene = new JScene(window, 15, "Scene 1");
         JSceneManager.setScene(scene);
 
-        String binFolder = System.getProperty("user.home") + "\\Documents\\JEngine\\bin\\";
-        String fp =  binFolder + "player2.png";
-        String fp2 =  binFolder + "jengineicon.png";
-        String jScenePath =  binFolder + "scene1.JScene";
+
 
         //scene.loadFromFile(jScenePath);
         /*CustomBoolSetting cbs = (CustomBoolSetting) settingManager.getSpecificSetting("General Settings", "Bool Set");
@@ -88,8 +91,11 @@ public class Main extends Application {
 
         // add objects to scene
         scene.add(camera);
-        scene.add(player);
         scene.add(player2);
+
+
+        /*scene.add(player);
+        scene.add(player2);*/
         //scene.add(player2);
         //scene.addUI(text);
         //scene.addUI(background);

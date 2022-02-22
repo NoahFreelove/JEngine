@@ -54,7 +54,7 @@ public class CustomPlayer extends JPlayer {
         if(!move)
             return;
 
-        time+=0.005;
+        time+=0.01;
         if(player1ref !=null)
         {
             System.out.println(collider.isCollidingWith(player1ref.collider));
