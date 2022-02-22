@@ -8,6 +8,7 @@ import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.Position.Vector3;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
+import com.JEngine.UserInterface.JPointer;
 import com.JEngine.Utility.About.JAppInfo;
 import com.JEngine.Utility.JUtility;
 import com.JEngine.Utility.Settings.EnginePrefs;
@@ -68,6 +69,8 @@ public class Main extends Application {
 
         // create camera
         CustomCamera camera = new CustomCamera(new Vector3(0,0,1),window,scene, new JObject(null, null), 800, new JIdentity("Main Camera","sceneObj"));
+        JPointer jp = new JPointer(new JImage(true,fp2,16,16));
+        jp.setWindowCursor(window.getScene());
 
         // set main camera
         window.setCamera(camera);
