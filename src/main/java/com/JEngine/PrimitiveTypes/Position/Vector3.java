@@ -28,6 +28,10 @@ public class Vector3 {
     }
 
     public Vector3 multiply(Vector3 a){
+        if(a == null)
+        {
+            return new Vector3(0,0,0);
+        }
         return new Vector3(x*a.x, y*a.y, z*a.z);
     }
     public Vector3 multiply(float a)
@@ -37,6 +41,10 @@ public class Vector3 {
 
     public Vector3 divide(Vector3 a)
     {
+        if(a == null)
+        {
+            return new Vector3(0,0,0);
+        }
         return new Vector3(x/a.x, y/a.y, z/a.z);
     }
     public Vector3 divide(float a)
@@ -46,6 +54,10 @@ public class Vector3 {
 
     public Vector3 add(Vector3 a)
     {
+        if(a == null)
+        {
+            return new Vector3(0,0,0);
+        }
         return new Vector3(x+a.x, y+a.y, z+a.z);
     }
     public Vector3 add(float a)
@@ -55,6 +67,10 @@ public class Vector3 {
 
     public Vector3 subtract(Vector3 a)
     {
+        if(a == null)
+        {
+            return new Vector3(0,0,0);
+        }
         return new Vector3(x-a.x, y-a.y, z-a.z);
     }
     public Vector3 subtract(float a)

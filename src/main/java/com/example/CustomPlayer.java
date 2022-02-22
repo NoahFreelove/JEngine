@@ -16,7 +16,7 @@ public class CustomPlayer extends JPlayer {
     public boolean move;
     float time = 0f;
     Vector3 position = new Vector3(700,400,0);
-    Vector3 position2 = new Vector3(100,250,0);
+    Vector3 position2 = new Vector3(-100,250,0);
     JBoxCollider collider;
     boolean posSwitch = false;
     CustomPlayer player1ref;
@@ -34,7 +34,6 @@ public class CustomPlayer extends JPlayer {
     }
 
 
-
     @Override
     public void Start() {
         if(JIdentity.getName().equals("Player 1"))
@@ -48,16 +47,17 @@ public class CustomPlayer extends JPlayer {
         }
     }
 
+
     @Override
     public void Update()
     {
         if(!move)
             return;
 
-        time+=0.01;
+        time+=0.005;
         if(player1ref !=null)
         {
-            System.out.println(collider.collides(player1ref.collider));
+            System.out.println(collider.isCollidingWith(player1ref.collider));
         }
 
         //transform.rotation.x +=1;

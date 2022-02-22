@@ -1,11 +1,9 @@
 package com.JEngine.Game.PlayersAndPawns.Colliders;
 
-import com.JEngine.PrimitiveTypes.Position.Direction;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.*;
 
 import java.awt.*;
-import java.awt.geom.Rectangle2D;
 
 public class JBoxCollider extends JObject {
     public boolean isTrigger;
@@ -31,22 +29,20 @@ public class JBoxCollider extends JObject {
         this.onCollisionEnter = onCollisionEnter;
     }
 
-    public boolean collides(JBoxCollider otherObject)
+    public boolean isCollidingWith(JBoxCollider otherObject)
     {
-        //System.out.println(transform.position.toString() + " : " + otherObject.transform.position.toString());
-        boolean in1 =inBetween(transform.position.x, transform.position.x + sizeX, otherObject.transform.position.x);
-        boolean in2 =inBetween(transform.position.x, transform.position.x + sizeX, otherObject.transform.position.x + otherObject.sizeX);
-        boolean in3 =inBetween(transform.position.y, transform.position.y + sizeY, otherObject.transform.position.y);
-        boolean in4 =inBetween(transform.position.y, transform.position.y + sizeY, otherObject.transform.position.y + otherObject.sizeY);
+        int x1 = (int)otherObject.transform.position.x;
+        int y1 = (int)otherObject.transform.position.y;
+        int x2 = (int)otherObject.transform.position.x + otherObject.sizeX;
+        int y2 = (int)otherObject.transform.position.y+ otherObject.sizeY;
+        int x3 = (int)transform.position.x;
+        int y3 = (int)transform.position.y;
+        int x4 = (int)transform.position.x + sizeX;
+        int y4 = (int)transform.position.y+ sizeY;
 
-        System.out.println("in1: " + in1);
-        System.out.println("in2: " + in2);
-        System.out.println("in3: " + in3);
-        System.out.println("in4: " + in4);
-
-        if((in1 || in2) && (in3 || in4))
+        if((x1 <= x4) && (x3 <= x2) && (y1 <= y4) && (y3 <= y2))
         {
-            System.out.println("IN RANGE");
+            onCollisionEnter();
             return true;
         }
         return false;
@@ -62,4 +58,9 @@ public class JBoxCollider extends JObject {
     {
         rect.setRect(transform.position.x, transform.position.y, sizeX, sizeY);
     }
+
+    public void onCollisionEnter(){}
+
+    public void onCollisionExit()
+    {}
 }

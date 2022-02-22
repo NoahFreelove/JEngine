@@ -1,21 +1,19 @@
 package com.example;
 
-import com.JEngine.Game.Visual.*;
-import com.JEngine.PrimitiveTypes.*;
-import com.JEngine.PrimitiveTypes.Position.*;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.*;
-import com.JEngine.UserInterface.*;
+import com.JEngine.Game.Visual.JScene;
+import com.JEngine.Game.Visual.JSceneManager;
+import com.JEngine.Game.Visual.JWindow;
+import com.JEngine.PrimitiveTypes.JImage;
+import com.JEngine.PrimitiveTypes.Position.Transform;
+import com.JEngine.PrimitiveTypes.Position.Vector3;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
 import com.JEngine.Utility.About.JAppInfo;
 import com.JEngine.Utility.JUtility;
 import com.JEngine.Utility.Settings.EnginePrefs;
-import com.JEngine.Utility.Settings.ValueChangedEvent;
 import com.JEngine.Utility.WaitForSecondsEvent;
 import javafx.application.Application;
 import javafx.stage.Stage;
-
-import java.util.Arrays;
-
-import static com.example.Settings.settingManager;
 
 //TODO: UI classes
 //TODO: Networking?
