@@ -1,7 +1,12 @@
 package com.JEngine.Game.PlayersAndPawns.Colliders;
 
+import com.JEngine.Game.PlayersAndPawns.Sprite;
+import com.JEngine.Game.Visual.JScene;
+import com.JEngine.Game.Visual.JSceneManager;
+import com.JEngine.PrimitiveTypes.ObjRef;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.*;
+import javafx.util.Pair;
 
 import java.awt.*;
 
@@ -11,6 +16,8 @@ public class JBoxCollider extends JObject {
     public int sizeY;
     public Rectangle rect;
     CollideEvent onCollisionEnter;
+    // JIdentity identifies objects, boolean is true if on collision enter event was activated
+    public Pair[] collisionStatus;
 
     public JBoxCollider(Transform transform, JIdentity JIdentity, boolean isTrigger, int sizeX, int sizeY) {
         super(transform, JIdentity);
@@ -18,6 +25,8 @@ public class JBoxCollider extends JObject {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.rect = new Rectangle((int)transform.position.x, (int)transform.position.y, sizeX, sizeY);
+        this.collisionStatus = new Pair[JSceneManager.getScene().getMaxObjects()];
+        init();
     }
 
     public JBoxCollider(Transform transform, JIdentity JIdentity, boolean isTrigger, int sizeX, int sizeY, CollideEvent onCollisionEnter) {
@@ -27,6 +36,19 @@ public class JBoxCollider extends JObject {
         this.sizeY = sizeY;
         this.rect = new Rectangle((int)transform.position.x, (int)transform.position.y, sizeX, sizeY);
         this.onCollisionEnter = onCollisionEnter;
+        init();
+    }
+    private void init()
+    {
+        int i = 0;
+        for (ObjRef o :
+                JSceneManager.getScene().sceneObjects) {
+            if(o!=null)
+            {
+                collisionStatus[i] = new Pair(o.objRef.JIdentity, false);
+            }
+            i++;
+        }
     }
 
     public boolean isCollidingWith(JBoxCollider otherObject)
@@ -40,26 +62,49 @@ public class JBoxCollider extends JObject {
         int x4 = (int)transform.position.x + sizeX;
         int y4 = (int)transform.position.y+ sizeY;
 
-        if((x1 <= x4) && (x3 <= x2) && (y1 <= y4) && (y3 <= y2))
-        {
-            onCollisionEnter();
-            return true;
+        return (x1 <= x4) && (x3 <= x2) && (y1 <= y4) && (y3 <= y2);
+    }
+
+
+    public void checkAllCollision()
+    {
+        int i = 0;
+        for (ObjRef o :
+                JSceneManager.getScene().sceneObjects) {
+            if (o == null) return;
+
+            try
+            {
+                Sprite spriteRef = (Sprite) o.objRef;
+
+                System.out.println(collisionStatus[i].getKey().toString());
+
+                if(o.objRef.JIdentity.getName().equals(""))
+                {
+                    System.out.println("work");
+                }
+
+                if(isCollidingWith(spriteRef.collider))
+                {
+                    if(!((Boolean) collisionStatus[i].getValue()))
+                    {
+                        collisionStatus[i] = new Pair(collisionStatus[i].getKey(), true);
+                        spriteRef.collider.onCollisionEnter(this);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                //ignore
+            }
+            i++;
+
         }
-        return false;
     }
 
-    public boolean inBetween(float a, float b, float x)
-    {
-        return (a<x && x<b);
+    public void onCollisionEnter(JBoxCollider otherObj){
+        System.out.println("Colliding with: " + otherObj.JIdentity.getName());
     }
-
-    @Override
-    public void Update()
-    {
-        rect.setRect(transform.position.x, transform.position.y, sizeX, sizeY);
-    }
-
-    public void onCollisionEnter(){}
 
     public void onCollisionExit()
     {}

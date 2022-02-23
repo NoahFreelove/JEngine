@@ -4,6 +4,7 @@ import com.JEngine.Game.PlayersAndPawns.JPawn;
 import com.JEngine.Game.Visual.JScene;
 import com.JEngine.Game.Visual.JSceneManager;
 import com.JEngine.Game.Visual.JWindow;
+import com.JEngine.Game.Visual.SearchType;
 import com.JEngine.PrimitiveTypes.JImage;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.Position.Vector3;
@@ -27,9 +28,8 @@ public class Main extends Application {
 
     Transform transform = new Transform(position, rotation, scale);
 
-
     public static String[] savedArgs;
-    static JAppInfo appInfo = new JAppInfo("JEngine Example", "Noah Freelove", 2022, 0,2, true);
+    static JAppInfo appInfo = new JAppInfo("JEngine Example", new String[]{"Noah Freelove", "Jeff Bezos", "Elon Musk"}, 2022, 0,2, false);
 
     public void start(Stage stage) {
         EnginePrefs.log = true;
@@ -56,8 +56,6 @@ public class Main extends Application {
         JScene scene = new JScene(window, 15, "Scene 1");
         JSceneManager.setScene(scene);
 
-
-
         //scene.loadFromFile(jScenePath);
         /*CustomBoolSetting cbs = (CustomBoolSetting) settingManager.getSpecificSetting("General Settings", "Bool Set");
 
@@ -66,9 +64,9 @@ public class Main extends Application {
         cbs.setValue(false);*/
 
         // create a pawn object
-        CustomPlayer player = new CustomPlayer(Transform.exSimpleTransform(100,300), new JImage(true, fp, 128,128), new JIdentity("Player 1", "Player"),false);
+        CustomPlayer player = new CustomPlayer(Transform.exSimpleTransform(550,400), new JImage(true, fp, 128,128), new JIdentity("Player 1", "Player"),false);
         //CustomPlayer player2 = new CustomPlayer(new Transform(new Vector3(300,50,0), rotation, scale), new JImage(true, fp, 128,128), new JIdentity("Player 2", "Player"));
-        CustomPlayer player2 = new CustomPlayer(Transform.exSimpleTransform(500,400), new JImage(true, fp, 128,128), new JIdentity("Player 2", "Player"),true);
+        CustomPlayer player2 = new CustomPlayer(Transform.exSimpleTransform(500,400), new JImage(true, fp, 128,128), new JIdentity("Player 2", "Player"),false);
 
         // create camera
         CustomCamera camera = new CustomCamera(new Vector3(0,0,1),window,scene, new JObject(null, null), 800, new JIdentity("Main Camera","sceneObj"));
@@ -92,14 +90,14 @@ public class Main extends Application {
         // add objects to scene
         scene.add(camera);
         scene.add(player2);
-
+        scene.add(player);
 
         /*scene.add(player);
-        scene.add(player2);*/
-        //scene.add(player2);
-        //scene.addUI(text);
-        //scene.addUI(background);
-        //scene.addUI(uiImage);
+        scene.add(player2);
+        scene.add(player2);
+        scene.addUI(text);
+        scene.addUI(background);
+        scene.addUI(uiImage);*/
 
         // set FPS
         window.setTargetFPS(30);
@@ -107,9 +105,9 @@ public class Main extends Application {
         // run Start function on other thread so the update functions doesn't stop the rest of the main function
         window.start();
 
-        /*
+
         // Example of how to use findObjectsByIdentity
-        JObject[] searchResult = scene.findObjectsByIdentity(null, "sceneObj", SearchType.SearchByTag);
+        JObject[] searchResult = scene.findObjectsByIdentity(null, "Player", SearchType.SearchByTag);
         if(searchResult.length>0)
         {
             for (JObject result :
@@ -117,12 +115,10 @@ public class Main extends Application {
                 System.out.println(result.JIdentity.getName());
             }
         }
-        */
-
     }
+
     public static void main(String[] args) {
         savedArgs = args;
-
         launch();
 
     }

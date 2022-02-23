@@ -1,5 +1,6 @@
 package com.JEngine.Game.PlayersAndPawns;
 
+import com.JEngine.Game.PlayersAndPawns.Colliders.JBoxCollider;
 import com.JEngine.PrimitiveTypes.JImage;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
@@ -16,12 +17,14 @@ import com.JEngine.PrimitiveTypes.Position.Transform;
 
 public class Sprite extends JObject {
     private JImage sprite;
+    public JBoxCollider collider;
 
     public JImage getSprite() {return sprite;}
     public void setSprite(JImage newSprite) {sprite = newSprite;}
 
     public Sprite(Transform transform, JImage newSprite, JIdentity JIdentity) {
         super(transform, JIdentity);
+        collider = new JBoxCollider(transform, JIdentity, false, newSprite.getXSize(), newSprite.getYSize());
         setSprite(newSprite);
     }
 }
