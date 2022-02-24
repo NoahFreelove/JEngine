@@ -1,12 +1,16 @@
 package com.JEngine.UserInterface;
 
 import com.JEngine.PrimitiveTypes.JImage;
+import javafx.event.EventHandler;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 
 
 public class JPointer {
     JImage cursorIcon;
+    private double posX;
+    private double posY;
 
     public JPointer(JImage cursorIcon) {
         this.cursorIcon = cursorIcon;
@@ -15,5 +19,13 @@ public class JPointer {
     public void setWindowCursor(Scene scene)
     {
         scene.setCursor(new ImageCursor(cursorIcon.getImage()));
+        scene.setOnMouseMoved(event -> {
+            posX = event.getX();
+            posY = event.getY();
+        });
     }
+
+    public double getX(){return posX;}
+    public double getY(){return posY;}
+
 }

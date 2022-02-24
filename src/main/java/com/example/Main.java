@@ -12,6 +12,8 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
 import com.JEngine.UserInterface.JPointer;
 import com.JEngine.Utility.About.JAppInfo;
+import com.JEngine.Utility.GenericMethodCall;
+import com.JEngine.Utility.JDo;
 import com.JEngine.Utility.JUtility;
 import com.JEngine.Utility.Settings.EnginePrefs;
 import com.JEngine.Utility.WaitForSecondsEvent;
@@ -66,7 +68,7 @@ public class Main extends Application {
         // create a pawn object
         CustomPlayer player = new CustomPlayer(Transform.exSimpleTransform(550,100), new JImage(true, fp, 128,128), new JIdentity("Player 1", "Player"),false);
         CustomPlayer player2 = new CustomPlayer(Transform.exSimpleTransform(500,400), new JImage(true, fp, 128,128), new JIdentity("Player 2", "Player"),false);
-        CustomPlayer player3 = new CustomPlayer(Transform.exSimpleTransform(100,400), new JImage(true, fp, 128,128), new JIdentity("Player 3", "Player"),true);
+        CustomPlayer player3 = new CustomPlayer(Transform.exSimpleTransform(100,400), new JImage(true, fp, 128,128), new JIdentity("Player 3", "Player"),false);
 
         // create camera
         CustomCamera camera = new CustomCamera(new Vector3(0,0,1),window,scene, new JObject(null, null), 800, new JIdentity("Main Camera","sceneObj"));
@@ -93,12 +95,7 @@ public class Main extends Application {
         scene.add(player2);
         scene.add(player);
 
-        /*scene.add(player);
-        scene.add(player2);
-        scene.add(player2);
-        scene.addUI(text);
-        scene.addUI(background);
-        scene.addUI(uiImage);*/
+        JDo.Do(args -> System.out.println(args[0].toString()), 5, new Object[]{"hi"});
 
         // set FPS
         window.setTargetFPS(30);
