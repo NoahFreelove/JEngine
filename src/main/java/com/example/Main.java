@@ -64,9 +64,9 @@ public class Main extends Application {
         cbs.setValue(false);*/
 
         // create a pawn object
-        CustomPlayer player = new CustomPlayer(Transform.exSimpleTransform(550,400), new JImage(true, fp, 128,128), new JIdentity("Player 1", "Player"),false);
-        //CustomPlayer player2 = new CustomPlayer(new Transform(new Vector3(300,50,0), rotation, scale), new JImage(true, fp, 128,128), new JIdentity("Player 2", "Player"));
+        CustomPlayer player = new CustomPlayer(Transform.exSimpleTransform(550,100), new JImage(true, fp, 128,128), new JIdentity("Player 1", "Player"),false);
         CustomPlayer player2 = new CustomPlayer(Transform.exSimpleTransform(500,400), new JImage(true, fp, 128,128), new JIdentity("Player 2", "Player"),false);
+        CustomPlayer player3 = new CustomPlayer(Transform.exSimpleTransform(100,400), new JImage(true, fp, 128,128), new JIdentity("Player 3", "Player"),true);
 
         // create camera
         CustomCamera camera = new CustomCamera(new Vector3(0,0,1),window,scene, new JObject(null, null), 800, new JIdentity("Main Camera","sceneObj"));
@@ -89,6 +89,7 @@ public class Main extends Application {
 
         // add objects to scene
         scene.add(camera);
+        scene.add(player3);
         scene.add(player2);
         scene.add(player);
 
@@ -112,7 +113,7 @@ public class Main extends Application {
         {
             for (JObject result :
                     searchResult) {
-                System.out.println(result.JIdentity.getName());
+                //System.out.println(result.JIdentity.getName());
             }
         }
     }

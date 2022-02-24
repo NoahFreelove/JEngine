@@ -1,14 +1,24 @@
 package com.JEngine.Game.PlayersAndPawns.Colliders;
 
 import com.JEngine.Game.PlayersAndPawns.Sprite;
-import com.JEngine.Game.Visual.JScene;
 import com.JEngine.Game.Visual.JSceneManager;
 import com.JEngine.PrimitiveTypes.ObjRef;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.*;
-import javafx.util.Pair;
 
 import java.awt.*;
+
+class CollisionPair
+{
+    public JIdentity i;
+    public Boolean v;
+
+    public CollisionPair(JIdentity i, Boolean v) {
+        this.i = i;
+        this.v = v;
+    }
+}
+
 
 public class JBoxCollider extends JObject {
     public boolean isTrigger;
@@ -16,8 +26,12 @@ public class JBoxCollider extends JObject {
     public int sizeY;
     public Rectangle rect;
     CollideEvent onCollisionEnter;
+    CollideEvent onCollisionExit;
+
+    private int calls = 0;
+
     // JIdentity identifies objects, boolean is true if on collision enter event was activated
-    public Pair[] collisionStatus;
+    public CollisionPair[] collisionStatus;
 
     public JBoxCollider(Transform transform, JIdentity JIdentity, boolean isTrigger, int sizeX, int sizeY) {
         super(transform, JIdentity);
@@ -25,8 +39,7 @@ public class JBoxCollider extends JObject {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.rect = new Rectangle((int)transform.position.x, (int)transform.position.y, sizeX, sizeY);
-        this.collisionStatus = new Pair[JSceneManager.getScene().getMaxObjects()];
-        init();
+        this.collisionStatus = new CollisionPair[JSceneManager.getScene().getMaxObjects()];
     }
 
     public JBoxCollider(Transform transform, JIdentity JIdentity, boolean isTrigger, int sizeX, int sizeY, CollideEvent onCollisionEnter) {
@@ -36,20 +49,30 @@ public class JBoxCollider extends JObject {
         this.sizeY = sizeY;
         this.rect = new Rectangle((int)transform.position.x, (int)transform.position.y, sizeX, sizeY);
         this.onCollisionEnter = onCollisionEnter;
-        init();
     }
-    private void init()
+    public void setOnCollisionEnterEvent(CollideEvent c)
+    {
+        onCollisionEnter = c;
+    }
+    public void setOnCollisionExitEvent(CollideEvent c)
+    {
+        onCollisionExit = c;
+    }
+
+    public void initializeCollider()
     {
         int i = 0;
         for (ObjRef o :
                 JSceneManager.getScene().sceneObjects) {
             if(o!=null)
             {
-                collisionStatus[i] = new Pair(o.objRef.JIdentity, false);
+                collisionStatus[i] = new CollisionPair(o.objRef.JIdentity, false);
             }
             i++;
         }
     }
+
+    public int getTimesCollided(){return calls;}
 
     public boolean isCollidingWith(JBoxCollider otherObject)
     {
@@ -71,30 +94,35 @@ public class JBoxCollider extends JObject {
         int i = 0;
         for (ObjRef o :
                 JSceneManager.getScene().sceneObjects) {
-            if (o == null) return;
+            if (o == null || collisionStatus[i] == null) return;
 
             try
             {
                 Sprite spriteRef = (Sprite) o.objRef;
 
-                System.out.println(collisionStatus[i].getKey().toString());
-
-                if(o.objRef.JIdentity.getName().equals(""))
+                if(o.objRef.JIdentity.getName().equals(collisionStatus[i].i.getName()))
                 {
-                    System.out.println("work");
-                }
-
-                if(isCollidingWith(spriteRef.collider))
-                {
-                    if(!((Boolean) collisionStatus[i].getValue()))
+                    if(isCollidingWith(spriteRef.collider))
                     {
-                        collisionStatus[i] = new Pair(collisionStatus[i].getKey(), true);
-                        spriteRef.collider.onCollisionEnter(this);
+                        if(!(collisionStatus[i].v))
+                        {
+                            collisionStatus[i] = new CollisionPair(collisionStatus[i].i, true);
+                            spriteRef.collider.onCollisionEnter(this);
+                        }
+                    }
+                    else if(collisionStatus[i].v)
+                    {
+                        if(!isCollidingWith(spriteRef.collider))
+                        {
+                            collisionStatus[i] = new CollisionPair(collisionStatus[i].i, false);
+                            spriteRef.collider.onCollisionExit(this);
+                        }
                     }
                 }
             }
             catch (Exception e)
             {
+                //System.out.println(e);
                 //ignore
             }
             i++;
@@ -103,9 +131,14 @@ public class JBoxCollider extends JObject {
     }
 
     public void onCollisionEnter(JBoxCollider otherObj){
-        System.out.println("Colliding with: " + otherObj.JIdentity.getName());
+        calls++;
+        if(calls == 1)
+            return;
+        onCollisionEnter.event(otherObj);
     }
 
-    public void onCollisionExit()
-    {}
+    public void onCollisionExit(JBoxCollider otherObj)
+    {
+        onCollisionExit.event(otherObj);
+    }
 }
