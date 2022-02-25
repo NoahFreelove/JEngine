@@ -1,10 +1,8 @@
 package com.example;
 
 import com.JEngine.Game.PlayersAndPawns.JPawn;
-import com.JEngine.Game.Visual.JScene;
-import com.JEngine.Game.Visual.JSceneManager;
-import com.JEngine.Game.Visual.JWindow;
-import com.JEngine.Game.Visual.SearchType;
+import com.JEngine.Game.PlayersAndPawns.Sprite;
+import com.JEngine.Game.Visual.*;
 import com.JEngine.PrimitiveTypes.JImage;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.Position.Vector3;
@@ -31,7 +29,7 @@ public class Main extends Application {
     Transform transform = new Transform(position, rotation, scale);
 
     public static String[] savedArgs;
-    static JAppInfo appInfo = new JAppInfo("JEngine Example", new String[]{"Noah Freelove", "Jeff Bezos", "Elon Musk"}, 2022, 0,2, false);
+    static JAppInfo appInfo = new JAppInfo("JEngine Example", "Noah Freelove", 2022, 0,2, false);
 
     public void start(Stage stage) {
         EnginePrefs.log = true;
@@ -66,7 +64,7 @@ public class Main extends Application {
         cbs.setValue(false);*/
 
         // create a pawn object
-        CustomPlayer player = new CustomPlayer(Transform.exSimpleTransform(550,100), new JImage(true, fp, 128,128), new JIdentity("Player 1", "Player"),false);
+        CustomPlayer player = new CustomPlayer(Transform.exSimpleTransform(550,100), new JImage(true, fp, 128,128), new JIdentity("Player 1", "Player"),true);
         CustomPlayer player2 = new CustomPlayer(Transform.exSimpleTransform(500,400), new JImage(true, fp, 128,128), new JIdentity("Player 2", "Player"),false);
         CustomPlayer player3 = new CustomPlayer(Transform.exSimpleTransform(100,400), new JImage(true, fp, 128,128), new JIdentity("Player 3", "Player"),false);
 
@@ -95,24 +93,13 @@ public class Main extends Application {
         scene.add(player2);
         scene.add(player);
 
-        JDo.Do(args -> System.out.println(args[0].toString()), 5, new Object[]{"hi"});
+        //JDo.Do(args -> System.out.println(args[0].toString()), 5, new Object[]{"hi"});
 
         // set FPS
         window.setTargetFPS(30);
 
         // run Start function on other thread so the update functions doesn't stop the rest of the main function
         window.start();
-
-
-        // Example of how to use findObjectsByIdentity
-        JObject[] searchResult = scene.findObjectsByIdentity(null, "Player", SearchType.SearchByTag);
-        if(searchResult.length>0)
-        {
-            for (JObject result :
-                    searchResult) {
-                //System.out.println(result.JIdentity.getName());
-            }
-        }
     }
 
     public static void main(String[] args) {

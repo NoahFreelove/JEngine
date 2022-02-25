@@ -6,7 +6,7 @@ import com.JEngine.Utility.Settings.JSettingManager;
 import com.JEngine.Utility.Settings.SettingTypes.JSettingFloat;
 import com.JEngine.Utility.Settings.SettingTypes.JSettingString;
 
-public class Settings {
+public class CustomSettings {
     // Make sure settings are static, so they can be accessed anywhere.
     public static JSetting[] generalSettings = new JSetting[]{
             new JSettingString("Name", "username"),

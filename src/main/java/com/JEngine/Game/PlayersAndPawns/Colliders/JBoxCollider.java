@@ -19,7 +19,6 @@ class CollisionPair
     }
 }
 
-
 public class JBoxCollider extends JObject {
     public boolean isTrigger;
     public int sizeX;

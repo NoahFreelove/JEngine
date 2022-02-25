@@ -21,21 +21,21 @@ public class Thing {
     public boolean getActive() {return isActive;}
     public void setActive(boolean newActiveState) {isActive = newActiveState;}
 
-    public void LogInfo(String log)
+    public static void LogInfo(String log)
     {
         if (EnginePrefs.log) {
             System.out.println("Info: " + log);
         }
     }
 
-    public void LogWarning(String log)
+    public static void LogWarning(String log)
     {
         if (EnginePrefs.log) {
             System.out.println("WARNING: " + log);
         }
     }
 
-    public void LogError(String log)
+    public static void LogError(String log)
     {
         if(Main.savedArgs.length>=1) {
             if (Main.savedArgs[0].equals("logs")) {
@@ -44,14 +44,14 @@ public class Thing {
         }
     }
 
-    public void LogExtra(String log)
+    public static void LogExtra(String log)
     {
         if (EnginePrefs.logExtra) {
             System.out.println("Extra: " + log);
         }
     }
 
-    public void LogAnnoyance(String log)
+    public static void LogAnnoyance(String log)
     {
         if (EnginePrefs.logAnnoyance) {
             System.out.println("Annoyance: " + log);

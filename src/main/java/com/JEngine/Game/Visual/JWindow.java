@@ -81,11 +81,11 @@ public class JWindow extends Thing{
             return;
         }
         LogWarning("Tried to set window icon to a null image");
-
     }
 
     /**
-     * Is called every frame. The method that actually repaints the window. Not recommend calling this manually
+     * Is called every frame. The method that actually repaints the window. Not recommend calling this manually as you
+     * may end up with an inconsistent FPS
      * @param gameObjects Game object group
      * @param newUIObjects UI object group
      */
