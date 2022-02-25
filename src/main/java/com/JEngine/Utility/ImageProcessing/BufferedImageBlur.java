@@ -1,12 +1,10 @@
-package com.JEngine.Utility;
+package com.JEngine.Utility.ImageProcessing;
 
-import javax.imageio.ImageIO;
+import com.JEngine.Utility.ImageProcessing.ConvolveWithEdgeOp;
+
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
-import java.awt.image.ConvolveOp;
 import java.awt.image.Kernel;
-import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
 
 

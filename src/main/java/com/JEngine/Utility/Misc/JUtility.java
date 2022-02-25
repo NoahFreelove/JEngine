@@ -1,4 +1,4 @@
-package com.JEngine.Utility;
+package com.JEngine.Utility.Misc;
 
 import javafx.stage.WindowEvent;
 
@@ -27,13 +27,13 @@ public class JUtility {
         }
     }
 
-    public static void exit() {
+    static void systemExit() {
         System.exit(0);
     }
 
-    public static void exitHandler(WindowEvent w)
+    public static void exitApp(WindowEvent w)
     {
-        exit();
+        systemExit();
     }
 
 }

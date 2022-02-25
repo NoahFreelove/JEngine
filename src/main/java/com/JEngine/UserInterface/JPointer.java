@@ -1,10 +1,8 @@
 package com.JEngine.UserInterface;
 
 import com.JEngine.PrimitiveTypes.JImage;
-import javafx.event.EventHandler;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
 
 
 public class JPointer {

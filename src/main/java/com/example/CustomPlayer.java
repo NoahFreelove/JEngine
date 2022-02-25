@@ -5,15 +5,16 @@ import com.JEngine.PrimitiveTypes.JImage;
 import com.JEngine.PrimitiveTypes.Position.Direction;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
+import com.JEngine.Utility.Input;
 
 public class CustomPlayer extends JPlayer {
-    public boolean move;
+    public boolean canMove;
     public CustomPlayer(Transform transform, JImage newSprite, JIdentity identity, boolean move) {
         super(transform, newSprite, identity);
         collider.setOnCollisionEnterEvent(otherObject -> System.out.println( identity.getName() +  " colliding with: " + otherObject.JIdentity.getName()));
         collider.setOnCollisionExitEvent(otherObject -> System.out.println( identity.getName() +  " stopped colliding with: " + otherObject.JIdentity.getName()));
 
-        this.move = move;
+        this.canMove = move;
     }
 
     @Override
@@ -25,14 +26,24 @@ public class CustomPlayer extends JPlayer {
     @Override
     public void Update()
     {
-        if(move)
+        if(canMove)
         {
-            if(JIdentity.getName().equals("Player 3"))
+            if(Input.Up)
             {
-                Move(Direction.Right, 6);
+                Move(Direction.Up, 4);
             }
-            else
+            if(Input.Down)
+            {
                 Move(Direction.Down, 4);
+            }
+            if(Input.Left)
+            {
+                Move(Direction.Left, 4);
+            }
+            if(Input.Right)
+            {
+                Move(Direction.Right, 4);
+            }
         }
         collider.checkAllCollision();
     }

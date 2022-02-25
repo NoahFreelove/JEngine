@@ -1,5 +1,6 @@
 package com.JEngine.Game.Visual;
 
+import com.JEngine.Utility.Input;
 import javafx.scene.Scene;
 
 public class JSceneManager {
@@ -11,5 +12,6 @@ public class JSceneManager {
 
     public static void setScene(JScene scene) {
         JSceneManager.scene = scene;
+        Input.init(scene.window.scene);
     }
 }

@@ -3,13 +3,17 @@ package com.JEngine.Game.Visual;
 import com.JEngine.PrimitiveTypes.JImage;
 import com.JEngine.PrimitiveTypes.ObjRef;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
-import com.JEngine.Utility.JUtility;
+import com.JEngine.Utility.Misc.JUtility;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+
+import java.awt.*;
 
 /**
  * @author Noah Freelove
@@ -51,7 +55,7 @@ public class JWindow extends Thing{
         this.window.setResizable(false);
         this.window.setScene(scene);
         this.window.show();
-        this.window.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, JUtility::exitHandler);
+        this.window.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, JUtility::exitApp);
     }
 
     /**
@@ -93,6 +97,7 @@ public class JWindow extends Thing{
         Platform.runLater(() -> {
             objects = gameObjects;
             uiObjects = newUIObjects;
+            root.getScene().setFill(Color.LIGHTBLUE);
             root.getChildren().clear();
             root.getChildren().add(objects);
             root.getChildren().add(uiObjects);

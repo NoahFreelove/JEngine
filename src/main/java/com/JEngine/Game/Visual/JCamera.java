@@ -224,7 +224,6 @@ public class JCamera extends JObject {
         Group gameObjects = new Group();
         Group uiObjects = new Group();
 
-
         LogAnnoyance("Start Sprite Render");
         RenderObjects(gameObjects);
 

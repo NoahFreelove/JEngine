@@ -1,4 +1,4 @@
-package com.JEngine.Utility;
+package com.JEngine.Utility.ImageProcessing;
 /*
  * Copyright (c) 2008, Harald Kuhr
  * All rights reserved.
