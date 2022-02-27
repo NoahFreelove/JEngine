@@ -25,8 +25,7 @@ import java.awt.*;
  * JWindow provides an update function and a way to set FPS
  * **/
 
-public class JWindow extends Thing{
-
+public class JWindow extends Thing {
     public Scene scene;
     public Stage window;
     Group root = new Group();
@@ -97,7 +96,7 @@ public class JWindow extends Thing{
         Platform.runLater(() -> {
             objects = gameObjects;
             uiObjects = newUIObjects;
-            root.getScene().setFill(Color.LIGHTBLUE);
+            root.getScene().setFill(Color.BLACK);
             root.getChildren().clear();
             root.getChildren().add(objects);
             root.getChildren().add(uiObjects);

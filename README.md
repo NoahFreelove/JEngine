@@ -7,9 +7,11 @@ A simple 2D JavaFX based game engine
 3. Create a new Window in the start method by using: `JWindow window = new JWindow(800,800,"Window Name", stage);`
 4. Create a new Scene (the thing that holds all your Objects) by using: `JScene scene = new JScene(window, max objects 
 in your scene, "Scene 1")`
-5. To access your current scene anywhere use JEngine.Game.Visual.JSceneManager: `JSceneManager.setScene(scene)`
-6. Now create a camera using: `JCamera camera = new JCamera(Vector3(0,0,0), window, scene, null, 800,
+5. Now create a camera using: `JCamera camera = new JCamera(Vector3(0,0,0), window, scene, null, 800,
 new JIdentity("Camera1", "cameras"))`
+6. To access your current Window,Scene, and main camera anywhere, use JEngine.Game.Visual.JSceneManager: 
+`JSceneManager.init(window, scene, camera)`
+
 * `Vector3`: Initial position `(x,y,z)`
 * `window`: `JWindow` you created in step 3
 * `scene`: `JScene` you created in step 4

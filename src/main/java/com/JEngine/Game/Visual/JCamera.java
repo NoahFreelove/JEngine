@@ -32,12 +32,12 @@ public class JCamera extends JObject {
     public JObject[] objectsInView;
 
     public JCamera(Vector3 position, JWindow window, JScene scene, JObject parent, int fov, JIdentity JIdentity) {
-        super(parent.transform, JIdentity);
+        super(new Transform(position, new Vector3(0,0,0), new Vector3(1,1,1)), JIdentity);
 
-        if(parent.transform == null){
+       /* if(parent.transform == null){
             LogWarning(String.format("Camera: '%s' parent property is null. The camera will not move.", JIdentity.getName()));
             super.transform = new Transform(position, new Vector3(0,0,0), new Vector3(1,1,1));
-        }
+        }*/
 
         this.window = window;
         this.scene = scene;
@@ -56,10 +56,10 @@ public class JCamera extends JObject {
 
     private void GetObjectsInView()
     {
-        if (parent.transform != null)
+        /*if (parent.transform != null)
         {
             super.transform.position = parent.transform.position;
-        }
+        }*/
 
         int leftBound = (int)transform.getPosition().x;
         int rightBound = (int)transform.getPosition().x + fov;
@@ -237,7 +237,6 @@ public class JCamera extends JObject {
 
     public void setActiveScene(JScene activeScene){
         scene = activeScene;
-        JSceneManager.setScene(activeScene);
         LogInfo("Changed active scene");
     }
     public JScene getActiveScene() {return scene;}

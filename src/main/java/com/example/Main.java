@@ -13,17 +13,17 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 //TODO: UI classes
-//TODO: Networking?
-
+//TODO: Timers
 public class Main extends Application {
     Vector3 position = new Vector3(0,0,0);
     Vector3 rotation = new Vector3(0,0,0);
     Vector3 scale = new Vector3(1f,1,1);
 
     Transform transform = new Transform(position, rotation, scale);
-
     public static String[] savedArgs;
     static JAppInfo appInfo = new JAppInfo("JEngine Example", "Noah Freelove", 2022, 0,2, false);
+    public static JCamera camera2;
+    public static JCamera camera;
 
     public void start(Stage stage) {
         EnginePrefs.log = true;
@@ -50,7 +50,11 @@ public class Main extends Application {
 
         // create a new scene
         JScene scene = new JScene(window, 15, "Scene 1");
-        JSceneManager.setScene(scene);
+        camera = new JCamera(new Vector3(0,0,1),window,scene, new JObject(null, null), 800, new JIdentity("Main Camera","sceneObj"));
+        camera2 = new JCamera(new Vector3(250,0,0), window, scene, null, 800, new JIdentity("Camera 2", "camera"));
+
+        JSceneManager.init(scene,window,camera);
+
         //scene.loadFromFile(jScenePath);
         /*CustomBoolSetting cbs = (CustomBoolSetting) settingManager.getSpecificSetting("General Settings", "Bool Set");
 
@@ -64,12 +68,12 @@ public class Main extends Application {
         CustomPlayer player3 = new CustomPlayer(Transform.exSimpleTransform(100,400), new JImage(true, fp, 128,128), new JIdentity("Player 3", "Player"),false);
 
         // create camera
-        CustomCamera camera = new CustomCamera(new Vector3(0,0,1),window,scene, new JObject(null, null), 800, new JIdentity("Main Camera","sceneObj"));
+
         JPointer jp = new JPointer(new JImage(true,fp2,16,16));
         jp.setWindowCursor(window.getScene());
 
         // set main camera
-        window.setCamera(camera);
+        window.setCamera(JSceneManager.mainCamera);
 
         // set window icon
         window.setIcon(new JImage(true, fp, 128,128));
