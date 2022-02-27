@@ -3,17 +3,14 @@ package com.JEngine.Game.Visual;
 import com.JEngine.PrimitiveTypes.JImage;
 import com.JEngine.PrimitiveTypes.ObjRef;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
+import com.JEngine.Utility.Input;
 import com.JEngine.Utility.Misc.JUtility;
 import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-
-import java.awt.*;
 
 /**
  * @author Noah Freelove
@@ -121,7 +118,7 @@ public class JWindow extends Thing {
             LogError("Window is already active! Cannot start another update thread.");
             return;
         }
-        JSceneManager.getScene().StartObjects();
+        JSceneManager.getScene().runStartBehaviors();
         isActive = true;
         updateThread = new Thread(this::refresh);
         updateThread.start();
@@ -185,13 +182,13 @@ public class JWindow extends Thing {
      */
     private void update(int frameNumber) {
         LogExtra(String.format("New frame (#%d)", frameNumber));
-
         if(activeCamera !=null)
         {
             activeCamera.InitiateRender();
         }
 
         runUpdateBehaviors();
+        Input.resetButtons();
 
     }
 
@@ -203,7 +200,8 @@ public class JWindow extends Thing {
         for (ObjRef objRef : activeCamera.getActiveScene().sceneObjects) {
             if(objRef == null)
                 return;
-            objRef.objRef.Update();
+            if(objRef.objRef.getActive())
+                objRef.objRef.Update();
         }
     }
 }

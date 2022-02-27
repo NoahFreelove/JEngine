@@ -19,15 +19,15 @@ public class CustomPlayer extends JPlayer {
 
     public CustomPlayer(Transform transform, JImage newSprite, JIdentity identity, boolean move) {
         super(transform, newSprite, identity);
-        collider.setOnCollisionEnterEvent(otherObject -> System.out.println( identity.getName() +  " colliding with: " + otherObject.JIdentity.getName()));
-        collider.setOnCollisionExitEvent(otherObject -> System.out.println( identity.getName() +  " stopped colliding with: " + otherObject.JIdentity.getName()));
+        collider.setOnCollisionEnterEvent(otherObject -> LogExtra(identity.getName() +  " colliding with: " + otherObject.JIdentity.getName()));
+        collider.setOnCollisionExitEvent(otherObject -> LogExtra(identity.getName() +  " stopped colliding with: " + otherObject.JIdentity.getName()));
         Input.addKeyUpEvent(args -> {
             if(args[0] == KeyCode.X)
             {
                 switchCamera();
             }
         });
-        
+
         Input.addKeyUpEvent(args -> {
             if(args[0] == KeyCode.Z)
             {
@@ -72,6 +72,7 @@ public class CustomPlayer extends JPlayer {
     {
         if(canMove)
         {
+            System.out.println(Input.pressedKey);
             if(Input.Up)
             {
                 Move(Direction.Up, 4);

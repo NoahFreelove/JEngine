@@ -14,7 +14,6 @@ import com.JEngine.Utility.Settings.EnginePrefs;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.util.ArrayList;
 
 /**
  * @author Noah Freelove
@@ -53,17 +52,17 @@ public class JScene extends Thing {
      */
     public void add(JObject o) {
         if (o == null || o.transform == null) {
-            super.LogWarning("Tried to add null object or transform to scene!");
+            LogWarning("Tried to add null object or transform to scene!");
             return;
         }
         for (int i = 0; i < sceneObjects.length; i++) {
             if (sceneObjects[i] == null) {
                 sceneObjects[i] = new ObjRef(o);
-                super.LogInfo("Added object to scene " + ((sceneObjects[i] != null) ? "successfully" : "UNSUCCESSFULLY"));
+                LogInfo("Added object to scene " + ((sceneObjects[i] != null) ? "successfully" : "UNSUCCESSFULLY"));
                 return;
             }
         }
-        super.LogError("Could not add object to full scene! Try increasing the maxObjects parameter.");
+        LogError("Could not add object to full scene! Try increasing the maxObjects parameter.");
     }
 
     /**
@@ -72,31 +71,33 @@ public class JScene extends Thing {
      */
     public void addUI(JUIObject o) {
         if (o == null || o.transform == null) {
-            super.LogWarning("Tried to add null object or transform to scene!");
+            LogWarning("Tried to add null object or transform to scene!");
             return;
         }
         for (int i = 0; i < juiObjects.length; i++) {
             if (juiObjects[i] == null) {
                 juiObjects[i] = o;
                 juiObjects[i].Start();
-                super.LogInfo("Added UI element to scene " + ((juiObjects[i] != null) ? "successfully" : "UNSUCCESSFULLY"));
+                LogInfo("Added UI element to scene " + ((juiObjects[i] != null) ? "successfully" : "UNSUCCESSFULLY"));
                 return;
             }
         }
-        super.LogError("Could not add object to full scene! Try increasing the maxObjects parameter.");
+        LogError("Could not add object to full scene! Try increasing the maxObjects parameter.");
 
     }
 
-    public void StartObjects()
+    public void runStartBehaviors()
     {
         for (ObjRef sceneObject : sceneObjects) {
             if (sceneObject != null) {
-                sceneObject.objRef.Start();
+                if(sceneObject.objRef.getActive())
+                    sceneObject.objRef.Start();
             }
         }
         for (JUIObject juiObject : juiObjects) {
             if (juiObject != null) {
-                juiObject.Start();
+                if(juiObject.getActive())
+                    juiObject.Start();
             }
         }
     }

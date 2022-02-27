@@ -74,12 +74,18 @@ public class Input {
 
     public static GenericMethodCall[] keyDownEvents = new GenericMethodCall[200];
     public static GenericMethodCall[] keyUpEvents = new GenericMethodCall[200];
+    public static boolean pressedKey;
+    public static void resetButtons()
+    {
+        pressedKey = false;
+    }
 
     public static void init(Scene scene) {
         if (JSceneManager.getScene() != null)
         {
             scene.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
-                checkKeyDown(key.getCode());
+                pressedKey = true;
+                keyPressed(key.getCode());
                 for (GenericMethodCall g :
                         keyDownEvents) {
                     if(g !=null)
@@ -89,7 +95,7 @@ public class Input {
                 }
             });
             scene.addEventHandler(KeyEvent.KEY_RELEASED, (key) -> {
-                checkKeyUp(key.getCode());
+                keyReleased(key.getCode());
                 for (GenericMethodCall g :
                         keyUpEvents) {
                     if(g !=null)
@@ -99,6 +105,15 @@ public class Input {
                 }
             });
         }
+    }
+
+    public static boolean getKeyDown()
+    {
+        return false;
+    }
+    public static boolean getKeyUp()
+    {
+        return false;
     }
 
     public static void addKeyDownEvent(GenericMethodCall event)
@@ -123,7 +138,7 @@ public class Input {
         }
     }
 
-    public static void checkKeyDown(KeyCode key)
+    public static void keyPressed(KeyCode key)
     {
         switch (key)
         {
@@ -176,7 +191,7 @@ public class Input {
         checkKeyCombos();
     }
 
-    public static void checkKeyUp(KeyCode key)
+    public static void keyReleased(KeyCode key)
     {
         switch (key)
         {
