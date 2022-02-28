@@ -8,13 +8,18 @@ import com.JEngine.PrimitiveTypes.Position.Direction;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
+import com.JEngine.Utility.ImageProcessing.BufferedImageBlur;
 import com.JEngine.Utility.Input;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
+import java.awt.image.BufferedImage;
 
 public class CustomPlayer extends JPlayer {
     public boolean canMove;
     private boolean camFlip;
-
+    private Image origImage;
+    private Image blurredImage;
     public CustomPlayer(Transform transform, JImage newSprite, JIdentity identity, boolean move) {
         super(transform, newSprite, identity);
         collider.setOnCollisionEnterEvent(otherObject -> LogExtra(identity.getName() +  " colliding with: " + ((JObject)otherObject[0]).JIdentity.getName()));
@@ -35,6 +40,8 @@ public class CustomPlayer extends JPlayer {
                 }
             }
         });
+        origImage = newSprite.getImage();
+        blurredImage = BufferedImageBlur.blurImage(origImage,3);
         this.canMove = move;
     }
 
@@ -57,11 +64,13 @@ public class CustomPlayer extends JPlayer {
 
         if (camFlip)
         {
-            JSceneManager.setMainCamera(Main.camera2);
+            getSprite().setImage(blurredImage);
+            //JSceneManager.setMainCamera(Main.camera2);
         }
         else
         {
-            JSceneManager.setMainCamera(Main.camera);
+            getSprite().setImage(origImage);
+            //JSceneManager.setMainCamera(Main.camera);
         }
     }
 
