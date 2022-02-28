@@ -1,6 +1,7 @@
 package com.JEngine.Game.Visual;
 
 import com.JEngine.Game.PlayersAndPawns.JPawn;
+import com.JEngine.Game.PlayersAndPawns.Sprite;
 import com.JEngine.PrimitiveTypes.JImage;
 import com.JEngine.PrimitiveTypes.ObjRef;
 import com.JEngine.PrimitiveTypes.Position.Transform;
@@ -10,6 +11,7 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JUIObject;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 import com.JEngine.Utility.Settings.EnginePrefs;
+import javafx.stage.StageStyle;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -91,7 +93,13 @@ public class JScene extends Thing {
         for (ObjRef sceneObject : sceneObjects) {
             if (sceneObject != null) {
                 if(sceneObject.objRef.getActive())
+                {
                     sceneObject.objRef.Start();
+                    try {
+                        ((Sprite)sceneObject.objRef).collider.initializeCollider();
+                    }catch (Exception ignore)
+                    {}
+                }
             }
         }
         for (JUIObject juiObject : juiObjects) {
@@ -363,5 +371,9 @@ public class JScene extends Thing {
         }
         LogInfo(String.format("Purged scene: '%s' of ALL contents.", getSceneName()));
         sceneObjects = new ObjRef[newMaxObjects];
+    }
+
+    public void changeWindowType(StageStyle newStyle)
+    {
     }
 }

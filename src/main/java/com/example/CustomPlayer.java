@@ -22,8 +22,9 @@ public class CustomPlayer extends JPlayer {
     private Image blurredImage;
     public CustomPlayer(Transform transform, JImage newSprite, JIdentity identity, boolean move) {
         super(transform, newSprite, identity);
-        collider.setOnCollisionEnterEvent(otherObject -> LogExtra(identity.getName() +  " colliding with: " + ((JObject)otherObject[0]).JIdentity.getName()));
-        collider.setOnCollisionExitEvent(otherObject -> LogExtra(identity.getName() +  " stopped colliding with: " + ((JObject)otherObject[0]).JIdentity.getName()));
+        collider.setOnCollisionEnterEvent(otherObject -> LogInfo(identity.getName() +  " colliding with: " + ((JObject)otherObject[0]).JIdentity.getName()));
+        collider.setOnCollisionExitEvent(otherObject -> LogInfo(identity.getName() +  " stopped colliding with: " + ((JObject)otherObject[0]).JIdentity.getName()));
+
         Input.addKeyUpEvent(args -> {
             if(args[0] == KeyCode.X)
             {
@@ -40,14 +41,10 @@ public class CustomPlayer extends JPlayer {
                 }
             }
         });
+
         origImage = newSprite.getImage();
         blurredImage = BufferedImageBlur.blurImage(origImage,3);
         this.canMove = move;
-    }
-
-    @Override
-    public void Start() {
-        collider.initializeCollider();
     }
 
     void switchScene()
