@@ -12,6 +12,8 @@ import com.JEngine.Utility.Settings.EnginePrefs;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import static com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing.LogImportant;
+
 //TODO: UI classes
 //TODO: Timers
 public class Main extends Application {
@@ -21,15 +23,24 @@ public class Main extends Application {
 
     Transform transform = new Transform(position, rotation, scale);
     public static String[] savedArgs;
-    static JAppInfo appInfo = new JAppInfo("JEngine Example", "Noah Freelove", 2022, 0,2, false);
     public static JCamera camera2;
     public static JCamera camera;
 
     public void start(Stage stage) {
-        EnginePrefs.log = true;
+        EnginePrefs.logImportant = true;
+        EnginePrefs.logInfo = true;
         EnginePrefs.logExtra = false;
         EnginePrefs.logAnnoyance = false;
-        appInfo.logInfo();
+
+        JAppInfo.authors = new String[]{"Noah Freelove"};
+        JAppInfo.appName = "JEngine";
+        JAppInfo.appVersionMajor = 0;
+        JAppInfo.appVersionMinor = 1.15f;
+        JAppInfo.year = 2022;
+        JAppInfo.isCopyright = false;
+
+        JAppInfo.logInfo();
+        LogImportant("Hi");
 
         String binFolder = System.getProperty("user.home") + "\\Documents\\JEngine\\bin\\";
         String fp =  binFolder + "player2.png";

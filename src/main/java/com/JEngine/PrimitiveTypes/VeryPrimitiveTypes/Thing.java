@@ -23,14 +23,14 @@ public class Thing {
 
     public static void LogInfo(String log)
     {
-        if (EnginePrefs.log) {
+        if (EnginePrefs.logInfo) {
             System.out.println("Info: " + log);
         }
     }
 
     public static void LogWarning(String log)
     {
-        if (EnginePrefs.log) {
+        if (EnginePrefs.logInfo) {
             System.out.println("WARNING: " + log);
         }
     }
@@ -55,6 +55,13 @@ public class Thing {
     {
         if (EnginePrefs.logAnnoyance) {
             System.out.println("Annoyance: " + log);
+        }
+    }
+
+    public static void LogImportant(String log)
+    {
+        if (EnginePrefs.logImportant) {
+            System.out.println("\n\n----------------------------\nIMPORTANT: " + log + "\n----------------------------\n\n");
         }
     }
 }

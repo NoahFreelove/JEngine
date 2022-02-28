@@ -38,7 +38,7 @@ public class JBoxCollider extends JObject {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.rect = new Rectangle((int)transform.position.x, (int)transform.position.y, sizeX, sizeY);
-        this.collisionStatus = new CollisionPair[JSceneManager.getScene().getMaxObjects()];
+        this.collisionStatus = new CollisionPair[JSceneManager.getActiveScene().getMaxObjects()];
     }
 
     public JBoxCollider(Transform transform, JIdentity JIdentity, boolean isTrigger, int sizeX, int sizeY, CollideEvent onCollisionEnter) {
@@ -62,7 +62,7 @@ public class JBoxCollider extends JObject {
     {
         int i = 0;
         for (ObjRef o :
-                JSceneManager.getScene().sceneObjects) {
+                JSceneManager.getActiveScene().sceneObjects) {
             if(o!=null)
             {
                 collisionStatus[i] = new CollisionPair(o.objRef.JIdentity, false);
@@ -92,7 +92,7 @@ public class JBoxCollider extends JObject {
     {
         int i = 0;
         for (ObjRef o :
-                JSceneManager.getScene().sceneObjects) {
+                JSceneManager.getActiveScene().sceneObjects) {
             if (o == null || collisionStatus[i] == null) return;
 
             try

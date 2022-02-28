@@ -118,7 +118,7 @@ public class JWindow extends Thing {
             LogError("Window is already active! Cannot start another update thread.");
             return;
         }
-        JSceneManager.getScene().runStartBehaviors();
+        JSceneManager.getActiveScene().runStartBehaviors();
         isActive = true;
         updateThread = new Thread(this::refresh);
         updateThread.start();
@@ -197,7 +197,7 @@ public class JWindow extends Thing {
      * Objects which don't override the function will not have any function
      */
     private void runUpdateBehaviors() {
-        for (ObjRef objRef : activeCamera.getActiveScene().sceneObjects) {
+        for (ObjRef objRef : JSceneManager.activeScene.sceneObjects) {
             if(objRef == null)
                 return;
             if(objRef.objRef.getActive())

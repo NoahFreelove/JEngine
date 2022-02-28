@@ -81,7 +81,7 @@ public class Input {
     }
 
     public static void init(Scene scene) {
-        if (JSceneManager.getScene() != null)
+        if (JSceneManager.getActiveScene() != null)
         {
             scene.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
                 pressedKey = true;

@@ -1,27 +1,26 @@
 package com.JEngine.Game.Visual;
 
 import com.JEngine.Utility.Input;
-import javafx.scene.Scene;
 
 public class JSceneManager {
-    public static JScene scene;
+    public static JScene activeScene;
     public static JWindow window;
     public static JCamera mainCamera;
 
-    public static JScene getScene() {
-        return scene;
+    public static JScene getActiveScene() {
+        return activeScene;
     }
 
     public static void init(JScene newScene, JWindow newWindow, JCamera newMainCamera)
     {
-        JSceneManager.scene = newScene;
+        JSceneManager.activeScene = newScene;
         JSceneManager.window = newWindow;
         JSceneManager.mainCamera = newMainCamera;
-        Input.init(scene.window.scene);
+        Input.init(activeScene.window.scene);
     }
 
-    public static void setScene(JScene newScene) {
-        JSceneManager.scene = newScene;
+    public static void setActiveScene(JScene newScene) {
+        JSceneManager.activeScene = newScene;
         mainCamera.setActiveScene(newScene);
     }
     public static void setWindow(JWindow newWindow)
@@ -35,5 +34,4 @@ public class JSceneManager {
         JSceneManager.mainCamera = newMainCamera;
         window.setCamera(newMainCamera);
     }
-
 }

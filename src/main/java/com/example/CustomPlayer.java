@@ -1,16 +1,13 @@
 package com.example;
 
 import com.JEngine.Game.PlayersAndPawns.JPlayer;
-import com.JEngine.Game.Visual.JCamera;
 import com.JEngine.Game.Visual.JScene;
 import com.JEngine.Game.Visual.JSceneManager;
 import com.JEngine.PrimitiveTypes.JImage;
 import com.JEngine.PrimitiveTypes.Position.Direction;
 import com.JEngine.PrimitiveTypes.Position.Transform;
-import com.JEngine.PrimitiveTypes.Position.Vector3;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 import com.JEngine.Utility.Input;
-import com.JEngine.Utility.Misc.GenericMethodCall;
 import javafx.scene.input.KeyCode;
 
 public class CustomPlayer extends JPlayer {
@@ -48,7 +45,7 @@ public class CustomPlayer extends JPlayer {
     void switchScene()
     {
         JScene scene = new JScene(JSceneManager.window, 1, "Scene 2");
-        JSceneManager.setScene(scene);
+        JSceneManager.setActiveScene(scene);
     }
 
     void switchCamera() {
@@ -72,7 +69,7 @@ public class CustomPlayer extends JPlayer {
     {
         if(canMove)
         {
-            System.out.println(Input.pressedKey);
+            //System.out.println(Input.pressedKey);
             if(Input.Up)
             {
                 Move(Direction.Up, 4);
