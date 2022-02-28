@@ -107,11 +107,11 @@ public class Input {
         }
     }
 
-    public static boolean getKeyDown()
+    public static boolean getKeyDown(KeyCode key)
     {
         return false;
     }
-    public static boolean getKeyUp()
+    public static boolean getKeyUp(KeyCode key)
     {
         return false;
     }

@@ -8,6 +8,9 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
 import com.JEngine.UserInterface.JPointer;
 import com.JEngine.Utility.About.JAppInfo;
+import com.JEngine.Utility.JMath;
+import com.JEngine.Utility.Misc.GenericMethodCall;
+import com.JEngine.Utility.Misc.JUtility;
 import com.JEngine.Utility.Settings.EnginePrefs;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -40,7 +43,6 @@ public class Main extends Application {
         JAppInfo.isCopyright = false;
 
         JAppInfo.logInfo();
-        LogImportant("Hi");
 
         String binFolder = System.getProperty("user.home") + "\\Documents\\JEngine\\bin\\";
         String fp =  binFolder + "player2.png";
@@ -49,8 +51,10 @@ public class Main extends Application {
 
         String jScenePath =  binFolder + "scene1.JScene";
 
-        /*WaitForSecondsEvent event = () -> System.out.println("Done waiting");
-        JUtility.waitForSeconds(3, event);*/
+        /*GenericMethodCall event = (Object[] args) -> {
+            System.out.println("Done Waiting " + args[0]);
+        };
+        JUtility.waitForSeconds(3, event, new Object[]{"Now!"});*/
 
         //JSettingDropdown js = (JSettingDropdown) settingManager.getSpecificSetting("General Settings", "DropdownExample");
         //JAudioPlayer ap = new JAudioPlayer(binFolder + "piano2.wav");

@@ -7,6 +7,7 @@ import com.JEngine.PrimitiveTypes.JImage;
 import com.JEngine.PrimitiveTypes.Position.Direction;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
 import com.JEngine.Utility.Input;
 import javafx.scene.input.KeyCode;
 
@@ -16,8 +17,8 @@ public class CustomPlayer extends JPlayer {
 
     public CustomPlayer(Transform transform, JImage newSprite, JIdentity identity, boolean move) {
         super(transform, newSprite, identity);
-        collider.setOnCollisionEnterEvent(otherObject -> LogExtra(identity.getName() +  " colliding with: " + otherObject.JIdentity.getName()));
-        collider.setOnCollisionExitEvent(otherObject -> LogExtra(identity.getName() +  " stopped colliding with: " + otherObject.JIdentity.getName()));
+        collider.setOnCollisionEnterEvent(otherObject -> LogExtra(identity.getName() +  " colliding with: " + ((JObject)otherObject[0]).JIdentity.getName()));
+        collider.setOnCollisionExitEvent(otherObject -> LogExtra(identity.getName() +  " stopped colliding with: " + ((JObject)otherObject[0]).JIdentity.getName()));
         Input.addKeyUpEvent(args -> {
             if(args[0] == KeyCode.X)
             {

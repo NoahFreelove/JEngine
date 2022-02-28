@@ -5,6 +5,7 @@ import com.JEngine.Game.Visual.JSceneManager;
 import com.JEngine.PrimitiveTypes.ObjRef;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.*;
+import com.JEngine.Utility.Misc.GenericMethodCall;
 
 import java.awt.*;
 
@@ -24,8 +25,8 @@ public class JBoxCollider extends JObject {
     public int sizeX;
     public int sizeY;
     public Rectangle rect;
-    CollideEvent onCollisionEnter;
-    CollideEvent onCollisionExit;
+    GenericMethodCall onCollisionEnter;
+    GenericMethodCall onCollisionExit;
 
     private int calls = 0;
 
@@ -41,7 +42,7 @@ public class JBoxCollider extends JObject {
         this.collisionStatus = new CollisionPair[JSceneManager.getActiveScene().getMaxObjects()];
     }
 
-    public JBoxCollider(Transform transform, JIdentity JIdentity, boolean isTrigger, int sizeX, int sizeY, CollideEvent onCollisionEnter) {
+    public JBoxCollider(Transform transform, JIdentity JIdentity, boolean isTrigger, int sizeX, int sizeY, GenericMethodCall onCollisionEnter) {
         super(transform, JIdentity);
         this.isTrigger = isTrigger;
         this.sizeX = sizeX;
@@ -49,11 +50,11 @@ public class JBoxCollider extends JObject {
         this.rect = new Rectangle((int)transform.position.x, (int)transform.position.y, sizeX, sizeY);
         this.onCollisionEnter = onCollisionEnter;
     }
-    public void setOnCollisionEnterEvent(CollideEvent c)
+    public void setOnCollisionEnterEvent(GenericMethodCall c)
     {
         onCollisionEnter = c;
     }
-    public void setOnCollisionExitEvent(CollideEvent c)
+    public void setOnCollisionExitEvent(GenericMethodCall c)
     {
         onCollisionExit = c;
     }
@@ -133,11 +134,11 @@ public class JBoxCollider extends JObject {
         calls++;
         if(calls == 1)
             return;
-        onCollisionEnter.event(otherObj);
+        onCollisionEnter.call(new Object[]{otherObj});
     }
 
     public void onCollisionExit(JBoxCollider otherObj)
     {
-        onCollisionExit.event(otherObj);
+        onCollisionExit.call(new Object[]{otherObj});
     }
 }
