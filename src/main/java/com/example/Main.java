@@ -14,6 +14,7 @@ import com.JEngine.Utility.Misc.JUtility;
 import com.JEngine.Utility.Settings.EnginePrefs;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import static com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing.LogImportant;
 
@@ -25,6 +26,7 @@ public class Main extends Application {
     Vector3 scale = new Vector3(1f,1,1);
 
     Transform transform = new Transform(position, rotation, scale);
+
     public static String[] savedArgs;
     public static JCamera camera2;
     public static JCamera camera;
@@ -60,7 +62,7 @@ public class Main extends Application {
         //JAudioPlayer ap = new JAudioPlayer(binFolder + "piano2.wav");
         //ap.startClip();
 
-        // create a new window
+        // create a new window , StageStyle.UNIFIED
         JWindow window = new JWindow(800,800,"JEngine", stage);
 
         // create a new scene
@@ -111,7 +113,6 @@ public class Main extends Application {
 
         // set FPS
         window.setTargetFPS(30);
-
         // run Start function on other thread so the update functions doesn't stop the rest of the main function
         window.start();
     }
@@ -119,6 +120,6 @@ public class Main extends Application {
     public static void main(String[] args) {
         savedArgs = args;
         launch();
-
     }
+
 }

@@ -10,6 +10,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
 /**
@@ -46,6 +47,19 @@ public class JWindow extends Thing {
         scene = new Scene(root, sizeX,sizeY);
         root.getChildren().add(objects);
         root.getChildren().add(uiObjects);
+        this.window = window;
+        this.window.setTitle(title);
+        this.window.setResizable(false);
+        this.window.setScene(scene);
+        this.window.show();
+        this.window.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, JUtility::exitApp);
+    }
+    public JWindow(int sizeX, int sizeY, String title, Stage window, StageStyle style) {
+        super(true);
+        scene = new Scene(root, sizeX,sizeY);
+        root.getChildren().add(objects);
+        root.getChildren().add(uiObjects);
+        window.initStyle(style);
         this.window = window;
         this.window.setTitle(title);
         this.window.setResizable(false);

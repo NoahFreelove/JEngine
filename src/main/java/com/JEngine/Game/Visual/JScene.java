@@ -372,8 +372,4 @@ public class JScene extends Thing {
         LogInfo(String.format("Purged scene: '%s' of ALL contents.", getSceneName()));
         sceneObjects = new ObjRef[newMaxObjects];
     }
-
-    public void changeWindowType(StageStyle newStyle)
-    {
-    }
 }

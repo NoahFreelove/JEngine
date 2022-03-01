@@ -119,8 +119,7 @@ public class Input {
     public static void addKeyDownEvent(GenericMethodCall event)
     {
         for (int i = 0; i < keyDownEvents.length; i++) {
-            if(keyDownEvents[i] == null)
-            {
+            if(keyDownEvents[i] == null) {
                 keyDownEvents[i] = event;
                 break;
             }
