@@ -13,7 +13,8 @@ class CollisionPair
 {
     public JIdentity i;
     public Boolean v;
-
+    // i : Identity
+    // v : Value
     public CollisionPair(JIdentity i, Boolean v) {
         this.i = i;
         this.v = v;

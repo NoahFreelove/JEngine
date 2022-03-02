@@ -3,7 +3,6 @@ package com.example;
 import com.JEngine.Game.PlayersAndPawns.JPlayer;
 import com.JEngine.Game.PlayersAndPawns.Sprite;
 import com.JEngine.Game.Visual.JScene;
-import com.JEngine.Game.Visual.JSceneLoader;
 import com.JEngine.Game.Visual.JSceneManager;
 import com.JEngine.PrimitiveTypes.JImage;
 import com.JEngine.PrimitiveTypes.Position.Direction;
@@ -12,10 +11,8 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
 import com.JEngine.Utility.ImageProcessing.BufferedImageBlur;
 import com.JEngine.Utility.Input;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-import java.awt.image.BufferedImage;
 
 public class CustomPlayer extends JPlayer {
     public boolean canMove;

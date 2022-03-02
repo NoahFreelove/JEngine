@@ -6,10 +6,12 @@ import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.Position.Vector3;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
+import com.JEngine.UserInterface.JButton;
 import com.JEngine.UserInterface.JPointer;
 import com.JEngine.Utility.About.JAppInfo;
 import com.JEngine.Utility.JMath;
 import com.JEngine.Utility.Misc.GenericMethodCall;
+import com.JEngine.Utility.Misc.JTimer;
 import com.JEngine.Utility.Misc.JUtility;
 import com.JEngine.Utility.Settings.EnginePrefs;
 import javafx.application.Application;
@@ -20,6 +22,7 @@ import static com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing.LogImportant;
 
 //TODO: UI classes
 //TODO: Timers
+
 public class Main extends Application {
     Vector3 position = new Vector3(0,0,0);
     Vector3 rotation = new Vector3(0,0,0);
@@ -99,9 +102,11 @@ public class Main extends Application {
         //JUIObject uiImage = new JUIObject(Transform.exSimpleTransform(100,100),new JIdentity("Test JUIElement", "JUIElement"), (new JImage(true, fp2, 128,128).getImage()), 128, 128);
         //JUIBackgroundImage background = new JUIBackgroundImage(new JIdentity("Scene Background", "JUIElement"), new JImage(true, fp2, 800,800).getImage(), 800, 800);
 
-        //JButton button = new JButton(Transform.exSimpleTransform(100,300), new JIdentity("Test Text", "Text"), null, 150,200, 300, 300);
+        /*JButton button = new JButton(Transform.exSimpleTransform(100,300), new JIdentity("Test Text", "Text"), null, 150,200, 300, 300);
+        scene.addUI(button);*/
 
-        //scene.addUI(button);
+        // Create timer that ticks every 500ms and outputs "tick!"
+        //new JTimer(500,new GenericMethodCall[]{args -> System.out.println("tick!")}).start();
 
         // add objects to scene
         scene.add(camera);
@@ -113,6 +118,7 @@ public class Main extends Application {
 
         // set FPS
         window.setTargetFPS(60);
+
         // run Start function on other thread so the update functions doesn't stop the rest of the main function
         window.start();
     }
