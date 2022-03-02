@@ -1,7 +1,9 @@
 package com.example;
 
 import com.JEngine.Game.PlayersAndPawns.JPlayer;
+import com.JEngine.Game.PlayersAndPawns.Sprite;
 import com.JEngine.Game.Visual.JScene;
+import com.JEngine.Game.Visual.JSceneLoader;
 import com.JEngine.Game.Visual.JSceneManager;
 import com.JEngine.PrimitiveTypes.JImage;
 import com.JEngine.PrimitiveTypes.Position.Direction;
@@ -18,8 +20,8 @@ import java.awt.image.BufferedImage;
 public class CustomPlayer extends JPlayer {
     public boolean canMove;
     private boolean camFlip;
-    private Image origImage;
-    private Image blurredImage;
+    private final Image origImage;
+    private final Image blurredImage;
     public int moveSpeed;
 
     public CustomPlayer(Transform transform, JImage newSprite, JIdentity identity, boolean move, int moveSpeed) {
@@ -52,8 +54,10 @@ public class CustomPlayer extends JPlayer {
 
     void switchScene()
     {
-        JScene scene = new JScene(JSceneManager.window, 1, "Scene 2");
-        JSceneManager.setActiveScene(scene);
+        JScene scene = new JScene(JSceneManager.window, 5, "Scene 2");
+        Sprite s = new Sprite(Transform.exSimpleTransform(20,400), new JImage(true, Main.binFolder + "player2.png", 128, 128), new JIdentity("New Player", "Sprite"));
+        JSceneManager.getActiveScene().migrateScene(scene, true, true);
+        scene.add(s);
     }
 
     void switchCamera() {
@@ -79,7 +83,6 @@ public class CustomPlayer extends JPlayer {
     {
         if(canMove)
         {
-
             getSprite().setImage((JSceneManager.window.getIsFocused())? origImage : blurredImage);
 
             //System.out.println(Input.pressedKey);

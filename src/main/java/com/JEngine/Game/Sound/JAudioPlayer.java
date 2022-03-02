@@ -7,8 +7,7 @@ import javax.sound.sampled.Clip;
 import java.io.File;
 
 public class JAudioPlayer extends Thing {
-    private String filePath;
-    private File wavFile;
+    private final String filePath;
     private Clip clip;
 
     public JAudioPlayer(String filepath) {
@@ -20,7 +19,7 @@ public class JAudioPlayer extends Thing {
     public void openClip(String filepath)
     {
         try{
-            wavFile = new File(filepath);
+            File wavFile = new File(filepath);
             clip = AudioSystem.getClip();
             clip.open(AudioSystem.getAudioInputStream(wavFile));
         }
@@ -29,6 +28,7 @@ public class JAudioPlayer extends Thing {
             LogError("Could not access audio file at: " + filepath);
         }
     }
+
 
     public void startClip()
     {

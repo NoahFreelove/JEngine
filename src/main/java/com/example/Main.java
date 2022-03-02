@@ -30,6 +30,7 @@ public class Main extends Application {
     public static String[] savedArgs;
     public static JCamera camera2;
     public static JCamera camera;
+    public static String binFolder = System.getProperty("user.home") + "\\Documents\\JEngine\\bin\\";
 
     public void start(Stage stage) {
         EnginePrefs.logImportant = true;
@@ -46,7 +47,6 @@ public class Main extends Application {
 
         JAppInfo.logInfo();
 
-        String binFolder = System.getProperty("user.home") + "\\Documents\\JEngine\\bin\\";
         String fp =  binFolder + "player2.png";
         String fp2 =  binFolder + "jengineicon.png";
         String fp3 =  binFolder + "player1.png";
@@ -105,8 +105,8 @@ public class Main extends Application {
 
         // add objects to scene
         scene.add(camera);
-        scene.add(player3);
-        scene.add(player2);
+        //scene.add(player3);
+        //scene.add(player2);
         scene.add(player);
 
         //JDo.Do(args -> System.out.println(args[0].toString()), 5, new Object[]{"hi"});

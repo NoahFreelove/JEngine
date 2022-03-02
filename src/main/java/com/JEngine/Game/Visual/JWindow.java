@@ -148,7 +148,7 @@ public class JWindow extends Thing {
 
     /**
      * Stop updating the window.
-     * I don't know when you would actually want to do this, but it's built in anyway.
+     * I don't know when you would actually want to do this, but it's built in any way.
      */
     public void stop()
     {
