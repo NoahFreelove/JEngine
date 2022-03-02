@@ -106,6 +106,58 @@ public class Input {
             });
         }
     }
+    
+    public static void checkFocus(boolean isFocused)
+    {
+        if(isFocused)
+            return;
+
+        W_Pressed = false;
+        A_Pressed = false;
+        S_Pressed = false;
+        D_Pressed = false;
+        LArrow_Pressed = false;
+        UArrow_Pressed = false;
+        DArrow_Pressed = false;
+        RArrow_Pressed = false;
+        Shift_Pressed = false;
+        Control_Pressed = false;
+        Alt_Pressed = false;
+        Tab_Pressed = false;
+        NumRow0_Pressed = false;
+        NumRow1_Pressed = false;
+        NumRow2_Pressed = false;
+        NumRow3_Pressed = false;
+        NumRow4_Pressed = false;
+        NumRow5_Pressed = false;
+        NumRow6_Pressed = false;
+        NumRow7_Pressed = false;
+        NumRow8_Pressed = false;
+        NumRow9_Pressed = false;
+        Z_Pressed = false;
+        X_Pressed = false;
+        C_Pressed = false;
+        V_Pressed = false;
+        B_Pressed = false;
+        N_Pressed = false;
+        M_Pressed = false;
+        F_Pressed = false;
+        G_Pressed = false;
+        H_Pressed = false;
+        J_Pressed = false;
+        K_Pressed = false;
+        L_Pressed = false;
+        Q_Pressed = false;
+        E_Pressed = false;
+        R_Pressed = false;
+        T_Pressed = false;
+        Y_Pressed = false;
+        U_Pressed = false;
+        I_Pressed = false;
+        O_Pressed = false;
+        P_Pressed = false;
+        checkKeyCombos();
+    }
 
     public static boolean getKeyDown(KeyCode key)
     {

@@ -20,8 +20,11 @@ public class CustomPlayer extends JPlayer {
     private boolean camFlip;
     private Image origImage;
     private Image blurredImage;
-    public CustomPlayer(Transform transform, JImage newSprite, JIdentity identity, boolean move) {
+    public int moveSpeed;
+
+    public CustomPlayer(Transform transform, JImage newSprite, JIdentity identity, boolean move, int moveSpeed) {
         super(transform, newSprite, identity);
+        this.moveSpeed = moveSpeed;
         collider.setOnCollisionEnterEvent(otherObject -> LogInfo(identity.getName() +  " colliding with: " + ((JObject)otherObject[0]).JIdentity.getName()));
         collider.setOnCollisionExitEvent(otherObject -> LogInfo(identity.getName() +  " stopped colliding with: " + ((JObject)otherObject[0]).JIdentity.getName()));
 
@@ -76,22 +79,25 @@ public class CustomPlayer extends JPlayer {
     {
         if(canMove)
         {
+
+            getSprite().setImage((JSceneManager.window.getIsFocused())? origImage : blurredImage);
+
             //System.out.println(Input.pressedKey);
             if(Input.Up)
             {
-                Move(Direction.Up, 4);
+                Move(Direction.Up, moveSpeed);
             }
             if(Input.Down)
             {
-                Move(Direction.Down, 4);
+                Move(Direction.Down, moveSpeed);
             }
             if(Input.Left)
             {
-                Move(Direction.Left, 4);
+                Move(Direction.Left, moveSpeed);
             }
             if(Input.Right)
             {
-                Move(Direction.Right, 4);
+                Move(Direction.Right, moveSpeed);
             }
         }
         collider.checkAllCollision();

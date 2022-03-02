@@ -80,9 +80,9 @@ public class Main extends Application {
         cbs.setValue(false);*/
 
         // create a pawn object
-        CustomPlayer player = new CustomPlayer(Transform.exSimpleTransform(550,100), new JImage(true, fp3, 128,128), new JIdentity("Player 1", "Player"),true);
-        CustomPlayer player2 = new CustomPlayer(Transform.exSimpleTransform(500,400), new JImage(true, fp, 128,128), new JIdentity("Player 2", "Player"),false);
-        CustomPlayer player3 = new CustomPlayer(Transform.exSimpleTransform(100,400), new JImage(true, fp, 128,128), new JIdentity("Player 3", "Player"),false);
+        CustomPlayer player = new CustomPlayer(Transform.exSimpleTransform(550,100), new JImage(true, fp3, 128,128), new JIdentity("Player 1", "Player"),true, 6);
+        CustomPlayer player2 = new CustomPlayer(Transform.exSimpleTransform(500,400), new JImage(true, fp, 128,128), new JIdentity("Player 2", "Player"),false, 0);
+        CustomPlayer player3 = new CustomPlayer(Transform.exSimpleTransform(100,400), new JImage(true, fp, 128,128), new JIdentity("Player 3", "Player"),false, 0);
 
         // create camera
 
@@ -112,7 +112,7 @@ public class Main extends Application {
         //JDo.Do(args -> System.out.println(args[0].toString()), 5, new Object[]{"hi"});
 
         // set FPS
-        window.setTargetFPS(30);
+        window.setTargetFPS(60);
         // run Start function on other thread so the update functions doesn't stop the rest of the main function
         window.start();
     }

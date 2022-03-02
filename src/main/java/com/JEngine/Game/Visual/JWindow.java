@@ -6,6 +6,8 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 import com.JEngine.Utility.Input;
 import com.JEngine.Utility.Misc.JUtility;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
@@ -34,6 +36,7 @@ public class JWindow extends Thing {
     private float targetFPS = 5;
     Group objects = new Group();
     Group uiObjects = new Group();
+    private boolean isFocused = true;
 
     /**
      * Default constructor
@@ -53,7 +56,9 @@ public class JWindow extends Thing {
         this.window.setScene(scene);
         this.window.show();
         this.window.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, JUtility::exitApp);
+        window.focusedProperty().addListener((newValue, onHidden, onShown) -> isFocused = newValue.getValue());
     }
+
     public JWindow(int sizeX, int sizeY, String title, Stage window, StageStyle style) {
         super(true);
         scene = new Scene(root, sizeX,sizeY);
@@ -66,6 +71,7 @@ public class JWindow extends Thing {
         this.window.setScene(scene);
         this.window.show();
         this.window.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, JUtility::exitApp);
+        window.focusedProperty().addListener((newValue, onHidden, onShown) -> isFocused = newValue.getValue());
     }
 
     /**
@@ -200,7 +206,7 @@ public class JWindow extends Thing {
         {
             activeCamera.InitiateRender();
         }
-
+        Input.checkFocus(isFocused);
         runUpdateBehaviors();
         Input.resetButtons();
 
@@ -218,4 +224,10 @@ public class JWindow extends Thing {
                 objRef.objRef.Update();
         }
     }
+
+    /**
+     * Get the isFocused value
+     * @return Returns if the window is currently focused or not
+     */
+    public boolean getIsFocused(){ return isFocused;}
 }
