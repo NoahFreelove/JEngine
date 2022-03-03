@@ -36,10 +36,13 @@ public class CustomPlayer extends JPlayer {
     JImage player2Img = new JImage(true, fp, 128,128);
     JImage player3Img = new JImage(true, fp2, 128,128);
 
-    AnimFrame[][] animFrames = new AnimFrame[][]{new AnimFrame[]{new AnimFrame(AnimState.IDLE, player1Img, 30), new AnimFrame(AnimState.IDLE, player2Img, 30)},
+    AnimFrame[][] animFrames = new AnimFrame[][]{
+            new AnimFrame[]{new AnimFrame(AnimState.IDLE, player1Img, 30), new AnimFrame(AnimState.IDLE, player2Img, 30)},
+
             new AnimFrame[]{new AnimFrame(AnimState.LEFT, player3Img, 30), new AnimFrame(AnimState.LEFT, player2Img, 30)}
     };
 
+    // Set default anim state to IDLE and have max 60 frames per anim
     JAnimationTimeline jAt = new JAnimationTimeline(animFrames, AnimState.IDLE, 60);
 
     public CustomPlayer(Transform transform, JImage newSprite, JIdentity identity, boolean move, int moveSpeed) {
