@@ -21,7 +21,6 @@ import javafx.stage.StageStyle;
 import static com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing.LogImportant;
 
 //TODO: UI classes
-//TODO: Timers
 
 public class Main extends Application {
     Vector3 position = new Vector3(0,0,0);
