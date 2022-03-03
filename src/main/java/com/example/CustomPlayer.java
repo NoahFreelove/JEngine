@@ -2,6 +2,9 @@ package com.example;
 
 import com.JEngine.Game.PlayersAndPawns.JPlayer;
 import com.JEngine.Game.PlayersAndPawns.Sprite;
+import com.JEngine.Game.Visual.Animation.AnimFrame;
+import com.JEngine.Game.Visual.Animation.AnimState;
+import com.JEngine.Game.Visual.Animation.JAnimationTimeline;
 import com.JEngine.Game.Visual.JScene;
 import com.JEngine.Game.Visual.JSceneManager;
 import com.JEngine.PrimitiveTypes.JImage;
@@ -14,12 +17,30 @@ import com.JEngine.Utility.Input;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 
+import static com.example.Main.binFolder;
+
 public class CustomPlayer extends JPlayer {
     public boolean canMove;
     private boolean camFlip;
+    private boolean flipFlop;
+
     private final Image origImage;
     private final Image blurredImage;
     public int moveSpeed;
+
+    String fp =  binFolder + "player2.png";
+    String fp3 =  binFolder + "player1.png";
+    String fp2 =  binFolder + "cursor.png";
+
+    JImage player1Img = new JImage(true, fp3, 128,128);
+    JImage player2Img = new JImage(true, fp, 128,128);
+    JImage player3Img = new JImage(true, fp2, 128,128);
+
+    AnimFrame[][] animFrames = new AnimFrame[][]{new AnimFrame[]{new AnimFrame(AnimState.IDLE, player1Img, 30), new AnimFrame(AnimState.IDLE, player2Img, 30)},
+            new AnimFrame[]{new AnimFrame(AnimState.LEFT, player3Img, 30), new AnimFrame(AnimState.LEFT, player2Img, 30)}
+    };
+
+    JAnimationTimeline jAt = new JAnimationTimeline(animFrames, AnimState.IDLE, 60);
 
     public CustomPlayer(Transform transform, JImage newSprite, JIdentity identity, boolean move, int moveSpeed) {
         super(transform, newSprite, identity);
@@ -30,7 +51,14 @@ public class CustomPlayer extends JPlayer {
         Input.addKeyUpEvent(args -> {
             if(args[0] == KeyCode.X)
             {
-                switchCamera();
+                flipFlop = !flipFlop;
+                if(flipFlop)
+                {
+                    jAt.switchState(AnimState.LEFT);
+                }
+                else
+                    jAt.switchState(AnimState.IDLE);
+                //switchCamera();
             }
         });
 
@@ -52,7 +80,7 @@ public class CustomPlayer extends JPlayer {
     void switchScene()
     {
         JScene scene = new JScene(JSceneManager.window, 5, "Scene 2");
-        Sprite s = new Sprite(Transform.exSimpleTransform(20,400), new JImage(true, Main.binFolder + "player2.png", 128, 128), new JIdentity("New Player", "Sprite"));
+        Sprite s = new Sprite(Transform.exSimpleTransform(20,400), new JImage(true, binFolder + "player2.png", 128, 128), new JIdentity("New Player", "Sprite"));
         JSceneManager.getActiveScene().migrateScene(scene, true, true);
         scene.add(s);
     }
@@ -80,7 +108,10 @@ public class CustomPlayer extends JPlayer {
     {
         if(canMove)
         {
-            getSprite().setImage((JSceneManager.window.getIsFocused())? origImage : blurredImage);
+
+            // update the sprite every frame to correct sprite in animation
+            setSprite(jAt.getCurrentFrame());
+
 
             //System.out.println(Input.pressedKey);
             if(Input.Up)

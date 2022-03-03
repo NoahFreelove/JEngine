@@ -1,23 +1,7 @@
-package com.JEngine.Game.Visual;
+package com.JEngine.Game.Visual.Animation;
 
 import com.JEngine.PrimitiveTypes.JImage;
 
-enum AnimState {
-    IDLE,
-    LEFT,
-    RIGHT,
-    UP,
-    DOWN,
-    SPECIAL,
-    SPECIAL2,
-    SPECIAL3,
-    SPECIAL4
-}
-class AnimFrame{
-    AnimState state;
-    JImage image;
-    int duration; // in frames
-}
 public class JAnimationTimeline {
     public AnimState currState;
     int frameIndex;
@@ -58,6 +42,7 @@ public class JAnimationTimeline {
                     case IDLE -> {
                         while (f.duration>0)
                         {
+                            f.duration--;
                             idleFrames[idleCount] = f.image;
                             idleCount++;
                         }
@@ -65,6 +50,7 @@ public class JAnimationTimeline {
                     case LEFT -> {
                         while (f.duration>0)
                         {
+                            f.duration--;
                             leftFrames[leftCount] = f.image;
                             leftCount++;
                         }
@@ -72,6 +58,7 @@ public class JAnimationTimeline {
                     case RIGHT -> {
                         while (f.duration>0)
                         {
+                            f.duration--;
                             rightFrames[rightCount] = f.image;
                             rightCount++;
                         }
@@ -79,6 +66,7 @@ public class JAnimationTimeline {
                     case UP -> {
                         while (f.duration>0)
                         {
+                            f.duration--;
                             upFrames[upCount] = f.image;
                             upCount++;
                         }
@@ -86,6 +74,7 @@ public class JAnimationTimeline {
                     case DOWN -> {
                         while (f.duration>0)
                         {
+                            f.duration--;
                             downFrames[downCount] = f.image;
                             downCount++;
                         }
@@ -103,7 +92,7 @@ public class JAnimationTimeline {
 
     public JImage getCurrentFrame()
     {
-        JImage tmp = new JImage(false,"",0,0);
+        JImage tmp = null;
         try {
             switch (currState)
             {
