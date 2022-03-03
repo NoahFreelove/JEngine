@@ -5,6 +5,7 @@ import com.JEngine.PrimitiveTypes.ObjRef;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 import com.JEngine.Utility.Input;
 import com.JEngine.Utility.Misc.JUtility;
+import com.JEngine.Utility.Settings.EnginePrefs;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -209,6 +210,9 @@ public class JWindow extends Thing {
         Input.checkFocus(isFocused);
         runUpdateBehaviors();
         Input.resetButtons();
+        if(EnginePrefs.aggressiveGC)
+            System.gc();
+
 
     }
 

@@ -1,5 +1,6 @@
 package com.JEngine.Utility.ImageProcessing;
 
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 import com.JEngine.Utility.ImageProcessing.ConvolveWithEdgeOp;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
@@ -30,7 +31,7 @@ public class BufferedImageBlur {
             BufferedImageOp op = new ConvolveWithEdgeOp(kernel, 2, null);
 
             BufferedImage blurred = op.filter(img, img2);
-            System.out.println("Successfully blurred image");
+            Thing.LogAnnoyance("Successfully blurred image");
             return blurred;
 
         } catch (Exception e) {
@@ -52,7 +53,7 @@ public class BufferedImageBlur {
             BufferedImageOp op = new ConvolveWithEdgeOp(kernel, 2, null);
 
             BufferedImage blurred = op.filter(img, img2);
-            System.out.println("Successfully blurred image");
+            Thing.LogAnnoyance("Successfully blurred image");
 
             return SwingFXUtils.toFXImage(blurred, null);
 

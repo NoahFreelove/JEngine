@@ -40,7 +40,6 @@ public class Main extends Application {
         EnginePrefs.logInfo = true;
         EnginePrefs.logExtra = false;
         EnginePrefs.logAnnoyance = false;
-
         JAppInfo.authors = new String[]{"Noah Freelove"};
         JAppInfo.appName = "JEngine";
         JAppInfo.appVersionMajor = 0;
@@ -83,7 +82,7 @@ public class Main extends Application {
         cbs.setValue(false);*/
 
         // create a pawn object
-        CustomPlayer player = new CustomPlayer(Transform.exSimpleTransform(550,100), new JImage(true, fp3, 128,128), new JIdentity("Player 1", "Player"),true, 6);
+        CustomPlayer player = new CustomPlayer(Transform.exSimpleTransform(550,100), new JImage(true, fp3, 128,128), new JIdentity("Player 1", "Player"),true, 5);
         CustomPlayer player2 = new CustomPlayer(Transform.exSimpleTransform(500,400), new JImage(true, fp, 128,128), new JIdentity("Player 2", "Player"),false, 0);
         CustomPlayer player3 = new CustomPlayer(Transform.exSimpleTransform(100,400), new JImage(true, fp, 128,128), new JIdentity("Player 3", "Player"),false, 0);
 
