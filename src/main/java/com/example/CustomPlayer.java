@@ -5,8 +5,8 @@ import com.JEngine.Game.PlayersAndPawns.Sprite;
 import com.JEngine.Game.Visual.Animation.AnimFrame;
 import com.JEngine.Game.Visual.Animation.AnimState;
 import com.JEngine.Game.Visual.Animation.JAnimationTimeline;
-import com.JEngine.Game.Visual.JScene;
-import com.JEngine.Game.Visual.JSceneManager;
+import com.JEngine.Game.Visual.Scenes.JScene;
+import com.JEngine.Game.Visual.Scenes.JSceneManager;
 import com.JEngine.PrimitiveTypes.JImage;
 import com.JEngine.PrimitiveTypes.Position.Direction;
 import com.JEngine.PrimitiveTypes.Position.Transform;
@@ -37,7 +37,7 @@ public class CustomPlayer extends JPlayer {
     JImage player3Img = new JImage(true, fp2, 128,128);
 
     AnimFrame[][] animFrames = new AnimFrame[][]{
-            new AnimFrame[]{new AnimFrame(AnimState.IDLE, player1Img, 20), new AnimFrame(AnimState.IDLE, player2Img, 20)},
+            new AnimFrame[]{new AnimFrame(AnimState.IDLE, player1Img, 30), new AnimFrame(AnimState.IDLE, player2Img, 30)},
 
             new AnimFrame[]{new AnimFrame(AnimState.LEFT, player3Img, 30), new AnimFrame(AnimState.LEFT, player2Img, 30)}
     };

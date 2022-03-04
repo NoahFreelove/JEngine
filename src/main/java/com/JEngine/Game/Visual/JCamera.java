@@ -1,6 +1,7 @@
 package com.JEngine.Game.Visual;
 
 import com.JEngine.Game.PlayersAndPawns.Sprite;
+import com.JEngine.Game.Visual.Scenes.JScene;
 import com.JEngine.PrimitiveTypes.ObjRef;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.Position.Vector3;
@@ -15,7 +16,6 @@ import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
 
 
 /** JEngine.JCamera (c) Noah Freelove

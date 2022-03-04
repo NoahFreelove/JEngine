@@ -1,6 +1,6 @@
 package com.JEngine.Utility;
 
-import com.JEngine.Game.Visual.JSceneManager;
+import com.JEngine.Game.Visual.Scenes.JSceneManager;
 import com.JEngine.Utility.Misc.GenericMethodCall;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;

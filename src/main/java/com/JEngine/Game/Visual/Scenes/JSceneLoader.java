@@ -1,6 +1,7 @@
-package com.JEngine.Game.Visual;
+package com.JEngine.Game.Visual.Scenes;
 
 import com.JEngine.Game.PlayersAndPawns.JPawn;
+import com.JEngine.Game.Visual.JWindow;
 import com.JEngine.PrimitiveTypes.JImage;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.Position.Vector3;

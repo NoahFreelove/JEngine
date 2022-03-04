@@ -1,5 +1,6 @@
 package com.JEngine.Game.Visual;
 
+import com.JEngine.Game.Visual.Scenes.JSceneManager;
 import com.JEngine.PrimitiveTypes.JImage;
 import com.JEngine.PrimitiveTypes.ObjRef;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
@@ -7,8 +8,6 @@ import com.JEngine.Utility.Input;
 import com.JEngine.Utility.Misc.JUtility;
 import com.JEngine.Utility.Settings.EnginePrefs;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;

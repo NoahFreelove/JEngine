@@ -102,8 +102,8 @@ public class JAnimationTimeline {
                 }
             }
         }
-
     }
+
     public void switchState(AnimState newState)
     {
         currState = newState;

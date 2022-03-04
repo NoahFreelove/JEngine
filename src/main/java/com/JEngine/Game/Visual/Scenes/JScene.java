@@ -1,6 +1,8 @@
-package com.JEngine.Game.Visual;
+package com.JEngine.Game.Visual.Scenes;
 
 import com.JEngine.Game.PlayersAndPawns.Sprite;
+import com.JEngine.Game.Visual.JWindow;
+import com.JEngine.Game.Visual.SearchType;
 import com.JEngine.PrimitiveTypes.ObjRef;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JUIObject;

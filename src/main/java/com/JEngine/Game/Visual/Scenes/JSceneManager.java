@@ -1,5 +1,7 @@
-package com.JEngine.Game.Visual;
+package com.JEngine.Game.Visual.Scenes;
 
+import com.JEngine.Game.Visual.JCamera;
+import com.JEngine.Game.Visual.JWindow;
 import com.JEngine.Utility.Input;
 
 public class JSceneManager {

@@ -1,10 +1,9 @@
 package com.example;
 
 import com.JEngine.Game.Visual.JCamera;
-import com.JEngine.Game.Visual.JScene;
+import com.JEngine.Game.Visual.Scenes.JScene;
 import com.JEngine.Game.Visual.JWindow;
 import com.JEngine.PrimitiveTypes.Position.Vector3;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
 
 public class CustomCamera extends JCamera {

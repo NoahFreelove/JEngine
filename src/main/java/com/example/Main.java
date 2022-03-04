@@ -1,8 +1,8 @@
 package com.example;
 
 import com.JEngine.Game.Visual.JCamera;
-import com.JEngine.Game.Visual.JScene;
-import com.JEngine.Game.Visual.JSceneManager;
+import com.JEngine.Game.Visual.Scenes.JScene;
+import com.JEngine.Game.Visual.Scenes.JSceneManager;
 import com.JEngine.Game.Visual.JWindow;
 import com.JEngine.PrimitiveTypes.JImage;
 import com.JEngine.PrimitiveTypes.Position.Transform;
@@ -11,13 +11,18 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
 import com.JEngine.UserInterface.JPointer;
 import com.JEngine.Utility.About.JAppInfo;
+import com.JEngine.Utility.Misc.GenericMethodCall;
+import com.JEngine.Utility.Misc.JTimer;
 import com.JEngine.Utility.Settings.EnginePrefs;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import static com.JEngine.Utility.IO.FileOperations.stringArrToFile;
+
 //TODO: UI classes
 
 public class Main extends Application {
+
     Vector3 position = new Vector3(0,0,0);
     Vector3 rotation = new Vector3(0,0,0);
     Vector3 scale = new Vector3(1f,1,1);
@@ -25,8 +30,10 @@ public class Main extends Application {
     Transform transform = new Transform(position, rotation, scale);
 
     public static String[] savedArgs;
+
     public static JCamera camera2;
     public static JCamera camera;
+
     public static String binFolder = System.getProperty("user.home") + "\\Documents\\JEngine\\bin\\";
 
     public void start(Stage stage) {
@@ -54,8 +61,12 @@ public class Main extends Application {
 
         // create a new scene
         JScene scene = new JScene(window, 15, "Scene 1");
-        camera = new JCamera(new Vector3(0,0,1),window,scene, new JObject(null, null), 800, new JIdentity("Main Camera","sceneObj"));
-        camera2 = new JCamera(new Vector3(250,0,0), window, scene, null, 800, new JIdentity("Camera 2", "camera"));
+
+        // create camera
+        camera = new JCamera(new Vector3(0,0,1),window,scene, new JObject(null, null),
+                800, new JIdentity("Main Camera","camera"));
+        camera2 = new JCamera(new Vector3(250,0,0), window, scene, null, 800,
+                new JIdentity("Camera 2", "camera"));
 
         JImage player1Img = new JImage(true, fp3, 128,128);
         JImage player2Img = new JImage(false, fp, 128,128);
@@ -72,8 +83,6 @@ public class Main extends Application {
         CustomPlayer player = new CustomPlayer(Transform.exSimpleTransform(550,100), player1Img, new JIdentity("Player 1", "Player"),true, 5);
         CustomPlayer player2 = new CustomPlayer(Transform.exSimpleTransform(500,400), new JImage(true, fp, 128,128), new JIdentity("Player 2", "Player"),false, 0);
         CustomPlayer player3 = new CustomPlayer(Transform.exSimpleTransform(100,400), new JImage(true, fp, 128,128), new JIdentity("Player 3", "Player"),false, 0);
-
-        // create camera
 
         JPointer jp = new JPointer(new JImage(true,fp2,16,16));
         jp.setWindowCursor(window.getScene());

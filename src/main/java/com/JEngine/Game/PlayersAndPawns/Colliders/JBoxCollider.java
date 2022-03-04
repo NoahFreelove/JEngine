@@ -1,7 +1,7 @@
 package com.JEngine.Game.PlayersAndPawns.Colliders;
 
 import com.JEngine.Game.PlayersAndPawns.Sprite;
-import com.JEngine.Game.Visual.JSceneManager;
+import com.JEngine.Game.Visual.Scenes.JSceneManager;
 import com.JEngine.PrimitiveTypes.ObjRef;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.*;
