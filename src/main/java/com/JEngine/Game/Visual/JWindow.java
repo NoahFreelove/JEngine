@@ -55,6 +55,7 @@ public class JWindow extends Thing {
         this.window.show();
         this.window.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, JUtility::exitApp);
         window.focusedProperty().addListener((newValue, onHidden, onShown) -> isFocused = newValue.getValue());
+        this.scaleMultiplier = scaleMultiplier;
     }
 
     public JWindow(float scaleMultiplier, String title, Stage window, StageStyle style) {
@@ -70,6 +71,7 @@ public class JWindow extends Thing {
         this.window.show();
         this.window.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, JUtility::exitApp);
         window.focusedProperty().addListener((newValue, onHidden, onShown) -> isFocused = newValue.getValue());
+        this.scaleMultiplier = scaleMultiplier;
     }
 
     public float getScaleMultiplier(){return scaleMultiplier;}

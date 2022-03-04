@@ -104,7 +104,7 @@ public class CustomPlayer extends JPlayer {
                 Move(Direction.Right, moveSpeed);
         }
         // update the sprite every frame to correct sprite in animation
-        setSprite(jAt.getCurrentFrame());
+        //setSprite(jAt.getCurrentFrame());
 
         collider.checkAllCollision();
     }

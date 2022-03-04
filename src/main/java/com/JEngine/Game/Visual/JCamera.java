@@ -63,10 +63,10 @@ public class JCamera extends JObject {
             super.transform.position = parent.transform.position;
         }*/
 
-        int leftBound = (int)(transform.getPosition().x*window.getScaleMultiplier());
-        int rightBound = (int)(transform.getPosition().x*window.getScaleMultiplier()) + fovX;
-        int upBound = (int)(transform.getPosition().y*window.getScaleMultiplier());
-        int downBound = (int)(transform.getPosition().y*window.getScaleMultiplier()) + fovY;
+        float leftBound = (transform.getPosition().x*window.getScaleMultiplier());
+        float rightBound = (transform.getPosition().x*window.getScaleMultiplier()) + fovX;
+        float upBound = (transform.getPosition().y*window.getScaleMultiplier());
+        float downBound = (transform.getPosition().y*window.getScaleMultiplier()) + fovY;
 
         objectsInView = new JObject[scene.getMaxObjects()];
         int i = 0;
@@ -81,13 +81,20 @@ public class JCamera extends JObject {
             try {
                 Sprite objSprite = (Sprite) obj.objRef;
                 // right tip of object is in frame
-                boolean con1 = (obj.objRef.transform.getPosition().x*window.getScaleMultiplier() + (objSprite.getSprite().getXSize()*window.getScaleMultiplier() * obj.objRef.transform.getScale().x*window.getScaleMultiplier())) >= leftBound;
+                boolean con1 = (obj.objRef.transform.getPosition().x*window.getScaleMultiplier() +
+                        (objSprite.getSprite().getXSize()*window.getScaleMultiplier() *
+                                obj.objRef.transform.getScale().x*window.getScaleMultiplier())) >= leftBound;
                 // right tip of object isn't out of frame
                 boolean con2 = (obj.objRef.transform.getPosition().x*window.getScaleMultiplier()) <= rightBound;
                 // bottom tip of object isn't out of frame
-                boolean con3 = (obj.objRef.transform.getPosition().y*window.getScaleMultiplier() + (objSprite.getSprite().getYSize()*window.getScaleMultiplier() * obj.objRef.transform.getScale().y*window.getScaleMultiplier())) >=upBound;
+                boolean con3 = (obj.objRef.transform.getPosition().y*window.getScaleMultiplier() +
+                        (objSprite.getSprite().getYSize()*window.getScaleMultiplier() *
+                                obj.objRef.transform.getScale().y*window.getScaleMultiplier())) >=upBound;
                 // bottom tip of object is in frame
                 boolean con4 = (obj.objRef.transform.getPosition().y*window.getScaleMultiplier())<=downBound;
+          /*      LogInfo(String.valueOf((obj.objRef.transform.getPosition().y*window.getScaleMultiplier())));
+                LogInfo(String.valueOf((obj.objRef.transform.getPosition().x*window.getScaleMultiplier())));
+                LogInfo(String.valueOf(window.getScaleMultiplier()));*/
 
                 if( con1 && con2 && con3 && con4)
                 {
@@ -129,8 +136,8 @@ public class JCamera extends JObject {
             int totalScaleX = (int)(scene.juiObjects[i].transform.getScale().x*window.getScaleMultiplier() * scene.juiObjects[i].sizeX*window.getScaleMultiplier());
             int totalScaleY = (int)(scene.juiObjects[i].transform.getScale().y*window.getScaleMultiplier() * scene.juiObjects[i].sizeY*window.getScaleMultiplier());
 
-            int xPos = (int)(scene.juiObjects[i].transform.position.x*window.getScaleMultiplier() - transform.position.x*window.getScaleMultiplier());
-            int yPos = (int)(scene.juiObjects[i].transform.position.y*window.getScaleMultiplier() - transform.position.y*window.getScaleMultiplier());
+            float xPos = (scene.juiObjects[i].transform.position.x*window.getScaleMultiplier() - transform.position.x*window.getScaleMultiplier());
+            float yPos = (scene.juiObjects[i].transform.position.y*window.getScaleMultiplier() - transform.position.y*window.getScaleMultiplier());
 
             if(scene.juiObjects[i].getClass().equals(JUIBackgroundImage.class))
             {
@@ -154,7 +161,7 @@ public class JCamera extends JObject {
             {
                 JText jText = (JText)scene.juiObjects[i];
                 jText.getLabel().setX(xPos*window.getScaleMultiplier());
-                jText.getLabel().setY(xPos*window.getScaleMultiplier());
+                jText.getLabel().setY(yPos*window.getScaleMultiplier());
                 uiObjects.getChildren().add(jText.getLabel());
                 continue;
             }
