@@ -25,13 +25,14 @@ import javafx.scene.image.ImageView;
  * **/
 public class JCamera extends JObject {
     // fov is added to the right and bottom of the camera, does not start from the middle of the camera
-    public int fov;
+    public int fovX;
+    public int fovY;
     private JScene scene;
     public JWindow window;
     public JObject parent;
     public JObject[] objectsInView;
 
-    public JCamera(Vector3 position, JWindow window, JScene scene, JObject parent, int fov, JIdentity JIdentity) {
+    public JCamera(Vector3 position, JWindow window, JScene scene, JObject parent, JIdentity JIdentity) {
         super(new Transform(position, new Vector3(0,0,0), new Vector3(1,1,1)), JIdentity);
 
        /* if(parent.transform == null){
@@ -42,7 +43,8 @@ public class JCamera extends JObject {
         this.window = window;
         this.scene = scene;
         this.parent = parent;
-        this.fov = fov;
+        this.fovX = (int) (window.getScaleMultiplier()*1280);
+        this.fovY = (int) (window.getScaleMultiplier()*720);
     }
 
     public void setParent(JObject newParent) {parent = newParent;}
@@ -61,10 +63,10 @@ public class JCamera extends JObject {
             super.transform.position = parent.transform.position;
         }*/
 
-        int leftBound = (int)transform.getPosition().x;
-        int rightBound = (int)transform.getPosition().x + fov;
-        int upBound = (int)transform.getPosition().y;
-        int downBound = (int)transform.getPosition().y + fov;
+        int leftBound = (int)(transform.getPosition().x*window.getScaleMultiplier());
+        int rightBound = (int)(transform.getPosition().x*window.getScaleMultiplier()) + fovX;
+        int upBound = (int)(transform.getPosition().y*window.getScaleMultiplier());
+        int downBound = (int)(transform.getPosition().y*window.getScaleMultiplier()) + fovY;
 
         objectsInView = new JObject[scene.getMaxObjects()];
         int i = 0;
@@ -79,17 +81,18 @@ public class JCamera extends JObject {
             try {
                 Sprite objSprite = (Sprite) obj.objRef;
                 // right tip of object is in frame
-                boolean con1 = (obj.objRef.transform.getPosition().x + (objSprite.getSprite().getXSize() * obj.objRef.transform.getScale().x)) >= leftBound;
+                boolean con1 = (obj.objRef.transform.getPosition().x*window.getScaleMultiplier() + (objSprite.getSprite().getXSize()*window.getScaleMultiplier() * obj.objRef.transform.getScale().x*window.getScaleMultiplier())) >= leftBound;
                 // right tip of object isn't out of frame
-                boolean con2 = (obj.objRef.transform.getPosition().x) <= rightBound;
+                boolean con2 = (obj.objRef.transform.getPosition().x*window.getScaleMultiplier()) <= rightBound;
                 // bottom tip of object isn't out of frame
-                boolean con3 = (obj.objRef.transform.getPosition().y + (objSprite.getSprite().getYSize() * obj.objRef.transform.getScale().y)) >=upBound;
+                boolean con3 = (obj.objRef.transform.getPosition().y*window.getScaleMultiplier() + (objSprite.getSprite().getYSize()*window.getScaleMultiplier() * obj.objRef.transform.getScale().y*window.getScaleMultiplier())) >=upBound;
                 // bottom tip of object is in frame
-                boolean con4 = (obj.objRef.transform.getPosition().y)<=downBound;
+                boolean con4 = (obj.objRef.transform.getPosition().y*window.getScaleMultiplier())<=downBound;
 
                 if( con1 && con2 && con3 && con4)
                 {
                     objectsInView[i] = objSprite;
+                    System.out.println("Visible");
                 }
             }
             catch (Exception ignore)
@@ -100,7 +103,7 @@ public class JCamera extends JObject {
                     continue;
                 }
 
-                if((obj.objRef.transform.getPosition().x >= leftBound && obj.objRef.transform.getPosition().x <=rightBound))
+                if((obj.objRef.transform.getPosition().x*window.getScaleMultiplier() >= leftBound && obj.objRef.transform.getPosition().x*window.getScaleMultiplier() <=rightBound))
                 {
                     objectsInView[i] = obj.objRef;
                     //System.out.println(objectsInView[i].getClass());
@@ -123,11 +126,11 @@ public class JCamera extends JObject {
                 continue;
             }
 
-            int totalScaleX = (int)(scene.juiObjects[i].transform.getScale().x * scene.juiObjects[i].sizeX);
-            int totalScaleY = (int)(scene.juiObjects[i].transform.getScale().y * scene.juiObjects[i].sizeY);
+            int totalScaleX = (int)(scene.juiObjects[i].transform.getScale().x*window.getScaleMultiplier() * scene.juiObjects[i].sizeX*window.getScaleMultiplier());
+            int totalScaleY = (int)(scene.juiObjects[i].transform.getScale().y*window.getScaleMultiplier() * scene.juiObjects[i].sizeY*window.getScaleMultiplier());
 
-            int xPos = (int)(scene.juiObjects[i].transform.position.x - transform.position.x);
-            int yPos = (int)(scene.juiObjects[i].transform.position.y - transform.position.y);
+            int xPos = (int)(scene.juiObjects[i].transform.position.x*window.getScaleMultiplier() - transform.position.x*window.getScaleMultiplier());
+            int yPos = (int)(scene.juiObjects[i].transform.position.y*window.getScaleMultiplier() - transform.position.y*window.getScaleMultiplier());
 
             if(scene.juiObjects[i].getClass().equals(JUIBackgroundImage.class))
             {
@@ -150,8 +153,8 @@ public class JCamera extends JObject {
             if(scene.juiObjects[i].getClass().equals(JText.class))
             {
                 JText jText = (JText)scene.juiObjects[i];
-                jText.getLabel().setX(xPos);
-                jText.getLabel().setY(xPos);
+                jText.getLabel().setX(xPos*window.getScaleMultiplier());
+                jText.getLabel().setY(xPos*window.getScaleMultiplier());
                 uiObjects.getChildren().add(jText.getLabel());
                 continue;
             }
@@ -160,8 +163,8 @@ public class JCamera extends JObject {
             {
                 JButton jButton = (JButton)scene.juiObjects[i];
                 Button b = jButton.getButton();
-                b.setLayoutX(xPos);
-                b.setLayoutY(yPos);
+                b.setLayoutX(xPos*window.getScaleMultiplier());
+                b.setLayoutY(yPos*window.getScaleMultiplier());
                 uiObjects.getChildren().add(b);
                 continue;
             }
@@ -171,8 +174,8 @@ public class JCamera extends JObject {
             {
                 Image image = scene.juiObjects[i].getImage();
                 ImageView imageView = new ImageView(image);
-                imageView.setX(xPos);
-                imageView.setY(yPos);
+                imageView.setX(xPos*window.getScaleMultiplier());
+                imageView.setY(yPos*window.getScaleMultiplier());
                 imageView.setRotate(scene.juiObjects[i].transform.rotation.x);
                 uiObjects.getChildren().add(imageView);
             }
@@ -193,18 +196,18 @@ public class JCamera extends JObject {
             //System.out.println("Object: " + objectsInView[i].identity.getName() + " : " + objectsInView[i].getClass().)
             try
             {
-                int xPos = (int)(scene.sceneObjects[i].objRef.transform.position.x - transform.position.x);
-                int yPos = (int)(scene.sceneObjects[i].objRef.transform.position.y - transform.position.y);
+                int xPos = (int)(scene.sceneObjects[i].objRef.transform.position.x*window.getScaleMultiplier() - transform.position.x*window.getScaleMultiplier());
+                int yPos = (int)(scene.sceneObjects[i].objRef.transform.position.y*window.getScaleMultiplier() - transform.position.y*window.getScaleMultiplier());
 
                 Sprite s = (Sprite)objectsInView[i];
                 Image image = s.getSprite().getImage();
                 ImageView imageView = new ImageView(image);
-                imageView.setFitWidth(objectsInView[i].transform.getScale().x*s.getSprite().getXSize());
-                imageView.setFitHeight(objectsInView[i].transform.getScale().y*s.getSprite().getYSize());
+                imageView.setFitWidth(objectsInView[i].transform.getScale().x*window.getScaleMultiplier()*s.getSprite().getXSize()*window.getScaleMultiplier());
+                imageView.setFitHeight(objectsInView[i].transform.getScale().y*window.getScaleMultiplier()*s.getSprite().getYSize()*window.getScaleMultiplier());
 
-                imageView.setX(xPos);
-                imageView.setY(yPos);
-                imageView.setRotate(scene.sceneObjects[i].objRef.transform.rotation.x);
+                imageView.setX(xPos*window.getScaleMultiplier());
+                imageView.setY(yPos*window.getScaleMultiplier());
+                imageView.setRotate(scene.sceneObjects[i].objRef.transform.rotation.x*window.getScaleMultiplier());
 
                 gameObjects.getChildren().add(imageView);
                 //JLabel jl = new JLabel(new ImageIcon(s.getSprite().getIcon().getImage().getScaledInstance((int)(objectsInView[i].transform.getScale().x* s.getSprite().getXSize()), (int)(objectsInView[i].transform.getScale().y* s.getSprite().getYSize()), Image.SCALE_DEFAULT)));

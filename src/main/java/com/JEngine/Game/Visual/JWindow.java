@@ -37,17 +37,15 @@ public class JWindow extends Thing {
     Group objects = new Group();
     Group uiObjects = new Group();
     private boolean isFocused = true;
-
+    private float scaleMultiplier = 1;
     /**
      * Default constructor
-     * @param sizeX Window size x
-     * @param sizeY Window size Y
      * @param title Title of the window
      * @param window Default stage (Typically given by JavaFX public void start(Stage stage)
      */
-    public JWindow(int sizeX, int sizeY, String title, Stage window) {
+    public JWindow(float scaleMultiplier, String title, Stage window) {
         super(true);
-        scene = new Scene(root, sizeX,sizeY);
+        scene = new Scene(root, 1280*scaleMultiplier,720*scaleMultiplier);
         root.getChildren().add(objects);
         root.getChildren().add(uiObjects);
         this.window = window;
@@ -59,9 +57,9 @@ public class JWindow extends Thing {
         window.focusedProperty().addListener((newValue, onHidden, onShown) -> isFocused = newValue.getValue());
     }
 
-    public JWindow(int sizeX, int sizeY, String title, Stage window, StageStyle style) {
+    public JWindow(float scaleMultiplier, String title, Stage window, StageStyle style) {
         super(true);
-        scene = new Scene(root, sizeX,sizeY);
+        scene = new Scene(root, 1280*scaleMultiplier,720*scaleMultiplier);
         root.getChildren().add(objects);
         root.getChildren().add(uiObjects);
         window.initStyle(style);
@@ -73,6 +71,8 @@ public class JWindow extends Thing {
         this.window.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, JUtility::exitApp);
         window.focusedProperty().addListener((newValue, onHidden, onShown) -> isFocused = newValue.getValue());
     }
+
+    public float getScaleMultiplier(){return scaleMultiplier;}
 
     /**
      * Get the scene's name

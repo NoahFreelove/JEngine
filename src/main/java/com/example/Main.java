@@ -20,7 +20,7 @@ import javafx.stage.Stage;
 import static com.JEngine.Utility.IO.FileOperations.stringArrToFile;
 
 //TODO: UI classes
-
+//TODO: Scale coords with window size
 public class Main extends Application {
 
     Vector3 position = new Vector3(0,0,0);
@@ -56,21 +56,19 @@ public class Main extends Application {
         String fp3 =  binFolder + "player1.png";
 
         // create a new window
-        JWindow window = new JWindow(800,800,"JEngine", stage);
+        JWindow window = new JWindow(0.5f,"JEngine", stage);
 
         // create a new scene
         JScene scene = new JScene(window, 15, "Scene 1");
 
         // create camera
-        camera = new JCamera(new Vector3(0,0,1),window,scene, new JObject(null, null),
-                800, new JIdentity("Main Camera","camera"));
-        camera2 = new JCamera(new Vector3(250,0,0), window, scene, null, 800,
+        camera = new JCamera(new Vector3(0,0,1),window,scene, new JObject(null, null), new JIdentity("Main Camera","camera"));
+        camera2 = new JCamera(new Vector3(250,0,0), window, scene, null,
                 new JIdentity("Camera 2", "camera"));
 
         JImage player1Img = new JImage(true, fp3, 128,128);
         JImage player2Img = new JImage(false, fp, 128,128);
         JSceneManager.init(scene,window,camera);
-
 
         /*CustomBoolSetting cbs = (CustomBoolSetting) settingManager.getSpecificSetting("General Settings", "Bool Set");
 

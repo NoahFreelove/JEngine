@@ -7,8 +7,8 @@ import com.JEngine.PrimitiveTypes.Position.Vector3;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
 
 public class CustomCamera extends JCamera {
-    public CustomCamera(Vector3 position, JWindow window, JScene scene, JObject parent, int fov, com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity JIdentity) {
-        super(position, window, scene, parent, fov, JIdentity);
+    public CustomCamera(Vector3 position, JWindow window, JScene scene, JObject parent, com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity JIdentity) {
+        super(position, window, scene, parent, JIdentity);
     }
 
     @Override
