@@ -1,6 +1,7 @@
 package com.JEngine.Game.Visual.Animation;
 
 import com.JEngine.PrimitiveTypes.JImage;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 
 public class JAnimationTimeline {
     public AnimState currState;
@@ -17,6 +18,7 @@ public class JAnimationTimeline {
     public JImage[] special4Frames;
 
     public JAnimationTimeline(AnimFrame[][] frames, AnimState initState, int maxFramesInAnim) {
+        this.currState = initState;
         // if a frame is null, it will be skipped. maxFramesInAnim is just to not make a huge array
         idleFrames = new JImage[maxFramesInAnim];
         int idleCount = 0;
@@ -32,6 +34,24 @@ public class JAnimationTimeline {
 
         downFrames = new JImage[maxFramesInAnim];
         int downCount = 0;
+        boolean invalidEntry = false;
+
+        for (AnimFrame[] arr :
+                frames) {
+            int totalFrames = 0;
+            for (AnimFrame frame :
+                    arr) {
+                totalFrames+=frame.duration;
+                if (maxFramesInAnim < totalFrames) {
+                    invalidEntry = true;
+                    break;
+                }
+            }
+        }
+        if(invalidEntry) {
+            Thing.LogError("Invalid entry of maxFramesInAnim for an animation timer");
+            return;
+        }
 
         for (AnimFrame[] fArr :
                 frames) {
@@ -83,7 +103,6 @@ public class JAnimationTimeline {
             }
         }
 
-        this.currState = initState;
     }
     public void switchState(AnimState newState)
     {
@@ -107,7 +126,16 @@ public class JAnimationTimeline {
         catch (Exception ignore)
         {
             frameIndex = 0;
-            return getCurrentFrame();
+            assert currState != null;
+            return switch (currState)
+                    {
+                        case IDLE -> idleFrames[0];
+                        case UP -> upFrames[0];
+                        case DOWN -> downFrames[0];
+                        case LEFT -> leftFrames[0];
+                        case RIGHT -> rightFrames[0];
+                        default -> idleFrames[0];
+                    };
         }
         return tmp;
     }

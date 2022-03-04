@@ -37,10 +37,8 @@ public class Thing {
 
     public static void LogError(String log)
     {
-        if(Main.savedArgs.length>=1) {
-            if (Main.savedArgs[0].equals("logs")) {
-                System.out.println("CAUGHT ERROR: " + log);
-            }
+        if (EnginePrefs.logInfo) {
+            System.out.println("CAUGHT ERROR: " + log);
         }
     }
 

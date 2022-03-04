@@ -37,7 +37,7 @@ public class CustomPlayer extends JPlayer {
     JImage player3Img = new JImage(true, fp2, 128,128);
 
     AnimFrame[][] animFrames = new AnimFrame[][]{
-            new AnimFrame[]{new AnimFrame(AnimState.IDLE, player1Img, 30), new AnimFrame(AnimState.IDLE, player2Img, 30)},
+            new AnimFrame[]{new AnimFrame(AnimState.IDLE, player1Img, 20), new AnimFrame(AnimState.IDLE, player2Img, 20)},
 
             new AnimFrame[]{new AnimFrame(AnimState.LEFT, player3Img, 30), new AnimFrame(AnimState.LEFT, player2Img, 30)}
     };

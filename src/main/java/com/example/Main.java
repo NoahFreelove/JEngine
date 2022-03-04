@@ -34,6 +34,7 @@ public class Main extends Application {
         EnginePrefs.logInfo = true;
         EnginePrefs.logExtra = false;
         EnginePrefs.logAnnoyance = false;
+
         JAppInfo.authors = new String[]{"Noah Freelove"};
         JAppInfo.appName = "JEngine";
         JAppInfo.appVersionMajor = 0;
