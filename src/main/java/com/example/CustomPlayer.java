@@ -51,30 +51,6 @@ public class CustomPlayer extends JPlayer {
         collider.setOnCollisionEnterEvent(otherObject -> LogInfo(identity.getName() +  " colliding with: " + ((JObject)otherObject[0]).JIdentity.getName()));
         collider.setOnCollisionExitEvent(otherObject -> LogInfo(identity.getName() +  " stopped colliding with: " + ((JObject)otherObject[0]).JIdentity.getName()));
 
-        Input.addKeyUpEvent(args -> {
-            if(args[0] == KeyCode.X)
-            {
-                flipFlop = !flipFlop;
-                if(flipFlop)
-                {
-                    jAt.switchState(AnimState.LEFT);
-                }
-                else
-                    jAt.switchState(AnimState.IDLE);
-                //switchCamera();
-            }
-        });
-
-        Input.addKeyUpEvent(args -> {
-            if(args[0] == KeyCode.Z)
-            {
-                if(canMove)
-                {
-                    switchScene();
-                }
-            }
-        });
-
         origImage = newSprite.getImage();
         blurredImage = BufferedImageBlur.blurImage(origImage,3);
         this.canMove = move;
@@ -107,33 +83,30 @@ public class CustomPlayer extends JPlayer {
     }
 
     @Override
+    public void OnKeyReleased(KeyCode key) {
+        if(key == KeyCode.X)
+        {
+            System.out.println("Key Released");
+        }
+    }
+
+    @Override
     public void Update()
     {
-        if(canMove)
-        {
-
-            // update the sprite every frame to correct sprite in animation
-            setSprite(jAt.getCurrentFrame());
-
-
-            //System.out.println(Input.pressedKey);
-            if(Input.Up)
-            {
+        if(canMove) {
+            if (Input.W_Pressed)
                 Move(Direction.Up, moveSpeed);
-            }
-            if(Input.Down)
-            {
+            if(Input.S_Pressed)
                 Move(Direction.Down, moveSpeed);
-            }
-            if(Input.Left)
-            {
+            if(Input.A_Pressed)
                 Move(Direction.Left, moveSpeed);
-            }
-            if(Input.Right)
-            {
+            if(Input.D_Pressed)
                 Move(Direction.Right, moveSpeed);
-            }
         }
+        // update the sprite every frame to correct sprite in animation
+        setSprite(jAt.getCurrentFrame());
+
         collider.checkAllCollision();
     }
+
 }

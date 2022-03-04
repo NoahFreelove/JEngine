@@ -1,12 +1,16 @@
 package com.JEngine.Utility;
 
+import com.JEngine.Game.PlayersAndPawns.JPlayer;
+import com.JEngine.Game.Visual.Scenes.JScene;
 import com.JEngine.Game.Visual.Scenes.JSceneManager;
+import com.JEngine.PrimitiveTypes.ObjRef;
 import com.JEngine.Utility.Misc.GenericMethodCall;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 public class Input {
+
     //region Key Combos
     public static boolean Up;
     public static boolean Down;
@@ -72,226 +76,37 @@ public class Input {
     //endregion
     //endregion
 
-    public static GenericMethodCall[] keyDownEvents = new GenericMethodCall[200];
-    public static GenericMethodCall[] keyUpEvents = new GenericMethodCall[200];
-    public static boolean pressedKey;
-    public static void resetButtons()
-    {
-        pressedKey = false;
-    }
-
     public static void init(Scene scene) {
         if (JSceneManager.getActiveScene() != null)
         {
-            scene.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
-                pressedKey = true;
-                keyPressed(key.getCode());
-                for (GenericMethodCall g :
-                        keyDownEvents) {
-                    if(g !=null)
-                    {
-                        g.call(new Object[]{key.getCode()});
-                    }
-                }
-            });
-            scene.addEventHandler(KeyEvent.KEY_RELEASED, (key) -> {
-                keyReleased(key.getCode());
-                for (GenericMethodCall g :
-                        keyUpEvents) {
-                    if(g !=null)
-                    {
-                        g.call(new Object[]{key.getCode()});
-                    }
-                }
-            });
-        }
-    }
-    
-    public static void checkFocus(boolean isFocused)
-    {
-        if(isFocused)
-            return;
-
-        W_Pressed = false;
-        A_Pressed = false;
-        S_Pressed = false;
-        D_Pressed = false;
-        LArrow_Pressed = false;
-        UArrow_Pressed = false;
-        DArrow_Pressed = false;
-        RArrow_Pressed = false;
-        Shift_Pressed = false;
-        Control_Pressed = false;
-        Alt_Pressed = false;
-        Tab_Pressed = false;
-        NumRow0_Pressed = false;
-        NumRow1_Pressed = false;
-        NumRow2_Pressed = false;
-        NumRow3_Pressed = false;
-        NumRow4_Pressed = false;
-        NumRow5_Pressed = false;
-        NumRow6_Pressed = false;
-        NumRow7_Pressed = false;
-        NumRow8_Pressed = false;
-        NumRow9_Pressed = false;
-        Z_Pressed = false;
-        X_Pressed = false;
-        C_Pressed = false;
-        V_Pressed = false;
-        B_Pressed = false;
-        N_Pressed = false;
-        M_Pressed = false;
-        F_Pressed = false;
-        G_Pressed = false;
-        H_Pressed = false;
-        J_Pressed = false;
-        K_Pressed = false;
-        L_Pressed = false;
-        Q_Pressed = false;
-        E_Pressed = false;
-        R_Pressed = false;
-        T_Pressed = false;
-        Y_Pressed = false;
-        U_Pressed = false;
-        I_Pressed = false;
-        O_Pressed = false;
-        P_Pressed = false;
-        checkKeyCombos();
-    }
-
-    public static boolean getKeyDown(KeyCode key)
-    {
-        return false;
-    }
-    public static boolean getKeyUp(KeyCode key)
-    {
-        return false;
-    }
-
-    public static void addKeyDownEvent(GenericMethodCall event)
-    {
-        for (int i = 0; i < keyDownEvents.length; i++) {
-            if(keyDownEvents[i] == null) {
-                keyDownEvents[i] = event;
-                break;
-            }
+            scene.addEventHandler(KeyEvent.KEY_PRESSED, Input::keyPressEvent);
+            scene.addEventHandler(KeyEvent.KEY_RELEASED, Input::keyReleaseEvent);
         }
     }
 
-    public static void addKeyUpEvent(GenericMethodCall event)
+    private static void keyPressEvent(KeyEvent key)
     {
-        for (int i = 0; i < keyUpEvents.length; i++) {
-            if(keyUpEvents[i] == null)
+        for (ObjRef o :
+                JSceneManager.getActiveScene().sceneObjects) {
+            try
             {
-                keyUpEvents[i] = event;
-                break;
+                ((JPlayer)o.objRef).OnKeyPressed(key.getCode());
             }
+            catch (Exception ignore){}
         }
+        setKeys(key.getCode(), true);
     }
-
-    public static void keyPressed(KeyCode key)
+    private static void keyReleaseEvent(KeyEvent key)
     {
-        switch (key)
-        {
-            case W -> W_Pressed = true;
-            case A -> A_Pressed = true;
-            case S -> S_Pressed = true;
-            case D -> D_Pressed = true;
-            case LEFT -> LArrow_Pressed = true;
-            case UP -> UArrow_Pressed = true;
-            case DOWN -> DArrow_Pressed = true;
-            case RIGHT -> RArrow_Pressed = true;
-            case SHIFT -> Shift_Pressed = true;
-            case CONTROL -> Control_Pressed = true;
-            case ALT -> Alt_Pressed = true;
-            case TAB -> Tab_Pressed = true;
-            case DIGIT0 -> NumRow0_Pressed = true;
-            case DIGIT1 -> NumRow1_Pressed = true;
-            case DIGIT2 -> NumRow2_Pressed = true;
-            case DIGIT3 -> NumRow3_Pressed = true;
-            case DIGIT4 -> NumRow4_Pressed = true;
-            case DIGIT5 -> NumRow5_Pressed = true;
-            case DIGIT6 -> NumRow6_Pressed = true;
-            case DIGIT7 -> NumRow7_Pressed = true;
-            case DIGIT8 -> NumRow8_Pressed = true;
-            case DIGIT9 -> NumRow9_Pressed = true;
-            case Z -> Z_Pressed = true;
-            case X -> X_Pressed = true;
-            case C -> C_Pressed = true;
-            case V -> V_Pressed = true;
-            case B -> B_Pressed = true;
-            case N -> N_Pressed = true;
-            case M -> M_Pressed = true;
-            case F -> F_Pressed = true;
-            case G -> G_Pressed = true;
-            case H -> H_Pressed = true;
-            case J -> J_Pressed = true;
-            case K -> K_Pressed = true;
-            case L -> L_Pressed = true;
-            case Q -> Q_Pressed = true;
-            case E -> E_Pressed = true;
-            case R -> R_Pressed = true;
-            case T -> T_Pressed = true;
-            case Y -> Y_Pressed = true;
-            case U -> U_Pressed = true;
-            case I -> I_Pressed = true;
-            case O -> O_Pressed = true;
-            case P -> P_Pressed = true;
-
+        for (ObjRef o :
+                JSceneManager.getActiveScene().sceneObjects) {
+            try
+            {
+                ((JPlayer)o.objRef).OnKeyReleased(key.getCode());
+            }
+            catch (Exception ignore){}
         }
-        checkKeyCombos();
-    }
-
-    public static void keyReleased(KeyCode key)
-    {
-        switch (key)
-        {
-            case W -> W_Pressed = false;
-            case A -> A_Pressed = false;
-            case S -> S_Pressed = false;
-            case D -> D_Pressed = false;
-            case LEFT -> LArrow_Pressed = false;
-            case UP -> UArrow_Pressed = false;
-            case DOWN -> DArrow_Pressed = false;
-            case RIGHT -> RArrow_Pressed = false;
-            case SHIFT -> Shift_Pressed = false;
-            case CONTROL -> Control_Pressed = false;
-            case ALT -> Alt_Pressed = false;
-            case TAB -> Tab_Pressed = false;
-            case DIGIT0 -> NumRow0_Pressed = false;
-            case DIGIT1 -> NumRow1_Pressed = false;
-            case DIGIT2 -> NumRow2_Pressed = false;
-            case DIGIT3 -> NumRow3_Pressed = false;
-            case DIGIT4 -> NumRow4_Pressed = false;
-            case DIGIT5 -> NumRow5_Pressed = false;
-            case DIGIT6 -> NumRow6_Pressed = false;
-            case DIGIT7 -> NumRow7_Pressed = false;
-            case DIGIT8 -> NumRow8_Pressed = false;
-            case DIGIT9 -> NumRow9_Pressed = false;
-            case Z -> Z_Pressed = false;
-            case X -> X_Pressed = false;
-            case C -> C_Pressed = false;
-            case V -> V_Pressed = false;
-            case B -> B_Pressed = false;
-            case N -> N_Pressed = false;
-            case M -> M_Pressed = false;
-            case F -> F_Pressed = false;
-            case G -> G_Pressed = false;
-            case H -> H_Pressed = false;
-            case J -> J_Pressed = false;
-            case K -> K_Pressed = false;
-            case L -> L_Pressed = false;
-            case Q -> Q_Pressed = false;
-            case E -> E_Pressed = false;
-            case R -> R_Pressed = false;
-            case T -> T_Pressed = false;
-            case Y -> Y_Pressed = false;
-            case U -> U_Pressed = false;
-            case I -> I_Pressed = false;
-            case O -> O_Pressed = false;
-            case P -> P_Pressed = false;
-        }
-        checkKeyCombos();
+        setKeys(key.getCode(), false);
     }
 
     static void checkKeyCombos()
@@ -300,6 +115,58 @@ public class Input {
         Down = S_Pressed||DArrow_Pressed;
         Left = A_Pressed||LArrow_Pressed;
         Right = D_Pressed||RArrow_Pressed;
+    }
+
+    static void setKeys(KeyCode key, boolean state) {
+        switch (key)
+        {
+            case W -> W_Pressed = state;
+            case A -> A_Pressed = state;
+            case S -> S_Pressed = state;
+            case D -> D_Pressed = state;
+            case LEFT -> LArrow_Pressed = state;
+            case UP -> UArrow_Pressed = state;
+            case DOWN -> DArrow_Pressed = state;
+            case RIGHT -> RArrow_Pressed = state;
+            case SHIFT -> Shift_Pressed = state;
+            case CONTROL -> Control_Pressed = state;
+            case ALT -> Alt_Pressed = state;
+            case TAB -> Tab_Pressed = state;
+            case DIGIT0 -> NumRow0_Pressed = state;
+            case DIGIT1 -> NumRow1_Pressed = state;
+            case DIGIT2 -> NumRow2_Pressed = state;
+            case DIGIT3 -> NumRow3_Pressed = state;
+            case DIGIT4 -> NumRow4_Pressed = state;
+            case DIGIT5 -> NumRow5_Pressed = state;
+            case DIGIT6 -> NumRow6_Pressed = state;
+            case DIGIT7 -> NumRow7_Pressed = state;
+            case DIGIT8 -> NumRow8_Pressed = state;
+            case DIGIT9 -> NumRow9_Pressed = state;
+            case Z -> Z_Pressed = state;
+            case X -> X_Pressed = state;
+            case C -> C_Pressed = state;
+            case V -> V_Pressed = state;
+            case B -> B_Pressed = state;
+            case N -> N_Pressed = state;
+            case M -> M_Pressed = state;
+            case F -> F_Pressed = state;
+            case G -> G_Pressed = state;
+            case H -> H_Pressed = state;
+            case J -> J_Pressed = state;
+            case K -> K_Pressed = state;
+            case L -> L_Pressed = state;
+            case Q -> Q_Pressed = state;
+            case E -> E_Pressed = state;
+            case R -> R_Pressed = state;
+            case T -> T_Pressed = state;
+            case Y -> Y_Pressed = state;
+            case U -> U_Pressed = state;
+            case I -> I_Pressed = state;
+            case O -> O_Pressed = state;
+            case P -> P_Pressed = state;
+
+        }
+        checkKeyCombos();
     }
 
 }

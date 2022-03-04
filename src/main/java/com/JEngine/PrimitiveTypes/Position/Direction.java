@@ -1,11 +1,10 @@
 package com.JEngine.PrimitiveTypes.Position;
 
-/** JEngine.Direction (c) Noah Freelove
+/**
+ * @author Noah Freelove
+ * @version 1.0
  * Brief Explanation:
- * Can be 8 common directions
- *
- * Usage:
- * Useful for simple 2d game movement instead of moving by a precise degree.
+ * JDirection is a simple enum for 8 directional movement
  * **/
 
 public enum Direction {

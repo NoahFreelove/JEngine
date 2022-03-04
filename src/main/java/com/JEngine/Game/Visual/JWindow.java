@@ -206,12 +206,10 @@ public class JWindow extends Thing {
         {
             activeCamera.InitiateRender();
         }
-        Input.checkFocus(isFocused);
         runUpdateBehaviors();
-        Input.resetButtons();
+
         if(EnginePrefs.aggressiveGC)
             System.gc();
-
 
     }
 

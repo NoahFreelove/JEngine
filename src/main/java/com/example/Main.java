@@ -45,7 +45,7 @@ public class Main extends Application {
         JAppInfo.authors = new String[]{"Noah Freelove"};
         JAppInfo.appName = "JEngine";
         JAppInfo.appVersionMajor = 0;
-        JAppInfo.appVersionMinor = 1.15f;
+        JAppInfo.appVersionMinor = 1.2f;
         JAppInfo.year = 2022;
         JAppInfo.isCopyright = false;
 
@@ -54,7 +54,6 @@ public class Main extends Application {
         String fp =  binFolder + "player2.png";
         String fp2 =  binFolder + "cursor.png";
         String fp3 =  binFolder + "player1.png";
-
 
         // create a new window
         JWindow window = new JWindow(800,800,"JEngine", stage);
