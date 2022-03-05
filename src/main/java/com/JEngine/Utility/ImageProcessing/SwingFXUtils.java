@@ -23,7 +23,7 @@
  * questions.
  */
 
-package javafx.embed.swing;
+package com.JEngine.Utility.ImageProcessing;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.*;

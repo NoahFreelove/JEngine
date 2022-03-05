@@ -1,8 +1,6 @@
 package com.JEngine.Utility.ImageProcessing;
 
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
-import com.JEngine.Utility.ImageProcessing.ConvolveWithEdgeOp;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 
 import java.awt.image.BufferedImage;
