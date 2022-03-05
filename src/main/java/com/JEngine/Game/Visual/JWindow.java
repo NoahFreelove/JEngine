@@ -213,6 +213,9 @@ public class JWindow extends Thing {
         if(EnginePrefs.aggressiveGC)
             System.gc();
 
+        if(!isFocused)
+            Input.resetKeys();
+
     }
 
     /**
