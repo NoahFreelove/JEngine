@@ -56,7 +56,7 @@ public class Main extends Application {
         String fp3 =  binFolder + "player1.png";
 
         // create a new window
-        JWindow window = new JWindow(.4f,"JEngine", stage);
+        JWindow window = new JWindow(1f,"JEngine", stage);
 
         // create a new scene
         JScene scene = new JScene(window, 15, "Scene 1");

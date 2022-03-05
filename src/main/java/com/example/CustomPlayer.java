@@ -64,29 +64,13 @@ public class CustomPlayer extends JPlayer {
         scene.add(s);
     }
 
-    void switchCamera() {
-        if(!canMove)
-            return;
-
-        camFlip = !camFlip;
-
-        if (camFlip)
-        {
-            getSprite().setImage(blurredImage);
-            //JSceneManager.setMainCamera(Main.camera2);
-        }
-        else
-        {
-            getSprite().setImage(origImage);
-            //JSceneManager.setMainCamera(Main.camera);
-        }
-    }
 
     @Override
     public void OnKeyReleased(KeyCode key) {
         if(key == KeyCode.X)
         {
-            System.out.println("Key Released");
+            flipFlop = !flipFlop;
+            JSceneManager.window.setWindowSize((flipFlop)? 0.5f:1.5f);
         }
     }
 

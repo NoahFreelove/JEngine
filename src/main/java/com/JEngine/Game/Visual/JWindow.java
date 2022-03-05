@@ -33,7 +33,7 @@ public class JWindow extends Thing {
     public boolean isActive;
     public int totalFrames;
     private Thread updateThread;
-    private float targetFPS = 5;
+    private float targetFPS = 30;
     Group objects = new Group();
     Group uiObjects = new Group();
     private boolean isFocused = true;
@@ -106,6 +106,17 @@ public class JWindow extends Thing {
     }
 
     /**
+     * Set new window dimensions
+     * @param newScale new multiplier of 1280x720
+     */
+    public void setWindowSize(float newScale)
+    {
+        window.setWidth(1280*newScale);
+        window.setHeight(720*newScale);
+        scaleMultiplier = newScale;
+    }
+
+    /**
      * Is called every frame. The method that actually repaints the window. Not recommend calling this manually as you
      * may end up with an inconsistent FPS
      * @param gameObjects Game object group
@@ -167,7 +178,7 @@ public class JWindow extends Thing {
     }
 
     /**
-     * Math to update the window targetFPS times/second
+     * Logic to update the window targetFPS times/second
      */
     private void refresh() {
         final int maxFrameSkip = 5;
