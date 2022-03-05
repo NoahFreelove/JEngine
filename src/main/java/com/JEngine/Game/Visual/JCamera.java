@@ -2,7 +2,6 @@ package com.JEngine.Game.Visual;
 
 import com.JEngine.Game.PlayersAndPawns.Sprite;
 import com.JEngine.Game.Visual.Scenes.JScene;
-import com.JEngine.Game.Visual.Scenes.JSceneManager;
 import com.JEngine.PrimitiveTypes.ObjRef;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.Position.Vector3;
@@ -13,6 +12,7 @@ import com.JEngine.UserInterface.JButton;
 import com.JEngine.UserInterface.JText;
 import com.JEngine.UserInterface.JUIBackgroundImage;
 import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -109,16 +109,23 @@ public class JCamera extends JObject {
                     objectsInView[i] = obj.objRef;
                     continue;
                 }
-
-                if((obj.objRef.transform.getPosition().x*window.getScaleMultiplier() >= leftBound && obj.objRef.transform.getPosition().x*window.getScaleMultiplier() <=rightBound))
-                {
-                    objectsInView[i] = obj.objRef;
-                }
             }
             i++;
         }
 
-        Platform.runLater(this::Render);
+        Task<Void> task = new Task<Void>() {
+            @Override protected Void call() throws Exception {
+                    Platform.runLater(new Runnable() {
+                        @Override public void run() {
+                            Render();
+                        }
+                    });
+                return null;
+            }
+        };
+        task.run();
+
+
     }
     private void RenderUI(Group uiObjects)
     {
@@ -135,8 +142,8 @@ public class JCamera extends JObject {
             int totalScaleX = (int)(scene.juiObjects[i].transform.getScale().x*window.getScaleMultiplier() * scene.juiObjects[i].sizeX*window.getScaleMultiplier());
             int totalScaleY = (int)(scene.juiObjects[i].transform.getScale().y*window.getScaleMultiplier() * scene.juiObjects[i].sizeY*window.getScaleMultiplier());
 
-            float xPos = (scene.juiObjects[i].transform.position.x*window.getScaleMultiplier() - transform.position.x*window.getScaleMultiplier());
-            float yPos = (scene.juiObjects[i].transform.position.y*window.getScaleMultiplier() - transform.position.y*window.getScaleMultiplier());
+            float xPos = (scene.sceneObjects[i].objRef.transform.position.x*window.getScaleMultiplier() - transform.position.x);
+            float yPos = (scene.sceneObjects[i].objRef.transform.position.y*window.getScaleMultiplier() - transform.position.y);
 
             if(scene.juiObjects[i].getClass().equals(JUIBackgroundImage.class))
             {
@@ -158,9 +165,11 @@ public class JCamera extends JObject {
 
             if(scene.juiObjects[i].getClass().equals(JText.class))
             {
+                System.out.println(xPos);
+                System.out.println(yPos);
                 JText jText = (JText)scene.juiObjects[i];
-                jText.getLabel().setX(xPos*window.getScaleMultiplier());
-                jText.getLabel().setY(yPos*window.getScaleMultiplier());
+                jText.getLabel().setX(xPos);
+                jText.getLabel().setY(yPos);
                 uiObjects.getChildren().add(jText.getLabel());
                 continue;
             }
@@ -174,7 +183,6 @@ public class JCamera extends JObject {
                 uiObjects.getChildren().add(b);
                 continue;
             }
-
 
             if(scene.juiObjects[i].getClass().isAssignableFrom(JUIObject.class))
             {
@@ -225,7 +233,7 @@ public class JCamera extends JObject {
                     LogAnnoyance("Didn't add object: " + objectsInView[i].JIdentity.getName() + " to render queue because it doesn't have a sprite");
                 }
             }
-        }
+        }/**/
     }
 
     private void Render()

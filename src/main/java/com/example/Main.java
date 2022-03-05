@@ -10,6 +10,7 @@ import com.JEngine.PrimitiveTypes.Position.Vector3;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
 import com.JEngine.UserInterface.JPointer;
+import com.JEngine.UserInterface.JText;
 import com.JEngine.Utility.About.JAppInfo;
 import com.JEngine.Utility.Misc.GenericMethodCall;
 import com.JEngine.Utility.Misc.JTimer;
@@ -20,7 +21,7 @@ import javafx.stage.Stage;
 import static com.JEngine.Utility.IO.FileOperations.stringArrToFile;
 
 //TODO: UI classes
-//TODO: Scale coords with window size
+
 public class Main extends Application {
 
     Vector3 position = new Vector3(0,0,0);
@@ -76,7 +77,7 @@ public class Main extends Application {
         cbs.setValue(false);*/
 
         // create a pawn object
-        CustomPlayer player = new CustomPlayer(Transform.exSimpleTransform(550,100), player1Img, new JIdentity("Player 1", "Player"),true, 5);
+        CustomPlayer player = new CustomPlayer(Transform.exSimpleTransform(550,100), player1Img, new JIdentity("Player 1", "Player"),true, 10);
         CustomPlayer player2 = new CustomPlayer(Transform.exSimpleTransform(500,400), new JImage(true, fp, 128,128), new JIdentity("Player 2", "Player"),false, 0);
         CustomPlayer player3 = new CustomPlayer(Transform.exSimpleTransform(100,400), new JImage(true, fp, 128,128), new JIdentity("Player 3", "Player"),false, 0);
 
@@ -89,7 +90,6 @@ public class Main extends Application {
         // set window icon
         window.setIcon(new JImage(true, fp, 128,128));
 
-        //JText text = new JText(Transform.exSimpleTransform(15,300), new JIdentity("Test Text", "Text"), "Hello World!", null, 1000, 0);
         //JUIObject uiImage = new JUIObject(Transform.exSimpleTransform(100,100),new JIdentity("Test JUIElement", "JUIElement"), (new JImage(true, fp2, 128,128).getImage()), 128, 128);
         //JUIBackgroundImage background = new JUIBackgroundImage(new JIdentity("Scene Background", "JUIElement"), new JImage(true, fp2, 800,800).getImage(), 800, 800);
 
@@ -101,8 +101,6 @@ public class Main extends Application {
 
         // add objects to scene
         scene.add(camera);
-        //scene.add(player3);
-        //scene.add(player2);
         scene.add(player);
 
         //JDo.Do(args -> System.out.println(args[0].toString()), 5, new Object[]{"hi"});

@@ -8,6 +8,7 @@ import com.JEngine.Utility.Input;
 import com.JEngine.Utility.Misc.JUtility;
 import com.JEngine.Utility.Settings.EnginePrefs;
 import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
@@ -123,19 +124,18 @@ public class JWindow extends Thing {
      * @param newUIObjects UI object group
      */
     public void refreshWindow(Group gameObjects, Group newUIObjects) {
-        Platform.runLater(() -> {
-            objects = gameObjects;
-            uiObjects = newUIObjects;
-            root.getScene().setFill(Color.BLACK);
-            root.getChildren().clear();
-            root.getChildren().add(objects);
-            root.getChildren().add(uiObjects);
-        });
+        objects = gameObjects;
+        uiObjects = newUIObjects;
+        root.getScene().setFill(Color.WHITE);
+        root.getChildren().clear();
+        root.getChildren().add(objects);
+        root.getChildren().add(uiObjects);
+
     }
 
     /**
      * Set number of times the window is updated. (Also affects Update() functions!)
-     * @param newTargetFPS new times per second to update
+     * @param newTargetFPS new times per second to update. 60fps or multiple of 30 Recommended
      */
     public void setTargetFPS(float newTargetFPS) {
         targetFPS = newTargetFPS;
@@ -181,21 +181,17 @@ public class JWindow extends Thing {
      * Logic to update the window targetFPS times/second
      */
     private void refresh() {
-        final int maxFrameSkip = 5;
-        int SKIP_TICKS = (int) (1000 / targetFPS);
+        double SKIP_TICKS = (double) (1000 / targetFPS);
         double next_game_tick = System.currentTimeMillis();
-        int loops;
 
         while (isActive) {
-            loops = 0;
-            while (System.currentTimeMillis() > next_game_tick
-                    && loops < maxFrameSkip) {
-                totalFrames++;
+            while (System.currentTimeMillis() > next_game_tick) {
                 update(totalFrames);
+                totalFrames++;
                 next_game_tick += SKIP_TICKS;
-                loops++;
 
             }
+
         }
     }
 
@@ -215,11 +211,12 @@ public class JWindow extends Thing {
      */
     private void update(int frameNumber) {
         LogExtra(String.format("New frame (#%d)", frameNumber));
+        runUpdateBehaviors();
+
         if(activeCamera !=null)
         {
             activeCamera.InitiateRender();
         }
-        runUpdateBehaviors();
 
         if(EnginePrefs.aggressiveGC)
             System.gc();
