@@ -56,7 +56,7 @@ public class Main extends Application {
         String fp3 =  binFolder + "player1.png";
 
         // create a new window
-        JWindow window = new JWindow(.5f,"JEngine", stage);
+        JWindow window = new JWindow(1.5f,"JEngine", stage);
 
         // create a new scene
         JScene scene = new JScene(window, 15, "Scene 1");
@@ -71,7 +71,6 @@ public class Main extends Application {
         JSceneManager.init(scene,window,camera);
 
         /*CustomBoolSetting cbs = (CustomBoolSetting) settingManager.getSpecificSetting("General Settings", "Bool Set");
-
         ValueChangedEvent newValueChangedEvent = (Object newValue) -> System.out.println(newValue.toString());
         cbs.setEventValueChanged(newValueChangedEvent);
         cbs.setValue(false);*/
