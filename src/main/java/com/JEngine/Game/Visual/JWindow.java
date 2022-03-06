@@ -10,6 +10,7 @@ import com.JEngine.Utility.Settings.EnginePrefs;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -35,10 +36,13 @@ public class JWindow extends Thing {
     public int totalFrames;
     private Thread updateThread;
     private float targetFPS = 30;
-    Group objects = new Group();
-    Group uiObjects = new Group();
+
+    public Group objects = new Group();
+    public Group uiObjects = new Group();
+
     private boolean isFocused = true;
     private float scaleMultiplier = 1;
+
     /**
      * Default constructor
      * @param title Title of the window
@@ -121,12 +125,11 @@ public class JWindow extends Thing {
      * Is called every frame. The method that actually repaints the window. Not recommend calling this manually as you
      * may end up with an inconsistent FPS
      * @param gameObjects Game object group
-     * @param newUIObjects UI object group
      */
-    public void refreshWindow(Group gameObjects, Group newUIObjects) {
+    public void refreshWindow(Group gameObjects) {
         objects = gameObjects;
-        uiObjects = newUIObjects;
-        root.getScene().setFill(Color.WHITE);
+        uiObjects = JSceneManager.window.uiObjects;
+        root.getScene().setFill(Color.RED);
         root.getChildren().clear();
         root.getChildren().add(objects);
         root.getChildren().add(uiObjects);

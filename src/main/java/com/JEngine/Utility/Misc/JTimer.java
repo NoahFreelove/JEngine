@@ -3,25 +3,43 @@ package com.JEngine.Utility.Misc;
 import static com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing.LogWarning;
 
 public class JTimer {
-    public float interval;
+    public long interval;
+    private long intervalRemaining;
     public boolean isRunning;
     public GenericMethodCall[] runEvents;
-    private Thread t;
 
     /**
      * Create a timer that ticks every interval
      * @param interval interval for each tick in milliseconds
      * @param runEvents events to run each tick
      */
-    public JTimer(float interval, GenericMethodCall[] runEvents) {
+    public JTimer(long interval, GenericMethodCall[] runEvents) {
         this.interval = interval;
 
         this.runEvents = runEvents;
 
     }
+    public long getIntervalRemaining()
+    {
+        return intervalRemaining;
+    }
+
     private void tick() throws InterruptedException {
-        Thread.sleep((long) interval);
+
+        for (int i = 0; i < interval; i+=2) {
+            intervalRemaining = interval-i;
+            Thread.sleep(1);
+            if(!isRunning){
+                return;
+            }
+        }
         runBehaviors();
+
+        if(isRunning)
+        {
+            tick();
+        }
+
     }
 
     private void runBehaviors() throws InterruptedException {
@@ -29,7 +47,6 @@ public class JTimer {
                 runEvents) {
          method.call(null);
         }
-        tick();
     }
 
     public void start()
@@ -39,7 +56,9 @@ public class JTimer {
             LogWarning("Timer already running!");
             return;
         }
-        t = new Thread(() -> {
+
+        Thread t = new Thread(() -> {
+            isRunning = true;
             try {
                 tick();
             } catch (InterruptedException e) {
@@ -47,12 +66,10 @@ public class JTimer {
             }
         });
         t.start();
-        isRunning = true;
     }
 
     public void stop()
     {
-        t.interrupt();
         isRunning = false;
     }
 }

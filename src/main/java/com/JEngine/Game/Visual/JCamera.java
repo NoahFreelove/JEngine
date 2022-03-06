@@ -127,74 +127,7 @@ public class JCamera extends JObject {
 
 
     }
-    private void RenderUI(Group uiObjects)
-    {
-        for (int i = 0; i < scene.juiObjects.length; i++) {
-            if (scene.juiObjects[i] == null) {
-                continue;
-            }
 
-            // make sure we don't render inactive things
-            if (!scene.juiObjects[i].getActive()) {
-                continue;
-            }
-
-            int totalScaleX = (int)(scene.juiObjects[i].transform.getScale().x*window.getScaleMultiplier() * scene.juiObjects[i].sizeX*window.getScaleMultiplier());
-            int totalScaleY = (int)(scene.juiObjects[i].transform.getScale().y*window.getScaleMultiplier() * scene.juiObjects[i].sizeY*window.getScaleMultiplier());
-
-            float xPos = (scene.sceneObjects[i].objRef.transform.position.x*window.getScaleMultiplier() - transform.position.x);
-            float yPos = (scene.sceneObjects[i].objRef.transform.position.y*window.getScaleMultiplier() - transform.position.y);
-
-            if(scene.juiObjects[i].getClass().equals(JUIBackgroundImage.class))
-            {
-                /*Image image = scene.juiObjects[i].getImage();
-                BackgroundImage bImg = new BackgroundImage(image,
-                        BackgroundRepeat.NO_REPEAT,
-                        BackgroundRepeat.NO_REPEAT,
-                        BackgroundPosition.DEFAULT,
-                        BackgroundSize.DEFAULT);
-                Background bGround = new Background(bImg);
-                StackPane sp = new StackPane();
-                ImageView imageView = new ImageView(image);
-                imageView.setX(xPos);
-                imageView.setY(yPos);
-                imageView.toBack();
-                uiObjects.getChildren().add(imageView);*/
-                continue;
-            }
-
-            if(scene.juiObjects[i].getClass().equals(JText.class))
-            {
-                System.out.println(xPos);
-                System.out.println(yPos);
-                JText jText = (JText)scene.juiObjects[i];
-                jText.getLabel().setX(xPos);
-                jText.getLabel().setY(yPos);
-                uiObjects.getChildren().add(jText.getLabel());
-                continue;
-            }
-
-            if(scene.juiObjects[i].getClass().equals(JButton.class))
-            {
-                JButton jButton = (JButton)scene.juiObjects[i];
-                Button b = jButton.getButton();
-                b.setLayoutX(xPos*window.getScaleMultiplier());
-                b.setLayoutY(yPos*window.getScaleMultiplier());
-                uiObjects.getChildren().add(b);
-                continue;
-            }
-
-            if(scene.juiObjects[i].getClass().isAssignableFrom(JUIObject.class))
-            {
-                Image image = scene.juiObjects[i].getImage();
-                ImageView imageView = new ImageView(image);
-                imageView.setX(xPos*window.getScaleMultiplier());
-                imageView.setY(yPos*window.getScaleMultiplier());
-                imageView.setRotate(scene.juiObjects[i].transform.rotation.x);
-                uiObjects.getChildren().add(imageView);
-            }
-        }
-    }
 
     private void RenderObjects(Group gameObjects)
     {
@@ -239,17 +172,14 @@ public class JCamera extends JObject {
     private void Render()
     {
         Group gameObjects = new Group();
-        Group uiObjects = new Group();
 
         LogAnnoyance("Start Sprite Render");
         RenderObjects(gameObjects);
 
-        LogAnnoyance("Start UI Render");
-        RenderUI(uiObjects);
 
 
         LogExtra("Rendered Objects");
-        window.refreshWindow(gameObjects, uiObjects);
+        window.refreshWindow(gameObjects);
     }
 
     public void setActiveScene(JScene activeScene){

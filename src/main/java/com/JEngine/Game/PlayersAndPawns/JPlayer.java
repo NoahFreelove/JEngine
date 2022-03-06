@@ -15,6 +15,6 @@ public class JPlayer extends JPawn {
         super(transform, newSprite, JIdentity);
     }
 
-    public void OnKeyPressed(KeyCode key){}
-    public void OnKeyReleased(KeyCode key){}
+    public void onKeyPressed(KeyCode key){}
+    public void onKeyReleased(KeyCode key){}
 }

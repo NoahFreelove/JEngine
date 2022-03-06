@@ -1,10 +1,8 @@
 package com.JEngine.Utility;
 
 import com.JEngine.Game.PlayersAndPawns.JPlayer;
-import com.JEngine.Game.Visual.Scenes.JScene;
 import com.JEngine.Game.Visual.Scenes.JSceneManager;
 import com.JEngine.PrimitiveTypes.ObjRef;
-import com.JEngine.Utility.Misc.GenericMethodCall;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -90,7 +88,7 @@ public class Input {
                 JSceneManager.getActiveScene().sceneObjects) {
             try
             {
-                ((JPlayer)o.objRef).OnKeyPressed(key.getCode());
+                ((JPlayer)o.objRef).onKeyPressed(key.getCode());
             }
             catch (Exception ignore){}
         }
@@ -102,7 +100,7 @@ public class Input {
                 JSceneManager.getActiveScene().sceneObjects) {
             try
             {
-                ((JPlayer)o.objRef).OnKeyReleased(key.getCode());
+                ((JPlayer)o.objRef).onKeyReleased(key.getCode());
             }
             catch (Exception ignore){}
         }

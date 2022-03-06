@@ -7,6 +7,8 @@ import com.JEngine.PrimitiveTypes.ObjRef;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JUIObject;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
+import javafx.scene.Group;
+import javafx.scene.Node;
 
 /**
  * @author Noah Freelove
@@ -21,7 +23,6 @@ public class JScene extends Thing {
 
     public JWindow window;
     public ObjRef[] sceneObjects;
-    public JUIObject[] juiObjects;
     private int maxObjects;
     private String sceneName;
 
@@ -36,7 +37,6 @@ public class JScene extends Thing {
         this.maxObjects = maxObjects;
         this.sceneName = sceneName;
         sceneObjects = new ObjRef[maxObjects];
-        juiObjects = new JUIObject[maxObjects];
     }
 
     /**
@@ -60,23 +60,10 @@ public class JScene extends Thing {
 
     /**
      * Adds an UIObject to the active scene
-     * @param o JUIObject to add to the scene
+     * @param n JavaFX Object to add to the scene
      */
-    public void addUI(JUIObject o) {
-        if (o == null || o.transform == null) {
-            LogWarning("Tried to add null object or transform to scene!");
-            return;
-        }
-        for (int i = 0; i < juiObjects.length; i++) {
-            if (juiObjects[i] == null) {
-                juiObjects[i] = o;
-                juiObjects[i].Start();
-                LogInfo("Added UI element to scene " + ((juiObjects[i] != null) ? "successfully" : "UNSUCCESSFULLY"));
-                return;
-            }
-        }
-        LogError("Could not add object to full scene! Try increasing the maxObjects parameter.");
-
+    public void addUI(Node n) {
+        window.uiObjects.getChildren().add(n);
     }
 
     public void runStartBehaviors()
@@ -93,15 +80,7 @@ public class JScene extends Thing {
                 }
             }
         }
-        for (JUIObject juiObject : juiObjects) {
-            if (juiObject != null) {
-                if(juiObject.getActive())
-                    juiObject.Start();
-            }
-        }
     }
-
-
 
     /**
      * Loads a JScene from a .JScene file and overwrites all current scene content
@@ -113,7 +92,6 @@ public class JScene extends Thing {
 
         maxObjects = createdScene.maxObjects;
         sceneObjects = createdScene.sceneObjects;
-        juiObjects = createdScene.juiObjects;
         this.window = window;
         this.sceneName = sceneName;
     }

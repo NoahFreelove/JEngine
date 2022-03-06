@@ -16,6 +16,7 @@ import com.JEngine.Utility.Misc.GenericMethodCall;
 import com.JEngine.Utility.Misc.JTimer;
 import com.JEngine.Utility.Settings.EnginePrefs;
 import javafx.application.Application;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import static com.JEngine.Utility.IO.FileOperations.stringArrToFile;
@@ -91,19 +92,11 @@ public class Main extends Application {
         // set window icon
         window.setIcon(new JImage(true, fp, 128,128));
 
-        //JUIObject uiImage = new JUIObject(Transform.exSimpleTransform(100,100),new JIdentity("Test JUIElement", "JUIElement"), (new JImage(true, fp2, 128,128).getImage()), 128, 128);
-        //JUIBackgroundImage background = new JUIBackgroundImage(new JIdentity("Scene Background", "JUIElement"), new JImage(true, fp2, 800,800).getImage(), 800, 800);
-
-        /*JButton button = new JButton(Transform.exSimpleTransform(100,300), new JIdentity("Test Text", "Text"), null, 150,200, 300, 300);
-        scene.addUI(button);*/
-
-        // Create timer that ticks every 500ms and outputs "tick!"
-        //new JTimer(500,new GenericMethodCall[]{args -> System.out.println("tick!")}).start();
-
         // add objects to scene
         scene.add(camera);
         scene.add(player);
-
+        Text t = new Text(10, 50, "This is a test");
+        scene.addUI(t);
         //JDo.Do(args -> System.out.println(args[0].toString()), 5, new Object[]{"hi"});
 
         // set FPS

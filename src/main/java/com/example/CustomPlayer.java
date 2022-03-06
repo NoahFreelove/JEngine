@@ -66,7 +66,7 @@ public class CustomPlayer extends JPlayer {
 
 
     @Override
-    public void OnKeyReleased(KeyCode key) {
+    public void onKeyReleased(KeyCode key) {
         if(key == KeyCode.X)
         {
             flipFlop = !flipFlop;
