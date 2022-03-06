@@ -7,8 +7,6 @@ import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.*;
 import com.JEngine.Utility.Misc.GenericMethodCall;
 
-import java.awt.*;
-
 class CollisionPair
 {
     public JIdentity i;
@@ -25,7 +23,6 @@ public class JBoxCollider extends JObject {
     public boolean isTrigger;
     public int sizeX;
     public int sizeY;
-    public Rectangle rect;
     GenericMethodCall onCollisionEnter;
     GenericMethodCall onCollisionExit;
 
@@ -39,7 +36,6 @@ public class JBoxCollider extends JObject {
         this.isTrigger = isTrigger;
         this.sizeX = sizeX;
         this.sizeY = sizeY;
-        this.rect = new Rectangle((int)transform.position.x, (int)transform.position.y, sizeX, sizeY);
         this.collisionStatus = new CollisionPair[JSceneManager.getActiveScene().getMaxObjects()];
     }
 
@@ -48,7 +44,6 @@ public class JBoxCollider extends JObject {
         this.isTrigger = isTrigger;
         this.sizeX = sizeX;
         this.sizeY = sizeY;
-        this.rect = new Rectangle((int)transform.position.x, (int)transform.position.y, sizeX, sizeY);
         this.onCollisionEnter = onCollisionEnter;
     }
     public void setOnCollisionEnterEvent(GenericMethodCall c)
