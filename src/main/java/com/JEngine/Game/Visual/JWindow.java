@@ -7,15 +7,15 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 import com.JEngine.Utility.Input;
 import com.JEngine.Utility.Misc.JUtility;
 import com.JEngine.Utility.Settings.EnginePrefs;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
+
+import java.net.URL;
 
 /**
  * @author Noah Freelove
@@ -30,7 +30,7 @@ import javafx.stage.WindowEvent;
 public class JWindow extends Thing {
     public boolean isActive;
 
-    public Stage window;
+    public Stage stage;
     public Scene scene;
     public JCamera activeCamera;
 
@@ -40,10 +40,9 @@ public class JWindow extends Thing {
     public int totalFrames = 1;
 
     private Color backgroundColor = Color.WHITE;
+    public Group parent = new Group();
 
-    Group root = new Group();
-    public Group objects = new Group();
-    public Group uiObjects = new Group();
+    public Group sceneObjects = new Group();
 
     private boolean isFocused = true;
     private float scaleMultiplier = 1;
@@ -56,31 +55,58 @@ public class JWindow extends Thing {
      */
     public JWindow(float scaleMultiplier, String title, Stage window) {
         super(true);
-        scene = new Scene(root, 1280*scaleMultiplier,720*scaleMultiplier);
-        this.window = window;
-        this.window.setTitle(title);
-        prevObj = objects;
+        parent.getChildren().add(sceneObjects);
+        scene = new Scene(parent, 1280*scaleMultiplier,720*scaleMultiplier);
+        this.stage = window;
+        this.stage.setTitle(title);
+        prevObj = sceneObjects;
 
-        objects.setId("objects" + 0);
-        this.root.getChildren().add(objects);
-        this.window.setResizable(false);
-        this.window.setScene(scene);
-        this.window.show();
-        this.window.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, JUtility::exitWindow);
+        this.stage.setResizable(false);
+        this.stage.setScene(scene);
+        this.stage.show();
+        this.stage.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, JUtility::exitWindow);
         window.focusedProperty().addListener((newValue, onHidden, onShown) -> isFocused = newValue.getValue());
         this.scaleMultiplier = scaleMultiplier;
     }
 
     public JWindow(float scaleMultiplier, String title, Stage window, StageStyle style) {
         super(true);
-        scene = new Scene(root, 1280*scaleMultiplier,720*scaleMultiplier);
+        parent.getChildren().add(sceneObjects);
         window.initStyle(style);
-        this.window = window;
-        this.window.setTitle(title);
-        this.window.setResizable(false);
-        this.window.setScene(scene);
-        this.window.show();
-        this.window.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, JUtility::exitWindow);
+        scene = new Scene(sceneObjects, 1280*scaleMultiplier,720*scaleMultiplier);
+        this.stage = window;
+        this.stage.setTitle(title);
+        prevObj = sceneObjects;
+
+        this.stage.setResizable(false);
+        this.stage.setScene(scene);
+        this.stage.show();
+        this.stage.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, JUtility::exitWindow);
+        window.focusedProperty().addListener((newValue, onHidden, onShown) -> isFocused = newValue.getValue());
+        this.scaleMultiplier = scaleMultiplier;
+    }
+
+    public JWindow(float scaleMultiplier, String title, Stage window, URL url) {
+        super(true);
+        try
+        {
+            parent = FXMLLoader.load(url);
+            parent.getChildren().add(sceneObjects);
+            scene = new Scene(parent,1280*scaleMultiplier,720*scaleMultiplier);
+
+        }catch (Exception e){
+            System.out.println(e);
+            parent.getChildren().add(sceneObjects);
+            scene = new Scene(parent, 1280*scaleMultiplier,720*scaleMultiplier);
+            prevObj = sceneObjects;
+        }
+
+        this.stage = window;
+        this.stage.setTitle(title);
+        this.stage.setResizable(false);
+        this.stage.setScene(scene);
+        this.stage.show();
+        this.stage.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, JUtility::exitWindow);
         window.focusedProperty().addListener((newValue, onHidden, onShown) -> isFocused = newValue.getValue());
         this.scaleMultiplier = scaleMultiplier;
     }
@@ -110,7 +136,7 @@ public class JWindow extends Thing {
     public void setIcon(JImage newIcon) {
         if (newIcon.getImage() != null)
         {
-            window.getIcons().add(newIcon.getImage());
+            stage.getIcons().add(newIcon.getImage());
             return;
         }
         LogWarning("Tried to set window icon to a null image");
@@ -124,55 +150,23 @@ public class JWindow extends Thing {
     {
         float preValue = scaleMultiplier;
 
-        window.setWidth(1280*newScale);
-        window.setHeight(720*newScale);
+        stage.setWidth(1280*newScale);
+        stage.setHeight(720*newScale);
         scaleMultiplier = newScale;
-        scaleUI(preValue);
     }
-    
-    private void scaleUI(float preValue)
-    {
-        float multiplierToNorm = 1/preValue;
 
-        for (Node n :
-                uiObjects.getChildren()) {
-
-            if(n.getClass() == Text.class)
-            {
-                multiplierToNorm *= scaleMultiplier;
-                ((Text)n).setFont(Font.font ("arial", ((Text)n).getFont().getSize()*multiplierToNorm));
-            }
-        }
-    }
-    boolean updateUI = true;
-
-    public void updateUI(){updateUI=true;}
     /**
      * Is called every frame. The method that actually repaints the window. Not recommend calling this manually as you
      * may end up with an inconsistent FPS
      * @param gameObjects Game object group
      */
     public void refreshWindow(Group gameObjects) {
-        objects = gameObjects;
-
-        root.getChildren().add(objects);
-        root.getChildren().remove(prevObj);
-
-        prevObj = objects;
-
-        root.getScene().setFill(backgroundColor);
-
-        objects.toBack();
-        if(updateUI)
-        {
-            try
-            {
-                root.getChildren().remove(uiObjects);
-            }catch (Exception ignore){}
-            uiObjects = JSceneManager.window.uiObjects;
-            updateUI = false;
-            root.getChildren().add(uiObjects);
-        }
+        sceneObjects = gameObjects;
+        parent.getChildren().add(sceneObjects);
+        parent.getChildren().remove(prevObj);
+        scene.setFill(backgroundColor);
+        prevObj = sceneObjects;
+        sceneObjects.toBack();
     }
 
 

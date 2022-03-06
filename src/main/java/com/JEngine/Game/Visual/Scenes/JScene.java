@@ -56,14 +56,6 @@ public class JScene extends Thing {
         LogError("Could not add object to full scene! Try increasing the maxObjects parameter.");
     }
 
-    /**
-     * Adds an UIObject to the active scene
-     * @param n JavaFX Object to add to the scene
-     */
-    public void addUI(Node n) {
-        window.uiObjects.getChildren().add(n);
-    }
-
     public void runStartBehaviors()
     {
         for (ObjRef sceneObject : sceneObjects) {
