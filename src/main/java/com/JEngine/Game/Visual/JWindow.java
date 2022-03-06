@@ -66,7 +66,7 @@ public class JWindow extends Thing {
         this.window.setResizable(false);
         this.window.setScene(scene);
         this.window.show();
-        this.window.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, JUtility::exitApp);
+        this.window.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, JUtility::exitWindow);
         window.focusedProperty().addListener((newValue, onHidden, onShown) -> isFocused = newValue.getValue());
         this.scaleMultiplier = scaleMultiplier;
     }
@@ -80,7 +80,7 @@ public class JWindow extends Thing {
         this.window.setResizable(false);
         this.window.setScene(scene);
         this.window.show();
-        this.window.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, JUtility::exitApp);
+        this.window.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, JUtility::exitWindow);
         window.focusedProperty().addListener((newValue, onHidden, onShown) -> isFocused = newValue.getValue());
         this.scaleMultiplier = scaleMultiplier;
     }

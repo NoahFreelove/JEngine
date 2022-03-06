@@ -31,9 +31,14 @@ public class JUtility {
         System.exit(0);
     }
 
-    public static void exitApp(WindowEvent w)
+    public static void exitWindow(WindowEvent w)
     {
         systemExit();
+    }
+
+    public static void exitApp()
+    {
+        exitWindow(null);
     }
 
 }
