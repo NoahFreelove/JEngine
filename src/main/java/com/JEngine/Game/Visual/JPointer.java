@@ -1,4 +1,4 @@
-package com.JEngine.UserInterface;
+package com.JEngine.Game.Visual;
 
 import com.JEngine.PrimitiveTypes.JImage;
 import javafx.scene.ImageCursor;

@@ -9,17 +9,12 @@ import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.Position.Vector3;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
-import com.JEngine.UserInterface.JPointer;
-import com.JEngine.UserInterface.JText;
+import com.JEngine.Game.Visual.JPointer;
 import com.JEngine.Utility.About.JAppInfo;
-import com.JEngine.Utility.Misc.GenericMethodCall;
-import com.JEngine.Utility.Misc.JTimer;
 import com.JEngine.Utility.Settings.EnginePrefs;
 import javafx.application.Application;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
-import static com.JEngine.Utility.IO.FileOperations.stringArrToFile;
 
 //TODO: UI classes
 //TODO: Update README.md
@@ -80,8 +75,6 @@ public class Main extends Application {
 
         // create a pawn object
         CustomPlayer player = new CustomPlayer(Transform.exSimpleTransform(550,100), player1Img, new JIdentity("Player 1", "Player"),true, 10);
-        CustomPlayer player2 = new CustomPlayer(Transform.exSimpleTransform(500,400), new JImage(true, fp, 128,128), new JIdentity("Player 2", "Player"),false, 0);
-        CustomPlayer player3 = new CustomPlayer(Transform.exSimpleTransform(100,400), new JImage(true, fp, 128,128), new JIdentity("Player 3", "Player"),false, 0);
 
         JPointer jp = new JPointer(new JImage(true,fp2,16,16));
         jp.setWindowCursor(window.getScene());

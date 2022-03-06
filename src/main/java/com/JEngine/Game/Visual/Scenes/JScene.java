@@ -5,9 +5,7 @@ import com.JEngine.Game.Visual.JWindow;
 import com.JEngine.Game.Visual.SearchType;
 import com.JEngine.PrimitiveTypes.ObjRef;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JUIObject;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
-import javafx.scene.Group;
 import javafx.scene.Node;
 
 /**

@@ -7,14 +7,9 @@ import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.Position.Vector3;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JUIObject;
-import com.JEngine.UserInterface.JButton;
-import com.JEngine.UserInterface.JText;
-import com.JEngine.UserInterface.JUIBackgroundImage;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.Group;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -104,11 +99,7 @@ public class JCamera extends JObject {
             }
             catch (Exception ignore)
             {
-                if(obj.objRef.getClass().equals(JText.class))
-                {
-                    objectsInView[i] = obj.objRef;
-                    continue;
-                }
+                //ignore
             }
             i++;
         }
