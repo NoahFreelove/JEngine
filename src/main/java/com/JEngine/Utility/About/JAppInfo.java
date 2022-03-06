@@ -1,7 +1,6 @@
 package com.JEngine.Utility.About;
 
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
-
+import static com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing.LogImportant;
 import static com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing.LogInfo;
 
 public class JAppInfo {
@@ -48,8 +47,13 @@ public class JAppInfo {
             return String.format("%s : %d : Version %d.%.2f\nCreated by: %s", appName, year, appVersionMajor, appVersionMinor, concatAuthors.toString());
         }
     }
-    public static void logInfo()
+    public static void logInfo(boolean isImportant)
     {
+        if(isImportant)
+        {
+            LogImportant(getInfo());
+            return;
+        }
         LogInfo(getInfo());
     }
 }

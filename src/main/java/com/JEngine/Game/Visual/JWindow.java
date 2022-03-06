@@ -7,12 +7,13 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 import com.JEngine.Utility.Input;
 import com.JEngine.Utility.Misc.JUtility;
 import com.JEngine.Utility.Settings.EnginePrefs;
-import javafx.application.Platform;
-import javafx.concurrent.Task;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
@@ -28,15 +29,20 @@ import javafx.stage.WindowEvent;
  * **/
 
 public class JWindow extends Thing {
-    public Scene scene;
-    public Stage window;
-    Group root = new Group();
-    public JCamera activeCamera;
     public boolean isActive;
-    public int totalFrames;
-    private Thread updateThread;
-    private float targetFPS = 30;
 
+    public Stage window;
+    public Scene scene;
+    public JCamera activeCamera;
+
+    private Thread updateThread;
+
+    private float targetFPS = 30;
+    public int totalFrames;
+
+    private Color backgroundColor = Color.WHITE;
+
+    Group root = new Group();
     public Group objects = new Group();
     public Group uiObjects = new Group();
 
@@ -114,11 +120,29 @@ public class JWindow extends Thing {
      * Set new window dimensions
      * @param newScale new multiplier of 1280x720
      */
-    public void setWindowSize(float newScale)
+    public void setWindowScale(float newScale)
     {
+        float preValue = scaleMultiplier;
+
         window.setWidth(1280*newScale);
         window.setHeight(720*newScale);
         scaleMultiplier = newScale;
+        scaleUI(preValue);
+    }
+    
+    private void scaleUI(float preValue)
+    {
+        float multiplierToNorm = 1/preValue;
+
+        for (Node n :
+                uiObjects.getChildren()) {
+
+            if(n.getClass() == Text.class)
+            {
+                multiplierToNorm *= scaleMultiplier;
+                ((Text)n).setFont(Font.font ("arial", ((Text)n).getFont().getSize()*multiplierToNorm));
+            }
+        }
     }
 
     /**
@@ -129,11 +153,10 @@ public class JWindow extends Thing {
     public void refreshWindow(Group gameObjects) {
         objects = gameObjects;
         uiObjects = JSceneManager.window.uiObjects;
-        root.getScene().setFill(Color.RED);
+        root.getScene().setFill(backgroundColor);
         root.getChildren().clear();
         root.getChildren().add(objects);
         root.getChildren().add(uiObjects);
-
     }
 
     /**
@@ -143,7 +166,7 @@ public class JWindow extends Thing {
     public void setTargetFPS(float newTargetFPS) {
         targetFPS = newTargetFPS;
     }
-
+    public void setBackgroundColor(Color newColor){backgroundColor = newColor;}
     /**
      * Start updating the window
      */

@@ -5,6 +5,6 @@ module com.example.jengine {
     requires com.dlsc.formsfx;
     requires java.desktop;
 
-    opens com.example to javafx.fxml;
-    exports com.example;
+    opens com.basicexample to javafx.fxml;
+    exports com.basicexample;
 }
