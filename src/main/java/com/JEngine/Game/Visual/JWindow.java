@@ -10,7 +10,6 @@ import com.JEngine.Utility.Settings.EnginePrefs;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -38,7 +37,7 @@ public class JWindow extends Thing {
     private Thread updateThread;
 
     private float targetFPS = 30;
-    public int totalFrames;
+    public int totalFrames = 1;
 
     private Color backgroundColor = Color.WHITE;
 
@@ -48,6 +47,7 @@ public class JWindow extends Thing {
 
     private boolean isFocused = true;
     private float scaleMultiplier = 1;
+    private Group prevObj;
 
     /**
      * Default constructor
@@ -57,10 +57,12 @@ public class JWindow extends Thing {
     public JWindow(float scaleMultiplier, String title, Stage window) {
         super(true);
         scene = new Scene(root, 1280*scaleMultiplier,720*scaleMultiplier);
-        root.getChildren().add(objects);
-        root.getChildren().add(uiObjects);
         this.window = window;
         this.window.setTitle(title);
+        prevObj = objects;
+
+        objects.setId("objects" + 0);
+        this.root.getChildren().add(objects);
         this.window.setResizable(false);
         this.window.setScene(scene);
         this.window.show();
@@ -72,8 +74,6 @@ public class JWindow extends Thing {
     public JWindow(float scaleMultiplier, String title, Stage window, StageStyle style) {
         super(true);
         scene = new Scene(root, 1280*scaleMultiplier,720*scaleMultiplier);
-        root.getChildren().add(objects);
-        root.getChildren().add(uiObjects);
         window.initStyle(style);
         this.window = window;
         this.window.setTitle(title);
@@ -144,7 +144,9 @@ public class JWindow extends Thing {
             }
         }
     }
+    boolean updateUI = true;
 
+    public void updateUI(){updateUI=true;}
     /**
      * Is called every frame. The method that actually repaints the window. Not recommend calling this manually as you
      * may end up with an inconsistent FPS
@@ -152,12 +154,27 @@ public class JWindow extends Thing {
      */
     public void refreshWindow(Group gameObjects) {
         objects = gameObjects;
-        uiObjects = JSceneManager.window.uiObjects;
-        root.getScene().setFill(backgroundColor);
-        root.getChildren().clear();
+
         root.getChildren().add(objects);
-        root.getChildren().add(uiObjects);
+        root.getChildren().remove(prevObj);
+
+        prevObj = objects;
+
+        root.getScene().setFill(backgroundColor);
+
+        objects.toBack();
+        if(updateUI)
+        {
+            try
+            {
+                root.getChildren().remove(uiObjects);
+            }catch (Exception ignore){}
+            uiObjects = JSceneManager.window.uiObjects;
+            updateUI = false;
+            root.getChildren().add(uiObjects);
+        }
     }
+
 
     /**
      * Set number of times the window is updated. (Also affects Update() functions!)

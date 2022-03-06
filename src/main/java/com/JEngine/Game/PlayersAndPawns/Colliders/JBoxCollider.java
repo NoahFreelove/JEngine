@@ -7,6 +7,7 @@ import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.*;
 import com.JEngine.Utility.Misc.GenericMethodCall;
 
+
 class CollisionPair
 {
     public JIdentity i;
