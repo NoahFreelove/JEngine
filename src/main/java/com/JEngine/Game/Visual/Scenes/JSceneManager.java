@@ -18,6 +18,7 @@ public class JSceneManager {
         JSceneManager.activeScene = newScene;
         JSceneManager.window = newWindow;
         JSceneManager.mainCamera = newMainCamera;
+        window.setCamera(newMainCamera);
         Input.init(activeScene.window.scene);
     }
 

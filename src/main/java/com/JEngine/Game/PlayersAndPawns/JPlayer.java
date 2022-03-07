@@ -18,6 +18,7 @@ public class JPlayer extends JPawn {
     public JPlayer(Transform transform, JImage newSprite, JIdentity JIdentity) {
         super(transform, newSprite, JIdentity);
     }
+
     public void onKeyPressed(KeyCode key){}
     public void onKeyReleased(KeyCode key){}
 }

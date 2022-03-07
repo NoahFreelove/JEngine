@@ -1,5 +1,6 @@
 package com.basicexample;
 
+import com.JEngine.Game.PlayersAndPawns.JSprite;
 import com.JEngine.Game.Visual.JCamera;
 import com.JEngine.Game.Visual.Scenes.JScene;
 import com.JEngine.Game.Visual.Scenes.JSceneManager;
@@ -35,7 +36,7 @@ public class Main extends Application {
         JAppInfo.authors = new String[]{"Noah Freelove"};
         JAppInfo.appName = "JEngine";
         JAppInfo.appVersionMajor = 0;
-        JAppInfo.appVersionMinor = 1.3f;
+        JAppInfo.appVersionMinor = 1.4f;
         JAppInfo.year = 2022;
         JAppInfo.isCopyright = false;
 
@@ -54,17 +55,15 @@ public class Main extends Application {
         // create camera
         camera = new JCamera(new Vector3(0,0,1), window, scene, new JObject(null, null), new JIdentity("Main Camera","camera"));
 
-        // create player sprite
-        JImage player1Img = new JImage(true, filepath, 128,128);
-
         // Initialize the scene manager
         JSceneManager.init(scene,window,camera);
 
-        // create a player object
-        CustomPlayer player = new CustomPlayer(Transform.exSimpleTransform(550,100), player1Img, new JIdentity("Player 1", "Player"),true, 10);
+        // create player image
+        JImage image = new JImage(true, filepath, 128,128);
 
-        // set main camera
-        window.setCamera(JSceneManager.mainCamera);
+        // create a player object
+        CustomPlayer player = new CustomPlayer(Transform.exSimpleTransform(550,100), image, new JIdentity("Player 1", "Player"),true, 10);
+
 
         // add objects to scene
         scene.add(camera);
@@ -72,8 +71,7 @@ public class Main extends Application {
 
         Text t = new Text(10, 50, "JEngine");
         t.setFont(Font.font ("arial", 25));
-        scene.addUI(t);
-
+        window.parent.getChildren().add(t);
         window.setBackgroundColor(Color.web("#4095c0"));
 
         window.setTargetFPS(60);
