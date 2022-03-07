@@ -112,4 +112,4 @@ To start rendering the objects in your scene, first set the target FPS with: `wi
 
 Now to start the window do: `window.start();`
 
-##Congrats, you created your first JEngine scene.
+## Congrats, you created your first JEngine scene.
