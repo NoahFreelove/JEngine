@@ -15,14 +15,14 @@ import com.JEngine.PrimitiveTypes.Position.Transform;
  * Like an object, a sprite cannot be moved directly but can be updated with the parent's transform functions
  * **/
 
-public class Sprite extends JObject {
+public class JSprite extends JObject {
     private JImage sprite;
     public JBoxCollider collider;
 
     public JImage getSprite() {return sprite;}
     public void setSprite(JImage newSprite) {sprite = newSprite;}
 
-    public Sprite(Transform transform, JImage newSprite, JIdentity JIdentity) {
+    public JSprite(Transform transform, JImage newSprite, JIdentity JIdentity) {
         super(transform, JIdentity);
         collider = new JBoxCollider(transform, JIdentity, false, newSprite.getXSize(), newSprite.getYSize());
         setSprite(newSprite);

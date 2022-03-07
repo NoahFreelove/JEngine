@@ -1,6 +1,6 @@
 package com.JEngine.Game.PlayersAndPawns.Colliders;
 
-import com.JEngine.Game.PlayersAndPawns.Sprite;
+import com.JEngine.Game.PlayersAndPawns.JSprite;
 import com.JEngine.Game.Visual.Scenes.JSceneManager;
 import com.JEngine.PrimitiveTypes.ObjRef;
 import com.JEngine.PrimitiveTypes.Position.Transform;
@@ -95,7 +95,7 @@ public class JBoxCollider extends JObject {
 
             try
             {
-                Sprite spriteRef = (Sprite) o.objRef;
+                JSprite spriteRef = (JSprite) o.objRef;
 
                 if(o.objRef.JIdentity.getName().equals(collisionStatus[i].i.getName()))
                 {

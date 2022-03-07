@@ -1,6 +1,6 @@
 package com.JEngine.Game.Visual;
 
-import com.JEngine.Game.PlayersAndPawns.Sprite;
+import com.JEngine.Game.PlayersAndPawns.JSprite;
 import com.JEngine.Game.Visual.Scenes.JScene;
 import com.JEngine.PrimitiveTypes.ObjRef;
 import com.JEngine.PrimitiveTypes.Position.Transform;
@@ -76,7 +76,7 @@ public class JCamera extends JObject {
             }
 
             try {
-                Sprite objSprite = (Sprite) obj.objRef;
+                JSprite objSprite = (JSprite) obj.objRef;
 
                 //System.out.println("Y Pos " + obj.objRef.transform.position.y);
 
@@ -137,7 +137,7 @@ public class JCamera extends JObject {
                 float xPos = (scene.sceneObjects[i].objRef.transform.position.x*window.getScaleMultiplier() - transform.position.x);
                 float yPos = (scene.sceneObjects[i].objRef.transform.position.y*window.getScaleMultiplier() - transform.position.y);
 
-                Sprite s = (Sprite)objectsInView[i];
+                JSprite s = (JSprite)objectsInView[i];
                 Image image = s.getSprite().getImage();
                 ImageView imageView = new ImageView(image);
                 imageView.setFitWidth(objectsInView[i].transform.getScale().x*window.getScaleMultiplier()*s.getSprite().getXSize());

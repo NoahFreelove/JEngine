@@ -1,12 +1,11 @@
 package com.JEngine.Game.Visual.Scenes;
 
-import com.JEngine.Game.PlayersAndPawns.Sprite;
+import com.JEngine.Game.PlayersAndPawns.JSprite;
 import com.JEngine.Game.Visual.JWindow;
 import com.JEngine.Game.Visual.SearchType;
 import com.JEngine.PrimitiveTypes.ObjRef;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
-import javafx.scene.Node;
 
 /**
  * @author Noah Freelove
@@ -64,7 +63,7 @@ public class JScene extends Thing {
                 {
                     sceneObject.objRef.Start();
                     try {
-                        ((Sprite)sceneObject.objRef).collider.initializeCollider();
+                        ((JSprite)sceneObject.objRef).collider.initializeCollider();
                     }catch (Exception ignore)
                     { /*ignore*/ }
                 }

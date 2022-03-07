@@ -1,6 +1,5 @@
 package com.basicexample;
 
-import com.JEngine.Game.PlayersAndPawns.JSprite;
 import com.JEngine.Game.Visual.JCamera;
 import com.JEngine.Game.Visual.Scenes.JScene;
 import com.JEngine.Game.Visual.Scenes.JSceneManager;
