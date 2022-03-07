@@ -3,7 +3,7 @@ package com.JEngine.PrimitiveTypes;
 import com.JEngine.PrimitiveTypes.Position.Vector3;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
 
-/** JEngine.ObjRef (c) Noah Freelove
+/** com.JEngine.ObjRef (c) Noah Freelove
  * Brief Explanation:
  * A ObjRef used exclusively for JScene and JViewport to provide an easy reference to an object with its position
  *

@@ -7,7 +7,7 @@ public class JMath {
     public static float clamp(float min, float max, float value){
         if(value<=min)
             return min;
-        return java.lang.Math.min(value, max);
+        return Math.min(value, max);
     }
     public static Vector3 interpolateClamped(Vector3 vA, Vector3 vB, float t)
     {

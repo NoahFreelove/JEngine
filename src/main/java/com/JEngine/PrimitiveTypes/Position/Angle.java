@@ -1,6 +1,6 @@
 package com.JEngine.PrimitiveTypes.Position;
 
-/** JEngine.Direction (c) Noah Freelove
+/** com.JEngine.Direction (c) Noah Freelove
  * Brief Explanation:
  * Holds a double value to represent an angle
  * **/

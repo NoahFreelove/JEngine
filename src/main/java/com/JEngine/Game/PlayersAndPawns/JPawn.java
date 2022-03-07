@@ -7,7 +7,7 @@ import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.Position.Vector3;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 
-/** JEngine.Pawn (c) Noah Freelove
+/** com.JEngine.Pawn (c) Noah Freelove
  * Brief Explanation:
  * A Pawn is a sprite which can be directly moved and manipulated by a player or bot
  *

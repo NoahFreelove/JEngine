@@ -55,6 +55,19 @@ public class JScene extends Thing {
         LogError("Could not add object to full scene! Try increasing the maxObjects parameter.");
     }
 
+    public void remove(JObject o)
+    {
+        int i = 0;
+        for (ObjRef oRef:
+             sceneObjects) {
+            if (oRef.objRef == o)
+            {
+                sceneObjects[i] = null;
+            }
+            i++;
+        }
+    }
+
     public void runStartBehaviors()
     {
         for (ObjRef sceneObject : sceneObjects) {

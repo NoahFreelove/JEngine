@@ -2,9 +2,9 @@ package com.JEngine.PrimitiveTypes.VeryPrimitiveTypes;
 
 import com.JEngine.Utility.Settings.EnginePrefs;
 
-/** JEngine.Thing (c) Noah Freelove
+/** com.JEngine.Thing (c) Noah Freelove
  * Brief Explanation:
- * A Thing is the most basic type in JEngine. It does not require a transform, just an active state.
+ * A Thing is the most basic type in com.JEngine. It does not require a transform, just an active state.
  * Everything is built off of a Thing so every JObject has an active state and can log
  *
  * Inactive objects can still be affected, but they will never be rendered.

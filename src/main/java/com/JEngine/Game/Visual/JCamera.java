@@ -12,9 +12,10 @@ import javafx.concurrent.Task;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 
 
-/** JEngine.JCamera (c) Noah Freelove
+/** com.JEngine.JCamera (c) Noah Freelove
  * Brief Explanation:
  * JCamera converts the objects in a scene to a rendered panel which JWindow can show.
  * JCamera's output depends on its position and FOV (in pixels)

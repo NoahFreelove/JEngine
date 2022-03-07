@@ -1,7 +1,7 @@
 package com.JEngine.PrimitiveTypes.VeryPrimitiveTypes;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 
-/** JEngine.JObject (c) Noah Freelove
+/** com.JEngine.JObject (c) Noah Freelove
  * Brief Explanation:
  * A object is a simple class that has a transform value and is a primitive base for (nearly) everything that exists.
  *

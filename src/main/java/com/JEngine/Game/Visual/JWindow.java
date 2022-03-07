@@ -10,11 +10,14 @@ import com.JEngine.Utility.Settings.EnginePrefs;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
+import java.io.IOException;
 import java.net.URL;
 
 /**
@@ -40,6 +43,7 @@ public class JWindow extends Thing {
     public int totalFrames = 1;
 
     private Color backgroundColor = Color.WHITE;
+
     public Group parent = new Group();
 
     public Group sceneObjects = new Group();
@@ -94,11 +98,13 @@ public class JWindow extends Thing {
             parent.getChildren().add(sceneObjects);
             scene = new Scene(parent,1280*scaleMultiplier,720*scaleMultiplier);
 
-        }catch (Exception e){
+        }
+        catch (Exception e){
             System.out.println(e);
             parent.getChildren().add(sceneObjects);
             scene = new Scene(parent, 1280*scaleMultiplier,720*scaleMultiplier);
             prevObj = sceneObjects;
+
         }
 
         this.stage = window;

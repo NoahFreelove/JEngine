@@ -1,6 +1,6 @@
 package com.JEngine.PrimitiveTypes.VeryPrimitiveTypes;
 
-/** JEngine.JIdentity (c) Noah Freelove
+/** com.JEngine.JIdentity (c) Noah Freelove
  * Brief Explanation:
  * A JIdentity holds information about an object that helps to distinguish it from the rest.
  * A JIdentity holds a name and a tag.

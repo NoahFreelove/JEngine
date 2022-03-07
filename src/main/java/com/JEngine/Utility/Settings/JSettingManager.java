@@ -1,7 +1,5 @@
 package com.JEngine.Utility.Settings;
 
-import java.util.Objects;
-
 public class JSettingManager {
     static JSettingCategory[] settingCategories;
 

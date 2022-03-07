@@ -1,6 +1,6 @@
 package com.JEngine.PrimitiveTypes.Position;
 
-/** JEngine.Transform (c) Noah Freelove
+/** com.JEngine.Transform (c) Noah Freelove
  * Brief Explanation:
  * A transform is made of 3 Vector3 variables that hold position, rotation, and scale.
  *

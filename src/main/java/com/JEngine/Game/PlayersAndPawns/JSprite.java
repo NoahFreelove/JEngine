@@ -6,7 +6,7 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 
-/** JEngine.Sprite (c) Noah Freelove
+/** com.JEngine.Sprite (c) Noah Freelove
  * Brief Explanation:
  * A sprite is an object with an image
  *
