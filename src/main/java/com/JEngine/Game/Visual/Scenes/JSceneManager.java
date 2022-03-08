@@ -3,6 +3,7 @@ package com.JEngine.Game.Visual.Scenes;
 import com.JEngine.Game.Visual.JCamera;
 import com.JEngine.Game.Visual.JWindow;
 import com.JEngine.Utility.Input;
+import javafx.scene.Group;
 
 public class JSceneManager {
     public static JScene activeScene;
@@ -19,12 +20,15 @@ public class JSceneManager {
         JSceneManager.window = newWindow;
         JSceneManager.mainCamera = newMainCamera;
         window.setCamera(newMainCamera);
-        Input.init(activeScene.window.scene);
+        Input.init(newWindow.scene);
     }
 
     public static void setActiveScene(JScene newScene) {
-        JSceneManager.activeScene = newScene;
         mainCamera.setActiveScene(newScene);
+        window.parent.getChildren().remove(activeScene.uiObjects);
+        JSceneManager.activeScene = newScene;
+        window.parent.getChildren().add(activeScene.uiObjects);
+
     }
     public static void setWindow(JWindow newWindow)
     {

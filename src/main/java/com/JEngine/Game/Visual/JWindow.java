@@ -1,5 +1,6 @@
 package com.JEngine.Game.Visual;
 
+import com.JEngine.Game.Visual.Scenes.JScene;
 import com.JEngine.Game.Visual.Scenes.JSceneManager;
 import com.JEngine.PrimitiveTypes.JImage;
 import com.JEngine.PrimitiveTypes.ObjRef;
@@ -35,6 +36,7 @@ public class JWindow extends Thing {
 
     public Stage stage;
     public Scene scene;
+    public JScene jscene;
     public JCamera activeCamera;
 
     private Thread updateThread;
@@ -45,7 +47,6 @@ public class JWindow extends Thing {
     private Color backgroundColor = Color.WHITE;
 
     public Group parent = new Group();
-
     public Group sceneObjects = new Group();
 
     private boolean isFocused = true;
@@ -57,16 +58,26 @@ public class JWindow extends Thing {
      * @param title Title of the window
      * @param window Default stage (Typically given by JavaFX public void start(Stage stage)
      */
-    public JWindow(float scaleMultiplier, String title, Stage window) {
+    public JWindow(JScene scene, float scaleMultiplier, String title, Stage window) {
         super(true);
-        parent.getChildren().add(sceneObjects);
-        scene = new Scene(parent, 1280*scaleMultiplier,720*scaleMultiplier);
+        try
+        {
+            parent.getChildren().add(sceneObjects);
+            parent.getChildren().add(scene.uiObjects);
+            this.scene = new Scene(parent,1280*scaleMultiplier,720*scaleMultiplier);
+            this.jscene = scene;
+        }
+        catch (Exception e){
+            System.out.println(e);
+            this.scene = new Scene(parent, 1280*scaleMultiplier,720*scaleMultiplier);
+            prevObj = sceneObjects;
+
+        }
+
         this.stage = window;
         this.stage.setTitle(title);
-        prevObj = sceneObjects;
-
         this.stage.setResizable(false);
-        this.stage.setScene(scene);
+        this.stage.setScene(this.scene);
         this.stage.show();
         this.stage.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, JUtility::exitWindow);
         window.focusedProperty().addListener((newValue, onHidden, onShown) -> isFocused = newValue.getValue());
@@ -90,32 +101,7 @@ public class JWindow extends Thing {
         this.scaleMultiplier = scaleMultiplier;
     }
 
-    public JWindow(float scaleMultiplier, String title, Stage window, URL url) {
-        super(true);
-        try
-        {
-            parent = FXMLLoader.load(url);
-            parent.getChildren().add(sceneObjects);
-            scene = new Scene(parent,1280*scaleMultiplier,720*scaleMultiplier);
 
-        }
-        catch (Exception e){
-            System.out.println(e);
-            parent.getChildren().add(sceneObjects);
-            scene = new Scene(parent, 1280*scaleMultiplier,720*scaleMultiplier);
-            prevObj = sceneObjects;
-
-        }
-
-        this.stage = window;
-        this.stage.setTitle(title);
-        this.stage.setResizable(false);
-        this.stage.setScene(scene);
-        this.stage.show();
-        this.stage.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, JUtility::exitWindow);
-        window.focusedProperty().addListener((newValue, onHidden, onShown) -> isFocused = newValue.getValue());
-        this.scaleMultiplier = scaleMultiplier;
-    }
 
     public float getScaleMultiplier(){return scaleMultiplier;}
 

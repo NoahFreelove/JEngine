@@ -53,7 +53,7 @@ public class JSceneLoader {
                 {
                     doOnce = true;
                     int maxObj = Integer.parseInt(line.replace("maxObjects=",""));
-                    scene = new JScene(window, maxObj, sceneName);
+                    scene = new JScene(maxObj, sceneName);
                 }
                 if(line.equals("startObject"))
                 {

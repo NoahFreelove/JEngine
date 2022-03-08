@@ -6,6 +6,12 @@ import com.JEngine.Game.Visual.SearchType;
 import com.JEngine.PrimitiveTypes.ObjRef;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
+import javafx.scene.Node;
+
+import java.io.IOException;
+import java.net.URL;
 
 /**
  * @author Noah Freelove
@@ -18,22 +24,52 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
  */
 public class JScene extends Thing {
 
-    public JWindow window;
     public ObjRef[] sceneObjects;
     private int maxObjects;
     private String sceneName;
 
+    public Group uiObjects = new Group();
+    private Group loadedUI = new Group();
+    public URL uiURL = null;
+
     /**
-     * @param window Window that the scene will project to.
      * @param maxObjects Max objects allowed in the scene. You cannot change this number after the scene has been created.
      * @param sceneName Name of the scene. Can be changed with setSceneName(String newName)
      */
-    public JScene(JWindow window, int maxObjects, String sceneName) {
+    public JScene(int maxObjects, String sceneName) {
         super(true);
-        this.window = window;
         this.maxObjects = maxObjects;
         this.sceneName = sceneName;
         sceneObjects = new ObjRef[maxObjects];
+    }
+
+    public JScene(int maxObjects, String sceneName, URL url) {
+        super(true);
+        setUiURL(url);
+        try {
+            loadedUI = FXMLLoader.load(uiURL);
+        } catch (IOException e) {
+            //ignore
+        }
+
+        loadUI();
+        this.maxObjects = maxObjects;
+        this.sceneName = sceneName;
+        sceneObjects = new ObjRef[maxObjects];
+    }
+
+    public void loadUI()
+    {
+        if(uiURL == null)
+        {
+            return;
+        }
+        uiObjects = loadedUI;
+    }
+
+    public void setUiURL(URL newURl)
+    {
+        uiURL = newURl;
     }
 
     /**
@@ -94,7 +130,6 @@ public class JScene extends Thing {
 
         maxObjects = createdScene.maxObjects;
         sceneObjects = createdScene.sceneObjects;
-        this.window = window;
         this.sceneName = sceneName;
     }
 

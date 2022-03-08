@@ -168,8 +168,6 @@ public class JCamera extends JObject {
         LogAnnoyance("Start Sprite Render");
         RenderObjects(gameObjects);
 
-
-
         LogExtra("Rendered Objects");
         window.refreshWindow(gameObjects);
     }
