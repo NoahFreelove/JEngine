@@ -17,8 +17,8 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
  * **/
 
 public class JPawn extends JSprite {
-    public JPawn(Transform transform, JImage newSprite, JIdentity JIdentity) {
-        super(transform,newSprite, JIdentity);
+    public JPawn(Transform transform, JImage newSprite, JIdentity jIdentity) {
+        super(transform,newSprite, jIdentity);
 
     }
 

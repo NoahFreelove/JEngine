@@ -19,6 +19,7 @@ public class JTimer {
         this.runEvents = runEvents;
 
     }
+    public boolean isRunning(){return isRunning;}
     public long getIntervalRemaining()
     {
         return intervalRemaining;

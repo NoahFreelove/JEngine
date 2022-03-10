@@ -21,9 +21,17 @@ public class JPointer {
             posX = event.getX();
             posY = event.getY();
         });
+        scene.setOnMousePressed(mouseEvent -> {
+            onMousePressed();
+        });
+        scene.setOnMouseReleased(mouseEvent -> {
+            onMouseReleased();
+        });
     }
 
     public double getX(){return posX;}
     public double getY(){return posY;}
 
+    protected void onMousePressed(){}
+    protected void onMouseReleased(){}
 }

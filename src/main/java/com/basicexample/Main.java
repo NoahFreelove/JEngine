@@ -45,11 +45,12 @@ public class Main extends Application {
         //Path to player image
         String filepath =  binFolder + "player1.png";
 
-        // create a new window
-        JWindow window = new JWindow(1f,"JEngine", stage);
-
         // create a new scene
-        JScene scene = new JScene(window, 15, "Scene 1");
+        JScene scene = new JScene(15, "Scene 1");
+
+        // create a new window
+        JWindow window = new JWindow(scene,1f,"JEngine", stage);
+
 
         // create camera
         camera = new JCamera(new Vector3(0,0,1), window, scene, new JObject(null, null), new JIdentity("Main Camera","camera"));

@@ -101,8 +101,6 @@ public class JWindow extends Thing {
         this.scaleMultiplier = scaleMultiplier;
     }
 
-
-
     public float getScaleMultiplier(){return scaleMultiplier;}
 
     /**
