@@ -95,7 +95,6 @@ public class JScene extends Thing {
                 LogExtra("Added object to scene " + ((sceneObjects[i] != null) ? "successfully" : "UNSUCCESSFULLY"));
                 return;
             }
-            System.out.println(i);
         }
         LogError("Could not add object to full scene! Try increasing the maxObjects parameter.");
     }

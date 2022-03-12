@@ -1,6 +1,9 @@
 package com.JEngine.Utility;
 
 import com.JEngine.PrimitiveTypes.Position.Vector3;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
+
+import java.util.concurrent.ThreadLocalRandom;
 
 public class JMath {
 
@@ -44,7 +47,7 @@ public class JMath {
         return m;
     }
 
-    public static float min (int... x)
+    public static int min (int... x)
     {
         int m = Integer.MAX_VALUE;
         for (int n : x) {
@@ -62,6 +65,16 @@ public class JMath {
                 m = n;
         }
         return m;
+    }
+
+    public static int randRangeInclusive(int lowerBound, int upperBound)
+    {
+        if(upperBound<lowerBound)
+        {
+            Thing.LogError(String.format("randRangeInclusive error: Upper-bound (%d) is less than the Lower-bound (%d)", upperBound,lowerBound));
+            return 0;
+        }
+        return ThreadLocalRandom.current().nextInt(lowerBound, upperBound + 1);
     }
 
 }
