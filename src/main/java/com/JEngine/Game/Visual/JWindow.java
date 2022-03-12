@@ -259,8 +259,8 @@ public class JWindow extends Thing {
      */
     private void runUpdateBehaviors() {
         for (ObjRef objRef : JSceneManager.activeScene.sceneObjects) {
-            if(objRef == null)
-                return;
+            if(objRef == null || objRef.objRef == null || objRef.objRef.JIdentity.compareTag("deleted"))
+                continue;
             if(objRef.objRef.getActive())
                 objRef.objRef.Update();
         }

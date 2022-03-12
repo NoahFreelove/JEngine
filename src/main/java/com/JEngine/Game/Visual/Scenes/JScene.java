@@ -4,6 +4,7 @@ import com.JEngine.Game.PlayersAndPawns.JSprite;
 import com.JEngine.Game.Visual.JWindow;
 import com.JEngine.Game.Visual.SearchType;
 import com.JEngine.PrimitiveTypes.ObjRef;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 import javafx.fxml.FXMLLoader;
@@ -84,24 +85,25 @@ public class JScene extends Thing {
         for (int i = 0; i < sceneObjects.length; i++) {
             if (sceneObjects[i] == null) {
                 sceneObjects[i] = new ObjRef(o);
-                LogInfo("Added object to scene " + ((sceneObjects[i] != null) ? "successfully" : "UNSUCCESSFULLY"));
+                LogExtra("Added object to scene " + ((sceneObjects[i] != null) ? "successfully" : "UNSUCCESSFULLY"));
                 return;
             }
+            else if(sceneObjects[i].objRef.JIdentity.compareTag("deleted"))
+            {
+                sceneObjects[i] = new ObjRef(o);
+                LogExtra("Overwrote object queued for deletion");
+                LogExtra("Added object to scene " + ((sceneObjects[i] != null) ? "successfully" : "UNSUCCESSFULLY"));
+                return;
+            }
+            System.out.println(i);
         }
         LogError("Could not add object to full scene! Try increasing the maxObjects parameter.");
     }
 
+
     public void remove(JObject o)
     {
-        int i = 0;
-        for (ObjRef oRef:
-             sceneObjects) {
-            if (oRef.objRef == o)
-            {
-                sceneObjects[i] = null;
-            }
-            i++;
-        }
+        o.JIdentity = new JIdentity("delete", "deleted");
     }
 
     public void runStartBehaviors()

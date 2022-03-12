@@ -70,9 +70,9 @@ public class JCamera extends JObject {
         int i = 0;
 
         for (ObjRef obj: scene.sceneObjects) {
-            if(obj==null)
+            if(obj==null || (obj.objRef.JIdentity.compareTag("deleted")))
             {
-                LogAnnoyance("Tried to get object that doesn't exist! Try lowering your maxObjects parameter");
+
                 continue;
             }
 
@@ -107,11 +107,7 @@ public class JCamera extends JObject {
 
         Task<Void> task = new Task<Void>() {
             @Override protected Void call() throws Exception {
-                    Platform.runLater(new Runnable() {
-                        @Override public void run() {
-                            Render();
-                        }
-                    });
+                    Platform.runLater(() -> Render());
                 return null;
             }
         };
@@ -123,42 +119,39 @@ public class JCamera extends JObject {
 
     private void RenderObjects(Group gameObjects)
     {
-        for (int i = 0; i < objectsInView.length; i++) {
-            if (objectsInView[i] == null) {
+        for (JObject jObject : objectsInView) {
+            if (jObject == null) {
                 continue;
             }
             // make sure we don't render inactive things
-            if (!objectsInView[i].getActive()) {
+            if (!jObject.getActive()) {
                 continue;
             }
 
             //System.out.println("Object: " + objectsInView[i].identity.getName() + " : " + objectsInView[i].getClass().)
-            try
-            {
-                float xPos = (scene.sceneObjects[i].objRef.transform.position.x*window.getScaleMultiplier() - transform.position.x);
-                float yPos = (scene.sceneObjects[i].objRef.transform.position.y*window.getScaleMultiplier() - transform.position.y);
+            try {
+                float xPos = (jObject.transform.position.x * window.getScaleMultiplier() - transform.position.x);
+                float yPos = (jObject.transform.position.y * window.getScaleMultiplier() - transform.position.y);
 
-                JSprite s = (JSprite)objectsInView[i];
+                JSprite s = (JSprite) jObject;
                 Image image = s.getSprite().getImage();
                 ImageView imageView = new ImageView(image);
-                imageView.setFitWidth(objectsInView[i].transform.getScale().x*window.getScaleMultiplier()*s.getSprite().getXSize());
-                imageView.setFitHeight(objectsInView[i].transform.getScale().y*window.getScaleMultiplier()*s.getSprite().getYSize());
+                imageView.setFitWidth(jObject.transform.getScale().x * window.getScaleMultiplier() * s.getSprite().getXSize());
+                imageView.setFitHeight(jObject.transform.getScale().y * window.getScaleMultiplier() * s.getSprite().getYSize());
 
                 imageView.setX(xPos);
                 imageView.setY(yPos);
-                imageView.setRotate(scene.sceneObjects[i].objRef.transform.rotation.x*window.getScaleMultiplier());
+                imageView.setRotate(jObject.transform.rotation.x * window.getScaleMultiplier());
 
                 gameObjects.getChildren().add(imageView);
                 //JLabel jl = new JLabel(new ImageIcon(s.getSprite().getIcon().getImage().getScaledInstance((int)(objectsInView[i].transform.getScale().x* s.getSprite().getXSize()), (int)(objectsInView[i].transform.getScale().y* s.getSprite().getYSize()), Image.SCALE_DEFAULT)));
 
-            } catch (Exception ignore)
-            {
-                if(objectsInView[i] !=null)
-                {
-                    LogAnnoyance("Didn't add object: " + objectsInView[i].JIdentity.getName() + " to render queue because it doesn't have a sprite");
+            } catch (Exception ignore) {
+                if (jObject != null) {
+                    LogAnnoyance("Didn't add object: " + jObject.JIdentity.getName() + " to render queue because it doesn't have a sprite");
                 }
             }
-        }/**/
+        }
     }
 
     private void Render()

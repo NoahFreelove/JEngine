@@ -5,7 +5,7 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
 
 /** com.JEngine.ObjRef (c) Noah Freelove
  * Brief Explanation:
- * A ObjRef used exclusively for JScene and JViewport to provide an easy reference to an object with its position
+ * A ObjRef used exclusively for JScene to provide an easy reference to an object with its position
  *
  * Usage:
  * Really just provides an easier way to get an object's position. Object.Transform.position works as well.
