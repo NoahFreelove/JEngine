@@ -1,5 +1,6 @@
 package com.JEngine.Game.PlayersAndPawns;
 
+import com.JEngine.Game.PlayersAndPawns.Colliders.JBoxCollider;
 import com.JEngine.PrimitiveTypes.JImage;
 import com.JEngine.PrimitiveTypes.Position.Angle;
 import com.JEngine.PrimitiveTypes.Position.Direction;
@@ -17,9 +18,17 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
  * **/
 
 public class JPawn extends JSprite {
+    private JBoxCollider collider;
     public JPawn(Transform transform, JImage newSprite, JIdentity jIdentity) {
         super(transform,newSprite, jIdentity);
+    }
 
+    public JBoxCollider getCollider() {
+        return collider;
+    }
+
+    public void setCollider(JBoxCollider collider) {
+        this.collider = collider;
     }
 
     public void Move(Direction direction, int speed)

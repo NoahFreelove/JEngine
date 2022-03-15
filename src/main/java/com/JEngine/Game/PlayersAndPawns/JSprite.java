@@ -17,14 +17,12 @@ import com.JEngine.PrimitiveTypes.Position.Transform;
 
 public class JSprite extends JObject {
     private JImage sprite;
-    public JBoxCollider collider;
 
     public JImage getSprite() {return sprite;}
     public void setSprite(JImage newSprite) {sprite = newSprite;}
 
     public JSprite(Transform transform, JImage newSprite, JIdentity JIdentity) {
         super(transform, JIdentity);
-        collider = new JBoxCollider(transform, JIdentity, false, newSprite.getXSize(), newSprite.getYSize());
         setSprite(newSprite);
     }
 }

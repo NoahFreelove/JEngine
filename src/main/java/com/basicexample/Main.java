@@ -35,7 +35,7 @@ public class Main extends Application {
         JAppInfo.authors = new String[]{"Noah Freelove"};
         JAppInfo.appName = "JEngine";
         JAppInfo.appVersionMajor = 0;
-        JAppInfo.appVersionMinor = 1.4f;
+        JAppInfo.appVersionMinor = 1.41f;
         JAppInfo.year = 2022;
         JAppInfo.isCopyright = false;
 

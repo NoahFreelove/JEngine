@@ -1,5 +1,6 @@
 package com.JEngine.Game.Visual.Scenes;
 
+import com.JEngine.Game.PlayersAndPawns.JPawn;
 import com.JEngine.Game.PlayersAndPawns.JSprite;
 import com.JEngine.Game.Visual.JWindow;
 import com.JEngine.Game.Visual.SearchType;
@@ -113,7 +114,7 @@ public class JScene extends Thing {
                 {
                     sceneObject.objRef.Start();
                     try {
-                        ((JSprite)sceneObject.objRef).collider.initializeCollider();
+                        //((JPawn)sceneObject.objRef).getCollider().initializeCollider();
                     }catch (Exception ignore)
                     { /*ignore*/ }
                 }

@@ -1,5 +1,6 @@
 package com.basicexample;
 
+import com.JEngine.Game.PlayersAndPawns.Colliders.JBoxCollider;
 import com.JEngine.Game.PlayersAndPawns.JPlayer;
 import com.JEngine.Game.Visual.Scenes.JSceneManager;
 import com.JEngine.PrimitiveTypes.JImage;
@@ -19,8 +20,8 @@ public class CustomPlayer extends JPlayer {
     public CustomPlayer(Transform transform, JImage newSprite, JIdentity identity, boolean move, int moveSpeed) {
         super(transform, newSprite, identity);
         this.moveSpeed = moveSpeed;
-        collider.setOnCollisionEnterEvent(otherObject -> LogInfo(identity.getName() +  " colliding with: " + ((JObject)otherObject[0]).JIdentity.getName()));
-        collider.setOnCollisionExitEvent(otherObject -> LogInfo(identity.getName() +  " stopped colliding with: " + ((JObject)otherObject[0]).JIdentity.getName()));
+        setCollider(new JBoxCollider(transform, identity,128,128,this));
+        getCollider().setCollisionEvent(otherObject -> LogInfo(identity.getName() +  " colliding with: " + ((JObject)otherObject[0]).JIdentity.getName()));
 
         this.canMove = move;
     }
@@ -47,6 +48,6 @@ public class CustomPlayer extends JPlayer {
             if(Input.Right)
                 Move(Direction.Right, moveSpeed);
         }
-        collider.checkAllCollision();
+        getCollider().checkAllCollision();
     }
 }
