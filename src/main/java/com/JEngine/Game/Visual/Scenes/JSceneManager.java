@@ -41,4 +41,12 @@ public class JSceneManager {
         JSceneManager.mainCamera = newMainCamera;
         window.setCamera(newMainCamera);
     }
+
+    public static JWindow getWindow() {
+        return window;
+    }
+
+    public static JCamera getMainCamera() {
+        return mainCamera;
+    }
 }
