@@ -61,7 +61,7 @@ public class JCamera extends JObject {
         }*/
 
         float leftBound = (transform.getPosition().x);
-        float rightBound = (transform.getPosition().x) + 280;
+        float rightBound = (transform.getPosition().x) + 1280;
         float upBound = (transform.getPosition().y);
         float downBound = (transform.getPosition().y + 720);
 
@@ -70,9 +70,8 @@ public class JCamera extends JObject {
         int i = 0;
 
         for (ObjRef obj: scene.sceneObjects) {
-            if(obj==null || (obj.objRef.JIdentity.compareTag("deleted")))
+            if(obj==null || (obj.objRef.isQueuedForDeletion()))
             {
-
                 continue;
             }
 
@@ -85,13 +84,13 @@ public class JCamera extends JObject {
                 boolean con1 = (obj.objRef.transform.getPosition().x + (objSprite.getSprite().getXSize() * obj.objRef.transform.getScale().x)) >= leftBound;
 
                 // right tip of object isn't out of frame
-                boolean con2 = (obj.objRef.transform.getPosition().x) <= 1280;
+                boolean con2 = (obj.objRef.transform.getPosition().x) <= rightBound;
 
                 // top tip of object isn't out of frame
                 boolean con3 = (obj.objRef.transform.getPosition().y + (objSprite.getSprite().getYSize() * obj.objRef.transform.getScale().y)) >=upBound;
 
                 // bottom tip of object is in frame
-                boolean con4 = (obj.objRef.transform.getPosition().y)<=720;
+                boolean con4 = (obj.objRef.transform.getPosition().y)<=downBound;
 
                 if( con1 && con2 && con3 && con4)
                 {
