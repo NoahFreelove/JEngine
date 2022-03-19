@@ -9,7 +9,7 @@ import com.JEngine.Utility.Misc.GenericMethodCall;
 
 
 public class JBoxCollider extends JObject {
-    private JObject parent;
+    private final JObject parent;
     public int sizeX;
     public int sizeY;
     GenericMethodCall onCollision;

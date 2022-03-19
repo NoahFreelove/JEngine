@@ -74,11 +74,21 @@ public class JScene extends Thing {
         uiURL = newURl;
     }
 
+    private boolean sceneHasRoom()
+    {
+        for (ObjRef sceneObject : sceneObjects) {
+            if (sceneObject == null)
+                return true;
+        }
+        return false;
+    }
+
     /**
      * Adds an object to the active scene
      * @param o Object to add to the scene
      */
     public void add(JObject o) {
+
         if (o == null || o.transform == null) {
             LogWarning("Tried to add null object or transform to scene!");
             return;
@@ -86,24 +96,70 @@ public class JScene extends Thing {
         for (int i = 0; i < sceneObjects.length; i++) {
             if (sceneObjects[i] == null) {
                 sceneObjects[i] = new ObjRef(o);
-                LogExtra("Added object to scene " + ((sceneObjects[i] != null) ? "successfully" : "UNSUCCESSFULLY"));
+                LogExtra(String.format("Added '%s' (%s) to the scene Successfully", o.JIdentity.getName(), o.getClass().getSimpleName()));
                 return;
             }
-            else if(sceneObjects[i].objRef.JIdentity.compareTag("deleted"))
+            else if(sceneObjects[i].objRef.isQueuedForDeletion() && !sceneHasRoom())
             {
                 sceneObjects[i] = new ObjRef(o);
-                LogExtra("Overwrote object queued for deletion");
-                LogExtra("Added object to scene " + ((sceneObjects[i] != null) ? "successfully" : "UNSUCCESSFULLY"));
+                LogExtra(String.format("Overwrote object queued for deletion. Added '%s' (%s) to the scene Successfully", o.JIdentity.getName(), o.getClass().getSimpleName()));
+
                 return;
             }
         }
         LogError("Could not add object to full scene! Try increasing the maxObjects parameter.");
     }
 
-
+    /**
+     * Remove a JObject from the scene.
+     * Note: Removing a JObject from the scene just stops it from being rendered and any update functions being called
+     * on it. It is not cleared from memory just yet...
+     * It will be the first in line to be overwritten when there is no more space in the scene.
+     *
+     * Because of the soft way its being 'removed' from the scene, you are able to unDelete() an object if you have
+     * its name and tag, or reference
+     * @param o The JObject to remove
+     */
     public void remove(JObject o)
     {
-        o.JIdentity = new JIdentity("delete", "deleted");
+        o.setQueuedForDeletion(true);
+        LogExtra(String.format("Queued object '%s' (%s) for deletion.", o.JIdentity.getName(), o.getClass().getSimpleName()));
+    }
+
+    /**
+     * Attempt to restore an object Queued For Deletion
+     * @param o Object to restore
+     */
+    public void unDelete(JObject o)
+    {
+        for (ObjRef ref :
+                sceneObjects) {
+            if(ref.objRef == o && ref.objRef.isQueuedForDeletion())
+            {
+                o.setQueuedForDeletion(false);
+                LogExtra(String.format("Un-deleted '%s' (%s)", o.JIdentity.getName(), o.getClass().getSimpleName()));
+                return;
+            }
+        }
+        LogExtra(String.format("Could not Un-delete '%s' (%s)", o.JIdentity.getName(), o.getClass().getSimpleName()));
+    }
+    /**
+     * Attempt to restore an object Queued For Deletion
+     * @param identity Search scene for identity to restore
+     */
+    public void unDelete(JIdentity identity)
+    {
+        for (ObjRef ref :
+                sceneObjects) {
+            if(ref.objRef.JIdentity.toString().equals(identity.getName() + " : " + identity.getTag()) && ref.objRef.isQueuedForDeletion())
+            {
+                ref.objRef.setQueuedForDeletion(false);
+                LogExtra(String.format("Un-deleted '%s' (%s)", ref.objRef.JIdentity.getName(), ref.objRef.getClass().getSimpleName()));
+                return;
+            }
+        }
+        LogExtra(String.format("Could not Un-delete '%s'", identity.getName()));
+
     }
 
     public void runStartBehaviors()

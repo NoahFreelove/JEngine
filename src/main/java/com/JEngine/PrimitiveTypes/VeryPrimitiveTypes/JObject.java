@@ -13,6 +13,7 @@ import com.JEngine.PrimitiveTypes.Position.Transform;
 public class JObject extends Thing {
     public Transform transform;
     public JIdentity JIdentity;
+    private boolean queuedForDeletion;
 
     public JObject(Transform transform, JIdentity JIdentity) {
         super(true);
@@ -25,4 +26,12 @@ public class JObject extends Thing {
 
     // Called once every frame
     public void Update(){}
+
+    public boolean isQueuedForDeletion() {
+        return queuedForDeletion;
+    }
+
+    public void setQueuedForDeletion(boolean queuedForDeletion) {
+        this.queuedForDeletion = queuedForDeletion;
+    }
 }

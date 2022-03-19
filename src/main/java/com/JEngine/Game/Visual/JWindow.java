@@ -237,7 +237,7 @@ public class JWindow extends Thing {
      * @param frameNumber Total frame number. Useful for keeping track of frames.
      */
     private void update(int frameNumber) {
-        LogExtra(String.format("New frame (#%d)", frameNumber));
+        LogAnnoyance(String.format("New frame (#%d)", frameNumber));
         runUpdateBehaviors();
 
         if(activeCamera !=null)

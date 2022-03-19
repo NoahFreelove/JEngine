@@ -40,6 +40,7 @@ import java.awt.image.SinglePixelPackedSampleModel;
  * Swing/AWT and JavaFX formats.
  * @since JavaFX 2.2
  */
+@SuppressWarnings("ALL")
 public class SwingFXUtils {
     private SwingFXUtils() {} // no instances
 

@@ -27,4 +27,9 @@ public class JIdentity {
     public boolean compareTag(String tagToCompare) {return (tag.equals(tagToCompare));}
     public boolean compareName(String nameToCompare) {return (name.equals(nameToCompare));}
 
+    @Override
+    public String toString()
+    {
+        return getName() + " : " + getTag();
+    }
 }
