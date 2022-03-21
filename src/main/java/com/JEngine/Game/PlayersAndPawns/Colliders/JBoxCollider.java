@@ -25,7 +25,6 @@ public class JBoxCollider extends JObject {
         this.onCollision = args -> {};
         this.parent = parent;
     }
-
     public JBoxCollider(Transform transform, JIdentity JIdentity, int sizeX, int sizeY, JObject parent, GenericMethodCall onCollision) {
         super(transform, JIdentity);
         this.sizeX = sizeX;
