@@ -7,10 +7,10 @@ import java.nio.file.Paths;
 
 public class JUtility {
 
-    public static void waitForSeconds(long seconds, GenericMethodCall event, Object[] args) {
+    public static void waitForSeconds(double seconds, GenericMethodCall event, Object[] args) {
         new Thread(() -> {
             try {
-                long milliseconds = seconds * 1000;
+                long milliseconds = (long)(seconds * 1000);
                 Thread.sleep(milliseconds);
                 event.call(args);
             } catch (InterruptedException e) {

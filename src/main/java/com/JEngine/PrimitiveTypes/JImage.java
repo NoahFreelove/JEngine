@@ -13,8 +13,8 @@ import java.io.File;
 
 public class JImage extends Thing {
     private Image image;
-    private final int xSize;
-    private final int ySize;
+    private int xSize;
+    private int ySize;
 
     /**
      * Default JImage constructor
@@ -33,6 +33,39 @@ public class JImage extends Thing {
             image = new Image(filepath);
             return;
         }
+        LogWarning(String.format("Image File: '%s' does not exist!", filepath));
+    }
+
+    public JImage(Image image)
+    {
+        super(true);
+        this.image = image;
+        this.xSize = (int)image.getWidth();
+        this.ySize = (int)image.getHeight();
+    }
+
+    public JImage(String filepath)
+    {
+        super(true);
+        Image tmpImage = null;
+        File imgFile = new File(filepath);
+        if(imgFile.exists())
+        {
+            tmpImage = new Image(filepath);
+            this.image = tmpImage;
+            return;
+        }
+        try {
+            assert false;
+            this.xSize = (int)tmpImage.getWidth();
+            this.ySize = (int)tmpImage.getHeight();
+
+        }catch (Exception ignore)
+        {
+            this.xSize = 64;
+            this.ySize = 64;
+        }
+
         LogWarning(String.format("Image File: '%s' does not exist!", filepath));
     }
 
