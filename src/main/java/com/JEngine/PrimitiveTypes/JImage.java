@@ -44,6 +44,19 @@ public class JImage extends Thing {
         this.ySize = (int)image.getHeight();
     }
 
+    public JImage(File file)
+    {
+        super(true);
+        if(file.exists())
+        {
+            image = new Image(file.getAbsolutePath());
+            return;
+        }
+        this.ySize = (int)image.getHeight();
+        this.xSize = (int)image.getWidth();
+        LogWarning(String.format("Image File: '%s' does not exist!", file.getAbsolutePath()));
+    }
+
     public JImage(String filepath)
     {
         super(true);
