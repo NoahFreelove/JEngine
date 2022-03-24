@@ -10,9 +10,10 @@ public class JAppInfo {
     public static int appVersionMajor;
     public static float appVersionMinor;
     public static boolean isCopyright;
+    public static String buildID;
 
 
-    public static String getInfo()
+    public static String getAppInfo()
     {
         if(authors == null)
             return "JAppInfo_Error_Null_Author";
@@ -33,27 +34,27 @@ public class JAppInfo {
         {
             if (!multipleAuthors)
             {
-                return String.format("%s : %s : Copyright %d : Version %d.%.2f", appName, authors[0], year, appVersionMajor, appVersionMinor);
+                return String.format("%s : Created by %s : Copyright %d : Version %d.%.2f (%s)", appName, authors[0], year, appVersionMajor, appVersionMinor, buildID);
             }
 
-            return String.format("%s : Copyright %d : Version %d.%.2f\nCreated by: %s", appName, year, appVersionMajor, appVersionMinor, concatAuthors.toString());
+            return String.format("%s : Copyright %d : Version %d.%.2f (%s)\nCreated by: %s", appName, year, appVersionMajor, appVersionMinor, buildID, concatAuthors);
         }
         else {
             if (!multipleAuthors)
             {
-                return String.format("%s : %s : %d : Version %d.%.2f", appName, authors[0], year, appVersionMajor, appVersionMinor);
+                return String.format("%s : Created by %s : %d : Version %d.%.2f (%s)", appName, authors[0], year, appVersionMajor, appVersionMinor, buildID);
 
             }
-            return String.format("%s : %d : Version %d.%.2f\nCreated by: %s", appName, year, appVersionMajor, appVersionMinor, concatAuthors.toString());
+            return String.format("%s : Created by %s : %d : Version %d.%.2f (%s)\nCreated by: %s", appName, authors[0], year, appVersionMajor, appVersionMinor, buildID, concatAuthors);
         }
     }
-    public static void logInfo(boolean isImportant)
+    public static void logAppInfo(boolean isImportant)
     {
         if(isImportant)
         {
-            LogImportant(getInfo());
+            LogImportant(getAppInfo());
             return;
         }
-        LogInfo(getInfo());
+        LogInfo(getAppInfo());
     }
 }
