@@ -83,6 +83,56 @@ public class JScene extends Thing {
         return false;
     }
 
+    // quicksort implementation, github copilot
+    public void sortByZ(){
+        ObjRef[] temp = new ObjRef[maxObjects];
+        int i = 0;
+        for (ObjRef o: sceneObjects) {
+            temp[i] = o;
+            i++;
+        }
+        quickSort(temp, 0, maxObjects-1);
+        sceneObjects = temp;
+    }
+
+    public void quickSort(ObjRef arr[], int begin, int end) {
+        if (begin < end) {
+            int partitionIndex = partition(arr, begin, end);
+            quickSort(arr, begin, partitionIndex-1);
+            quickSort(arr, partitionIndex+1, end);
+        }
+    }
+
+    private int partition(ObjRef arr[], int begin, int end) {
+        if(arr[end] == null)
+            return end;
+        int pivot = (int)arr[end].objRef.transform.position.z;
+        int i = (begin-1);
+
+        for (int j = begin; j < end; j++) {
+            if(arr[j] == null)
+            {
+                i++;
+                continue;
+            }
+
+            if ((int)arr[j].objRef.transform.position.z <= pivot) {
+                i++;
+
+                ObjRef swapTemp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = swapTemp;
+            }
+        }
+
+        ObjRef swapTemp = arr[i+1];
+        arr[i+1] = arr[end];
+        arr[end] = swapTemp;
+
+        return i+1;
+    }
+
+
     /**
      * Adds an object to the active scene
      * @param o Object to add to the scene
@@ -97,13 +147,14 @@ public class JScene extends Thing {
             if (sceneObjects[i] == null) {
                 sceneObjects[i] = new ObjRef(o);
                 LogExtra(String.format("Added '%s' (%s) to the scene Successfully", o.JIdentity.getName(), o.getClass().getSimpleName()));
+                sortByZ();
                 return;
             }
             else if(sceneObjects[i].objRef.isQueuedForDeletion() && !sceneHasRoom())
             {
                 sceneObjects[i] = new ObjRef(o);
                 LogExtra(String.format("Overwrote object queued for deletion. Added '%s' (%s) to the scene Successfully", o.JIdentity.getName(), o.getClass().getSimpleName()));
-
+                sortByZ();
                 return;
             }
         }

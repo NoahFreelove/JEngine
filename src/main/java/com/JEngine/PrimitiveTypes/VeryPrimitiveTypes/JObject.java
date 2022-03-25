@@ -15,10 +15,10 @@ public class JObject extends Thing {
     public JIdentity JIdentity;
     private boolean queuedForDeletion;
 
-    public JObject(Transform transform, JIdentity JIdentity) {
+    public JObject(Transform transform, JIdentity jIdentity) {
         super(true);
         this.transform = transform;
-        this.JIdentity = JIdentity;
+        this.JIdentity = jIdentity;
     }
 
     // Called upon object's creation

@@ -26,6 +26,9 @@ public class Vector3 {
         y = _y;
         z = _z;
     }
+    public Vector3(Vector2 xy, float z) {
+        this(xy.getX(), xy.getY(), z);
+    }
 
     public Vector3 multiply(Vector3 a){
         if(a == null)

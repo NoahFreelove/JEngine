@@ -137,11 +137,9 @@ public class JCamera extends JObject {
                 ImageView imageView = new ImageView(image);
                 imageView.setFitWidth(jObject.transform.getScale().x * window.getScaleMultiplier() * s.getSprite().getXSize());
                 imageView.setFitHeight(jObject.transform.getScale().y * window.getScaleMultiplier() * s.getSprite().getYSize());
-
                 imageView.setX(xPos);
                 imageView.setY(yPos);
                 imageView.setRotate(jObject.transform.rotation.x * window.getScaleMultiplier());
-
                 gameObjects.getChildren().add(imageView);
                 //JLabel jl = new JLabel(new ImageIcon(s.getSprite().getIcon().getImage().getScaledInstance((int)(objectsInView[i].transform.getScale().x* s.getSprite().getXSize()), (int)(objectsInView[i].transform.getScale().y* s.getSprite().getYSize()), Image.SCALE_DEFAULT)));
 
