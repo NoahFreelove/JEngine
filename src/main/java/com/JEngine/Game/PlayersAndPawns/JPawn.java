@@ -23,6 +23,10 @@ public class JPawn extends JSprite {
         super(transform,newSprite, jIdentity);
     }
 
+    public void onCollisionEnter(JPawn other) {
+
+    }
+
     public JBoxCollider getCollider() {
         return collider;
     }

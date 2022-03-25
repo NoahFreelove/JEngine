@@ -9,33 +9,21 @@ import com.JEngine.Utility.Misc.GenericMethodCall;
 
 
 public class JBoxCollider extends JObject {
-    private final JObject parent;
+    private final JPawn parent;
     public int sizeX;
     public int sizeY;
-    GenericMethodCall onCollision;
     //GenericMethodCall onCollisionExit;
 
     private int calls = 0;
 
 
-    public JBoxCollider(Transform transform, JIdentity JIdentity, int sizeX, int sizeY, JObject parent) {
+    public JBoxCollider(Transform transform, JIdentity JIdentity, int sizeX, int sizeY, JPawn parent) {
         super(transform, JIdentity);
         this.sizeX = sizeX;
         this.sizeY = sizeY;
-        this.onCollision = args -> {};
         this.parent = parent;
     }
-    public JBoxCollider(Transform transform, JIdentity JIdentity, int sizeX, int sizeY, JObject parent, GenericMethodCall onCollision) {
-        super(transform, JIdentity);
-        this.sizeX = sizeX;
-        this.sizeY = sizeY;
-        this.onCollision = onCollision;
-        this.parent = parent;
-    }
-    public void setCollisionEvent(GenericMethodCall c)
-    {
-        onCollision = c;
-    }
+
     /*public void setOnCollisionExitEvent(GenericMethodCall c)
     {
         onCollisionExit = c;
@@ -62,7 +50,7 @@ public class JBoxCollider extends JObject {
         return (x1 <= x4) && (x3 <= x2) && (y1 <= y4) && (y3 <= y2);
     }
 
-    public JObject getParent() {
+    public JPawn getParent() {
         return parent;
     }
 
@@ -106,7 +94,7 @@ public class JBoxCollider extends JObject {
         calls++;
         if(calls == 1)
             return;
-        onCollision.call(new Object[]{otherObj});
+        parent.onCollisionEnter(otherObj.getParent());
     }
 
     /*public void onCollisionExit(JBoxCollider otherObj)
