@@ -21,8 +21,6 @@ public class CustomPlayer extends JPlayer {
         super(transform, newSprite, identity);
         this.moveSpeed = moveSpeed;
         setCollider(new JBoxCollider(transform, identity,128,128,this));
-        getCollider().setCollisionEvent(otherObject -> LogInfo(identity.getName() +  " colliding with: " + ((JObject)otherObject[0]).JIdentity.getName()));
-
         this.canMove = move;
     }
 

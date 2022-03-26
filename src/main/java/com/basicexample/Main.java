@@ -37,10 +37,11 @@ public class Main extends Application {
         JAppInfo.appVersionMajor = 0;
         JAppInfo.appVersionMinor = 1.41f;
         JAppInfo.year = 2022;
+        JAppInfo.buildID = "2022.03.26.1";
         JAppInfo.isCopyright = false;
 
         //Print app info
-        JAppInfo.logInfo(true);
+        JAppInfo.logAppInfo(true);
 
         //Path to player image
         String filepath =  binFolder + "player1.png";
@@ -69,7 +70,7 @@ public class Main extends Application {
         scene.add(camera);
         scene.add(player);
 
-        Text t = new Text(10, 50, "JEngine");
+        Text t = new Text(10, 50, "JEngine Moving Square Example");
         t.setFont(Font.font ("arial", 25));
         window.parent.getChildren().add(t);
         window.setBackgroundColor(Color.web("#4095c0"));
