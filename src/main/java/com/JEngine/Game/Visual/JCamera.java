@@ -28,6 +28,7 @@ public class JCamera extends JObject {
     public JWindow window;
     public JObject parent;
     public JObject[] objectsInView;
+    private boolean renderAll = false;
 
     public JCamera(Vector3 position, JWindow window, JScene scene, JObject parent, JIdentity JIdentity) {
         super(new Transform(position, new Vector3(0,0,0), new Vector3(1,1,1)), JIdentity);
@@ -75,9 +76,15 @@ public class JCamera extends JObject {
                 continue;
             }
 
+
             try {
                 JSprite objSprite = (JSprite) obj.objRef;
-
+                if(renderAll)
+                {
+                    objectsInView[i] = objSprite;
+                    i++;
+                    continue;
+                }
                 //System.out.println("Y Pos " + obj.objRef.transform.position.y);
 
                 // left tip of object is in frame
@@ -167,4 +174,12 @@ public class JCamera extends JObject {
         LogInfo("Changed active scene");
     }
     public JScene getActiveScene() {return scene;}
+
+    public boolean getRenderAll() {
+        return renderAll;
+    }
+
+    public void setRenderAll(boolean renderAll) {
+        this.renderAll = renderAll;
+    }
 }
