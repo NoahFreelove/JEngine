@@ -26,6 +26,10 @@ public class Transform {
         scale = newScale;
     }
 
+    public Transform getTransform() {
+        return this;
+    }
+
     public void setPosition(Vector3 newPosition){position = newPosition;}
     public void setRotation(Vector3 newRotation){rotation = newRotation;}
     public void setScale(Vector3 newScale){scale = newScale;}

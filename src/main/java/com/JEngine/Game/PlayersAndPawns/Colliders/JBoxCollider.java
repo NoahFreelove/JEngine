@@ -5,8 +5,6 @@ import com.JEngine.Game.Visual.Scenes.JSceneManager;
 import com.JEngine.PrimitiveTypes.ObjRef;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.*;
-import com.JEngine.Utility.Misc.GenericMethodCall;
-
 
 public class JBoxCollider extends JObject {
     private final JPawn parent;
@@ -24,10 +22,6 @@ public class JBoxCollider extends JObject {
         this.parent = parent;
     }
 
-    /*public void setOnCollisionExitEvent(GenericMethodCall c)
-    {
-        onCollisionExit = c;
-    }*/
 
     public int getTimesCollided(){return calls;}
 
@@ -84,11 +78,11 @@ public class JBoxCollider extends JObject {
                     if(isCollidingWith(pawnRef))
                     {
                         pawnRef.onCollision(this);
+                        //System.out.println(getParent().JIdentity.getName() + " Colliding with " + pawnRef.getParent().JIdentity.getName());
                         i++;
                     }
                 }
         }
-
 
     public void onCollision(JBoxCollider otherObj){
         calls++;

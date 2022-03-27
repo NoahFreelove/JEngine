@@ -2,10 +2,7 @@ package com.JEngine.Game.PlayersAndPawns;
 
 import com.JEngine.Game.PlayersAndPawns.Colliders.JBoxCollider;
 import com.JEngine.PrimitiveTypes.JImage;
-import com.JEngine.PrimitiveTypes.Position.Angle;
-import com.JEngine.PrimitiveTypes.Position.Direction;
-import com.JEngine.PrimitiveTypes.Position.Transform;
-import com.JEngine.PrimitiveTypes.Position.Vector3;
+import com.JEngine.PrimitiveTypes.Position.*;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 
 /** com.JEngine.Pawn (c) Noah Freelove
@@ -33,6 +30,13 @@ public class JPawn extends JSprite {
 
     public void setCollider(JBoxCollider collider) {
         this.collider = collider;
+    }
+
+    public void Rotate(Vector2 direction, float amount, boolean clockwise) {
+        int d = clockwise ? 1 : -1;
+        direction.setX(transform.getRotation().x + direction.getX()*amount*d);
+        direction.setY(transform.getRotation().y + direction.getY()*amount*d);
+        transform.setRotation(new Vector3(direction,transform.rotation.z));
     }
 
     public void Move(Direction direction, int speed)
