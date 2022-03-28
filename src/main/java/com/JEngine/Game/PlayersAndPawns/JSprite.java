@@ -21,8 +21,8 @@ public class JSprite extends JObject {
     public JImage getSprite() {return sprite;}
     public void setSprite(JImage newSprite) {sprite = newSprite;}
 
-    public JSprite(Transform transform, JImage newSprite, JIdentity JIdentity) {
-        super(transform, JIdentity);
+    public JSprite(Transform transform, JImage newSprite, JIdentity jIdentity) {
+        super(transform, jIdentity);
         setSprite(newSprite);
     }
 }

@@ -2,10 +2,10 @@ package com.JEngine.Utility.Settings.SettingTypes;
 
 import com.JEngine.Utility.Settings.JSetting;
 
-public class JGenericSetting extends JSetting{
+public class JSettingGeneric extends JSetting{
     private Object value;
 
-    public JGenericSetting(String name, Object value) {
+    public JSettingGeneric(String name, Object value) {
         super(name);
         this.value = value;
     }

@@ -3,13 +3,13 @@ package com.JEngine.Utility.Settings;
 public class JSettingManager {
     static JSettingCategory[] settingCategories;
 
-    public JSettingManager(JSettingCategory[] settingCategories) {
-        JSettingManager.settingCategories = settingCategories;
+    public static void init(JSettingCategory[] categories){
+        settingCategories = categories;
     }
 
     public JSettingCategory[] getSettingCategories() {return settingCategories;}
 
-    public JSettingCategory getSettingCategoryByName(String name)
+    public static JSettingCategory getSettingCategoryByName(String name)
     {
         for (JSettingCategory category :
                 settingCategories) {
@@ -21,19 +21,19 @@ public class JSettingManager {
         return null;
     }
 
-    public Object getSpecificSetting(String categoryName, String settingName)
+    public static JSetting getSpecificSetting(String categoryName, String settingName)
     {
         JSettingCategory category = getSettingCategoryByName(categoryName);
         if(category == null)
         {
-            return false;
+            return null;
         }
 
         JSetting setting = category.getSettingByName(settingName);
 
         if(setting == null)
         {
-            return false;
+            return null;
         }
 
         return setting;

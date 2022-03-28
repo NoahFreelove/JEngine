@@ -8,6 +8,7 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
+import javafx.scene.transform.Scale;
 
 import java.io.IOException;
 import java.net.URL;
