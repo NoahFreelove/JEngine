@@ -5,6 +5,8 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+import static com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing.LogError;
+
 public class JMath {
 
     public static float clamp(float min, float max, float value){
@@ -71,7 +73,7 @@ public class JMath {
     {
         if(upperBound<lowerBound)
         {
-            Thing.LogError(String.format("randRangeInclusive error: Upper-bound (%d) is less than the Lower-bound (%d)", upperBound,lowerBound));
+            LogError(String.format("randRangeInclusive error: Upper-bound (%d) is less than the Lower-bound (%d)", upperBound,lowerBound));
             return 0;
         }
         return ThreadLocalRandom.current().nextInt(lowerBound, upperBound + 1);

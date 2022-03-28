@@ -1,8 +1,10 @@
 package com.JEngine.Utility.Settings;
 
+import com.JEngine.Utility.Misc.GenericMethodCall;
+
 public class JSetting {
     private final String settingName;
-    ValueChangedEvent valueChangedEvent = null;
+    GenericMethodCall valueChangedEvent = null;
 
     /**
      * Creates a new generic setting
@@ -34,7 +36,7 @@ public class JSetting {
      * set the event called when the value is updated
      * @param w Event to call
      */
-    public void setEventValueChanged(ValueChangedEvent w)
+    public void setEventValueChanged(GenericMethodCall w)
     {
         valueChangedEvent = w;
     }
@@ -45,7 +47,7 @@ public class JSetting {
     protected void onValueChanged(){
         if(valueChangedEvent != null)
         {
-            valueChangedEvent.valueChanged(getValue());
+            valueChangedEvent.call(new Object[]{getValue()});
         }
     }
 }

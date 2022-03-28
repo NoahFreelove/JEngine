@@ -8,6 +8,7 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 /** com.JEngine.Pawn (c) Noah Freelove
  * Brief Explanation:
  * A Pawn is a sprite which can be directly moved and manipulated by a player or bot
+ * It does not listen for key inputs, unlike JPlayer
  *
  * Usage:
  * A pawn can be used for an object that can be moved by the player or bot, but that is not the player.

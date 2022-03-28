@@ -6,6 +6,7 @@ import com.JEngine.PrimitiveTypes.JImage;
 import com.JEngine.PrimitiveTypes.ObjRef;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 import com.JEngine.Utility.Input;
+import com.JEngine.Utility.Misc.FPSCounter;
 import com.JEngine.Utility.Misc.JUtility;
 import com.JEngine.Utility.Settings.EnginePrefs;
 import javafx.fxml.FXMLLoader;
@@ -34,12 +35,13 @@ import java.net.URL;
 public class JWindow extends Thing {
     public boolean isActive;
 
-    public Stage stage;
+    private final Stage stage;
     public Scene scene;
     public JScene jscene;
     public JCamera activeCamera;
 
     private Thread updateThread;
+
 
     private float targetFPS = 30;
     public int totalFrames = 1;
@@ -101,6 +103,10 @@ public class JWindow extends Thing {
         this.scaleMultiplier = scaleMultiplier;
     }
 
+    /**
+     * Gets the window scale multiplier
+     * @return scale multiplier
+     */
     public float getScaleMultiplier(){return scaleMultiplier;}
 
     /**
@@ -109,6 +115,14 @@ public class JWindow extends Thing {
      */
     public Scene getScene() {
         return scene;
+    }
+
+    /**
+     * Get the stage
+     * @return Stage
+     */
+    public Stage getStage() {
+        return stage;
     }
 
     /**
@@ -182,6 +196,7 @@ public class JWindow extends Thing {
         isActive = true;
         updateThread = new Thread(this::refresh);
         updateThread.start();
+        FPSCounter.start();
         LogInfo("Successfully started window");
 
     }
@@ -195,6 +210,7 @@ public class JWindow extends Thing {
         try
         {
             updateThread.interrupt();
+            FPSCounter.stop();
             isActive = false;
             LogInfo("Successfully stopped window");
         }
@@ -216,7 +232,7 @@ public class JWindow extends Thing {
                 update(totalFrames);
                 totalFrames++;
                 next_game_tick += SKIP_TICKS;
-
+                FPSCounter.update();
             }
 
         }

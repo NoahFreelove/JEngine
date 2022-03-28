@@ -7,7 +7,7 @@ import javafx.scene.input.KeyCode;
 
 /** com.JEngine.Player (c) Noah Freelove
  * Brief Explanation:
- * A Player is form of pawn
+ * A Player is form of pawn which has events for key presses
  * **/
 
 public class JPlayer extends JPawn {

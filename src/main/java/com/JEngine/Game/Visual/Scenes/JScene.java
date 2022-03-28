@@ -1,7 +1,5 @@
 package com.JEngine.Game.Visual.Scenes;
 
-import com.JEngine.Game.PlayersAndPawns.JPawn;
-import com.JEngine.Game.PlayersAndPawns.JSprite;
 import com.JEngine.Game.Visual.JWindow;
 import com.JEngine.Game.Visual.SearchType;
 import com.JEngine.PrimitiveTypes.ObjRef;
@@ -10,7 +8,6 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
-import javafx.scene.Node;
 
 import java.io.IOException;
 import java.net.URL;
@@ -83,7 +80,7 @@ public class JScene extends Thing {
         return false;
     }
 
-    // quicksort implementation, github copilot
+    // quicksort implementation, GitHub copilot helped with this one
     public void sortByZ(){
         ObjRef[] temp = new ObjRef[maxObjects];
         int i = 0;
@@ -91,15 +88,15 @@ public class JScene extends Thing {
             temp[i] = o;
             i++;
         }
-        quickSort(temp, 0, maxObjects-1);
+        quickSortZ(temp, 0, maxObjects-1);
         sceneObjects = temp;
     }
 
-    public void quickSort(ObjRef arr[], int begin, int end) {
+    public void quickSortZ(ObjRef arr[], int begin, int end) {
         if (begin < end) {
             int partitionIndex = partition(arr, begin, end);
-            quickSort(arr, begin, partitionIndex-1);
-            quickSort(arr, partitionIndex+1, end);
+            quickSortZ(arr, begin, partitionIndex-1);
+            quickSortZ(arr, partitionIndex+1, end);
         }
     }
 
