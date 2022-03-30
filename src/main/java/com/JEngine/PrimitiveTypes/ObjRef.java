@@ -18,5 +18,5 @@ public class ObjRef {
         super();
         this.objRef = objRef;
     }
-    public Vector3 getPosition() {return objRef.transform.position;}
+    public Vector3 getPosition() {return objRef.getTransform().position;}
 }

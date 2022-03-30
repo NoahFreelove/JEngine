@@ -35,15 +35,15 @@ public class JPawn extends JSprite {
 
     public void Rotate(Vector2 direction, float amount, boolean clockwise) {
         int d = clockwise ? 1 : -1;
-        direction.setX(transform.getRotation().x + direction.getX()*amount*d);
-        direction.setY(transform.getRotation().y + direction.getY()*amount*d);
-        transform.setRotation(new Vector3(direction,transform.rotation.z));
+        direction.setX(getTransform().getRotation().x + direction.getX()*amount*d);
+        direction.setY(getTransform().getRotation().y + direction.getY()*amount*d);
+        getTransform().setRotation(new Vector3(direction,getTransform().rotation.z));
     }
 
     public void Move(Direction direction, int speed)
     {
         Angle angle = new Angle(0);
-        Vector3 oldPos = super.transform.position;
+        Vector3 oldPos = super.getTransform().position;
         float totalXMovement = 0;
         float totalYMovement = 0;
         int originalSpeed = speed;
@@ -124,7 +124,7 @@ public class JPawn extends JSprite {
 
 
         // actual logic that moves pawn
-        super.transform.setPosition(new Vector3(super.transform.position.x + totalXMovement, super.transform.position.y + totalYMovement, super.transform.position.z));
-        LogAnnoyance(String.format("Moved pawn %.2f° %d unit(s) | OLD POS {%.2f,%.2f,%.2f} | NEW POS {%.2f,%.2f,%.2f}", angle.angle, originalSpeed, oldPos.x, oldPos.y, oldPos.z, super.transform.position.x, super.transform.position.y, super.transform.position.z));
+        super.getTransform().setPosition(new Vector3(super.getTransform().position.x + totalXMovement, super.getTransform().position.y + totalYMovement, super.getTransform().position.z));
+        LogAnnoyance(String.format("Moved pawn %.2f° %d unit(s) | OLD POS {%.2f,%.2f,%.2f} | NEW POS {%.2f,%.2f,%.2f}", angle.angle, originalSpeed, oldPos.x, oldPos.y, oldPos.z, super.getTransform().position.x, super.getTransform().position.y, super.getTransform().position.z));
     }
 }

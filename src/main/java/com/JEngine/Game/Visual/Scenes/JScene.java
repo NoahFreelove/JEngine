@@ -8,7 +8,6 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
-import javafx.scene.transform.Scale;
 
 import java.io.IOException;
 import java.net.URL;
@@ -104,7 +103,7 @@ public class JScene extends Thing {
     private int partition(ObjRef arr[], int begin, int end) {
         if(arr[end] == null)
             return end;
-        int pivot = (int)arr[end].objRef.transform.position.z;
+        int pivot = (int)arr[end].objRef.getTransform().position.z;
         int i = (begin-1);
 
         for (int j = begin; j < end; j++) {
@@ -114,7 +113,7 @@ public class JScene extends Thing {
                 continue;
             }
 
-            if ((int)arr[j].objRef.transform.position.z <= pivot) {
+            if ((int)arr[j].objRef.getTransform().position.z <= pivot) {
                 i++;
 
                 ObjRef swapTemp = arr[i];
@@ -137,7 +136,7 @@ public class JScene extends Thing {
      */
     public void add(JObject o) {
 
-        if (o == null || o.transform == null) {
+        if (o == null || o.getTransform() == null) {
             LogWarning("Tried to add null object or transform to scene!");
             return;
         }

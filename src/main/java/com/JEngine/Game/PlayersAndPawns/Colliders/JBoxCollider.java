@@ -32,14 +32,14 @@ public class JBoxCollider extends JObject {
             return false;
         }
 
-        int x1 = (int)otherObject.transform.position.x;
-        int y1 = (int)otherObject.transform.position.y;
-        int x2 = (int)otherObject.transform.position.x + otherObject.sizeX;
-        int y2 = (int)otherObject.transform.position.y+ otherObject.sizeY;
-        int x3 = (int)transform.position.x;
-        int y3 = (int)transform.position.y;
-        int x4 = (int)transform.position.x + sizeX;
-        int y4 = (int)transform.position.y+ sizeY;
+        int x1 = (int)otherObject.getTransform().position.x;
+        int y1 = (int)otherObject.getTransform().position.y;
+        int x2 = (int)otherObject.getTransform().position.x + otherObject.sizeX;
+        int y2 = (int)otherObject.getTransform().position.y+ otherObject.sizeY;
+        int x3 = (int)getTransform().position.x;
+        int y3 = (int)getTransform().position.y;
+        int x4 = (int)getTransform().position.x + sizeX;
+        int y4 = (int)getTransform().position.y+ sizeY;
 
         return (x1 <= x4) && (x3 <= x2) && (y1 <= y4) && (y3 <= y2);
     }

@@ -58,13 +58,13 @@ public class JCamera extends JObject {
     {
         /*if (parent.transform != null)
         {
-            super.transform.position = parent.transform.position;
+            super.getTransform().position = parent.getTransform().position;
         }*/
 
-        float leftBound = (transform.getPosition().x);
-        float rightBound = (transform.getPosition().x) + 1280;
-        float upBound = (transform.getPosition().y);
-        float downBound = (transform.getPosition().y + 720);
+        float leftBound = (getTransform().getPosition().x);
+        float rightBound = (getTransform().getPosition().x) + 1280;
+        float upBound = (getTransform().getPosition().y);
+        float downBound = (getTransform().getPosition().y + 720);
 
         objectsInView = new JObject[scene.getMaxObjects()];
 
@@ -85,19 +85,19 @@ public class JCamera extends JObject {
                     i++;
                     continue;
                 }
-                //System.out.println("Y Pos " + obj.objRef.transform.position.y);
+                //System.out.println("Y Pos " + obj.objRef.getTransform().position.y);
 
                 // left tip of object is in frame
-                boolean con1 = (obj.objRef.transform.getPosition().x + (objSprite.getSprite().getXSize() * obj.objRef.transform.getScale().x)) >= leftBound;
+                boolean con1 = (obj.objRef.getTransform().getPosition().x + (objSprite.getSprite().getXSize() * obj.objRef.getTransform().getScale().x)) >= leftBound;
 
                 // right tip of object isn't out of frame
-                boolean con2 = (obj.objRef.transform.getPosition().x) <= rightBound;
+                boolean con2 = (obj.objRef.getTransform().getPosition().x) <= rightBound;
 
                 // top tip of object isn't out of frame
-                boolean con3 = (obj.objRef.transform.getPosition().y + (objSprite.getSprite().getYSize() * obj.objRef.transform.getScale().y)) >=upBound;
+                boolean con3 = (obj.objRef.getTransform().getPosition().y + (objSprite.getSprite().getYSize() * obj.objRef.getTransform().getScale().y)) >=upBound;
 
                 // bottom tip of object is in frame
-                boolean con4 = (obj.objRef.transform.getPosition().y)<=downBound;
+                boolean con4 = (obj.objRef.getTransform().getPosition().y)<=downBound;
 
                 if( con1 && con2 && con3 && con4)
                 {
@@ -136,19 +136,19 @@ public class JCamera extends JObject {
 
             //System.out.println("Object: " + objectsInView[i].identity.getName() + " : " + objectsInView[i].getClass().)
             try {
-                float xPos = (jObject.transform.position.x * window.getScaleMultiplier() - transform.position.x);
-                float yPos = (jObject.transform.position.y * window.getScaleMultiplier() - transform.position.y);
+                float xPos = (jObject.getTransform().position.x * window.getScaleMultiplier() - getTransform().position.x);
+                float yPos = (jObject.getTransform().position.y * window.getScaleMultiplier() - getTransform().position.y);
 
                 JSprite s = (JSprite) jObject;
                 Image image = s.getSprite().getImage();
                 ImageView imageView = new ImageView(image);
-                imageView.setFitWidth(jObject.transform.getScale().x * window.getScaleMultiplier() * s.getSprite().getXSize());
-                imageView.setFitHeight(jObject.transform.getScale().y * window.getScaleMultiplier() * s.getSprite().getYSize());
+                imageView.setFitWidth(jObject.getTransform().getScale().x * window.getScaleMultiplier() * s.getSprite().getXSize());
+                imageView.setFitHeight(jObject.getTransform().getScale().y * window.getScaleMultiplier() * s.getSprite().getYSize());
                 imageView.setX(xPos);
                 imageView.setY(yPos);
-                imageView.setRotate(jObject.transform.rotation.x * window.getScaleMultiplier());
+                imageView.setRotate(jObject.getTransform().rotation.x * window.getScaleMultiplier());
                 gameObjects.getChildren().add(imageView);
-                //JLabel jl = new JLabel(new ImageIcon(s.getSprite().getIcon().getImage().getScaledInstance((int)(objectsInView[i].transform.getScale().x* s.getSprite().getXSize()), (int)(objectsInView[i].transform.getScale().y* s.getSprite().getYSize()), Image.SCALE_DEFAULT)));
+                //JLabel jl = new JLabel(new ImageIcon(s.getSprite().getIcon().getImage().getScaledInstance((int)(objectsInView[i].getTransform().getScale().x* s.getSprite().getXSize()), (int)(objectsInView[i].getTransform().getScale().y* s.getSprite().getYSize()), Image.SCALE_DEFAULT)));
 
             } catch (Exception ignore) {
                 if (jObject != null) {

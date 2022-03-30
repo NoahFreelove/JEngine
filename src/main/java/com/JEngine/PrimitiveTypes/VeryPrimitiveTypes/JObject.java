@@ -7,13 +7,21 @@ import com.JEngine.PrimitiveTypes.Position.Transform;
  *
  * Usage:
  * It is not recommended building off the object base class, but to extend off the Player or Pawn classes.
- * An object cannot be controlled directly, but it's position can be updated by doing Object.transform.setTransform
+ * An object cannot be controlled directly, but it's position can be updated by doing Object.getTransform().setTransform
  * **/
 
 public class JObject extends Thing {
-    public Transform transform;
+    private Transform transform;
     public JIdentity JIdentity;
     private boolean queuedForDeletion;
+
+    public Transform getTransform() {
+        return transform;
+    }
+
+    public void setTransform(Transform transform) {
+        this.transform = transform;
+    }
 
     public JObject(Transform transform, JIdentity jIdentity) {
         super(true);
