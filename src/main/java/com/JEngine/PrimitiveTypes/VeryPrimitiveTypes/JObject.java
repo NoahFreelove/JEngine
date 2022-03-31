@@ -12,7 +12,7 @@ import com.JEngine.PrimitiveTypes.Position.Transform;
 
 public class JObject extends Thing {
     private Transform transform;
-    public JIdentity JIdentity;
+    private final JIdentity jIdentity;
     private boolean queuedForDeletion;
 
     public Transform getTransform() {
@@ -26,7 +26,7 @@ public class JObject extends Thing {
     public JObject(Transform transform, JIdentity jIdentity) {
         super(true);
         this.transform = transform;
-        this.JIdentity = jIdentity;
+        this.jIdentity = jIdentity;
     }
 
     // Called upon object's creation
@@ -34,6 +34,11 @@ public class JObject extends Thing {
 
     // Called once every frame
     public void Update(){}
+
+    public JIdentity getJIdentity() {
+        return jIdentity;
+    }
+
 
     public boolean isQueuedForDeletion() {
         return queuedForDeletion;

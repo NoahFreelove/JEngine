@@ -20,7 +20,7 @@ public class CustomPlayer extends JPlayer {
     public CustomPlayer(Transform transform, JImage newSprite, JIdentity identity, boolean move, int moveSpeed) {
         super(transform, newSprite, identity);
         this.moveSpeed = moveSpeed;
-        setCollider(new JBoxCollider(transform, identity,128,128,this));
+        setCollider(new JBoxCollider(transform, identity,128,128,this, false));
         this.canMove = move;
     }
 
@@ -29,21 +29,31 @@ public class CustomPlayer extends JPlayer {
         if(key == KeyCode.X)
         {
             flipFlop = !flipFlop;
-            JSceneManager.window.setWindowScale((flipFlop)? 0.5f:1);
+            JSceneManager.getWindow().setWindowScale((flipFlop)? 0.5f:1);
         }
     }
 
     @Override
     public void Update()
     {
-        if(canMove) {
-            if (Input.Up)
+        if(canMove && getJIdentity().compareName("Player 1")) {
+            if (Input.W_Pressed)
                 Move(Direction.Up, moveSpeed);
-            if(Input.Down)
+            if(Input.S_Pressed)
                 Move(Direction.Down, moveSpeed);
-            if(Input.Left)
+            if(Input.A_Pressed)
                 Move(Direction.Left, moveSpeed);
-            if(Input.Right)
+            if(Input.D_Pressed)
+                Move(Direction.Right, moveSpeed);
+        }
+        else if (canMove && getJIdentity().compareName("Player 2")) {
+            if (Input.UArrow_Pressed)
+                Move(Direction.Up, moveSpeed);
+            if(Input.DArrow_Pressed)
+                Move(Direction.Down, moveSpeed);
+            if(Input.LArrow_Pressed)
+                Move(Direction.Left, moveSpeed);
+            if(Input.RArrow_Pressed)
                 Move(Direction.Right, moveSpeed);
         }
         getCollider().checkAllCollision();

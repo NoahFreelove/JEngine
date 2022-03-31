@@ -85,7 +85,7 @@ public class Input {
     private static void keyPressEvent(KeyEvent key)
     {
         for (ObjRef o :
-                JSceneManager.getActiveScene().sceneObjects) {
+                JSceneManager.getActiveScene().getObjects()) {
             try
             {
                 ((JPlayer)o.objRef).onKeyPressed(key.getCode());
@@ -97,7 +97,7 @@ public class Input {
     private static void keyReleaseEvent(KeyEvent key)
     {
         for (ObjRef o :
-                JSceneManager.getActiveScene().sceneObjects) {
+                JSceneManager.getActiveScene().getObjects()) {
             try
             {
                 ((JPlayer)o.objRef).onKeyReleased(key.getCode());

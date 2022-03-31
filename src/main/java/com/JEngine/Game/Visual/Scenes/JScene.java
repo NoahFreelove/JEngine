@@ -23,7 +23,7 @@ import java.net.URL;
  */
 public class JScene extends Thing {
 
-    public ObjRef[] sceneObjects;
+    private ObjRef[] sceneObjects;
     private int maxObjects;
     private String sceneName;
 
@@ -143,14 +143,14 @@ public class JScene extends Thing {
         for (int i = 0; i < sceneObjects.length; i++) {
             if (sceneObjects[i] == null) {
                 sceneObjects[i] = new ObjRef(o);
-                LogExtra(String.format("Added '%s' (%s) to the scene Successfully", o.JIdentity.getName(), o.getClass().getSimpleName()));
+                LogExtra(String.format("Added '%s' (%s) to the scene Successfully", o.getJIdentity().getName(), o.getClass().getSimpleName()));
                 sortByZ();
                 return;
             }
             else if(sceneObjects[i].objRef.isQueuedForDeletion() && !sceneHasRoom())
             {
                 sceneObjects[i] = new ObjRef(o);
-                LogExtra(String.format("Overwrote object queued for deletion. Added '%s' (%s) to the scene Successfully", o.JIdentity.getName(), o.getClass().getSimpleName()));
+                LogExtra(String.format("Overwrote object queued for deletion. Added '%s' (%s) to the scene Successfully", o.getJIdentity().getName(), o.getClass().getSimpleName()));
                 sortByZ();
                 return;
             }
@@ -171,7 +171,7 @@ public class JScene extends Thing {
     public void remove(JObject o)
     {
         o.setQueuedForDeletion(true);
-        LogExtra(String.format("Queued object '%s' (%s) for deletion.", o.JIdentity.getName(), o.getClass().getSimpleName()));
+        LogExtra(String.format("Queued object '%s' (%s) for deletion.", o.getJIdentity().getName(), o.getClass().getSimpleName()));
     }
 
     /**
@@ -185,11 +185,11 @@ public class JScene extends Thing {
             if(ref.objRef == o && ref.objRef.isQueuedForDeletion())
             {
                 o.setQueuedForDeletion(false);
-                LogExtra(String.format("Un-deleted '%s' (%s)", o.JIdentity.getName(), o.getClass().getSimpleName()));
+                LogExtra(String.format("Un-deleted '%s' (%s)", o.getJIdentity().getName(), o.getClass().getSimpleName()));
                 return;
             }
         }
-        LogExtra(String.format("Could not Un-delete '%s' (%s)", o.JIdentity.getName(), o.getClass().getSimpleName()));
+        LogExtra(String.format("Could not Un-delete '%s' (%s)", o.getJIdentity().getName(), o.getClass().getSimpleName()));
     }
     /**
      * Attempt to restore an object Queued For Deletion
@@ -199,15 +199,22 @@ public class JScene extends Thing {
     {
         for (ObjRef ref :
                 sceneObjects) {
-            if(ref.objRef.JIdentity.toString().equals(identity.getName() + " : " + identity.getTag()) && ref.objRef.isQueuedForDeletion())
+            if(ref.objRef.getJIdentity().toString().equals(identity.getName() + " : " + identity.getTag()) && ref.objRef.isQueuedForDeletion())
             {
                 ref.objRef.setQueuedForDeletion(false);
-                LogExtra(String.format("Un-deleted '%s' (%s)", ref.objRef.JIdentity.getName(), ref.objRef.getClass().getSimpleName()));
+                LogExtra(String.format("Un-deleted '%s' (%s)", ref.objRef.getJIdentity().getName(), ref.objRef.getClass().getSimpleName()));
                 return;
             }
         }
         LogExtra(String.format("Could not Un-delete '%s'", identity.getName()));
+    }
 
+    public ObjRef[] getObjects() {
+        return sceneObjects;
+    }
+
+    public void setSceneObjects(ObjRef[] sceneObjects) {
+        this.sceneObjects = sceneObjects;
     }
 
     public void runStartBehaviors()
@@ -257,17 +264,17 @@ public class JScene extends Thing {
             if (sceneObjects[i] != null) {
 
                 if (searchType == SearchType.SearchByName) {
-                    if (sceneObjects[i].objRef.JIdentity.compareName(name)) {
+                    if (sceneObjects[i].objRef.getJIdentity().compareName(name)) {
                         sceneSize[i] = sceneObjects[i].objRef;
                         count++;
                     }
                 } else if (searchType == SearchType.SearchByTag) {
-                    if (sceneObjects[i].objRef.JIdentity.compareTag(tag)) {
+                    if (sceneObjects[i].objRef.getJIdentity().compareTag(tag)) {
                         sceneSize[i] = sceneObjects[i].objRef;
                         count++;
                     }
                 } else {
-                    if (sceneObjects[i].objRef.JIdentity.compareTag(tag) && sceneObjects[i].objRef.JIdentity.compareName(name)) {
+                    if (sceneObjects[i].objRef.getJIdentity().compareTag(tag) && sceneObjects[i].objRef.getJIdentity().compareName(name)) {
                         sceneSize[i] = sceneObjects[i].objRef;
                         count++;
                     }

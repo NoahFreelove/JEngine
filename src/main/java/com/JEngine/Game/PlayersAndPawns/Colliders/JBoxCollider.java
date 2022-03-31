@@ -14,12 +14,21 @@ public class JBoxCollider extends JObject {
 
     private int calls = 0;
 
+    private boolean trigger = true;
 
     public JBoxCollider(Transform transform, JIdentity JIdentity, int sizeX, int sizeY, JPawn parent) {
         super(transform, JIdentity);
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.parent = parent;
+    }
+
+    public JBoxCollider(Transform transform, JIdentity JIdentity, int sizeX, int sizeY, JPawn parent, boolean trigger) {
+        super(transform, JIdentity);
+        this.sizeX = sizeX;
+        this.sizeY = sizeY;
+        this.parent = parent;
+        this.trigger = trigger;
     }
 
 
@@ -52,43 +61,79 @@ public class JBoxCollider extends JObject {
     {
         int i = 0;
         for (ObjRef o :
-                JSceneManager.getActiveScene().sceneObjects) {
+                JSceneManager.getActiveScene().getObjects()) {
             if (o == null) continue;
-            JBoxCollider pawnRef;
+            JBoxCollider pawnCollider;
 
             try {
-                pawnRef = ((JPawn) o.objRef).getCollider();
+                pawnCollider = ((JPawn) o.objRef).getCollider();
             }
-                catch (Exception e)
-                {
-                    i++;
-                    continue;
-                }
-                if(pawnRef == null)
-                {
-                    i++;
-                    continue;
-                }
+            catch (Exception e)
+            {
+                i++;
+                continue;
+            }
+            if(pawnCollider == null)
+            {
+                i++;
+                continue;
+            }
 
-                if(pawnRef == this)
-                {
-                    i++;
-                    continue;
-                }
-                    if(isCollidingWith(pawnRef))
-                    {
-                        pawnRef.onCollision(this);
-                        //System.out.println(getParent().JIdentity.getName() + " Colliding with " + pawnRef.getParent().JIdentity.getName());
-                        i++;
-                    }
-                }
+            if(pawnCollider == this)
+            {
+                i++;
+                continue;
+            }
+            if(isCollidingWith(pawnCollider))
+            {
+                pawnCollider.onCollision(this);
+                this.onCollision(pawnCollider);
+                //System.out.println(getParent().JIdentity.getName() + " Colliding with " + pawnRef.getParent().JIdentity.getName());
+                i++;
+            }
         }
+    }
+
+    public boolean isCollidingWithHard()
+    {
+        for (ObjRef o :
+                JSceneManager.getActiveScene().getObjects()) {
+            if (o == null) continue;
+            JBoxCollider pawnCollider;
+
+            try {
+                pawnCollider = ((JPawn) o.objRef).getCollider();
+            }
+            catch (Exception e)
+            {
+                continue;
+            }
+            if(pawnCollider == null || pawnCollider == this || pawnCollider.trigger || parent == pawnCollider.parent)
+            {
+                continue;
+            }
+
+            if(isCollidingWith(pawnCollider))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public void onCollision(JBoxCollider otherObj){
         calls++;
         if(calls == 1)
             return;
         parent.onCollisionEnter(otherObj.getParent());
+    }
+
+    public boolean isTrigger() {
+        return trigger;
+    }
+
+    public void setTrigger(boolean trigger) {
+        this.trigger = trigger;
     }
 
     /*public void onCollisionExit(JBoxCollider otherObj)

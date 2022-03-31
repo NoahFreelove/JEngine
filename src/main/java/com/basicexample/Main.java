@@ -35,9 +35,9 @@ public class Main extends Application {
         JAppInfo.authors = new String[]{"Noah Freelove"};
         JAppInfo.appName = "JEngine";
         JAppInfo.appVersionMajor = 0;
-        JAppInfo.appVersionMinor = 1.46f;
+        JAppInfo.appVersionMinor = 1.5f;
         JAppInfo.year = 2022;
-        JAppInfo.buildID = "2022.03.30.1";
+        JAppInfo.buildID = "2022.03.31.2";
         JAppInfo.isCopyright = false;
 
         //Print app info
@@ -45,13 +45,13 @@ public class Main extends Application {
 
         //Path to player image
         String filepath =  binFolder + "player1.png";
+        String filepath2 =  binFolder + "player2.png";
 
         // create a new scene
         JScene scene = new JScene(15, "Scene 1");
 
         // create a new window
         JWindow window = new JWindow(scene,1f,"JEngine", stage);
-
 
         // create camera
         camera = new JCamera(new Vector3(0,0,1), window, scene, new JObject(null, null), new JIdentity("Main Camera","camera"));
@@ -60,20 +60,24 @@ public class Main extends Application {
         JSceneManager.init(scene,window,camera);
 
         // create player image
-        JImage image = new JImage(true, filepath, 128,128);
+        JImage image = new JImage(filepath, 128, 128);
+        JImage image2 = new JImage(filepath2, 128,128);
 
         // create a player object
         CustomPlayer player = new CustomPlayer(Transform.exSimpleTransform(550,100), image, new JIdentity("Player 1", "Player"),true, 10);
+        CustomPlayer player2 = new CustomPlayer(Transform.exSimpleTransform(700,100), image2, new JIdentity("Player 2", "Player"),true, 10);
 
 
         // add objects to scene
         scene.add(camera);
         scene.add(player);
+        scene.add(player2);
 
-        Text t = new Text(10, 50, "JEngine Moving Square Example");
-        t.setFont(Font.font ("arial", 25));
-        window.parent.getChildren().add(t);
-        window.setBackgroundColor(Color.web("#4095c0"));
+        Text titleText = new Text(10, 50, "JEngine Moving Squares Example");
+        titleText.setFont(Font.font ("arial", 25));
+        window.parent.getChildren().add(titleText);
+        // set background color to a dark purple
+        window.setBackgroundColor(Color.web("#5d34a5"));
 
         window.setTargetFPS(60);
 

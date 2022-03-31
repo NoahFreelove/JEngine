@@ -20,6 +20,13 @@ public class Transform {
         scale = newScale;
     }
 
+    public Transform(Transform t)
+    {
+        this.position = t.position;
+        this.rotation = t.rotation;
+        this.scale = t.scale;
+    }
+
     public void setTransform(Vector3 newPosition, Vector3 newRotation, Vector3 newScale) {
         position = newPosition;
         rotation = newRotation;

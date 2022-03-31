@@ -35,6 +35,18 @@ public class JImage extends Thing {
         }
         LogWarning(String.format("Image File: '%s' does not exist!", filepath));
     }
+    public JImage(String filepath, int xSize, int ySize) {
+        super(true);
+        this.xSize = xSize;
+        this.ySize = ySize;
+        File imgFile = new File(filepath);
+        if(imgFile.exists())
+        {
+            image = new Image(filepath);
+            return;
+        }
+        LogWarning(String.format("Image File: '%s' does not exist!", filepath));
+    }
 
     public JImage(Image image)
     {
@@ -86,12 +98,12 @@ public class JImage extends Thing {
      * Get x size of image
      * @return image x size
      */
-    public int getXSize(){return xSize;}
+    public int getWidth(){return xSize;}
     /**
      * Get y size of image
      * @return image y size
      */
-    public int getYSize(){return ySize;}
+    public int getHeight(){return ySize;}
 
     /**
      * Get Image object

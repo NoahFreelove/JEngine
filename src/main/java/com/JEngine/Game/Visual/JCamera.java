@@ -12,7 +12,6 @@ import javafx.concurrent.Task;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
 
 
 /** com.JEngine.JCamera (c) Noah Freelove
@@ -27,8 +26,7 @@ public class JCamera extends JObject {
     private JScene scene;
     public JWindow window;
     public JObject parent;
-    public JObject[] objectsInView;
-    private boolean renderAll = false;
+    private JSprite[] sprites;
 
     public JCamera(Vector3 position, JWindow window, JScene scene, JObject parent, JIdentity JIdentity) {
         super(new Transform(position, new Vector3(0,0,0), new Vector3(1,1,1)), JIdentity);
@@ -50,110 +48,57 @@ public class JCamera extends JObject {
 
     public void InitiateRender()
     {
-        GetObjectsInView();
+        convertObjRefToObj();
     }
 
-
-    private void GetObjectsInView()
-    {
-        /*if (parent.transform != null)
-        {
-            super.getTransform().position = parent.getTransform().position;
-        }*/
-
-        float leftBound = (getTransform().getPosition().x);
-        float rightBound = (getTransform().getPosition().x) + 1280;
-        float upBound = (getTransform().getPosition().y);
-        float downBound = (getTransform().getPosition().y + 720);
-
-        objectsInView = new JObject[scene.getMaxObjects()];
-
+    private void convertObjRefToObj(){
+        sprites = new JSprite[scene.getObjects().length];
         int i = 0;
-
-        for (ObjRef obj: scene.sceneObjects) {
-            if(obj==null || (obj.objRef.isQueuedForDeletion()))
-            {
+        for (ObjRef objRef : scene.getObjects()) {
+            if(objRef==null)
                 continue;
+            if(objRef.objRef instanceof JSprite sprite){
+                sprites[i] = sprite;
+                i++;
             }
-
-
-            try {
-                JSprite objSprite = (JSprite) obj.objRef;
-                if(renderAll)
-                {
-                    objectsInView[i] = objSprite;
-                    i++;
-                    continue;
-                }
-                //System.out.println("Y Pos " + obj.objRef.getTransform().position.y);
-
-                // left tip of object is in frame
-                boolean con1 = (obj.objRef.getTransform().getPosition().x + (objSprite.getSprite().getXSize() * obj.objRef.getTransform().getScale().x)) >= leftBound;
-
-                // right tip of object isn't out of frame
-                boolean con2 = (obj.objRef.getTransform().getPosition().x) <= rightBound;
-
-                // top tip of object isn't out of frame
-                boolean con3 = (obj.objRef.getTransform().getPosition().y + (objSprite.getSprite().getYSize() * obj.objRef.getTransform().getScale().y)) >=upBound;
-
-                // bottom tip of object is in frame
-                boolean con4 = (obj.objRef.getTransform().getPosition().y)<=downBound;
-
-                if( con1 && con2 && con3 && con4)
-                {
-                    objectsInView[i] = objSprite;
-                }
-            }
-            catch (Exception ignore)
-            {
-                //ignore
-            }
-            i++;
         }
 
-        Task<Void> task = new Task<Void>() {
-            @Override protected Void call() throws Exception {
-                    Platform.runLater(() -> Render());
+        Task<Void> task = new Task<>() {
+            @Override
+            protected Void call() {
+                Platform.runLater(() -> Render());
                 return null;
             }
         };
         task.run();
-
-
     }
-
 
     private void RenderObjects(Group gameObjects)
     {
-        for (JObject jObject : objectsInView) {
-            if (jObject == null) {
+        for (JSprite sprite : sprites) {
+            if (sprite == null) {
                 continue;
             }
             // make sure we don't render inactive things
-            if (!jObject.getActive()) {
+            if (!sprite.getActive()) {
                 continue;
             }
 
-            //System.out.println("Object: " + objectsInView[i].identity.getName() + " : " + objectsInView[i].getClass().)
             try {
-                float xPos = (jObject.getTransform().position.x * window.getScaleMultiplier() - getTransform().position.x);
-                float yPos = (jObject.getTransform().position.y * window.getScaleMultiplier() - getTransform().position.y);
+                float xPos = (sprite.getTransform().position.x * window.getScaleMultiplier() - getTransform().position.x);
+                float yPos = (sprite.getTransform().position.y * window.getScaleMultiplier() - getTransform().position.y);
 
-                JSprite s = (JSprite) jObject;
-                Image image = s.getSprite().getImage();
+                Image image = sprite.getSprite().getImage();
                 ImageView imageView = new ImageView(image);
-                imageView.setFitWidth(jObject.getTransform().getScale().x * window.getScaleMultiplier() * s.getSprite().getXSize());
-                imageView.setFitHeight(jObject.getTransform().getScale().y * window.getScaleMultiplier() * s.getSprite().getYSize());
+                imageView.setFitWidth(sprite.getTransform().getScale().x * window.getScaleMultiplier() * sprite.getSprite().getWidth());
+                imageView.setFitHeight(sprite.getTransform().getScale().y * window.getScaleMultiplier() * sprite.getSprite().getHeight());
                 imageView.setX(xPos);
                 imageView.setY(yPos);
-                imageView.setRotate(jObject.getTransform().rotation.x * window.getScaleMultiplier());
+                imageView.setRotate(sprite.getTransform().rotation.x * window.getScaleMultiplier());
                 gameObjects.getChildren().add(imageView);
-                //JLabel jl = new JLabel(new ImageIcon(s.getSprite().getIcon().getImage().getScaledInstance((int)(objectsInView[i].getTransform().getScale().x* s.getSprite().getXSize()), (int)(objectsInView[i].getTransform().getScale().y* s.getSprite().getYSize()), Image.SCALE_DEFAULT)));
 
             } catch (Exception ignore) {
-                if (jObject != null) {
-                    LogAnnoyance("Didn't add object: " + jObject.JIdentity.getName() + " to render queue because it doesn't have a sprite");
-                }
+                LogAnnoyance("Didn't add object: " + sprite.getJIdentity().getName() + " to render queue because it doesn't have a sprite");
             }
         }
     }
@@ -175,11 +120,4 @@ public class JCamera extends JObject {
     }
     public JScene getActiveScene() {return scene;}
 
-    public boolean getRenderAll() {
-        return renderAll;
-    }
-
-    public void setRenderAll(boolean renderAll) {
-        this.renderAll = renderAll;
-    }
 }

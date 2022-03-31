@@ -40,6 +40,13 @@ public class JPawn extends JSprite {
         getTransform().setRotation(new Vector3(direction,getTransform().rotation.z));
     }
 
+    public boolean canMove(float xDisplacement, float yDisplacement) {
+        JBoxCollider tmpCollider = new JBoxCollider(new Transform(getTransform()), new JIdentity("tmpCollider", "boxCollider"), getSprite().getWidth(), getSprite().getHeight(), this, false);
+
+        tmpCollider.getTransform().setPosition(new Vector3(getTransform().getPosition().x + xDisplacement, getTransform().getPosition().y + yDisplacement, getTransform().getPosition().z));
+        return !tmpCollider.isCollidingWithHard();
+    }
+
     public void Move(Direction direction, int speed)
     {
         Angle angle = new Angle(0);
@@ -122,7 +129,14 @@ public class JPawn extends JSprite {
             }
         }
 
-
+        if(!getCollider().isTrigger())
+        {
+            if(canMove(totalXMovement, totalYMovement))
+            {
+                super.getTransform().setPosition(new Vector3(super.getTransform().position.x + totalXMovement, super.getTransform().position.y + totalYMovement, super.getTransform().position.z));
+            }
+            return;
+        }
         // actual logic that moves pawn
         super.getTransform().setPosition(new Vector3(super.getTransform().position.x + totalXMovement, super.getTransform().position.y + totalYMovement, super.getTransform().position.z));
         LogAnnoyance(String.format("Moved pawn %.2f° %d unit(s) | OLD POS {%.2f,%.2f,%.2f} | NEW POS {%.2f,%.2f,%.2f}", angle.angle, originalSpeed, oldPos.x, oldPos.y, oldPos.z, super.getTransform().position.x, super.getTransform().position.y, super.getTransform().position.z));

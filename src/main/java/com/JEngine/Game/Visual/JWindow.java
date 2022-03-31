@@ -274,7 +274,7 @@ public class JWindow extends Thing {
      * Objects which don't override the function will not have any function
      */
     private void runUpdateBehaviors() {
-        for (ObjRef objRef : JSceneManager.activeScene.sceneObjects) {
+        for (ObjRef objRef : JSceneManager.getActiveScene().getObjects()) {
             if(objRef == null || objRef.objRef == null || objRef.objRef.isQueuedForDeletion())
                 continue;
             if(objRef.objRef.getActive())
