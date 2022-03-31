@@ -128,15 +128,18 @@ public class JPawn extends JSprite {
                 }
             }
         }
-
-        if(!getCollider().isTrigger())
+        if(getCollider() != null)
         {
-            if(canMove(totalXMovement, totalYMovement))
+            if(!getCollider().isTrigger())
             {
-                super.getTransform().setPosition(new Vector3(super.getTransform().position.x + totalXMovement, super.getTransform().position.y + totalYMovement, super.getTransform().position.z));
+                if(canMove(totalXMovement, totalYMovement))
+                {
+                    super.getTransform().setPosition(new Vector3(super.getTransform().position.x + totalXMovement, super.getTransform().position.y + totalYMovement, super.getTransform().position.z));
+                }
+                return;
             }
-            return;
         }
+
         // actual logic that moves pawn
         super.getTransform().setPosition(new Vector3(super.getTransform().position.x + totalXMovement, super.getTransform().position.y + totalYMovement, super.getTransform().position.z));
         LogAnnoyance(String.format("Moved pawn %.2f° %d unit(s) | OLD POS {%.2f,%.2f,%.2f} | NEW POS {%.2f,%.2f,%.2f}", angle.angle, originalSpeed, oldPos.x, oldPos.y, oldPos.z, super.getTransform().position.x, super.getTransform().position.y, super.getTransform().position.z));

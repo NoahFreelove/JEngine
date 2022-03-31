@@ -55,7 +55,7 @@ public class JCamera extends JObject {
         sprites = new JSprite[scene.getObjects().length];
         int i = 0;
         for (ObjRef objRef : scene.getObjects()) {
-            if(objRef==null)
+            if(objRef==null || objRef.objRef.isQueuedForDeletion())
                 continue;
             if(objRef.objRef instanceof JSprite sprite){
                 sprites[i] = sprite;
