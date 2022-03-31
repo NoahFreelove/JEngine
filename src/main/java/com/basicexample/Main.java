@@ -9,6 +9,7 @@ import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.Position.Vector3;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
+import com.JEngine.TemplateObjects.ScreenBorder;
 import com.JEngine.Utility.About.JAppInfo;
 import com.JEngine.Utility.Settings.EnginePrefs;
 import javafx.application.Application;
@@ -66,7 +67,9 @@ public class Main extends Application {
         // create a player object
         CustomPlayer player = new CustomPlayer(Transform.exSimpleTransform(550,100), image, new JIdentity("Player 1", "Player"),true, 10);
         CustomPlayer player2 = new CustomPlayer(Transform.exSimpleTransform(700,100), image2, new JIdentity("Player 2", "Player"),true, 10);
+        ScreenBorder sb = new ScreenBorder();
 
+        scene.add(sb);
 
         // add objects to scene
         scene.add(camera);
