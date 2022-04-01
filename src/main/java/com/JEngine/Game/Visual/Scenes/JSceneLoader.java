@@ -15,6 +15,10 @@ import java.io.FileReader;
 
 import static com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing.*;
 
+/**
+ * Abandoned this class for now....
+ * Until I find a better way to load class values. likely json related
+ */
 public class JSceneLoader {
     public static JScene load(String filepath, JWindow window, String sceneName)
     {

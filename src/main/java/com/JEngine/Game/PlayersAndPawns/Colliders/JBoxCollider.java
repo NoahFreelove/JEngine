@@ -6,6 +6,14 @@ import com.JEngine.PrimitiveTypes.ObjRef;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.*;
 
+/**
+ * JBoxCollider - A simple box collider for JObjects
+ *
+ * Has built in functionality to detect if another collider is in range, and to detect if it's a trigger or a hard one
+ *
+ * @author Noah Freelove
+ * @version 1
+ */
 public class JBoxCollider extends JObject {
     private final JPawn parent;
     public int sizeX;
@@ -16,6 +24,13 @@ public class JBoxCollider extends JObject {
 
     private boolean trigger = true;
 
+    /**
+     * @param transform - The transform of the object
+     * @param JIdentity - The JIdentity of the object
+     * @param sizeX - The size of the object in the x direction
+     * @param sizeY - The size of the object in the y direction
+     * @param parent - The parent of the object
+     */
     public JBoxCollider(Transform transform, JIdentity JIdentity, int sizeX, int sizeY, JPawn parent) {
         super(transform, JIdentity);
         this.sizeX = sizeX;
@@ -23,6 +38,14 @@ public class JBoxCollider extends JObject {
         this.parent = parent;
     }
 
+    /**
+     * @param transform - The transform of the object
+     * @param JIdentity - The JIdentity of the object
+     * @param sizeX - The size of the object in the x direction
+     * @param sizeY - The size of the object in the y direction
+     * @param parent - The parent of the object
+     * @param trigger - Whether the collider is a trigger
+     */
     public JBoxCollider(Transform transform, JIdentity JIdentity, int sizeX, int sizeY, JPawn parent, boolean trigger) {
         super(transform, JIdentity);
         this.sizeX = sizeX;
@@ -31,9 +54,15 @@ public class JBoxCollider extends JObject {
         this.trigger = trigger;
     }
 
-
+    /**
+     * @return how many times the collider has collided
+     */
     public int getTimesCollided(){return calls;}
 
+    /**
+     * @param otherObj - The other object to check
+     * @return
+     */
     public boolean isCollidingWith(JBoxCollider otherObject)
     {
         if(otherObject == null)
