@@ -80,7 +80,6 @@ public class JBoxCollider extends JObject {
             }
             if(isCollidingWith(pawnCollider))
             {
-                System.out.println("Collision detected");
                 pawnCollider.onCollision(this);
                 this.onCollision(pawnCollider);
                 //System.out.println(getParent().JIdentity.getName() + " Colliding with " + pawnRef.getParent().JIdentity.getName());

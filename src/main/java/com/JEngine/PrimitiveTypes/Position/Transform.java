@@ -47,6 +47,10 @@ public class Transform {
     {
         return new Transform(pos,defaultRotation(),defaultScale());
     }
+    public static Transform simpleTransform(float x,float y,float z)
+    {
+        return new Transform(new Vector3(x,y,z),defaultRotation(),defaultScale());
+    }
     public static Transform exSimpleTransform(float x, float y)
     {
         return new Transform(new Vector3(x,y,0),defaultRotation(),defaultScale());

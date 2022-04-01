@@ -9,6 +9,7 @@ import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.Position.Vector3;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
+import com.JEngine.TemplateObjects.BackgroundImage;
 import com.JEngine.TemplateObjects.ScreenBorder;
 import com.JEngine.Utility.About.JAppInfo;
 import com.JEngine.Utility.Settings.EnginePrefs;
@@ -17,6 +18,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import java.io.File;
 
 public class Main extends Application {
 
@@ -67,10 +70,9 @@ public class Main extends Application {
         // create a player object
         CustomPlayer player = new CustomPlayer(Transform.exSimpleTransform(550,100), image, new JIdentity("Player 1", "Player"),true, 10);
         CustomPlayer player2 = new CustomPlayer(Transform.exSimpleTransform(700,100), image2, new JIdentity("Player 2", "Player"),true, 10);
-        ScreenBorder sb = new ScreenBorder();
-
-        scene.add(sb);
-
+        new ScreenBorder(new Vector3(0,0,0));
+        BackgroundImage background = new BackgroundImage(new File(binFolder + "/background.png").getAbsolutePath());
+        scene.add(background);
         // add objects to scene
         scene.add(camera);
         scene.add(player);
@@ -78,6 +80,7 @@ public class Main extends Application {
 
         Text titleText = new Text(10, 50, "JEngine Moving Squares Example");
         titleText.setFont(Font.font ("arial", 25));
+        titleText.setFill(Color.WHITE);
         window.parent.getChildren().add(titleText);
         // set background color to a dark purple
         window.setBackgroundColor(Color.web("#5d34a5"));
