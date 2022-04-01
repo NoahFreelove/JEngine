@@ -28,16 +28,16 @@ public class ScreenBorder {
                 1, wall2, false));
 
         JPawn wall3 = new JPawn(Transform.exSimpleTransform(basePos.x + (int)(1280*JSceneManager.getWindow().getScaleMultiplier()), basePos.y),null,
-                new JIdentity("ScreenBorderWall2", "border"));
+                new JIdentity("ScreenBorderWall3", "border"));
         wall3.setCollider(new JBoxCollider(wall3.getTransform(), new JIdentity("ScreenBorderWallRight", "border"),
                 1,
                 (int)(720*JSceneManager.getWindow().getScaleMultiplier()), wall3, false));
 
         JPawn wall4 = new JPawn(Transform.exSimpleTransform(basePos.x, basePos.y),null,
-                new JIdentity("ScreenBorderWall2", "border"));
+                new JIdentity("ScreenBorderWall4", "border"));
         wall4.setCollider(new JBoxCollider(wall4.getTransform(), new JIdentity("ScreenBorderWallLeft", "border"),
                 1,
-                (int)(720*JSceneManager.getWindow().getScaleMultiplier()), wall3, false));
+                (int)(720*JSceneManager.getWindow().getScaleMultiplier()), wall4, false));
 
         JSceneManager.getActiveScene().add(wall1);
         JSceneManager.getActiveScene().add(wall2);
