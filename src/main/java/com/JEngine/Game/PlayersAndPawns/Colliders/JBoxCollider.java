@@ -73,19 +73,14 @@ public class JBoxCollider extends JObject {
                 i++;
                 continue;
             }
-            if(pawnCollider == null)
-            {
-                i++;
-                continue;
-            }
-
-            if(pawnCollider == this)
+            if(pawnCollider == null || pawnCollider == this || !pawnCollider.trigger || parent == pawnCollider.parent)
             {
                 i++;
                 continue;
             }
             if(isCollidingWith(pawnCollider))
             {
+                System.out.println("Collision detected");
                 pawnCollider.onCollision(this);
                 this.onCollision(pawnCollider);
                 //System.out.println(getParent().JIdentity.getName() + " Colliding with " + pawnRef.getParent().JIdentity.getName());

@@ -17,6 +17,7 @@ public class JAnimationTimeline {
     public JImage[] special3Frames;
     public JImage[] special4Frames;
 
+    // max frames in anim
     public JAnimationTimeline(AnimFrame[][] frames, AnimState initState, int maxFramesInAnim) {
         this.currState = initState;
         // if a frame is null, it will be skipped. maxFramesInAnim is just to not make a huge array
@@ -41,6 +42,8 @@ public class JAnimationTimeline {
             int totalFrames = 0;
             for (AnimFrame frame :
                     arr) {
+                if(frame == null)
+                    continue;
                 totalFrames+=frame.duration;
                 if (maxFramesInAnim < totalFrames) {
                     invalidEntry = true;
@@ -57,6 +60,8 @@ public class JAnimationTimeline {
                 frames) {
             for (AnimFrame f:
                     fArr) {
+                if(f == null)
+                    continue;
                 switch (f.state)
                 {
                     case IDLE -> {

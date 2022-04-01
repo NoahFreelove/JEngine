@@ -15,6 +15,6 @@ public class ScreenBorder extends JPawn {
         setCollider(new JBoxCollider(Transform.exSimpleTransform(0,0), new JIdentity("ScreenBorderWall1", "border"),
                 (int)(1280*JSceneManager.getWindow().getScaleMultiplier()),
                 10, this, false));
-        JPawn wall2 = new JPawn(Transform.exSimpleTransform(0,(int)(720*JSceneManager.getWindow().getScaleMultiplier()), null);new JIdentity("ScreenBorderWall2", "border")
+        //JPawn wall2 = new JPawn(Transform.exSimpleTransform(0,(int)(720*JSceneManager.getWindow().getScaleMultiplier()), null),new JIdentity("ScreenBorderWall2", "border"));
     }
 }
