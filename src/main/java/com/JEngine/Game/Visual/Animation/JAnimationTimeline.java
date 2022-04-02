@@ -204,8 +204,18 @@ public class JAnimationTimeline {
         {
             frameIndex = 0;
             assert currState != null;
-            return new JImage(null,64,64);
-        }
+            return switch (currState)
+                    {
+                        case UP -> upFrames[0];
+                        case DOWN -> downFrames[0];
+                        case LEFT -> leftFrames[0];
+                        case RIGHT -> rightFrames[0];
+                        case SPECIAL -> specialFrames[0];
+                        case SPECIAL2 -> special2Frames[0];
+                        case SPECIAL3 -> special3Frames[0];
+                        case SPECIAL4 -> special4Frames[0];
+                        default -> idleFrames[0];
+                    };        }
         return tmp;
     }
 }
