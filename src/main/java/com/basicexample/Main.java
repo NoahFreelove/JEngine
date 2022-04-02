@@ -12,6 +12,7 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
 import com.JEngine.TemplateObjects.BackgroundImage;
 import com.JEngine.TemplateObjects.ScreenBorder;
 import com.JEngine.Utility.About.JAppInfo;
+import com.JEngine.Utility.JMath;
 import com.JEngine.Utility.Settings.EnginePrefs;
 import javafx.application.Application;
 import javafx.scene.paint.Color;
@@ -29,7 +30,8 @@ public class Main extends Application {
 
     public static String binFolder = System.getProperty("user.home") + "\\Documents\\JEngine\\bin\\";
 
-    public void start(Stage stage) {
+    static void setEnginePrefs()
+    {
         //Set engine preferences
         EnginePrefs.logImportant = true;
         EnginePrefs.logInfo = true;
@@ -48,6 +50,9 @@ public class Main extends Application {
 
         //Print app info
         JAppInfo.logAppInfo(true);
+    }
+
+    public void start(Stage stage) {
 
         //Path to player image
         String filepath =  binFolder + "player1.png";
@@ -79,7 +84,6 @@ public class Main extends Application {
         scene.add(camera);
         scene.add(player);
         scene.add(player2);
-
         Text titleText = new Text(10, 50, "JEngine Moving Squares Example");
         titleText.setFont(Font.font ("arial", 25));
         titleText.setFill(Color.WHITE);

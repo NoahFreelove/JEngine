@@ -156,4 +156,29 @@ public class JMath {
         return ThreadLocalRandom.current().nextFloat(lowerBound, upperBound + 1);
     }
 
+    /**
+     * Get the next value in a repeating range.
+     * @param v value
+     * @param min minimum value
+     * @param max maximum value
+     * @param step step value
+     * @return the next value in the step sequence.
+     */
+    public static float repeat(float v, float min, float max, float step)
+    {
+        if(v<min)
+        {
+            return min;
+        }
+
+        else if (v >=max)
+        {
+            return min;
+        }
+        else if(v+step>max)
+            return max;
+
+        return v+step;
+    }
+
 }
