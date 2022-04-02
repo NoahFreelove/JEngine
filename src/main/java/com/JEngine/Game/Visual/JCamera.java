@@ -14,7 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 
-/** com.JEngine.JCamera (c) Noah Freelove
+/** JCamera (c) Noah Freelove
  * Brief Explanation:
  * JCamera converts the objects in a scene to a rendered panel which JWindow can show.
  * JCamera's output depends on its position and FOV (in pixels)
@@ -24,17 +24,20 @@ public class JCamera extends JObject {
     public float fovX;
     public float fovY;
     private JScene scene;
-    public JWindow window;
-    public JObject parent;
+    private final JWindow window;
+    private JObject parent;
     private JSprite[] sprites;
 
+    /**
+     * Default constructor
+     * @param position init position
+     * @param window init window
+     * @param scene init scene
+     * @param parent parent
+     * @param JIdentity Identity
+     */
     public JCamera(Vector3 position, JWindow window, JScene scene, JObject parent, JIdentity JIdentity) {
         super(new Transform(position, new Vector3(0,0,0), new Vector3(1,1,1)), JIdentity);
-
-       /* if(parent.transform == null){
-            LogWarning(String.format("Camera: '%s' parent property is null. The camera will not move.", JIdentity.getName()));
-            super.transform = new Transform(position, new Vector3(0,0,0), new Vector3(1,1,1));
-        }*/
 
         this.window = window;
         this.scene = scene;
@@ -42,15 +45,45 @@ public class JCamera extends JObject {
         this.fovX = window.getScaleMultiplier()*1280;
         this.fovY = window.getScaleMultiplier()*720;
     }
+    /**
+     * Default constructor
+     * @param position init position
+     * @param window init window
+     * @param scene init scene
+     * @param JIdentity Identity
+     */
+    public JCamera(Vector3 position, JWindow window, JScene scene, JIdentity JIdentity) {
+        super(new Transform(position, new Vector3(0,0,0), new Vector3(1,1,1)), JIdentity);
 
+        this.window = window;
+        this.scene = scene;
+        this.fovX = window.getScaleMultiplier()*1280;
+        this.fovY = window.getScaleMultiplier()*720;
+    }
+
+    /**
+     * Default setter for parent
+     * @param newParent new parent
+     */
     public void setParent(JObject newParent) {parent = newParent;}
+
+    /**
+     * Default getter for parent
+     * @return parent
+     */
     public JObject getParent() {return parent;}
 
+    /**
+     * Start converting objects in the scene to sprites
+     */
     public void InitiateRender()
     {
         convertObjRefToObj();
     }
 
+    /**
+     * Converts all render-able scene objects to sprites
+     */
     private void convertObjRefToObj(){
         sprites = new JSprite[scene.getObjects().length];
         int i = 0;
@@ -62,7 +95,7 @@ public class JCamera extends JObject {
                 i++;
             }
         }
-
+        // Run on new thread, so we can run other things while rendering
         Task<Void> task = new Task<>() {
             @Override
             protected Void call() {
@@ -73,6 +106,10 @@ public class JCamera extends JObject {
         task.run();
     }
 
+    /**
+     * Renders the scene
+     * @param gameObjects Group to add the rendered objects to
+     */
     private void RenderObjects(Group gameObjects)
     {
         for (JSprite sprite : sprites) {
@@ -98,11 +135,14 @@ public class JCamera extends JObject {
                 gameObjects.getChildren().add(imageView);
 
             } catch (Exception ignore) {
-                LogAnnoyance("Didn't add object: " + sprite.getJIdentity().getName() + " to render queue because it doesn't have a sprite");
+                LogAnnoyance("Didn't add object: " + sprite.getJIdentity().getName() + " to render queue");
             }
         }
     }
 
+    /**
+     * Start the render process
+     */
     private void Render()
     {
         Group gameObjects = new Group();
@@ -110,14 +150,41 @@ public class JCamera extends JObject {
         LogAnnoyance("Start Sprite Render");
         RenderObjects(gameObjects);
 
+        // Add rendered objects to the window
         LogAnnoyance("Rendered Objects");
         window.refreshWindow(gameObjects);
     }
 
+    /**
+     * Set the scene for the camera to render
+     * @param activeScene The scene to start rendering
+     */
     public void setActiveScene(JScene activeScene){
         scene = activeScene;
         LogInfo("Changed active scene");
     }
-    public JScene getActiveScene() {return scene;}
 
+    /**
+     * Get the scene that the camera is rendering
+     * @return The scene that the camera is rendering
+     */
+    public JScene getScene() {
+        return scene;
+    }
+
+    /**
+     * Get the window that this camera is using
+     * @return The window that this camera is using
+     */
+    public JWindow getWindow() {
+        return window;
+    }
+
+    /**
+     * Get the camera's parent object
+     * @return the camera's parent object
+     */
+    public JObject getParentObject() {
+        return parent;
+    }
 }

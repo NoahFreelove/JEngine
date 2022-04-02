@@ -2,11 +2,17 @@ package com.JEngine.Utility.Misc;
 
 import javafx.stage.WindowEvent;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
+/** JUtility (c) Noah Freelove
+ * A collection of useful methods.
+ */
 public class JUtility {
 
+    /**
+     * Wait for seconds then run method
+     * @param seconds The amount of seconds to wait
+     * @param event The event to run
+     * @param args The arguments to pass to the event
+     */
     public static void waitForSeconds(double seconds, GenericMethodCall event, Object[] args) {
         new Thread(() -> {
             try {
@@ -18,24 +24,18 @@ public class JUtility {
             }
         }).start();
     }
-    public static String[] readFile(String filepath) {
-        try {
-            return  Files.readAllLines(Paths.get(filepath)).toArray(new String[0]);
-        }
-        catch(Exception e){
-            return null;
-        }
-    }
-
+    // Exit the program (background process still runs)
     static void systemExit() {
         System.exit(0);
     }
 
+    // Close the window
     public static void exitWindow(WindowEvent w)
     {
         systemExit();
     }
 
+    // Close the window (without args)
     public static void exitApp()
     {
         exitWindow(null);

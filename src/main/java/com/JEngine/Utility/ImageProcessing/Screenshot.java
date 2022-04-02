@@ -10,8 +10,15 @@ import java.io.File;
 
 import static com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing.LogError;
 
+/** Screenshot (c) Noah Freelove
+ * Take a screenshot of the current window, save to file or return as BufferedImage.
+ */
 public class Screenshot {
 
+    /**
+     * Take a screenshot of the current window.
+     * @return BufferedImage of the current window.
+     */
     public static BufferedImage takeScreenshot()
     {
         BufferedImage image = null;
@@ -25,6 +32,10 @@ public class Screenshot {
         return image;
     }
 
+    /**
+     * Save a screenshot of the current window to a file.
+     * @param path Path to save the screenshot to.
+     */
     public static void saveScreenshot(String path)
     {
         try {

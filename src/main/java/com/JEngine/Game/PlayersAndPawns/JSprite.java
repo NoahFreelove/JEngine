@@ -6,7 +6,7 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 
-/** com.JEngine.Sprite (c) Noah Freelove
+/** Sprite (c) Noah Freelove
  * Brief Explanation:
  * A sprite is an object with an image
  *
@@ -18,9 +18,19 @@ import com.JEngine.PrimitiveTypes.Position.Transform;
 public class JSprite extends JObject {
     private JImage sprite;
 
+    /**
+     * Default getter for the sprite
+     * @return the sprite
+     */
     public JImage getSprite() {return sprite;}
+
+    /**
+     * Default setter for the sprite
+     * @param newSprite the new sprite
+     */
     public void setSprite(JImage newSprite) {sprite = newSprite;}
 
+    // Default constructor
     public JSprite(Transform transform, JImage newSprite, JIdentity jIdentity) {
         super(transform, jIdentity);
         setSprite(newSprite);

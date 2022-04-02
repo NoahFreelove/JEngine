@@ -2,6 +2,11 @@ package com.JEngine.Utility.Settings.SettingTypes;
 
 import com.JEngine.Utility.Settings.JSetting;
 
+/** JSettingDropdown (c) Noah Freelove
+ * Holds a string[] value that has events for changing and getting the value.
+ * In addition to the option string[], it also has selected value
+ */
+
 public class JSettingDropdown extends JSetting {
     public String[] dropdownOptions;
     public int selectedOption;

@@ -7,6 +7,10 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
+/** Input (c) Noah Freelove
+ * When <key>_Pressed = true its, pressed/enabled
+ * When <key>_Released = false its, released/disabled
+ */
 public class Input {
 
     //region Key Combos
@@ -74,6 +78,10 @@ public class Input {
     //endregion
     //endregion
 
+    /**
+     * Set window key handler events
+     * @param scene JavaFX scene to add handlers to
+     */
     public static void init(Scene scene) {
         if (JSceneManager.getActiveScene() != null)
         {
@@ -82,6 +90,10 @@ public class Input {
         }
     }
 
+    /**
+     * When a key is pressed, set the key to enabled
+     * @param key Key pressed
+     */
     private static void keyPressEvent(KeyEvent key)
     {
         for (ObjRef o :
@@ -94,6 +106,11 @@ public class Input {
         }
         setKeys(key.getCode(), true);
     }
+
+    /**
+     * When a key is released, set the key to disabled
+     * @param key Key released
+     */
     private static void keyReleaseEvent(KeyEvent key)
     {
         for (ObjRef o :
@@ -107,6 +124,9 @@ public class Input {
         setKeys(key.getCode(), false);
     }
 
+    /**
+     * Check if certain keys are pressed, so you can have multiple keys corresponding to one action
+     */
     static void checkKeyCombos()
     {
         Up = W_Pressed||UArrow_Pressed;
@@ -114,7 +134,8 @@ public class Input {
         Left = A_Pressed||LArrow_Pressed;
         Right = D_Pressed||RArrow_Pressed;
     }
-    
+
+    // Set all keys to not pressed
     public static void resetKeys()
     {
         W_Pressed = false;
@@ -164,6 +185,11 @@ public class Input {
         checkKeyCombos();
     }
 
+    /**
+     * Set a specific key state
+     * @param key key to affect
+     * @param state state to set
+     */
     static void setKeys(KeyCode key, boolean state) {
         switch (key)
         {

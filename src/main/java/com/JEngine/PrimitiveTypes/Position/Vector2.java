@@ -1,5 +1,10 @@
 package com.JEngine.PrimitiveTypes.Position;
 
+/** Vector2 (c) Noah Freelove
+ * Brief Explanation:
+ * Create
+ * **/
+
 public class Vector2 {
     private float x;
     private float y;
@@ -23,5 +28,10 @@ public class Vector2 {
 
     public void setY(float y) {
         this.y = y;
+    }
+
+    public String toString()
+    {
+        return String.format("(x:%f y:%f)", x, y);
     }
 }

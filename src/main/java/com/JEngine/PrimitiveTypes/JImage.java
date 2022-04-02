@@ -4,10 +4,7 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 import javafx.scene.image.Image;
 import java.io.File;
 
-/**
- * @author Noah Freelove
- * @version 1.0
- *
+/** JImage (c) Noah Freelove
  * JImage is a way to convert images to sprites and ui objects
  **/
 
@@ -35,6 +32,13 @@ public class JImage extends Thing {
         }
         LogWarning(String.format("Image File: '%s' does not exist!", filepath));
     }
+
+    /**
+     * Create an image with just a filepath, and size
+     * @param filepath filepath for the image
+     * @param xSize image x size
+     * @param ySize image y size
+     */
     public JImage(String filepath, int xSize, int ySize) {
         super(true);
         this.xSize = xSize;
@@ -48,6 +52,7 @@ public class JImage extends Thing {
         LogWarning(String.format("Image File: '%s' does not exist!", filepath));
     }
 
+    // Create a JImage with a JavaFX image
     public JImage(Image image)
     {
         super(true);
@@ -56,6 +61,7 @@ public class JImage extends Thing {
         this.ySize = (int)image.getHeight();
     }
 
+    // Create a JImage with a File
     public JImage(File file)
     {
         super(true);
@@ -69,6 +75,7 @@ public class JImage extends Thing {
         LogWarning(String.format("Image File: '%s' does not exist!", file.getAbsolutePath()));
     }
 
+    // Create a JImage with a filepath
     public JImage(String filepath)
     {
         super(true);

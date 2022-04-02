@@ -1,6 +1,5 @@
 package com.JEngine.Game.Visual.Scenes;
 
-import com.JEngine.Game.Visual.JWindow;
 import com.JEngine.Game.Visual.SearchType;
 import com.JEngine.PrimitiveTypes.ObjRef;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
@@ -12,23 +11,26 @@ import javafx.scene.Group;
 import java.io.IOException;
 import java.net.URL;
 
-/**
- * @author Noah Freelove
- * @version 1
- * JScene is how you hold load all the objects in your scene into memory.
- *
- * scene.findObjectsByIdentity is a very useful method that allows you to pick out specific objects in a scene.
- * it is not very efficient though, so it should NEVER be called in an update function. Call it once and create a ref
- * to the object instead.
+import static com.JEngine.Game.Visual.Scenes.SceneQuicksort.quickSortZ;
+
+/** JScene (c) Noah Freelove
+ * Brief Explanation:
+ * JScene is how you hold and load all the objects in your scene into memory.
+ * Helpful for loading and switching between levels in a game for example.
  */
 public class JScene extends Thing {
-
+    // Objects in the scene
     private ObjRef[] sceneObjects;
+    // max objects allowed in the scene
     private int maxObjects;
+    // The scene's name
     private String sceneName;
 
+    // The UI Group
     public Group uiObjects = new Group();
+    // Loaded UI
     private Group loadedUI = new Group();
+    // The URL to the FXML UI file
     public URL uiURL = null;
 
     /**
@@ -42,6 +44,11 @@ public class JScene extends Thing {
         sceneObjects = new ObjRef[maxObjects];
     }
 
+    /**
+     * @param maxObjects Max objects allowed in the scene. You cannot change this number after the scene has been created.
+     * @param sceneName Name of the scene. Can be changed with setSceneName(String newName)
+     * @param url URL to the FXML file
+     */
     public JScene(int maxObjects, String sceneName, URL url) {
         super(true);
         setUiURL(url);
@@ -57,6 +64,9 @@ public class JScene extends Thing {
         sceneObjects = new ObjRef[maxObjects];
     }
 
+    /**
+     * Load UI from loaded FXML file
+     */
     public void loadUI()
     {
         if(uiURL == null)
@@ -66,11 +76,19 @@ public class JScene extends Thing {
         uiObjects = loadedUI;
     }
 
+    /**
+     * set the UI URL
+     * @param newURl The new URL
+     */
     public void setUiURL(URL newURl)
     {
         uiURL = newURl;
     }
 
+    /**
+     * Check if the scene has null space
+     * @return True if the scene has null space
+     */
     private boolean sceneHasRoom()
     {
         for (ObjRef sceneObject : sceneObjects) {
@@ -80,8 +98,11 @@ public class JScene extends Thing {
         return false;
     }
 
-    // quicksort implementation, GitHub copilot helped with this one
+    /**
+     * Sort objects by z position, so they don't overlap in the wrong way
+     */
     public void sortByZ(){
+        // create instance of Object array
         ObjRef[] temp = new ObjRef[maxObjects];
         int i = 0;
         for (ObjRef o: sceneObjects) {
@@ -92,46 +113,9 @@ public class JScene extends Thing {
         sceneObjects = temp;
     }
 
-    public void quickSortZ(ObjRef arr[], int begin, int end) {
-        if (begin < end) {
-            int partitionIndex = partition(arr, begin, end);
-            quickSortZ(arr, begin, partitionIndex-1);
-            quickSortZ(arr, partitionIndex+1, end);
-        }
-    }
-
-    private int partition(ObjRef arr[], int begin, int end) {
-        if(arr[end] == null)
-            return end;
-        int pivot = (int)arr[end].objRef.getTransform().position.z;
-        int i = (begin-1);
-
-        for (int j = begin; j < end; j++) {
-            if(arr[j] == null)
-            {
-                i++;
-                continue;
-            }
-
-            if ((int)arr[j].objRef.getTransform().position.z <= pivot) {
-                i++;
-
-                ObjRef swapTemp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = swapTemp;
-            }
-        }
-
-        ObjRef swapTemp = arr[i+1];
-        arr[i+1] = arr[end];
-        arr[end] = swapTemp;
-
-        return i+1;
-    }
-
-
     /**
      * Adds an object to the active scene
+     * Wil over-write the object if it is queued for deletion
      * @param o Object to add to the scene
      */
     public void add(JObject o) {
@@ -144,6 +128,7 @@ public class JScene extends Thing {
             if (sceneObjects[i] == null) {
                 sceneObjects[i] = new ObjRef(o);
                 LogExtra(String.format("Added '%s' (%s) to the scene Successfully", o.getJIdentity().getName(), o.getClass().getSimpleName()));
+                // sort by z to make sure the objects are in the correct order, not just how they're added to the array
                 sortByZ();
                 return;
             }
@@ -151,6 +136,7 @@ public class JScene extends Thing {
             {
                 sceneObjects[i] = new ObjRef(o);
                 LogExtra(String.format("Overwrote object queued for deletion. Added '%s' (%s) to the scene Successfully", o.getJIdentity().getName(), o.getClass().getSimpleName()));
+                // sort by z to make sure the objects are in the correct order, not just how they're added to the array
                 sortByZ();
                 return;
             }
@@ -213,10 +199,17 @@ public class JScene extends Thing {
         return sceneObjects;
     }
 
+    /**
+     * Set all the scene objects
+     * @param sceneObjects Objects to set
+     */
     public void setSceneObjects(ObjRef[] sceneObjects) {
         this.sceneObjects = sceneObjects;
     }
 
+    /**
+     * Runs the Start() methods on all (active) objects in the scene
+     */
     public void runStartBehaviors()
     {
         for (ObjRef sceneObject : sceneObjects) {
@@ -224,30 +217,16 @@ public class JScene extends Thing {
                 if(sceneObject.objRef.getActive())
                 {
                     sceneObject.objRef.Start();
-                    try {
-                        //((JPawn)sceneObject.objRef).getCollider().initializeCollider();
-                    }catch (Exception ignore)
-                    { /*ignore*/ }
                 }
             }
         }
     }
 
-    /**
-     * Loads a JScene from a .JScene file and overwrites all current scene content
-     * @param filepath The filepath to the JScene file
-     */
-    public void loadFromFile(String filepath, JWindow window, String sceneName)
-    {
-        JScene createdScene = JSceneLoader.load(filepath,window,sceneName);
-
-        maxObjects = createdScene.maxObjects;
-        sceneObjects = createdScene.sceneObjects;
-        this.sceneName = sceneName;
-    }
-
-    // because objects can have the same name and tag, we must return an array of objects in the event of duplicates
-    // findObjectsByIdentity can get you the name of objects you only have the tag for or vice versa
+    /* Because objects can have the same name and tag, we must return an array of objects in the event of duplicates
+    * findObjectsByIdentity can get you the name of objects you only have the tag for or vice versa
+     * it is not very efficient though, so it should NEVER be called in an update function. Call it once and create a ref
+     * to the object instead.
+    */
 
     /**
      * Find an object in the scene by Name, Tag, or Both

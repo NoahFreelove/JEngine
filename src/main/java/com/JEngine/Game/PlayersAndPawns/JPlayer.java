@@ -5,7 +5,7 @@ import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 import javafx.scene.input.KeyCode;
 
-/** com.JEngine.Player (c) Noah Freelove
+/** JPlayer (c) Noah Freelove
  * Brief Explanation:
  * A Player is form of pawn which has events for key presses
  * **/
@@ -15,6 +15,15 @@ public class JPlayer extends JPawn {
         super(transform, newSprite, JIdentity);
     }
 
+    /**
+     * Called when a supported key is pressed, see the keys supported: {@link com.JEngine.Utility.Input}
+     * @param key The key that was pressed
+     */
     public void onKeyPressed(KeyCode key){}
+
+    /**
+     * Called when a supported key is released, see the keys supported: {@link com.JEngine.Utility.Input}
+     * @param key The key that was released
+     */
     public void onKeyReleased(KeyCode key){}
 }

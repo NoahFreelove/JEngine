@@ -2,6 +2,10 @@ package com.JEngine.Utility.Settings.SettingTypes;
 
 import com.JEngine.Utility.Settings.JSetting;
 
+/** JSettingFloat (c) Noah Freelove
+ * Holds a float value that has events for changing and getting the value.
+ */
+
 public class JSettingFloat extends JSetting {
     float value;
 

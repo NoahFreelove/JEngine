@@ -4,42 +4,72 @@ import com.JEngine.Game.PlayersAndPawns.Colliders.JBoxCollider;
 import com.JEngine.PrimitiveTypes.JImage;
 import com.JEngine.PrimitiveTypes.Position.*;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
+import com.JEngine.Utility.JMath;
 
-/** com.JEngine.Pawn (c) Noah Freelove
+/** JPawn (c) Noah Freelove
  * Brief Explanation:
  * A Pawn is a sprite which can be directly moved and manipulated by a player or bot
- * It does not listen for key inputs, unlike JPlayer
+ * It does not listen for key inputs.
  *
  * Usage:
  * A pawn can be used for an object that can be moved by the player or bot, but that is not the player.
- * The player class extends off the pawn class
+ * The player class extends off the pawn class and can take inputs
  * **/
 
 public class JPawn extends JSprite {
+    // Every JPawn has a collider, it must be initialized though
     private JBoxCollider collider;
+
     public JPawn(Transform transform, JImage newSprite, JIdentity jIdentity) {
         super(transform,newSprite, jIdentity);
     }
 
-    public void onCollisionEnter(JPawn other) {
-
+    /**
+     * onCollisionEnter event, called when the Pawn's collider hits another object
+     * @param other the other object that the collider has collided with
+     */
+    public void onCollisionEnter(JObject other) {
     }
 
+    /**
+     * get the pawn's collider
+     * @return the pawn's collider
+     */
     public JBoxCollider getCollider() {
         return collider;
     }
 
+    /**
+     * set the pawn's collider
+     * @param collider the new collider
+     */
     public void setCollider(JBoxCollider collider) {
         this.collider = collider;
     }
 
+    /**
+     * Rotate the pawn
+     * @param direction the direction to rotate the pawn (x,y)
+     * @param amount amount to rotate the pawn (x>0)
+     * @param clockwise true if the rotation is clockwise, false if counterclockwise
+     */
     public void Rotate(Vector2 direction, float amount, boolean clockwise) {
+        amount = JMath.clamp(0,Float.MAX_VALUE, amount);
+
         int d = clockwise ? 1 : -1;
         direction.setX(getTransform().getRotation().x + direction.getX()*amount*d);
         direction.setY(getTransform().getRotation().y + direction.getY()*amount*d);
+
         getTransform().setRotation(new Vector3(direction,getTransform().rotation.z));
     }
 
+    /**
+     * Check if the pawn can move if it has a hard collider
+     * @param xDisplacement desired x displacement
+     * @param yDisplacement desired y displacement
+     * @return true if the pawn can move, false if it cannot
+     */
     public boolean canMove(float xDisplacement, float yDisplacement) {
         JBoxCollider tmpCollider = new JBoxCollider(new Transform(getTransform()), new JIdentity("tmpCollider", "boxCollider"), getSprite().getWidth(), getSprite().getHeight(), this, false);
 
@@ -47,6 +77,11 @@ public class JPawn extends JSprite {
         return !tmpCollider.isCollidingWithHard();
     }
 
+    /**
+     * Move the pawn
+     * @param direction direction to move the pawn (8 cardinal directions)
+     * @param speed amount to move the pawn
+     */
     public void Move(Direction direction, int speed)
     {
         Angle angle = new Angle(0);
@@ -128,6 +163,7 @@ public class JPawn extends JSprite {
                 }
             }
         }
+        // if the collider is hard, check if you will collide with another hard collider
         if(getCollider() != null)
         {
             if(!getCollider().isTrigger())

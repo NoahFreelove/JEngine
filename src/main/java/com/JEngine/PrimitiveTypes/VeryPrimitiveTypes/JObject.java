@@ -1,7 +1,7 @@
 package com.JEngine.PrimitiveTypes.VeryPrimitiveTypes;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 
-/** com.JEngine.JObject (c) Noah Freelove
+/** JObject (c) Noah Freelove
  * Brief Explanation:
  * A object is a simple class that has a transform value and is a primitive base for (nearly) everything that exists.
  *
@@ -15,14 +15,6 @@ public class JObject extends Thing {
     private final JIdentity jIdentity;
     private boolean queuedForDeletion;
 
-    public Transform getTransform() {
-        return transform;
-    }
-
-    public void setTransform(Transform transform) {
-        this.transform = transform;
-    }
-
     public JObject(Transform transform, JIdentity jIdentity) {
         super(true);
         this.transform = transform;
@@ -35,16 +27,23 @@ public class JObject extends Thing {
     // Called once every frame
     public void Update(){}
 
+    // Getters
     public JIdentity getJIdentity() {
         return jIdentity;
     }
-
-
+    public Transform getTransform() {
+        return transform;
+    }
     public boolean isQueuedForDeletion() {
         return queuedForDeletion;
     }
 
+    // Setters
     public void setQueuedForDeletion(boolean queuedForDeletion) {
         this.queuedForDeletion = queuedForDeletion;
     }
+    public void setTransform(Transform transform) {
+        this.transform = transform;
+    }
+
 }

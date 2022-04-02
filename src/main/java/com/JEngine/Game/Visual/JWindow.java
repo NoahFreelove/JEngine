@@ -9,27 +9,17 @@ import com.JEngine.Utility.Input;
 import com.JEngine.Utility.Misc.FPSCounter;
 import com.JEngine.Utility.Misc.JUtility;
 import com.JEngine.Utility.Settings.EnginePrefs;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
-import java.io.IOException;
-import java.net.URL;
-
-/**
- * @author Noah Freelove
- * @version 1.0
+/** JWindow (c) Noah Freelove
  * Brief Explanation:
  * JWindow is a way to create a window and have it display camera content.
- *
- * Usage:
- * JWindow provides an update function and a way to set FPS
+ * JWindow provides the actual update function
  * **/
 
 public class JWindow extends Thing {
@@ -82,10 +72,17 @@ public class JWindow extends Thing {
         this.stage.setScene(this.scene);
         this.stage.show();
         this.stage.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, JUtility::exitWindow);
-        window.focusedProperty().addListener((newValue, onHidden, onShown) -> isFocused = newValue.getValue());
+        window.focusedProperty().addListener((newValue, onHidden, onShown) -> onFocusChange(newValue.getValue()));
         this.scaleMultiplier = scaleMultiplier;
     }
 
+    /**
+     * Constructor with style!
+     * @param scaleMultiplier Multiplier for the window's size
+     * @param title Title of the window
+     * @param window the stage given start(Stage stage)
+     * @param style StageStyle
+     */
     public JWindow(float scaleMultiplier, String title, Stage window, StageStyle style) {
         super(true);
         parent.getChildren().add(sceneObjects);
@@ -99,7 +96,7 @@ public class JWindow extends Thing {
         this.stage.setScene(scene);
         this.stage.show();
         this.stage.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, JUtility::exitWindow);
-        window.focusedProperty().addListener((newValue, onHidden, onShown) -> isFocused = newValue.getValue());
+        window.focusedProperty().addListener((newValue, onHidden, onShown) -> onFocusChange(newValue.getValue()));
         this.scaleMultiplier = scaleMultiplier;
     }
 
@@ -232,7 +229,7 @@ public class JWindow extends Thing {
                 update(totalFrames);
                 totalFrames++;
                 next_game_tick += SKIP_TICKS;
-                FPSCounter.update();
+                FPSCounter.updateFrame();
             }
 
         }
@@ -261,6 +258,7 @@ public class JWindow extends Thing {
             activeCamera.InitiateRender();
         }
 
+        // very laggy
         if(EnginePrefs.aggressiveGC)
             System.gc();
 
@@ -287,4 +285,12 @@ public class JWindow extends Thing {
      * @return Returns if the window is currently focused or not
      */
     public boolean getIsFocused(){ return isFocused;}
+
+    /**
+     * Runs when the window focus value changes. Can be overridden to do something when focus changes
+     * @param isFocused New focus value
+     */
+    public void onFocusChange(boolean isFocused){
+        this.isFocused = isFocused;
+    }
 }

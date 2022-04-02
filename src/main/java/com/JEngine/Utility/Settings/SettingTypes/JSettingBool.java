@@ -2,6 +2,10 @@ package com.JEngine.Utility.Settings.SettingTypes;
 
 import com.JEngine.Utility.Settings.JSetting;
 
+/** JSettingBool (c) Noah Freelove
+ * Holds a boolean value that has events for changing and getting the value.
+ */
+
 public class JSettingBool extends JSetting {
     boolean enabled;
 

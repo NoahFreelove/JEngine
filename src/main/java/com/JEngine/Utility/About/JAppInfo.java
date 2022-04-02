@@ -1,7 +1,10 @@
 package com.JEngine.Utility.About;
 
-import static com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing.LogImportant;
-import static com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing.LogInfo;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
+
+/** JAppInfo (c) Noah Freelove
+ * Easily store and get your application's information.
+ */
 
 public class JAppInfo {
     public static String appName;
@@ -12,11 +15,14 @@ public class JAppInfo {
     public static boolean isCopyright;
     public static String buildID;
 
-
+    /**
+     * Get the app info neatly formatted in a string.
+     * @return The app's info
+     */
     public static String getAppInfo()
     {
         if(authors == null)
-            return "JAppInfo_Error_Null_Author";
+            return "JAppInfo Author is Null!";
         boolean multipleAuthors = !(authors.length == 1);
         StringBuilder concatAuthors = new StringBuilder();
         int i = 1;
@@ -48,13 +54,18 @@ public class JAppInfo {
             return String.format("%s : Created by %s : %d : Version %d.%.2f (%s)\nCreated by: %s", appName, authors[0], year, appVersionMajor, appVersionMinor, buildID, concatAuthors);
         }
     }
+
+    /**
+     * Log app info to LogInfo.
+     * @param isImportant if you want it to stand out in the log
+     */
     public static void logAppInfo(boolean isImportant)
     {
         if(isImportant)
         {
-            LogImportant(getAppInfo());
+            Thing.LogImportant(getAppInfo());
             return;
         }
-        LogInfo(getAppInfo());
+        Thing.LogInfo(getAppInfo());
     }
 }

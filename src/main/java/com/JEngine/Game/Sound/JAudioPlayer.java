@@ -1,22 +1,31 @@
 package com.JEngine.Game.Sound;
 
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
-
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import java.io.File;
 
-public class JAudioPlayer extends Thing {
+import static com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing.LogError;
+import static com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing.LogExtra;
+
+/** JAudioPlayer (c) Noah Freelove
+ * Brief Explanation:
+ * A simple way to play audio files.
+ * Not advanced yet, planning to add more functionality.
+ * **/
+public class JAudioPlayer {
     private final String filePath;
     private Clip clip;
 
     public JAudioPlayer(String filepath) {
-        super(true);
         this.filePath = filepath;
-        openClip(filePath);
+        setClip(filePath);
     }
 
-    public void openClip(String filepath)
+    /**
+     * Set the audio clip from filepath
+     * @param filepath The filepath of the audio file
+     */
+    public void setClip(String filepath)
     {
         try{
             File wavFile = new File(filepath);
@@ -29,17 +38,27 @@ public class JAudioPlayer extends Thing {
         }
     }
 
-
+    /**
+     * Play the audio clip
+     */
     public void startClip()
     {
         clip.start();
         LogExtra("Started clip:" + filePath);
     }
+
+    /**
+     * Stop the audio clip
+     */
     public void stopClip()
     {
         clip.stop();
         LogExtra("Stopped clip:" + filePath);
     }
+
+    /**
+     * Restart the clip
+     */
     public void restartClip()
     {
         clip.flush();

@@ -1,12 +1,10 @@
 package com.JEngine.PrimitiveTypes.Position;
 
-/**
- * @author Noah Freelove
- * @version 1.0
- * Brief Explanation:
- * JDirection is a simple enum for 8 directional movement
- * **/
 
+/** Direction (c) Noah Freelove
+ * Brief Explanation:
+ * Enum to represent 8 cardinal directions.
+ * **/
 public enum Direction {
     Up,
     UpRight,

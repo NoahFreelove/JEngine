@@ -1,5 +1,6 @@
 package com.JEngine.Utility.ImageProcessing;
 
+import com.JEngine.PrimitiveTypes.JImage;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 import javafx.scene.image.Image;
 
@@ -8,15 +9,21 @@ import java.awt.image.BufferedImageOp;
 import java.awt.image.Kernel;
 import java.util.Arrays;
 
-
-// Not to be called at update!!!
+/** BufferedImageBlur (c) Noah Freelove
+ * Blur a JImage, JavaFX image, or BufferedImage.
+ */
 public class BufferedImageBlur {
 
-    static BufferedImage img2;
-
+    static BufferedImage img;
     static float weight;
     static float[] data;
 
+    /**
+     * Blur an image using a Gaussian kernel.
+     * @param img The image to blur.
+     * @param radius The radius of the Gaussian kernel.
+     * @return The blurred image.
+     */
     public static BufferedImage blurBuffered(BufferedImage img, int radius)
     {
         int size = radius * 2 + 1;
@@ -28,7 +35,7 @@ public class BufferedImageBlur {
             Kernel kernel = new Kernel(size, size, data);
             BufferedImageOp op = new ConvolveWithEdgeOp(kernel, 2, null);
 
-            BufferedImage blurred = op.filter(img, img2);
+            BufferedImage blurred = op.filter(img, BufferedImageBlur.img);
             Thing.LogAnnoyance("Successfully blurred image");
             return blurred;
 
@@ -37,6 +44,13 @@ public class BufferedImageBlur {
             return null;
         }
     }
+
+    /**
+     * Blur an image using a Gaussian kernel.
+     * @param fxImg The image to blur.
+     * @param radius The radius of the Gaussian kernel.
+     * @return The blurred image.
+     */
     public static Image blurImage(Image fxImg, int radius)
     {
         BufferedImage img = SwingFXUtils.fromFXImage(fxImg, null);
@@ -50,7 +64,7 @@ public class BufferedImageBlur {
             Kernel kernel = new Kernel(size, size, data);
             BufferedImageOp op = new ConvolveWithEdgeOp(kernel, 2, null);
 
-            BufferedImage blurred = op.filter(img, img2);
+            BufferedImage blurred = op.filter(img, BufferedImageBlur.img);
             Thing.LogAnnoyance("Successfully blurred image");
 
             return SwingFXUtils.toFXImage(blurred, null);
@@ -60,5 +74,15 @@ public class BufferedImageBlur {
             return null;
         }
     }
-    /**/
+
+    /**
+     * Blur an image using a Gaussian kernel.
+     * @param jImage The image to blur.
+     * @param radius The radius of the Gaussian kernel.
+     * @return The blurred image.
+     */
+    public static JImage blurImage(JImage jImage, int radius)
+    {
+        return new JImage(blurImage(jImage.getImage(), radius));
+    }
 }

@@ -1,5 +1,8 @@
 package com.JEngine.Utility.Misc;
 
+/** JDo (c) Noah Freelove
+ * Run a function x number of times.
+ */
 public class JDo {
     /**
      * Do a method x number of times

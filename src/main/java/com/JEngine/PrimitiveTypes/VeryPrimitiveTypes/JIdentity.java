@@ -1,6 +1,6 @@
 package com.JEngine.PrimitiveTypes.VeryPrimitiveTypes;
 
-/** com.JEngine.JIdentity (c) Noah Freelove
+/** JIdentity (c) Noah Freelove
  * Brief Explanation:
  * A JIdentity holds information about an object that helps to distinguish it from the rest.
  * A JIdentity holds a name and a tag.
@@ -15,19 +15,28 @@ public class JIdentity {
     String name;
     String tag;
 
+    /**
+     * Default constructor
+     * @param name The name of the object
+     * @param tag  The tag of the object
+     */
     public JIdentity(String name, String tag) {
         this.name = name;
         this.tag = tag;
     }
-
+    // Setters
     public void setName(String newName){name = newName;}
     public void setTag(String newTag){tag = newTag;}
+
+    // Getters
     public String getName(){return name;}
     public String getTag(){return tag;}
+
+    // Comparers
     public boolean compareTag(String tagToCompare) {return (tag.equals(tagToCompare));}
     public boolean compareName(String nameToCompare) {return (name.equals(nameToCompare));}
 
-    @Override
+    // Make toString readable
     public String toString()
     {
         return getName() + " : " + getTag();

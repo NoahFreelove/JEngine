@@ -1,8 +1,6 @@
 package com.JEngine.PrimitiveTypes.Position;
 
-/**
- * @author Noah Freelove
- * @version 1
+/** Vector3 (c) Noah Freelove
  * A Vector 3 is a simple structure that has an x y and z value.
  *
  * Usage:
@@ -30,6 +28,8 @@ public class Vector3 {
         this(xy.getX(), xy.getY(), z);
     }
 
+    // region Vector3 Operations
+    // Vector 3 Operations
     public Vector3 multiply(Vector3 a){
         if(a == null)
         {
@@ -80,6 +80,8 @@ public class Vector3 {
     {
         return new Vector3(x-a, y-a, z-a);
     }
+    //endregion
 
-    public String toString() {return String.format("{x: %f y: %f z: %f}", x,y,z);}
+    // Make toString() readable
+    public String toString() {return String.format("{x:%f y:%f z:%f}", x,y,z);}
 }

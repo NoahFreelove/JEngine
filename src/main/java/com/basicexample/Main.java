@@ -23,6 +23,8 @@ import java.io.File;
 
 public class Main extends Application {
 
+    //TODO: Add children to objects
+
     public static JCamera camera;
 
     public static String binFolder = System.getProperty("user.home") + "\\Documents\\JEngine\\bin\\";
@@ -41,7 +43,7 @@ public class Main extends Application {
         JAppInfo.appVersionMajor = 0;
         JAppInfo.appVersionMinor = 1.5f;
         JAppInfo.year = 2022;
-        JAppInfo.buildID = "2022.03.31.2";
+        JAppInfo.buildID = "2022.04.01.2";
         JAppInfo.isCopyright = false;
 
         //Print app info

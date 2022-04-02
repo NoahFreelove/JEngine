@@ -7,6 +7,9 @@ import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.Position.Vector3;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 
+/** ScreenBorder
+ * Create a hard collection of JBoxColliders to create a border around the screen.
+ */
 public class ScreenBorder {
 
     public ScreenBorder(Vector3 basePos){

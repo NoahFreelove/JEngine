@@ -1,12 +1,16 @@
 package com.JEngine.Utility.Misc;
 
-import static com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing.LogWarning;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
+
+/** JTimer (c) Noah Freelove
+ * JTimer is a very useful class for running methods every interval
+ */
 
 public class JTimer {
-    public long interval;
+    private long interval;
     private long intervalRemaining;
-    public boolean isRunning;
-    public GenericMethodCall[] runEvents;
+    private boolean isRunning;
+    private GenericMethodCall[] runEvents;
 
     /**
      * Create a timer that ticks every interval
@@ -15,16 +19,25 @@ public class JTimer {
      */
     public JTimer(long interval, GenericMethodCall[] runEvents) {
         this.interval = interval;
-
         this.runEvents = runEvents;
-
     }
+    // check if timer is running
     public boolean isRunning(){return isRunning;}
+    // get interval remaining
     public long getIntervalRemaining()
     {
         return intervalRemaining;
     }
 
+    // Interval getter & setter
+    public long getInterval() {
+        return interval;
+    }
+    public void setInterval(long interval) {
+        this.interval = interval;
+    }
+
+    // Ticks down and until 0, then runs the behaviors
     private void tick() throws InterruptedException {
 
         for (int i = 0; i < interval; i+=2) {
@@ -43,18 +56,24 @@ public class JTimer {
 
     }
 
-    private void runBehaviors() throws InterruptedException {
+    /**
+     * Runs the interval behaviors
+     */
+    private void runBehaviors() {
         for (GenericMethodCall method :
                 runEvents) {
          method.call(null);
         }
     }
 
+    /**
+     * Starts the timer
+     */
     public void start()
     {
         if(isRunning)
         {
-            LogWarning("Timer already running!");
+            Thing.LogWarning("Timer already running!");
             return;
         }
 
@@ -69,6 +88,9 @@ public class JTimer {
         t.start();
     }
 
+    /**
+     * Stops the timer
+     */
     public void stop()
     {
         isRunning = false;

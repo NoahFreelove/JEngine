@@ -3,6 +3,14 @@ package com.JEngine.Game.Visual.Animation;
 import com.JEngine.PrimitiveTypes.JImage;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 
+/** JAnimationTimeline (c) Noah Freelove
+ * Brief Explanation:
+ * A timeline is a collection of frames that are played in order based on their AnimState.
+ *
+ * Create a timeline with multiple frames and call getNextFrame() in your sprite's update method to update the image
+ * and skip ahead to the next frame
+ * **/
+
 public class JAnimationTimeline {
     public AnimState currState;
     int frameIndex;
@@ -17,7 +25,13 @@ public class JAnimationTimeline {
     public JImage[] special3Frames;
     public JImage[] special4Frames;
 
-    // max frames in anim
+    /**
+     * Initializes the timeline with the given frames
+     * @param frames 2d array of frames
+     * @param initState the initial state of the timeline
+     * @param maxFramesInAnim the maximum (total) number of frames in an animation state. this includes the duration of the frames.
+     *                        ex: AnimFrame(duration 5) and AnimFrame(duration 3) would be a total of 8 frames
+     */
     public JAnimationTimeline(AnimFrame[][] frames, AnimState initState, int maxFramesInAnim) {
         this.currState = initState;
         // if a frame is null, it will be skipped. maxFramesInAnim is just to not make a huge array
@@ -35,8 +49,22 @@ public class JAnimationTimeline {
 
         downFrames = new JImage[maxFramesInAnim];
         int downCount = 0;
+
+        specialFrames = new JImage[maxFramesInAnim];
+        int specialCount = 0;
+
+        special2Frames = new JImage[maxFramesInAnim];
+        int special2Count = 0;
+
+        special3Frames = new JImage[maxFramesInAnim];
+        int special3Count = 0;
+
+        special4Frames = new JImage[maxFramesInAnim];
+        int special4Count = 0;
+
         boolean invalidEntry = false;
 
+        // check total frames in each arr adds up to maxFramesInAnim
         for (AnimFrame[] arr :
                 frames) {
             int totalFrames = 0;
@@ -55,7 +83,7 @@ public class JAnimationTimeline {
             Thing.LogError("Invalid entry of maxFramesInAnim for an animation timer");
             return;
         }
-
+        // init every frame array
         for (AnimFrame[] fArr :
                 frames) {
             for (AnimFrame f:
@@ -104,17 +132,57 @@ public class JAnimationTimeline {
                             downCount++;
                         }
                     }
+                    case SPECIAL -> {
+                        while (f.duration>0)
+                        {
+                            f.duration--;
+                            specialFrames[specialCount] = f.image;
+                            specialCount++;
+                        }
+                    }
+                    case SPECIAL2 -> {
+                        while (f.duration>0)
+                        {
+                            f.duration--;
+                            special2Frames[special2Count] = f.image;
+                            special2Count++;
+                        }
+                    }
+                    case SPECIAL3 -> {
+                        while (f.duration>0)
+                        {
+                            f.duration--;
+                            special3Frames[special3Count] = f.image;
+                            special3Count++;
+                        }
+                    }
+                    case SPECIAL4 -> {
+                        while (f.duration>0)
+                        {
+                            f.duration--;
+                            special4Frames[special4Count] = f.image;
+                            special4Count++;
+                        }
+                    }
                 }
             }
         }
     }
 
+    /**
+     * switch the anim state
+     * @param newState the new state
+     */
     public void switchState(AnimState newState)
     {
         currState = newState;
     }
 
-    public JImage getCurrentFrame()
+    /**
+     * get the next frame of the current state
+     * @return the next frame of the current state. Will return null JImage if there is no frame for the current state!
+     */
+    public JImage getNextFrame()
     {
         JImage tmp = null;
         try {
@@ -125,6 +193,10 @@ public class JAnimationTimeline {
                 case DOWN -> tmp = downFrames[frameIndex];
                 case LEFT -> tmp = leftFrames[frameIndex];
                 case RIGHT -> tmp = rightFrames[frameIndex];
+                case SPECIAL -> tmp = specialFrames[frameIndex];
+                case SPECIAL2 -> tmp = special2Frames[frameIndex];
+                case SPECIAL3 -> tmp = special3Frames[frameIndex];
+                case SPECIAL4 -> tmp = special4Frames[frameIndex];
             }
             frameIndex++;
         }
@@ -132,15 +204,7 @@ public class JAnimationTimeline {
         {
             frameIndex = 0;
             assert currState != null;
-            return switch (currState)
-                    {
-                        case IDLE -> idleFrames[0];
-                        case UP -> upFrames[0];
-                        case DOWN -> downFrames[0];
-                        case LEFT -> leftFrames[0];
-                        case RIGHT -> rightFrames[0];
-                        default -> idleFrames[0];
-                    };
+            return new JImage(null,64,64);
         }
         return tmp;
     }

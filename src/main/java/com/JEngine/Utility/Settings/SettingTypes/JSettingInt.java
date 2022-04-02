@@ -2,6 +2,9 @@ package com.JEngine.Utility.Settings.SettingTypes;
 
 import com.JEngine.Utility.Settings.JSetting;
 
+/** JSettingInt (c) Noah Freelove
+ * Holds an int value that has events for changing and getting the value.
+ */
 public class JSettingInt extends JSetting {
     int value;
 

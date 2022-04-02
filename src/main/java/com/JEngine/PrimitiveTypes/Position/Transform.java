@@ -1,6 +1,6 @@
 package com.JEngine.PrimitiveTypes.Position;
 
-/** com.JEngine.Transform (c) Noah Freelove
+/** Transform (c) Noah Freelove
  * Brief Explanation:
  * A transform is made of 3 Vector3 variables that hold position, rotation, and scale.
  *
@@ -33,29 +33,44 @@ public class Transform {
         scale = newScale;
     }
 
+    // setters
     public void setPosition(Vector3 newPosition){position = newPosition;}
     public void setRotation(Vector3 newRotation){rotation = newRotation;}
     public void setScale(Vector3 newScale){scale = newScale;}
 
+    // getters
     public Vector3 getPosition() { return position;}
     public Vector3 getRotation() { return rotation;}
     public Vector3 getScale() { return scale;}
+
+    // a default rotation and scale are just values that are assumed to be preferred, so it's easier to make a transform
     public static Vector3 defaultRotation() {return new Vector3(0,0,0);}
     public static Vector3 defaultScale() {return new Vector3(1,1,1);}
 
+    // Create a transform with just a vector3
     public static Transform simpleTransform(Vector3 pos)
     {
         return new Transform(pos,defaultRotation(),defaultScale());
     }
+
+    // Create a transform with just x,y,z values
     public static Transform simpleTransform(float x,float y,float z)
     {
         return new Transform(new Vector3(x,y,z),defaultRotation(),defaultScale());
     }
+
+    // Create a transform with just x,y values
     public static Transform exSimpleTransform(float x, float y)
     {
         return new Transform(new Vector3(x,y,0),defaultRotation(),defaultScale());
     }
+    // Create a transform with just a vector2
+    public static Transform exSimpleTransform(Vector2 pos)
+    {
+        return new Transform(new Vector3(pos.getX(),pos.getY(),0),defaultRotation(),defaultScale());
+    }
 
+    // Make toString method output something readable
     public String toString() {
         return String.format("Position{x: %f y: %f z: %f} Rotation{x: %f y: %f z: %f} Scale{x: %f y: %f z: %f}", position.x,position.y,position.z,rotation.x,rotation.y,rotation.z,scale.x,scale.y,scale.z);
     }

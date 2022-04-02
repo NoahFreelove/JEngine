@@ -3,7 +3,7 @@ package com.JEngine.PrimitiveTypes;
 import com.JEngine.PrimitiveTypes.Position.Vector3;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
 
-/** com.JEngine.ObjRef (c) Noah Freelove
+/** ObjRef (c) Noah Freelove
  * Brief Explanation:
  * A ObjRef used exclusively for JScene to provide an easy reference to an object with its position
  *
@@ -18,5 +18,10 @@ public class ObjRef {
         super();
         this.objRef = objRef;
     }
+
+    /**
+     * Get position of object
+     * @return Vector3 position
+     */
     public Vector3 getPosition() {return objRef.getTransform().position;}
 }

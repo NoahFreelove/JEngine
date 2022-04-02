@@ -9,8 +9,17 @@ import java.util.Scanner;
 
 import static com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing.LogError;
 
+/** FileOperations (c) Noah Freelove
+ * Lets you easily read and write strings to files
+ */
+
 public class FileOperations {
 
+    /**
+     * Reads a file and returns it as a string array
+     * @param filepath The filepath to the file
+     * @return The file as a string array
+     */
     public static String[] fileToStringArr(String filepath)
     {
         Path path = Paths.get(filepath);
@@ -39,6 +48,11 @@ public class FileOperations {
         return new String[] {""};
     }
 
+    /**
+     * Writes a string array to a file
+     * @param arr The string array to write
+     * @param filepath The filepath to the file
+     */
     public static void stringArrToFile(String[] arr, String filepath)
     {
         try {
@@ -50,7 +64,7 @@ public class FileOperations {
         }
         catch (IOException e)
         {
-            LogError(String.format("Could not load file: `%s`. (fileToStringArr)", filepath));
+            LogError(String.format("Could not load or write to file: `%s`. (stringArrToFile)", filepath));
         }
     }
 

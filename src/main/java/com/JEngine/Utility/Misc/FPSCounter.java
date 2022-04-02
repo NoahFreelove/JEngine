@@ -5,6 +5,9 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
 import javafx.scene.text.Text;
 
+/** FPSCounter (c) Noah Freelove
+ * Create a JavaFX text that updates every second and displays the current FPS.
+ */
 public class FPSCounter extends JObject {
 
     private static int framesSinceLastSecond;
@@ -17,33 +20,46 @@ public class FPSCounter extends JObject {
         fpsText = createFPSText();
     }
 
+    /**
+     * Update text to show the current FPS.
+     */
     @Override
     public void Update(){
         fpsText.setText(String.format("FPS: %d", avgFPS));
     }
 
+    /**
+     * @return the avgFPS
+     */
     public static float getFPS(){
         return avgFPS;
     }
 
+    // Reset the frames since last second to 0 and calculate the average FPS.
     private static void reset()
     {
         avgFPS = framesSinceLastSecond;
         framesSinceLastSecond = 0;
     }
-
+    // Start fps counter
     public static void start(){
         resetFPS.start();
     }
 
+    // Stop counting fps
     public static void stop(){
         resetFPS.stop();
     }
 
-    public static void update(){
+    // Add frame count
+    public static void updateFrame(){
         framesSinceLastSecond++;
     }
 
+    /**
+     * Create text object which displays the current FPS.
+     * @return the text object created
+     */
     public static Text createFPSText()
     {
         Text text = new Text("FPS: " + getFPS());

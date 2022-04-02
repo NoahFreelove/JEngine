@@ -2,8 +2,14 @@ package com.JEngine.Game.Visual.Animation;
 
 import com.JEngine.PrimitiveTypes.JImage;
 
+/** AnimFrame (c) Noah Freelove
+ * Brief Explanation:
+ * A frame for JAnimationTimeline.
+ * Contains the necessary information to render a frame of an animation.
+ * **/
+
 public class AnimFrame {
-    AnimState state;
+    AnimState state; // state of the anim it belongs to
     JImage image;
     int duration; // in frames
 

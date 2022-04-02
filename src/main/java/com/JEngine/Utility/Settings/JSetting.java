@@ -2,6 +2,10 @@ package com.JEngine.Utility.Settings;
 
 import com.JEngine.Utility.Misc.GenericMethodCall;
 
+/** JSetting (c) Noah Freelove
+ * Holds an object value that has events for changing and getting the value.
+ */
+
 public class JSetting {
     private final String settingName;
     GenericMethodCall valueChangedEvent = null;
