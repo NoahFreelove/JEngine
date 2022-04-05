@@ -95,6 +95,7 @@ public class Main extends Application {
 
         // run Start function on other thread so the update functions doesn't stop the rest of the main function
         window.start();
+
     }
 
     public static void main(String[] args) {

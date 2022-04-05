@@ -181,4 +181,36 @@ public class JMath {
         return v+step;
     }
 
+    /**
+     * Check if value is approximately equal to another value.
+     * @param a value A
+     * @param b value B
+     * @param delta difference allowed
+     * @return if values are approximately equal
+     */
+    public static boolean approx(float a, float b, float delta)
+    {
+        return Math.abs(a-b)<delta;
+    }
+
+    /**
+     * Calculate the newtons of force that gravity on earth would have on you.
+     * @param mass mass of object
+     * @return newtons of gravity
+     */
+    public static float gravity(float mass)
+    {
+        return mass*9.8f;
+    }
+
+    /**
+     * Calculate the newtons of force that gravity on a planet would have.
+     * @param mass mass of object
+     * @param g gravity of planet (m/s^2)
+     * @return newtons of gravity
+     */
+    public static float gravity(float mass, float g)
+    {
+        return mass*g;
+    }
 }
