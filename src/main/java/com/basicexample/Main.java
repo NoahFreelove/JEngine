@@ -12,7 +12,6 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
 import com.JEngine.TemplateObjects.BackgroundImage;
 import com.JEngine.TemplateObjects.ScreenBorder;
 import com.JEngine.Utility.About.JAppInfo;
-import com.JEngine.Utility.JMath;
 import com.JEngine.Utility.Settings.EnginePrefs;
 import javafx.application.Application;
 import javafx.scene.paint.Color;
@@ -43,9 +42,9 @@ public class Main extends Application {
         JAppInfo.authors = new String[]{"Noah Freelove"};
         JAppInfo.appName = "JEngine";
         JAppInfo.appVersionMajor = 0;
-        JAppInfo.appVersionMinor = 1.5f;
+        JAppInfo.appVersionMinor = 1.6f;
         JAppInfo.year = 2022;
-        JAppInfo.buildID = "2022.04.01.2";
+        JAppInfo.buildID = "2022.04.21.1";
         JAppInfo.isCopyright = false;
 
         //Print app info
@@ -66,9 +65,6 @@ public class Main extends Application {
 
         // create camera
         camera = new JCamera(new Vector3(0,0,1), window, scene, new JObject(null, null), new JIdentity("Main Camera","camera"));
-
-        // Initialize the scene manager
-        JSceneManager.init(scene,window,camera);
 
         // create player image
         JImage image = new JImage(filepath, 128, 128);

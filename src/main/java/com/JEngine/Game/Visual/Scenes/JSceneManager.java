@@ -14,7 +14,7 @@ public class JSceneManager {
     private static JScene activeScene;
     private static JWindow window;
     private static JCamera activeCamera;
-
+    private static boolean hasInit;
     /**
      * Get the active scene
      * @return active scene
@@ -31,6 +31,9 @@ public class JSceneManager {
      */
     public static void init(JScene newScene, JWindow newWindow, JCamera newMainCamera)
     {
+        if(hasInit)
+            return;
+        hasInit = true;
         JSceneManager.activeScene = newScene;
         JSceneManager.window = newWindow;
         JSceneManager.activeCamera = newMainCamera;

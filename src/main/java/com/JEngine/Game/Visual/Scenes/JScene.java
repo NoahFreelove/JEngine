@@ -13,7 +13,7 @@ import java.net.URL;
 
 import static com.JEngine.Game.Visual.Scenes.SceneQuicksort.quickSortZ;
 
-/** JScene (c) Noah Freelove
+/** 2022 - Noah Freelove
  * Brief Explanation:
  * JScene is how you hold and load all the objects in your scene into memory.
  * Helpful for loading and switching between levels in a game for example.
@@ -21,8 +21,7 @@ import static com.JEngine.Game.Visual.Scenes.SceneQuicksort.quickSortZ;
 public class JScene extends Thing {
     // Objects in the scene
     private ObjRef[] sceneObjects;
-    // max objects allowed in the scene
-    private int maxObjects;
+
     // The scene's name
     private String sceneName;
 
@@ -34,22 +33,19 @@ public class JScene extends Thing {
     public URL uiURL = null;
 
     /**
-     * @param maxObjects Max objects allowed in the scene. You cannot change this number after the scene has been created.
      * @param sceneName Name of the scene. Can be changed with setSceneName(String newName)
      */
-    public JScene(int maxObjects, String sceneName) {
+    public JScene(int sceneDefaultSize, String sceneName) {
         super(true);
-        this.maxObjects = maxObjects;
         this.sceneName = sceneName;
-        sceneObjects = new ObjRef[maxObjects];
+        sceneObjects = new ObjRef[sceneDefaultSize];
     }
 
     /**
-     * @param maxObjects Max objects allowed in the scene. You cannot change this number after the scene has been created.
      * @param sceneName Name of the scene. Can be changed with setSceneName(String newName)
      * @param url URL to the FXML file
      */
-    public JScene(int maxObjects, String sceneName, URL url) {
+    public JScene(int sceneDefaultSize, String sceneName, URL url) {
         super(true);
         setUiURL(url);
         try {
@@ -59,9 +55,8 @@ public class JScene extends Thing {
         }
 
         loadUI();
-        this.maxObjects = maxObjects;
         this.sceneName = sceneName;
-        sceneObjects = new ObjRef[maxObjects];
+        sceneObjects = new ObjRef[sceneDefaultSize];
     }
 
     /**
@@ -103,13 +98,13 @@ public class JScene extends Thing {
      */
     public void sortByZ(){
         // create instance of Object array
-        ObjRef[] temp = new ObjRef[maxObjects];
+        ObjRef[] temp = new ObjRef[sceneObjects.length];
         int i = 0;
         for (ObjRef o: sceneObjects) {
             temp[i] = o;
             i++;
         }
-        quickSortZ(temp, 0, maxObjects-1);
+        quickSortZ(temp, 0, sceneName.length()-1);
         sceneObjects = temp;
     }
 
@@ -135,13 +130,20 @@ public class JScene extends Thing {
             else if(sceneObjects[i].objRef.isQueuedForDeletion() && !sceneHasRoom())
             {
                 sceneObjects[i] = new ObjRef(o);
-                LogExtra(String.format("Overwrote object queued for deletion. Added '%s' (%s) to the scene Successfully", o.getJIdentity().getName(), o.getClass().getSimpleName()));
+                LogExtra(String.format("Overwrote '%s' (%s) queued for deletion. Added '%s' (%s) to the scene Successfully",sceneObjects[i].objRef.getJIdentity().getName(), sceneObjects[i].objRef.getClass().getSimpleName(), o.getJIdentity().getName(), o.getClass().getSimpleName()));
                 // sort by z to make sure the objects are in the correct order, not just how they're added to the array
                 sortByZ();
                 return;
             }
         }
-        LogError("Could not add object to full scene! Try increasing the maxObjects parameter.");
+        // if scene is full, create a new array with 2 more spaces
+        ObjRef[] temp = new ObjRef[sceneObjects.length + 2];
+        for (int i = 0; i < sceneObjects.length; i++) {
+            temp[i] = sceneObjects[i];
+        }
+        temp[temp.length - 1] = new ObjRef(o);
+        sceneObjects = temp;
+        LogExtra(String.format("Added '%s' (%s) to the scene Successfully", o.getJIdentity().getName(), o.getClass().getSimpleName()));
     }
 
     /**
@@ -237,7 +239,7 @@ public class JScene extends Thing {
      */
     public JObject[] findObjectsByIdentity(String name, String tag, SearchType searchType) {
         int count = 0;
-        JObject[] sceneSize = new JObject[maxObjects];
+        JObject[] sceneSize = new JObject[sceneObjects.length];
 
         for (int i = 0; i < sceneObjects.length; i++) {
             if (sceneObjects[i] != null) {
@@ -274,6 +276,30 @@ public class JScene extends Thing {
     }
 
     /**
+     * Find all objects of the same class
+     */
+    public JObject[] findObjectsByClass(String className) {
+        int count = 0;
+        JObject[] searchResult = new JObject[1];
+
+        for (int i = 0; i < sceneObjects.length; i++) {
+            if (sceneObjects[i] != null) {
+                if (sceneObjects[i].objRef.getJIdentity().getClass().getSimpleName().equals(className)) {
+                    if(count>searchResult.length)
+                    {
+                        JObject[] temp = new JObject[searchResult.length*2];
+                        System.arraycopy(searchResult, 0, temp, 0, searchResult.length);
+                        searchResult = temp;
+                    }
+                    searchResult[count] = sceneObjects[i].objRef;
+                    count++;
+                }
+            }
+        }
+        return searchResult;
+    }
+
+    /**
      * Transfers all objects in one scene to another
      * @param newScene The new JScene to migrate to
      * @param force If the new scene has a lower maxObjectCount, discard the objects that cannot fit in
@@ -281,13 +307,13 @@ public class JScene extends Thing {
      */
     public void migrateScene(JScene newScene, boolean force, boolean switchSceneUponCompletion)
     {
-        if((newScene.maxObjects < maxObjects) && !force)
+        if((newScene.sceneObjects.length < sceneObjects.length) && !force)
         {
             LogWarning("CANNOT MIGRATE TO NEW SCENE: NEW SCENE HAS LOWER MAX OBJECT COUNT AND WOULD DESTROY OBJECTS" +
                     " USE force=true TO BYPASS THIS WARNING");
             return;
         }
-        for (int i = 0; i < newScene.maxObjects; i++) {
+        for (int i = 0; i < newScene.sceneObjects.length; i++) {
             try{
                 newScene.sceneObjects[i] = sceneObjects[i];
             }
@@ -306,12 +332,6 @@ public class JScene extends Thing {
     }
 
     /**
-     * Returns maxObjects in the scene
-     * @return maxObjects
-     */
-    public int getMaxObjects() {return maxObjects;}
-
-    /**
      * Returns the scene's name
      * @return Scene's name
      */
@@ -325,15 +345,10 @@ public class JScene extends Thing {
 
     /**
      * Remove all objects from the scene
-     * @param newMaxObjects set a new max objects value
      */
-    public void purge(int newMaxObjects)
+    public void purge()
     {
-        if(newMaxObjects<0)
-        {
-            newMaxObjects = maxObjects;
-        }
+        sceneObjects = new ObjRef[sceneObjects.length];
         LogInfo(String.format("Purged scene: '%s' of ALL contents.", getSceneName()));
-        sceneObjects = new ObjRef[newMaxObjects];
     }
 }

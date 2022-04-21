@@ -5,7 +5,7 @@ import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 import javafx.scene.input.KeyCode;
 
-/** JPlayer (c) Noah Freelove
+/** 2022 - Noah Freelove
  * Brief Explanation:
  * A Player is form of pawn which has events for key presses
  * **/

@@ -2,6 +2,7 @@ package com.JEngine.Game.Visual;
 
 import com.JEngine.Game.PlayersAndPawns.JSprite;
 import com.JEngine.Game.Visual.Scenes.JScene;
+import com.JEngine.Game.Visual.Scenes.JSceneManager;
 import com.JEngine.PrimitiveTypes.ObjRef;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.Position.Vector3;
@@ -44,6 +45,7 @@ public class JCamera extends JObject {
         this.parent = parent;
         this.fovX = window.getScaleMultiplier()*1280;
         this.fovY = window.getScaleMultiplier()*720;
+        JSceneManager.init(scene, window, this);
     }
     /**
      * Default constructor
@@ -59,6 +61,7 @@ public class JCamera extends JObject {
         this.scene = scene;
         this.fovX = window.getScaleMultiplier()*1280;
         this.fovY = window.getScaleMultiplier()*720;
+        JSceneManager.init(scene, window, this);
     }
 
     /**
