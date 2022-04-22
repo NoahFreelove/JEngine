@@ -47,10 +47,10 @@ public class Thing {
         }
     }
 
-    public static void LogAnnoyance(String log)
+    public static void LogDebug(String log)
     {
-        if (EnginePrefs.logAnnoyance) {
-            System.out.println("Annoyance: " + log);
+        if (EnginePrefs.logDebug) {
+            System.out.println("Debug: " + log);
         }
     }
 

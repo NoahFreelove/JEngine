@@ -138,7 +138,7 @@ public class JCamera extends JObject {
                 gameObjects.getChildren().add(imageView);
 
             } catch (Exception ignore) {
-                LogAnnoyance("Didn't add object: " + sprite.getJIdentity().getName() + " to render queue");
+                LogDebug("Didn't add object: " + sprite.getJIdentity().getName() + " to render queue");
             }
         }
     }
@@ -150,11 +150,11 @@ public class JCamera extends JObject {
     {
         Group gameObjects = new Group();
 
-        LogAnnoyance("Start Sprite Render");
+        LogDebug("Start Sprite Render");
         RenderObjects(gameObjects);
 
         // Add rendered objects to the window
-        LogAnnoyance("Rendered Objects");
+        LogDebug("Rendered Objects");
         window.refreshWindow(gameObjects);
     }
 

@@ -52,7 +52,7 @@ public class JSceneLoader {
             boolean doOnce = false;
 
             while((line = br.readLine()) != null) {
-                LogAnnoyance("SCENE LOAD FROM FILE: " + line);
+                LogDebug("SCENE LOAD FROM FILE: " + line);
                 if(!doOnce)
                 {
                     doOnce = true;

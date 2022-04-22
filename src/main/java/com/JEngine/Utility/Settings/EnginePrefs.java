@@ -8,7 +8,7 @@ public class EnginePrefs {
     //region logging
     public static boolean logInfo;
     public static boolean logExtra;
-    public static boolean logAnnoyance;
+    public static boolean logDebug;
     public static boolean logImportant;
     //endregion
 

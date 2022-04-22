@@ -23,8 +23,8 @@ import javafx.stage.WindowEvent;
  * **/
 
 public class JWindow extends Thing {
-    public boolean isActive;
-
+    private boolean isActive;
+    private boolean isPaused;
     private final Stage stage;
     public Scene scene;
     public JScene jscene;
@@ -226,6 +226,9 @@ public class JWindow extends Thing {
 
         while (isActive) {
             while (System.currentTimeMillis() > next_game_tick) {
+                if(isPaused)
+                    return;
+
                 update(totalFrames);
                 totalFrames++;
                 next_game_tick += SKIP_TICKS;
@@ -250,7 +253,7 @@ public class JWindow extends Thing {
      * @param frameNumber Total frame number. Useful for keeping track of frames.
      */
     private void update(int frameNumber) {
-        LogAnnoyance(String.format("New frame (#%d)", frameNumber));
+        LogDebug(String.format("New frame (#%d)", frameNumber));
         runUpdateBehaviors();
 
         if(activeCamera !=null)
@@ -292,5 +295,15 @@ public class JWindow extends Thing {
      */
     public void onFocusChange(boolean isFocused){
         this.isFocused = isFocused;
+    }
+
+    public void pause()
+    {
+        isPaused = true;
+    }
+
+    public void resume()
+    {
+        isPaused = false;
     }
 }

@@ -36,7 +36,7 @@ public class BufferedImageBlur {
             BufferedImageOp op = new ConvolveWithEdgeOp(kernel, 2, null);
 
             BufferedImage blurred = op.filter(img, BufferedImageBlur.img);
-            Thing.LogAnnoyance("Successfully blurred image");
+            Thing.LogDebug("Successfully blurred image");
             return blurred;
 
         } catch (Exception e) {
@@ -65,7 +65,7 @@ public class BufferedImageBlur {
             BufferedImageOp op = new ConvolveWithEdgeOp(kernel, 2, null);
 
             BufferedImage blurred = op.filter(img, BufferedImageBlur.img);
-            Thing.LogAnnoyance("Successfully blurred image");
+            Thing.LogDebug("Successfully blurred image");
 
             return SwingFXUtils.toFXImage(blurred, null);
 
