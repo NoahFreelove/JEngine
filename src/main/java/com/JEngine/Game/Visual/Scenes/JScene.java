@@ -104,7 +104,7 @@ public class JScene extends Thing {
             temp[i] = o;
             i++;
         }
-        quickSortZ(temp, 0, sceneName.length()-1);
+        quickSortZ(temp, 0, sceneObjects.length-1);
         sceneObjects = temp;
     }
 
@@ -143,6 +143,7 @@ public class JScene extends Thing {
         }
         temp[temp.length - 1] = new ObjRef(o);
         sceneObjects = temp;
+        sortByZ();
         LogExtra(String.format("Added '%s' (%s) to the scene Successfully", o.getJIdentity().getName(), o.getClass().getSimpleName()));
     }
 
