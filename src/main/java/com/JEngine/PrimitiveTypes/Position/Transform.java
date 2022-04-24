@@ -35,9 +35,11 @@ public class Transform {
 
     // setters
     public void setPosition(Vector3 newPosition){position = newPosition;}
+    public void setPosition(float x, float y, float z){position = new Vector3(x, y, z);}
     public void setRotation(Vector3 newRotation){rotation = newRotation;}
     public void setScale(Vector3 newScale){scale = newScale;}
-
+    public void setScale(float newScale){scale = new Vector3(newScale, newScale, newScale);}
+    public void setScale(float x, float y, float z){scale = new Vector3(x, y, z);}
     // getters
     public Vector3 getPosition() { return position;}
     public Vector3 getRotation() { return rotation;}

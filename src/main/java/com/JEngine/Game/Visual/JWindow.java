@@ -227,7 +227,7 @@ public class JWindow extends Thing {
         while (isActive) {
             while (System.currentTimeMillis() > next_game_tick) {
                 if(isPaused)
-                    return;
+                    continue;
 
                 update(totalFrames);
                 totalFrames++;
