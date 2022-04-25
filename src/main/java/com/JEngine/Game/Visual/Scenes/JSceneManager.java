@@ -3,6 +3,7 @@ package com.JEngine.Game.Visual.Scenes;
 import com.JEngine.Game.Visual.JCamera;
 import com.JEngine.Game.Visual.JWindow;
 import com.JEngine.Utility.Input;
+import javafx.application.Platform;
 
 /** JSceneManager (c) Noah Freelove
  * Brief Explanation:
@@ -48,11 +49,12 @@ public class JSceneManager {
      * @param newScene new active scene
      */
     public static void setActiveScene(JScene newScene) {
-        activeCamera.setActiveScene(newScene);
-        window.parent.getChildren().remove(activeScene.uiObjects);
-        JSceneManager.activeScene = newScene;
-        window.parent.getChildren().add(activeScene.uiObjects);
-
+        Platform.runLater(() -> {
+            activeCamera.setActiveScene(newScene);
+            window.parent.getChildren().remove(activeScene.uiObjects);
+            JSceneManager.activeScene = newScene;
+            window.parent.getChildren().add(activeScene.uiObjects);
+        } );
     }
 
     /**
