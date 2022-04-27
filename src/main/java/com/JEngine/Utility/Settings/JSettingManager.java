@@ -1,7 +1,5 @@
 package com.JEngine.Utility.Settings;
 
-import com.JEngine.Utility.IO.FileOperations;
-
 /** JSetting (c) Noah Freelove
  * Holds an array of JSettingCategory objects.
  * It is static, so you need to initialize it before using it.

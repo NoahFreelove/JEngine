@@ -1,10 +1,9 @@
 package com.JEngine.Game.PlayersAndPawns;
 
-import com.JEngine.Game.PlayersAndPawns.Colliders.JBoxCollider;
 import com.JEngine.PrimitiveTypes.JImage;
+import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
-import com.JEngine.PrimitiveTypes.Position.Transform;
 
 /** Sprite (c) Noah Freelove
  * Brief Explanation:

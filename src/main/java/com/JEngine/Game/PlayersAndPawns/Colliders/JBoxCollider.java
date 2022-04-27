@@ -1,10 +1,11 @@
 package com.JEngine.Game.PlayersAndPawns.Colliders;
 
 import com.JEngine.Game.PlayersAndPawns.JPawn;
-import com.JEngine.Game.Visual.Scenes.JSceneManager;
+import com.JEngine.Game.Visual.Scenes.SceneManager;
 import com.JEngine.PrimitiveTypes.ObjRef;
 import com.JEngine.PrimitiveTypes.Position.Transform;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.*;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
 
 /**
  * JBoxCollider (c) Noah Freelove
@@ -102,7 +103,7 @@ public class JBoxCollider extends JObject {
     public void checkAllCollision()
     {
         for (ObjRef o :
-                JSceneManager.getActiveScene().getObjects()) {
+                SceneManager.getActiveScene().getObjects()) {
             if (o == null || o.objRef == null) continue;
             JBoxCollider pawnCollider;
             // make sure the object has a collider
@@ -138,7 +139,7 @@ public class JBoxCollider extends JObject {
     {
         // go through every sceneobject check for hard collider
         for (ObjRef o :
-                JSceneManager.getActiveScene().getObjects()) {
+                SceneManager.getActiveScene().getObjects()) {
             if (o == null) continue;
             JBoxCollider pawnCollider;
 

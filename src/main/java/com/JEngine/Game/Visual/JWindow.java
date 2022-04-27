@@ -1,7 +1,7 @@
 package com.JEngine.Game.Visual;
 
 import com.JEngine.Game.Visual.Scenes.JScene;
-import com.JEngine.Game.Visual.Scenes.JSceneManager;
+import com.JEngine.Game.Visual.Scenes.SceneManager;
 import com.JEngine.PrimitiveTypes.JImage;
 import com.JEngine.PrimitiveTypes.ObjRef;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
@@ -28,7 +28,6 @@ public class JWindow extends Thing {
     private final Stage stage;
     public Scene scene;
     public JScene jscene;
-    public JCamera activeCamera;
 
     private Thread updateThread;
 
@@ -58,11 +57,13 @@ public class JWindow extends Thing {
             parent.getChildren().add(scene.uiObjects);
             this.scene = new Scene(parent,1280*scaleMultiplier,720*scaleMultiplier);
             this.jscene = scene;
+            Input.init(getScene());
         }
         catch (Exception e){
             System.out.println(e);
             this.scene = new Scene(parent, 1280*scaleMultiplier,720*scaleMultiplier);
             prevObj = sceneObjects;
+            Input.init(getScene());
 
         }
 
@@ -98,6 +99,8 @@ public class JWindow extends Thing {
         this.stage.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, JUtility::exitWindow);
         window.focusedProperty().addListener((newValue, onHidden, onShown) -> onFocusChange(newValue.getValue()));
         this.scaleMultiplier = scaleMultiplier;
+        Input.init(getScene());
+
     }
 
     /**
@@ -189,7 +192,7 @@ public class JWindow extends Thing {
             LogError("Window is already active! Cannot start another update thread.");
             return;
         }
-        JSceneManager.getActiveScene().runStartBehaviors();
+        SceneManager.getActiveScene().runStartBehaviors();
         isActive = true;
         updateThread = new Thread(this::refresh);
         updateThread.start();
@@ -239,26 +242,16 @@ public class JWindow extends Thing {
     }
 
     /**
-     * Set the camera for the window to render from
-     * @param camera new camera to set
-     */
-    public void setCamera(JCamera camera)
-    {
-        this.activeCamera = camera;
-        LogInfo("Set Camera");
-    }
-
-    /**
      * JWindow's update method. Called every refresh cycle to start the render and run the Update() behaviors
      * @param frameNumber Total frame number. Useful for keeping track of frames.
      */
     private void update(int frameNumber) {
         LogDebug(String.format("New frame (#%d)", frameNumber));
         runUpdateBehaviors();
-
-        if(activeCamera !=null)
+        JCamera mainCamera = SceneManager.getActiveCamera();
+        if(mainCamera !=null && mainCamera.getActive())
         {
-            activeCamera.InitiateRender();
+            mainCamera.InitiateRender();
         }
 
         // very laggy
@@ -275,7 +268,7 @@ public class JWindow extends Thing {
      * Objects which don't override the function will not have any function
      */
     private void runUpdateBehaviors() {
-        for (ObjRef objRef : JSceneManager.getActiveScene().getObjects()) {
+        for (ObjRef objRef : SceneManager.getActiveScene().getObjects()) {
             if(objRef == null || objRef.objRef == null || objRef.objRef.isQueuedForDeletion())
                 continue;
             if(objRef.objRef.getActive())

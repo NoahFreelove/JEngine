@@ -1,7 +1,7 @@
 package com.JEngine.Utility;
 
 import com.JEngine.Game.PlayersAndPawns.JPlayer;
-import com.JEngine.Game.Visual.Scenes.JSceneManager;
+import com.JEngine.Game.Visual.Scenes.SceneManager;
 import com.JEngine.PrimitiveTypes.ObjRef;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -83,7 +83,7 @@ public class Input {
      * @param scene JavaFX scene to add handlers to
      */
     public static void init(Scene scene) {
-        if (JSceneManager.getActiveScene() != null)
+        if (SceneManager.getActiveScene() != null)
         {
             scene.addEventHandler(KeyEvent.KEY_PRESSED, Input::keyPressEvent);
             scene.addEventHandler(KeyEvent.KEY_RELEASED, Input::keyReleaseEvent);
@@ -97,7 +97,7 @@ public class Input {
     private static void keyPressEvent(KeyEvent key)
     {
         for (ObjRef o :
-                JSceneManager.getActiveScene().getObjects()) {
+                SceneManager.getActiveScene().getObjects()) {
             try
             {
                 ((JPlayer)o.objRef).onKeyPressed(key.getCode());
@@ -114,7 +114,7 @@ public class Input {
     private static void keyReleaseEvent(KeyEvent key)
     {
         for (ObjRef o :
-                JSceneManager.getActiveScene().getObjects()) {
+                SceneManager.getActiveScene().getObjects()) {
             try
             {
                 ((JPlayer)o.objRef).onKeyReleased(key.getCode());

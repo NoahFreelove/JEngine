@@ -325,7 +325,7 @@ public class JScene extends Thing {
         }
         if(switchSceneUponCompletion)
         {
-            JSceneManager.setActiveScene(newScene);
+            SceneManager.switchScene(newScene);
             LogInfo("Successfully Migrated scene content and activated scene.");
             return;
         }

@@ -2,6 +2,7 @@ package com.JEngine.PrimitiveTypes;
 
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 import javafx.scene.image.Image;
+
 import java.io.File;
 
 /** JImage (c) Noah Freelove

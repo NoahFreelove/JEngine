@@ -1,7 +1,6 @@
 package com.JEngine.Utility;
 
 import com.JEngine.PrimitiveTypes.Position.Vector3;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 
 import java.util.concurrent.ThreadLocalRandom;
 

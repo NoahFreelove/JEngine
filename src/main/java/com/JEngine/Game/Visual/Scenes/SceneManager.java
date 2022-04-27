@@ -2,16 +2,15 @@ package com.JEngine.Game.Visual.Scenes;
 
 import com.JEngine.Game.Visual.JCamera;
 import com.JEngine.Game.Visual.JWindow;
-import com.JEngine.Utility.Input;
 import javafx.application.Platform;
 
-/** JSceneManager (c) Noah Freelove
+/** SceneManager (c) Noah Freelove
  * Brief Explanation:
- * JSceneManager is a class that manages the current scene, window, and main camera.
+ * SceneManager is a class that manages the current scene, window, and main camera.
  * Lets you reference the current scene, window, and camera from anywhere.
  */
 
-public class JSceneManager {
+public class SceneManager {
     private static JScene activeScene;
     private static JWindow window;
     private static JCamera activeCamera;
@@ -35,24 +34,22 @@ public class JSceneManager {
         if(hasInit)
             return;
         hasInit = true;
-        JSceneManager.activeScene = newScene;
-        JSceneManager.window = newWindow;
-        JSceneManager.activeCamera = newMainCamera;
-        JSceneManager.activeCamera.setActive(true);
-        JSceneManager.window.start();
-        window.setCamera(newMainCamera);
-        Input.init(newWindow.scene);
+        SceneManager.activeScene = newScene;
+        SceneManager.window = newWindow;
+        SceneManager.activeCamera = newMainCamera;
+        SceneManager.activeCamera.setActive(true);
+        SceneManager.window.start();
     }
 
     /**
      * Set the active scene
      * @param newScene new active scene
      */
-    public static void setActiveScene(JScene newScene) {
+    public static void switchScene(JScene newScene) {
         Platform.runLater(() -> {
             activeCamera.setActiveScene(newScene);
             window.parent.getChildren().remove(activeScene.uiObjects);
-            JSceneManager.activeScene = newScene;
+            SceneManager.activeScene = newScene;
             window.parent.getChildren().add(activeScene.uiObjects);
         } );
     }
@@ -63,9 +60,8 @@ public class JSceneManager {
      */
     public static void setWindow(JWindow newWindow)
     {
-        newWindow.setCamera(activeCamera);
         newWindow.setScene(window.getScene());
-        JSceneManager.window = newWindow;
+        SceneManager.window = newWindow;
     }
 
     /**
@@ -74,8 +70,7 @@ public class JSceneManager {
      */
     public static void setActiveCamera(JCamera newMainCamera)
     {
-        JSceneManager.activeCamera = newMainCamera;
-        window.setCamera(newMainCamera);
+        SceneManager.activeCamera = newMainCamera;
     }
 
     /**

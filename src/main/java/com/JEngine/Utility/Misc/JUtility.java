@@ -30,7 +30,7 @@ public class JUtility {
     }
 
     // Close the window
-    public static void exitWindow(WindowEvent w)
+    public static void exitWindow(WindowEvent ignoredWindowEvent)
     {
         systemExit();
     }
