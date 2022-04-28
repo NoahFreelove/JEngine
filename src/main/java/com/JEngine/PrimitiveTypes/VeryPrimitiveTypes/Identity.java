@@ -11,7 +11,7 @@ package com.JEngine.PrimitiveTypes.VeryPrimitiveTypes;
  * which you can't tell apart.
  * **/
 
-public class JIdentity {
+public class Identity {
     String name;
     String tag;
 
@@ -20,7 +20,7 @@ public class JIdentity {
      * @param name The name of the object
      * @param tag  The tag of the object
      */
-    public JIdentity(String name, String tag) {
+    public Identity(String name, String tag) {
         this.name = name;
         this.tag = tag;
     }

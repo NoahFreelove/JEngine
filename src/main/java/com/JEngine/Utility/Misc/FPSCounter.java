@@ -1,7 +1,7 @@
 package com.JEngine.Utility.Misc;
 
 import com.JEngine.PrimitiveTypes.Position.Transform;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Identity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.GameObject;
 import javafx.scene.text.Text;
 
@@ -16,7 +16,7 @@ public class FPSCounter extends GameObject {
     public Text fpsText;
 
     public FPSCounter() {
-        super(Transform.exSimpleTransform(0,0), new JIdentity("FPSCounter", "generatedUI"));
+        super(Transform.exSimpleTransform(0,0), new Identity("FPSCounter", "generatedUI"));
         fpsText = createFPSText();
     }
 

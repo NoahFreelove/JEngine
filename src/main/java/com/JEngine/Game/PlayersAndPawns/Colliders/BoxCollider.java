@@ -1,11 +1,9 @@
 package com.JEngine.Game.PlayersAndPawns.Colliders;
 
 import com.JEngine.Game.PlayersAndPawns.Pawn;
-import com.JEngine.Game.Visual.GameCamera;
 import com.JEngine.Game.Visual.Scenes.SceneManager;
-import com.JEngine.PrimitiveTypes.ObjRef;
 import com.JEngine.PrimitiveTypes.Position.Transform;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Identity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.GameObject;
 
 /**
@@ -33,13 +31,13 @@ public class BoxCollider extends GameObject {
 
     /**
      * @param transform - The transform of the object
-     * @param JIdentity - The JIdentity of the object
+     * @param Identity - The JIdentity of the object
      * @param sizeX - The size of the object in the x direction
      * @param sizeY - The size of the object in the y direction
      * @param parent - The parent of the object
      */
-    public BoxCollider(Transform transform, JIdentity JIdentity, int sizeX, int sizeY, GameObject parent) {
-        super(transform, JIdentity);
+    public BoxCollider(Transform transform, Identity Identity, int sizeX, int sizeY, GameObject parent) {
+        super(transform, Identity);
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.parent = parent;
@@ -47,14 +45,14 @@ public class BoxCollider extends GameObject {
 
     /**
      * @param transform - The transform of the object
-     * @param JIdentity - The JIdentity of the object
+     * @param Identity - The JIdentity of the object
      * @param sizeX - The size of the object in the x direction
      * @param sizeY - The size of the object in the y direction
      * @param parent - The parent of the object
      * @param trigger - Whether the collider is a trigger
      */
-    public BoxCollider(Transform transform, JIdentity JIdentity, int sizeX, int sizeY, GameObject parent, boolean trigger) {
-        super(transform, JIdentity);
+    public BoxCollider(Transform transform, Identity Identity, int sizeX, int sizeY, GameObject parent, boolean trigger) {
+        super(transform, Identity);
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.parent = parent;

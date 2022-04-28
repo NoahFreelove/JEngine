@@ -59,7 +59,7 @@ public class GameInfo {
      * Log app info to LogInfo.
      * @param isImportant if you want it to stand out in the log
      */
-    public static void logAppInfo(boolean isImportant)
+    public static void logGameInfo(boolean isImportant)
     {
         if(isImportant)
         {

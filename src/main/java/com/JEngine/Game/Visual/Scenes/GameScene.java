@@ -1,7 +1,7 @@
 package com.JEngine.Game.Visual.Scenes;
 
 import com.JEngine.Game.Visual.SearchType;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Identity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.GameObject;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 import javafx.fxml.FXMLLoader;
@@ -158,6 +158,8 @@ public class GameScene extends Thing {
      */
     public void remove(GameObject o)
     {
+        if(o== null)
+            return;
         o.setQueuedForDeletion(true);
         LogExtra(String.format("Queued object '%s' (%s) for deletion.", o.getJIdentity().getName(), o.getClass().getSimpleName()));
     }
@@ -183,7 +185,7 @@ public class GameScene extends Thing {
      * Attempt to restore an object Queued For Deletion
      * @param identity Search scene for identity to restore
      */
-    public void unDelete(JIdentity identity)
+    public void unDelete(Identity identity)
     {
         for (GameObject ref :
                 sceneObjects) {

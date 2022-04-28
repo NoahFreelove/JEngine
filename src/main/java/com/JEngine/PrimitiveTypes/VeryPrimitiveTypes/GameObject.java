@@ -12,13 +12,13 @@ import com.JEngine.PrimitiveTypes.Position.Transform;
 
 public class GameObject extends Thing {
     private Transform transform;
-    private final JIdentity jIdentity;
+    private final Identity identity;
     private boolean queuedForDeletion;
 
-    public GameObject(Transform transform, JIdentity jIdentity) {
+    public GameObject(Transform transform, Identity identity) {
         super(true);
         this.transform = transform;
-        this.jIdentity = jIdentity;
+        this.identity = identity;
     }
 
     // Called upon object's creation
@@ -28,8 +28,8 @@ public class GameObject extends Thing {
     public void Update(){}
 
     // Getters
-    public JIdentity getJIdentity() {
-        return jIdentity;
+    public Identity getJIdentity() {
+        return identity;
     }
     public Transform getTransform() {
         return transform;

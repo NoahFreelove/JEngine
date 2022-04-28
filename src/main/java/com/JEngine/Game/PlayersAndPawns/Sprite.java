@@ -2,7 +2,7 @@ package com.JEngine.Game.PlayersAndPawns;
 
 import com.JEngine.PrimitiveTypes.GameImage;
 import com.JEngine.PrimitiveTypes.Position.Transform;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Identity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.GameObject;
 
 /** Sprite (c) Noah Freelove
@@ -30,8 +30,8 @@ public class Sprite extends GameObject {
     public void setSprite(GameImage newSprite) {sprite = newSprite;}
 
     // Default constructor
-    public Sprite(Transform transform, GameImage newSprite, JIdentity jIdentity) {
-        super(transform, jIdentity);
+    public Sprite(Transform transform, GameImage newSprite, Identity identity) {
+        super(transform, identity);
         setSprite(newSprite);
     }
 }

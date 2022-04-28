@@ -3,7 +3,7 @@ package com.JEngine.Game.PlayersAndPawns;
 import com.JEngine.Game.PlayersAndPawns.Colliders.BoxCollider;
 import com.JEngine.PrimitiveTypes.GameImage;
 import com.JEngine.PrimitiveTypes.Position.*;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Identity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.GameObject;
 import com.JEngine.Utility.GameMath;
 
@@ -21,8 +21,8 @@ public class Pawn extends Sprite {
     // Every JPawn has a collider, it must be initialized though
     private BoxCollider collider;
 
-    public Pawn(Transform transform, GameImage newSprite, JIdentity jIdentity) {
-        super(transform,newSprite, jIdentity);
+    public Pawn(Transform transform, GameImage newSprite, Identity identity) {
+        super(transform,newSprite, identity);
     }
 
     /**
@@ -71,7 +71,7 @@ public class Pawn extends Sprite {
      * @return true if the pawn can move, false if it cannot
      */
     public boolean canMove(float xDisplacement, float yDisplacement) {
-        BoxCollider tmpCollider = new BoxCollider(new Transform(getTransform()), new JIdentity("tmpCollider", "boxCollider"), getSprite().getWidth(), getSprite().getHeight(), this, false);
+        BoxCollider tmpCollider = new BoxCollider(new Transform(getTransform()), new Identity("tmpCollider", "boxCollider"), getSprite().getWidth(), getSprite().getHeight(), this, false);
 
         tmpCollider.getTransform().setPosition(new Vector3(getTransform().getPosition().x + xDisplacement, getTransform().getPosition().y + yDisplacement, getTransform().getPosition().z));
         return !tmpCollider.isCollidingWithHard();

@@ -2,7 +2,7 @@ package com.JEngine.Game.PlayersAndPawns;
 
 import com.JEngine.PrimitiveTypes.GameImage;
 import com.JEngine.PrimitiveTypes.Position.Transform;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Identity;
 import javafx.scene.input.KeyCode;
 
 /** 2022 - Noah Freelove
@@ -11,8 +11,8 @@ import javafx.scene.input.KeyCode;
  * **/
 
 public class Player extends Pawn {
-    public Player(Transform transform, GameImage newSprite, JIdentity JIdentity) {
-        super(transform, newSprite, JIdentity);
+    public Player(Transform transform, GameImage newSprite, Identity Identity) {
+        super(transform, newSprite, Identity);
     }
 
     /**

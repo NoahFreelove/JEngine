@@ -5,7 +5,7 @@ import com.JEngine.Game.Visual.GameWindow;
 import com.JEngine.PrimitiveTypes.GameImage;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.Position.Vector3;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Identity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.GameObject;
 import com.JEngine.Utility.Settings.EnginePrefs;
 
@@ -170,7 +170,7 @@ public class JSceneLoader {
     {
         if(className.equals("JPawn"))
         {
-            return new Pawn(transform, new GameImage(isActive, filePath, sizeX, sizeY), new JIdentity(name,tag));
+            return new Pawn(transform, new GameImage(isActive, filePath, sizeX, sizeY), new Identity(name,tag));
         }
 
         return null;

@@ -5,7 +5,7 @@ import com.JEngine.Game.Visual.Scenes.GameScene;
 import com.JEngine.Game.Visual.Scenes.SceneManager;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.Position.Vector3;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Identity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.GameObject;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
@@ -34,10 +34,10 @@ public class GameCamera extends GameObject {
      * @param window init window
      * @param scene init scene
      * @param parent parent
-     * @param JIdentity Identity
+     * @param Identity Identity
      */
-    public GameCamera(Vector3 position, GameWindow window, GameScene scene, GameObject parent, JIdentity JIdentity) {
-        super(new Transform(position, new Vector3(0,0,0), new Vector3(1,1,1)), JIdentity);
+    public GameCamera(Vector3 position, GameWindow window, GameScene scene, GameObject parent, Identity Identity) {
+        super(new Transform(position, new Vector3(0,0,0), new Vector3(1,1,1)), Identity);
 
         this.window = window;
         this.scene = scene;
@@ -52,10 +52,10 @@ public class GameCamera extends GameObject {
      * @param position init position
      * @param window init window
      * @param scene init scene
-     * @param JIdentity Identity
+     * @param Identity Identity
      */
-    public GameCamera(Vector3 position, GameWindow window, GameScene scene, JIdentity JIdentity) {
-        super(new Transform(position, new Vector3(0,0,0), new Vector3(1,1,1)), JIdentity);
+    public GameCamera(Vector3 position, GameWindow window, GameScene scene, Identity Identity) {
+        super(new Transform(position, new Vector3(0,0,0), new Vector3(1,1,1)), Identity);
 
         this.window = window;
         this.scene = scene;
