@@ -1,12 +1,12 @@
 package com.JEngine.Game.Visual.Scenes;
 
-import com.JEngine.Game.PlayersAndPawns.JPawn;
-import com.JEngine.Game.Visual.JWindow;
-import com.JEngine.PrimitiveTypes.JImage;
+import com.JEngine.Game.PlayersAndPawns.Pawn;
+import com.JEngine.Game.Visual.GameWindow;
+import com.JEngine.PrimitiveTypes.GameImage;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.Position.Vector3;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.GameObject;
 import com.JEngine.Utility.Settings.EnginePrefs;
 
 import java.io.BufferedReader;
@@ -20,10 +20,10 @@ import static com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing.*;
  * Until I find a better way to load class values. likely json related
  */
 public class JSceneLoader {
-    public static JScene load(String filepath, JWindow window, String sceneName)
+    public static GameScene load(String filepath, GameWindow window, String sceneName)
     {
 
-        JScene scene = null;
+        GameScene scene = null;
         try {
             File fp = new File(filepath);
             FileReader fr = new FileReader(fp);
@@ -57,7 +57,7 @@ public class JSceneLoader {
                 {
                     doOnce = true;
                     int maxObj = Integer.parseInt(line.replace("maxObjects=",""));
-                    scene = new JScene(maxObj, sceneName);
+                    scene = new GameScene(maxObj, sceneName);
                 }
                 if(line.equals("startObject"))
                 {
@@ -166,11 +166,11 @@ public class JSceneLoader {
      * @param transform The object's transform (if applicable)
      * @return JObject with the inputted parameters
      */
-    private static JObject convertTextToObject(String className, String name, String tag, boolean isActive, String filePath, int sizeX, int sizeY, Transform transform)
+    private static GameObject convertTextToObject(String className, String name, String tag, boolean isActive, String filePath, int sizeX, int sizeY, Transform transform)
     {
         if(className.equals("JPawn"))
         {
-            return new JPawn(transform, new JImage(isActive, filePath, sizeX, sizeY), new JIdentity(name,tag));
+            return new Pawn(transform, new GameImage(isActive, filePath, sizeX, sizeY), new JIdentity(name,tag));
         }
 
         return null;

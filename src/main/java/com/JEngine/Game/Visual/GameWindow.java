@@ -1,13 +1,13 @@
 package com.JEngine.Game.Visual;
 
-import com.JEngine.Game.Visual.Scenes.JScene;
+import com.JEngine.Game.Visual.Scenes.GameScene;
 import com.JEngine.Game.Visual.Scenes.SceneManager;
-import com.JEngine.PrimitiveTypes.JImage;
-import com.JEngine.PrimitiveTypes.ObjRef;
+import com.JEngine.PrimitiveTypes.GameImage;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.GameObject;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 import com.JEngine.Utility.Input;
 import com.JEngine.Utility.Misc.FPSCounter;
-import com.JEngine.Utility.Misc.JUtility;
+import com.JEngine.Utility.Misc.GameUtility;
 import com.JEngine.Utility.Settings.EnginePrefs;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -22,16 +22,16 @@ import javafx.stage.WindowEvent;
  * JWindow provides the actual update function
  * **/
 
-public class JWindow extends Thing {
+public class GameWindow extends Thing {
     private boolean isActive;
     private boolean isPaused;
     private final Stage stage;
     public Scene scene;
-    public JScene jscene;
+    public GameScene jscene;
 
     private Thread updateThread;
 
-
+    private double fpsMili = 1000/30;
     private float targetFPS = 30;
     public int totalFrames = 1;
 
@@ -49,7 +49,7 @@ public class JWindow extends Thing {
      * @param title Title of the window
      * @param window Default stage (Typically given by JavaFX public void start(Stage stage)
      */
-    public JWindow(JScene scene, float scaleMultiplier, String title, Stage window) {
+    public GameWindow(GameScene scene, float scaleMultiplier, String title, Stage window) {
         super(true);
         try
         {
@@ -57,13 +57,13 @@ public class JWindow extends Thing {
             parent.getChildren().add(scene.uiObjects);
             this.scene = new Scene(parent,1280*scaleMultiplier,720*scaleMultiplier);
             this.jscene = scene;
-            Input.init(getScene());
+            Input.init(this.scene);
         }
         catch (Exception e){
             System.out.println(e);
             this.scene = new Scene(parent, 1280*scaleMultiplier,720*scaleMultiplier);
             prevObj = sceneObjects;
-            Input.init(getScene());
+            Input.init(this.scene);
 
         }
 
@@ -72,7 +72,7 @@ public class JWindow extends Thing {
         this.stage.setResizable(false);
         this.stage.setScene(this.scene);
         this.stage.show();
-        this.stage.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, JUtility::exitWindow);
+        this.stage.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, GameUtility::exitWindow);
         window.focusedProperty().addListener((newValue, onHidden, onShown) -> onFocusChange(newValue.getValue()));
         this.scaleMultiplier = scaleMultiplier;
     }
@@ -84,7 +84,7 @@ public class JWindow extends Thing {
      * @param window the stage given start(Stage stage)
      * @param style StageStyle
      */
-    public JWindow(float scaleMultiplier, String title, Stage window, StageStyle style) {
+    public GameWindow(float scaleMultiplier, String title, Stage window, StageStyle style) {
         super(true);
         parent.getChildren().add(sceneObjects);
         window.initStyle(style);
@@ -96,10 +96,10 @@ public class JWindow extends Thing {
         this.stage.setResizable(false);
         this.stage.setScene(scene);
         this.stage.show();
-        this.stage.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, JUtility::exitWindow);
+        this.stage.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, GameUtility::exitWindow);
         window.focusedProperty().addListener((newValue, onHidden, onShown) -> onFocusChange(newValue.getValue()));
         this.scaleMultiplier = scaleMultiplier;
-        Input.init(getScene());
+        Input.init(this.scene);
 
     }
 
@@ -137,7 +137,7 @@ public class JWindow extends Thing {
      * Set the window's icon
      * @param newIcon New JImage to set as icon
      */
-    public void setIcon(JImage newIcon) {
+    public void setIcon(GameImage newIcon) {
         if (newIcon.getImage() != null)
         {
             stage.getIcons().add(newIcon.getImage());
@@ -180,6 +180,7 @@ public class JWindow extends Thing {
      */
     public void setTargetFPS(float newTargetFPS) {
         targetFPS = newTargetFPS;
+        fpsMili = 1000 / targetFPS;
     }
     public void setBackgroundColor(Color newColor){backgroundColor = newColor;}
     /**
@@ -224,17 +225,16 @@ public class JWindow extends Thing {
      * Logic to update the window targetFPS times/second
      */
     private void refresh() {
-        double SKIP_TICKS = (double) (1000 / targetFPS);
-        double next_game_tick = System.currentTimeMillis();
+        double nextTick = System.currentTimeMillis();
 
         while (isActive) {
-            while (System.currentTimeMillis() > next_game_tick) {
+            while (System.currentTimeMillis() > nextTick) {
+                nextTick += fpsMili;
+
                 if(isPaused)
                     continue;
-
-                update(totalFrames);
                 totalFrames++;
-                next_game_tick += SKIP_TICKS;
+                update(totalFrames);
                 FPSCounter.updateFrame();
             }
 
@@ -248,10 +248,10 @@ public class JWindow extends Thing {
     private void update(int frameNumber) {
         LogDebug(String.format("New frame (#%d)", frameNumber));
         runUpdateBehaviors();
-        JCamera mainCamera = SceneManager.getActiveCamera();
+        GameCamera mainCamera = SceneManager.getActiveCamera();
         if(mainCamera !=null && mainCamera.getActive())
         {
-            mainCamera.InitiateRender();
+            mainCamera.startRender();
         }
 
         // very laggy
@@ -268,11 +268,11 @@ public class JWindow extends Thing {
      * Objects which don't override the function will not have any function
      */
     private void runUpdateBehaviors() {
-        for (ObjRef objRef : SceneManager.getActiveScene().getObjects()) {
-            if(objRef == null || objRef.objRef == null || objRef.objRef.isQueuedForDeletion())
+        for (GameObject objRef : SceneManager.getActiveScene().getObjects()) {
+            if(objRef == null || objRef.isQueuedForDeletion())
                 continue;
-            if(objRef.objRef.getActive())
-                objRef.objRef.Update();
+            if(objRef.getActive())
+                objRef.Update();
         }
     }
 

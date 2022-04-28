@@ -1,15 +1,15 @@
 package com.JEngine.Utility.Settings.SettingTypes;
 
-import com.JEngine.Utility.Settings.JSetting;
+import com.JEngine.Utility.Settings.GameSetting;
 
 /** JSettingFloat (c) Noah Freelove
  * Holds a float value that has events for changing and getting the value.
  */
 
-public class JSettingFloat extends JSetting {
+public class GameSettingFloat extends GameSetting {
     float value;
 
-    public JSettingFloat(String name, float value) {
+    public GameSettingFloat(String name, float value) {
         super(name);
         this.value = value;
     }

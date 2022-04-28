@@ -1,7 +1,7 @@
 package com.JEngine.PrimitiveTypes;
 
 import com.JEngine.PrimitiveTypes.Position.Vector3;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.GameObject;
 
 /** ObjRef (c) Noah Freelove
  * Brief Explanation:
@@ -12,9 +12,9 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
  * **/
 
 public class ObjRef {
-    public JObject objRef;
+    public GameObject objRef;
 
-    public ObjRef(JObject objRef) {
+    public ObjRef(GameObject objRef) {
         super();
         this.objRef = objRef;
     }

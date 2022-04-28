@@ -9,7 +9,7 @@ import java.io.File;
  * JImage is a way to convert images to sprites and ui objects
  **/
 
-public class JImage extends Thing {
+public class GameImage extends Thing {
     private Image image;
     private int xSize;
     private int ySize;
@@ -21,7 +21,7 @@ public class JImage extends Thing {
      * @param xSize image x size
      * @param ySize image y size
      */
-    public JImage(boolean isActive, String filepath, int xSize, int ySize) {
+    public GameImage(boolean isActive, String filepath, int xSize, int ySize) {
         super(isActive);
         this.xSize = xSize;
         this.ySize = ySize;
@@ -40,7 +40,7 @@ public class JImage extends Thing {
      * @param xSize image x size
      * @param ySize image y size
      */
-    public JImage(String filepath, int xSize, int ySize) {
+    public GameImage(String filepath, int xSize, int ySize) {
         super(true);
         this.xSize = xSize;
         this.ySize = ySize;
@@ -54,7 +54,7 @@ public class JImage extends Thing {
     }
 
     // Create a JImage with a JavaFX image
-    public JImage(Image image)
+    public GameImage(Image image)
     {
         super(true);
         this.image = image;
@@ -63,7 +63,7 @@ public class JImage extends Thing {
     }
 
     // Create a JImage with a File
-    public JImage(File file)
+    public GameImage(File file)
     {
         super(true);
         if(file.exists())
@@ -77,7 +77,7 @@ public class JImage extends Thing {
     }
 
     // Create a JImage with a filepath
-    public JImage(String filepath)
+    public GameImage(String filepath)
     {
         super(true);
         Image tmpImage = null;

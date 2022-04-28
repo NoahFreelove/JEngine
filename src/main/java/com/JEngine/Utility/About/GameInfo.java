@@ -6,7 +6,7 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
  * Easily store and get your application's information.
  */
 
-public class JAppInfo {
+public class GameInfo {
     public static String appName;
     public static String[] authors;
     public static int year;

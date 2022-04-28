@@ -1,9 +1,9 @@
 package com.JEngine.Game.PlayersAndPawns;
 
-import com.JEngine.PrimitiveTypes.JImage;
+import com.JEngine.PrimitiveTypes.GameImage;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.GameObject;
 
 /** Sprite (c) Noah Freelove
  * Brief Explanation:
@@ -14,23 +14,23 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
  * Like an object, a sprite cannot be moved directly but can be updated with the parent's transform functions
  * **/
 
-public class JSprite extends JObject {
-    private JImage sprite;
+public class Sprite extends GameObject {
+    private GameImage sprite;
 
     /**
      * Default getter for the sprite
      * @return the sprite
      */
-    public JImage getSprite() {return sprite;}
+    public GameImage getSprite() {return sprite;}
 
     /**
      * Default setter for the sprite
      * @param newSprite the new sprite
      */
-    public void setSprite(JImage newSprite) {sprite = newSprite;}
+    public void setSprite(GameImage newSprite) {sprite = newSprite;}
 
     // Default constructor
-    public JSprite(Transform transform, JImage newSprite, JIdentity jIdentity) {
+    public Sprite(Transform transform, GameImage newSprite, JIdentity jIdentity) {
         super(transform, jIdentity);
         setSprite(newSprite);
     }

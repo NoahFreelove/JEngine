@@ -1,13 +1,12 @@
 package com.JEngine.Game.Visual;
 
-import com.JEngine.Game.PlayersAndPawns.JSprite;
-import com.JEngine.Game.Visual.Scenes.JScene;
+import com.JEngine.Game.PlayersAndPawns.Sprite;
+import com.JEngine.Game.Visual.Scenes.GameScene;
 import com.JEngine.Game.Visual.Scenes.SceneManager;
-import com.JEngine.PrimitiveTypes.ObjRef;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.Position.Vector3;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.GameObject;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.Group;
@@ -15,19 +14,19 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 
-/** JCamera (c) Noah Freelove
+/** GameCamera (c) Noah Freelove
  * Brief Explanation:
- * JCamera converts the objects in a scene to a rendered panel which JWindow can show.
- * JCamera's output depends on its position and FOV (in pixels)
+ * Camera converts the objects in a scene to a rendered panel which JWindow can show.
+ * Camera's output depends on its position and FOV (in pixels)
  * **/
-public class JCamera extends JObject {
+public class GameCamera extends GameObject {
     // fov is added to the right and bottom of the camera, does not start from the middle of the camera
     public float fovX;
     public float fovY;
-    private JScene scene;
-    private final JWindow window;
-    private JObject parent;
-    private JSprite[] sprites;
+    private GameScene scene;
+    private final GameWindow window;
+    private GameObject parent;
+    private Sprite[] sprites;
 
     /**
      * Default constructor
@@ -37,7 +36,7 @@ public class JCamera extends JObject {
      * @param parent parent
      * @param JIdentity Identity
      */
-    public JCamera(Vector3 position, JWindow window, JScene scene, JObject parent, JIdentity JIdentity) {
+    public GameCamera(Vector3 position, GameWindow window, GameScene scene, GameObject parent, JIdentity JIdentity) {
         super(new Transform(position, new Vector3(0,0,0), new Vector3(1,1,1)), JIdentity);
 
         this.window = window;
@@ -54,7 +53,7 @@ public class JCamera extends JObject {
      * @param scene init scene
      * @param JIdentity Identity
      */
-    public JCamera(Vector3 position, JWindow window, JScene scene, JIdentity JIdentity) {
+    public GameCamera(Vector3 position, GameWindow window, GameScene scene, JIdentity JIdentity) {
         super(new Transform(position, new Vector3(0,0,0), new Vector3(1,1,1)), JIdentity);
 
         this.window = window;
@@ -68,18 +67,18 @@ public class JCamera extends JObject {
      * Default setter for parent
      * @param newParent new parent
      */
-    public void setParent(JObject newParent) {parent = newParent;}
+    public void setParent(GameObject newParent) {parent = newParent;}
 
     /**
      * Default getter for parent
      * @return parent
      */
-    public JObject getParent() {return parent;}
+    public GameObject getParent() {return parent;}
 
     /**
      * Start converting objects in the scene to sprites
      */
-    public void InitiateRender()
+    public void startRender()
     {
         convertObjRefToObj();
     }
@@ -88,12 +87,12 @@ public class JCamera extends JObject {
      * Converts all render-able scene objects to sprites
      */
     private void convertObjRefToObj(){
-        sprites = new JSprite[scene.getObjects().length];
+        sprites = new Sprite[scene.getObjects().length];
         int i = 0;
-        for (ObjRef objRef : scene.getObjects()) {
-            if(objRef==null || objRef.objRef.isQueuedForDeletion())
+        for (GameObject objRef : scene.getObjects()) {
+            if(objRef==null || objRef.isQueuedForDeletion())
                 continue;
-            if(objRef.objRef instanceof JSprite sprite){
+            if(objRef instanceof Sprite sprite){
                 sprites[i] = sprite;
                 i++;
             }
@@ -115,7 +114,7 @@ public class JCamera extends JObject {
     private Group RenderObjects()
     {
         Group gameObjects = new Group();
-        for (JSprite sprite : sprites) {
+        for (Sprite sprite : sprites) {
             if (sprite == null) {
                 continue;
             }
@@ -149,19 +148,17 @@ public class JCamera extends JObject {
      */
     private void Render()
     {
-        LogDebug("Start Sprite Render");
-        Group gameObjects = RenderObjects();
-
-        // Add rendered objects to the window
+        LogDebug("Start Object Render");
+        window.refreshWindow(RenderObjects());
         LogDebug("Rendered Objects");
-        window.refreshWindow(gameObjects);
+
     }
 
     /**
      * Set the scene for the camera to render
      * @param activeScene The scene to start rendering
      */
-    public void setActiveScene(JScene activeScene){
+    public void setActiveScene(GameScene activeScene){
         scene = activeScene;
         LogInfo("Changed active scene");
     }
@@ -170,7 +167,7 @@ public class JCamera extends JObject {
      * Get the scene that the camera is rendering
      * @return The scene that the camera is rendering
      */
-    public JScene getScene() {
+    public GameScene getScene() {
         return scene;
     }
 
@@ -178,7 +175,7 @@ public class JCamera extends JObject {
      * Get the window that this camera is using
      * @return The window that this camera is using
      */
-    public JWindow getWindow() {
+    public GameWindow getWindow() {
         return window;
     }
 
@@ -186,7 +183,7 @@ public class JCamera extends JObject {
      * Get the camera's parent object
      * @return the camera's parent object
      */
-    public JObject getParentObject() {
+    public GameObject getParentObject() {
         return parent;
     }
 }

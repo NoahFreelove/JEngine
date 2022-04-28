@@ -1,7 +1,7 @@
 package com.JEngine.Game.Visual.Scenes;
 
-import com.JEngine.Game.Visual.JCamera;
-import com.JEngine.Game.Visual.JWindow;
+import com.JEngine.Game.Visual.GameCamera;
+import com.JEngine.Game.Visual.GameWindow;
 import javafx.application.Platform;
 
 /** SceneManager (c) Noah Freelove
@@ -11,15 +11,15 @@ import javafx.application.Platform;
  */
 
 public class SceneManager {
-    private static JScene activeScene;
-    private static JWindow window;
-    private static JCamera activeCamera;
+    private static GameScene activeScene;
+    private static GameWindow window;
+    private static GameCamera activeCamera;
     private static boolean hasInit;
     /**
      * Get the active scene
      * @return active scene
      */
-    public static JScene getActiveScene() {
+    public static GameScene getActiveScene() {
         return activeScene;
     }
 
@@ -29,7 +29,7 @@ public class SceneManager {
      * @param newWindow initial window
      * @param newMainCamera initial main camera
      */
-    public static void init(JScene newScene, JWindow newWindow, JCamera newMainCamera)
+    public static void init(GameScene newScene, GameWindow newWindow, GameCamera newMainCamera)
     {
         if(hasInit)
             return;
@@ -45,7 +45,7 @@ public class SceneManager {
      * Set the active scene
      * @param newScene new active scene
      */
-    public static void switchScene(JScene newScene) {
+    public static void switchScene(GameScene newScene) {
         Platform.runLater(() -> {
             activeCamera.setActiveScene(newScene);
             window.parent.getChildren().remove(activeScene.uiObjects);
@@ -58,7 +58,7 @@ public class SceneManager {
      * Set the active window
      * @param newWindow new active window
      */
-    public static void setWindow(JWindow newWindow)
+    public static void setWindow(GameWindow newWindow)
     {
         newWindow.setScene(window.getScene());
         SceneManager.window = newWindow;
@@ -68,7 +68,7 @@ public class SceneManager {
      * Set the active camera
      * @param newMainCamera new active camera
      */
-    public static void setActiveCamera(JCamera newMainCamera)
+    public static void setActiveCamera(GameCamera newMainCamera)
     {
         SceneManager.activeCamera = newMainCamera;
     }
@@ -77,7 +77,7 @@ public class SceneManager {
      * Get the active window
      * @return active window
      */
-    public static JWindow getWindow() {
+    public static GameWindow getWindow() {
         return window;
     }
 
@@ -85,7 +85,7 @@ public class SceneManager {
      * Get the active camera
      * @return the active camera
      */
-    public static JCamera getActiveCamera() {
+    public static GameCamera getActiveCamera() {
         return activeCamera;
     }
 }

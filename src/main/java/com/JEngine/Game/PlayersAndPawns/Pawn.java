@@ -1,11 +1,11 @@
 package com.JEngine.Game.PlayersAndPawns;
 
-import com.JEngine.Game.PlayersAndPawns.Colliders.JBoxCollider;
-import com.JEngine.PrimitiveTypes.JImage;
+import com.JEngine.Game.PlayersAndPawns.Colliders.BoxCollider;
+import com.JEngine.PrimitiveTypes.GameImage;
 import com.JEngine.PrimitiveTypes.Position.*;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
-import com.JEngine.Utility.JMath;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.GameObject;
+import com.JEngine.Utility.GameMath;
 
 /** JPawn (c) Noah Freelove
  * Brief Explanation:
@@ -17,11 +17,11 @@ import com.JEngine.Utility.JMath;
  * The player class extends off the pawn class and can take inputs
  * **/
 
-public class JPawn extends JSprite {
+public class Pawn extends Sprite {
     // Every JPawn has a collider, it must be initialized though
-    private JBoxCollider collider;
+    private BoxCollider collider;
 
-    public JPawn(Transform transform, JImage newSprite, JIdentity jIdentity) {
+    public Pawn(Transform transform, GameImage newSprite, JIdentity jIdentity) {
         super(transform,newSprite, jIdentity);
     }
 
@@ -29,14 +29,14 @@ public class JPawn extends JSprite {
      * onCollisionEnter event, called when the Pawn's collider hits another object
      * @param other the other object that the collider has collided with
      */
-    public void onCollisionEnter(JObject other) {
+    public void onCollisionEnter(GameObject other) {
     }
 
     /**
      * get the pawn's collider
      * @return the pawn's collider
      */
-    public JBoxCollider getCollider() {
+    public BoxCollider getCollider() {
         return collider;
     }
 
@@ -44,7 +44,7 @@ public class JPawn extends JSprite {
      * set the pawn's collider
      * @param collider the new collider
      */
-    public void setCollider(JBoxCollider collider) {
+    public void setCollider(BoxCollider collider) {
         this.collider = collider;
     }
 
@@ -55,7 +55,7 @@ public class JPawn extends JSprite {
      * @param clockwise true if the rotation is clockwise, false if counterclockwise
      */
     public void Rotate(Vector2 direction, float amount, boolean clockwise) {
-        amount = JMath.clamp(0,Float.MAX_VALUE, amount);
+        amount = GameMath.clamp(0,Float.MAX_VALUE, amount);
 
         int d = clockwise ? 1 : -1;
         direction.setX(getTransform().getRotation().x + direction.getX()*amount*d);
@@ -71,7 +71,7 @@ public class JPawn extends JSprite {
      * @return true if the pawn can move, false if it cannot
      */
     public boolean canMove(float xDisplacement, float yDisplacement) {
-        JBoxCollider tmpCollider = new JBoxCollider(new Transform(getTransform()), new JIdentity("tmpCollider", "boxCollider"), getSprite().getWidth(), getSprite().getHeight(), this, false);
+        BoxCollider tmpCollider = new BoxCollider(new Transform(getTransform()), new JIdentity("tmpCollider", "boxCollider"), getSprite().getWidth(), getSprite().getHeight(), this, false);
 
         tmpCollider.getTransform().setPosition(new Vector3(getTransform().getPosition().x + xDisplacement, getTransform().getPosition().y + yDisplacement, getTransform().getPosition().z));
         return !tmpCollider.isCollidingWithHard();

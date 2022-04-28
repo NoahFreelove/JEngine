@@ -1,6 +1,6 @@
 package com.JEngine.Game.Visual.Animation;
 
-import com.JEngine.PrimitiveTypes.JImage;
+import com.JEngine.PrimitiveTypes.GameImage;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 
 /** JAnimationTimeline (c) Noah Freelove
@@ -15,15 +15,15 @@ public class JAnimationTimeline {
     public AnimState currState;
     int frameIndex;
 
-    public JImage[] idleFrames;
-    public JImage[] leftFrames;
-    public JImage[] rightFrames;
-    public JImage[] downFrames;
-    public JImage[] upFrames;
-    public JImage[] specialFrames;
-    public JImage[] special2Frames;
-    public JImage[] special3Frames;
-    public JImage[] special4Frames;
+    public GameImage[] idleFrames;
+    public GameImage[] leftFrames;
+    public GameImage[] rightFrames;
+    public GameImage[] downFrames;
+    public GameImage[] upFrames;
+    public GameImage[] specialFrames;
+    public GameImage[] special2Frames;
+    public GameImage[] special3Frames;
+    public GameImage[] special4Frames;
 
     /**
      * Initializes the timeline with the given frames
@@ -35,31 +35,31 @@ public class JAnimationTimeline {
     public JAnimationTimeline(AnimFrame[][] frames, AnimState initState, int maxFramesInAnim) {
         this.currState = initState;
         // if a frame is null, it will be skipped. maxFramesInAnim is just to not make a huge array
-        idleFrames = new JImage[maxFramesInAnim];
+        idleFrames = new GameImage[maxFramesInAnim];
         int idleCount = 0;
 
-        leftFrames = new JImage[maxFramesInAnim];
+        leftFrames = new GameImage[maxFramesInAnim];
         int leftCount = 0;
 
-        rightFrames = new JImage[maxFramesInAnim];
+        rightFrames = new GameImage[maxFramesInAnim];
         int rightCount = 0;
 
-        upFrames = new JImage[maxFramesInAnim];
+        upFrames = new GameImage[maxFramesInAnim];
         int upCount = 0;
 
-        downFrames = new JImage[maxFramesInAnim];
+        downFrames = new GameImage[maxFramesInAnim];
         int downCount = 0;
 
-        specialFrames = new JImage[maxFramesInAnim];
+        specialFrames = new GameImage[maxFramesInAnim];
         int specialCount = 0;
 
-        special2Frames = new JImage[maxFramesInAnim];
+        special2Frames = new GameImage[maxFramesInAnim];
         int special2Count = 0;
 
-        special3Frames = new JImage[maxFramesInAnim];
+        special3Frames = new GameImage[maxFramesInAnim];
         int special3Count = 0;
 
-        special4Frames = new JImage[maxFramesInAnim];
+        special4Frames = new GameImage[maxFramesInAnim];
         int special4Count = 0;
 
         boolean invalidEntry = false;
@@ -182,9 +182,9 @@ public class JAnimationTimeline {
      * get the next frame of the current state
      * @return the next frame of the current state. Will return null JImage if there is no frame for the current state!
      */
-    public JImage getNextFrame()
+    public GameImage getNextFrame()
     {
-        JImage tmp = null;
+        GameImage tmp = null;
         try {
             switch (currState)
             {

@@ -1,11 +1,12 @@
 package com.JEngine.Game.PlayersAndPawns.Colliders;
 
-import com.JEngine.Game.PlayersAndPawns.JPawn;
+import com.JEngine.Game.PlayersAndPawns.Pawn;
+import com.JEngine.Game.Visual.GameCamera;
 import com.JEngine.Game.Visual.Scenes.SceneManager;
 import com.JEngine.PrimitiveTypes.ObjRef;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.GameObject;
 
 /**
  * JBoxCollider (c) Noah Freelove
@@ -17,10 +18,10 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
  * Detect if a collider is in range of another collider
  *
  */
-public class JBoxCollider extends JObject {
+public class BoxCollider extends GameObject {
 
     // the JPawn that this collider belongs to
-    private final JObject parent;
+    private final GameObject parent;
 
     public int sizeX;
     public int sizeY;
@@ -37,7 +38,7 @@ public class JBoxCollider extends JObject {
      * @param sizeY - The size of the object in the y direction
      * @param parent - The parent of the object
      */
-    public JBoxCollider(Transform transform, JIdentity JIdentity, int sizeX, int sizeY, JObject parent) {
+    public BoxCollider(Transform transform, JIdentity JIdentity, int sizeX, int sizeY, GameObject parent) {
         super(transform, JIdentity);
         this.sizeX = sizeX;
         this.sizeY = sizeY;
@@ -52,7 +53,7 @@ public class JBoxCollider extends JObject {
      * @param parent - The parent of the object
      * @param trigger - Whether the collider is a trigger
      */
-    public JBoxCollider(Transform transform, JIdentity JIdentity, int sizeX, int sizeY, JObject parent, boolean trigger) {
+    public BoxCollider(Transform transform, JIdentity JIdentity, int sizeX, int sizeY, GameObject parent, boolean trigger) {
         super(transform, JIdentity);
         this.sizeX = sizeX;
         this.sizeY = sizeY;
@@ -69,7 +70,7 @@ public class JBoxCollider extends JObject {
      * @param otherObject - The other object to check
      * @return if the collider is colliding with the other object
      */
-    public boolean isCollidingWith(JBoxCollider otherObject)
+    public boolean isCollidingWith(BoxCollider otherObject)
     {
         if(otherObject == null)
         {
@@ -92,7 +93,7 @@ public class JBoxCollider extends JObject {
      * get the parent of the collider
      * @return the parent of the collider
      */
-    public JObject getParent() {
+    public GameObject getParent() {
         return parent;
     }
 
@@ -102,12 +103,12 @@ public class JBoxCollider extends JObject {
      */
     public void checkAllCollision()
     {
-        for (ObjRef o :
+        for (GameObject o :
                 SceneManager.getActiveScene().getObjects()) {
-            if (o == null || o.objRef == null) continue;
-            JBoxCollider pawnCollider;
+            if (o == null) continue;
+            BoxCollider pawnCollider;
             // make sure the object has a collider
-            if(o.objRef instanceof JPawn p)
+            if(o instanceof Pawn p)
             {
                 pawnCollider = p.getCollider();
             }
@@ -138,13 +139,13 @@ public class JBoxCollider extends JObject {
     public boolean isCollidingWithHard()
     {
         // go through every sceneobject check for hard collider
-        for (ObjRef o :
+        for (GameObject o :
                 SceneManager.getActiveScene().getObjects()) {
             if (o == null) continue;
-            JBoxCollider pawnCollider;
+            BoxCollider pawnCollider;
 
             try {
-                pawnCollider = ((JPawn) o.objRef).getCollider();
+                pawnCollider = ((Pawn) o).getCollider();
             }
             catch (Exception e)
             {
@@ -167,11 +168,11 @@ public class JBoxCollider extends JObject {
      * called when a collision occurs
      * @param otherObj  - the other object that collided with this object
      */
-    public void onCollision(JBoxCollider otherObj){
+    public void onCollision(BoxCollider otherObj){
         calls++;
         if(calls == 1)
             return;
-        if(parent instanceof JPawn parentPawn && otherObj.parent instanceof JPawn otherPawn)
+        if(parent instanceof Pawn parentPawn && otherObj.parent instanceof Pawn otherPawn)
         {
             parentPawn.onCollisionEnter(otherPawn);
         }

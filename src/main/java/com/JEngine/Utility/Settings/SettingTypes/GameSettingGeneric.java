@@ -1,15 +1,15 @@
 package com.JEngine.Utility.Settings.SettingTypes;
 
-import com.JEngine.Utility.Settings.JSetting;
+import com.JEngine.Utility.Settings.GameSetting;
 
 /** JSettingGeneric (c) Noah Freelove
  * Holds an object value that has events for changing and getting the value.
  */
 
-public class JSettingGeneric extends JSetting{
+public class GameSettingGeneric extends GameSetting {
     private Object value;
 
-    public JSettingGeneric(String name, Object value) {
+    public GameSettingGeneric(String name, Object value) {
         super(name);
         this.value = value;
     }

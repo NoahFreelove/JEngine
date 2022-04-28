@@ -1,9 +1,8 @@
 package com.JEngine.Game.Visual.Scenes;
 
 import com.JEngine.Game.Visual.SearchType;
-import com.JEngine.PrimitiveTypes.ObjRef;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.GameObject;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
@@ -18,9 +17,9 @@ import static com.JEngine.Game.Visual.Scenes.SceneQuicksort.quickSortZ;
  * JScene is how you hold and load all the objects in your scene into memory.
  * Helpful for loading and switching between levels in a game for example.
  */
-public class JScene extends Thing {
+public class GameScene extends Thing {
     // Objects in the scene
-    private ObjRef[] sceneObjects;
+    private GameObject[] sceneObjects;
 
     // The scene's name
     private String sceneName;
@@ -35,17 +34,17 @@ public class JScene extends Thing {
     /**
      * @param sceneName Name of the scene. Can be changed with setSceneName(String newName)
      */
-    public JScene(int sceneDefaultSize, String sceneName) {
+    public GameScene(int sceneDefaultSize, String sceneName) {
         super(true);
         this.sceneName = sceneName;
-        sceneObjects = new ObjRef[sceneDefaultSize];
+        sceneObjects = new GameObject[sceneDefaultSize];
     }
 
     /**
      * @param sceneName Name of the scene. Can be changed with setSceneName(String newName)
      * @param url URL to the FXML file
      */
-    public JScene(int sceneDefaultSize, String sceneName, URL url) {
+    public GameScene(int sceneDefaultSize, String sceneName, URL url) {
         super(true);
         setUiURL(url);
         try {
@@ -56,7 +55,7 @@ public class JScene extends Thing {
 
         loadUI();
         this.sceneName = sceneName;
-        sceneObjects = new ObjRef[sceneDefaultSize];
+        sceneObjects = new GameObject[sceneDefaultSize];
     }
 
     /**
@@ -86,7 +85,7 @@ public class JScene extends Thing {
      */
     private boolean sceneHasRoom()
     {
-        for (ObjRef sceneObject : sceneObjects) {
+        for (GameObject sceneObject : sceneObjects) {
             if (sceneObject == null)
                 return true;
         }
@@ -98,9 +97,9 @@ public class JScene extends Thing {
      */
     public void sortByZ(){
         // create instance of Object array
-        ObjRef[] temp = new ObjRef[sceneObjects.length];
+        GameObject[] temp = new GameObject[sceneObjects.length];
         int i = 0;
-        for (ObjRef o: sceneObjects) {
+        for (GameObject o: sceneObjects) {
             temp[i] = o;
             i++;
         }
@@ -113,7 +112,7 @@ public class JScene extends Thing {
      * Wil over-write the object if it is queued for deletion
      * @param o Object to add to the scene
      */
-    public void add(JObject o) {
+    public void add(GameObject o) {
 
         if (o == null || o.getTransform() == null) {
             LogWarning("Tried to add null object or transform to scene!");
@@ -121,27 +120,27 @@ public class JScene extends Thing {
         }
         for (int i = 0; i < sceneObjects.length; i++) {
             if (sceneObjects[i] == null) {
-                sceneObjects[i] = new ObjRef(o);
+                sceneObjects[i] = o;
                 LogExtra(String.format("Added '%s' (%s) to the scene Successfully", o.getJIdentity().getName(), o.getClass().getSimpleName()));
                 // sort by z to make sure the objects are in the correct order, not just how they're added to the array
                 sortByZ();
                 return;
             }
-            else if(sceneObjects[i].objRef.isQueuedForDeletion() && !sceneHasRoom())
+            else if(sceneObjects[i].isQueuedForDeletion() && !sceneHasRoom())
             {
-                sceneObjects[i] = new ObjRef(o);
-                LogExtra(String.format("Overwrote '%s' (%s) queued for deletion. Added '%s' (%s) to the scene Successfully",sceneObjects[i].objRef.getJIdentity().getName(), sceneObjects[i].objRef.getClass().getSimpleName(), o.getJIdentity().getName(), o.getClass().getSimpleName()));
+                sceneObjects[i] = o;
+                LogExtra(String.format("Overwrote '%s' (%s) queued for deletion. Added '%s' (%s) to the scene Successfully",sceneObjects[i].getJIdentity().getName(), sceneObjects[i].getClass().getSimpleName(), o.getJIdentity().getName(), o.getClass().getSimpleName()));
                 // sort by z to make sure the objects are in the correct order, not just how they're added to the array
                 sortByZ();
                 return;
             }
         }
         // if scene is full, create a new array with 2 more spaces
-        ObjRef[] temp = new ObjRef[sceneObjects.length + 2];
+        GameObject[] temp = new GameObject[sceneObjects.length + 2];
         for (int i = 0; i < sceneObjects.length; i++) {
             temp[i] = sceneObjects[i];
         }
-        temp[temp.length - 1] = new ObjRef(o);
+        temp[temp.length - 1] = o;
         sceneObjects = temp;
         sortByZ();
         LogExtra(String.format("Added '%s' (%s) to the scene Successfully", o.getJIdentity().getName(), o.getClass().getSimpleName()));
@@ -157,7 +156,7 @@ public class JScene extends Thing {
      * its name and tag, or reference
      * @param o The JObject to remove
      */
-    public void remove(JObject o)
+    public void remove(GameObject o)
     {
         o.setQueuedForDeletion(true);
         LogExtra(String.format("Queued object '%s' (%s) for deletion.", o.getJIdentity().getName(), o.getClass().getSimpleName()));
@@ -167,11 +166,11 @@ public class JScene extends Thing {
      * Attempt to restore an object Queued For Deletion
      * @param o Object to restore
      */
-    public void unDelete(JObject o)
+    public void unDelete(GameObject o)
     {
-        for (ObjRef ref :
+        for (GameObject ref :
                 sceneObjects) {
-            if(ref.objRef == o && ref.objRef.isQueuedForDeletion())
+            if(ref == o && ref.isQueuedForDeletion())
             {
                 o.setQueuedForDeletion(false);
                 LogExtra(String.format("Un-deleted '%s' (%s)", o.getJIdentity().getName(), o.getClass().getSimpleName()));
@@ -186,19 +185,19 @@ public class JScene extends Thing {
      */
     public void unDelete(JIdentity identity)
     {
-        for (ObjRef ref :
+        for (GameObject ref :
                 sceneObjects) {
-            if(ref.objRef.getJIdentity().toString().equals(identity.getName() + " : " + identity.getTag()) && ref.objRef.isQueuedForDeletion())
+            if(ref.getJIdentity().toString().equals(identity.getName() + " : " + identity.getTag()) && ref.isQueuedForDeletion())
             {
-                ref.objRef.setQueuedForDeletion(false);
-                LogExtra(String.format("Un-deleted '%s' (%s)", ref.objRef.getJIdentity().getName(), ref.objRef.getClass().getSimpleName()));
+                ref.setQueuedForDeletion(false);
+                LogExtra(String.format("Un-deleted '%s' (%s)", ref.getJIdentity().getName(), ref.getClass().getSimpleName()));
                 return;
             }
         }
         LogExtra(String.format("Could not Un-delete '%s'", identity.getName()));
     }
 
-    public ObjRef[] getObjects() {
+    public GameObject[] getObjects() {
         return sceneObjects;
     }
 
@@ -206,7 +205,7 @@ public class JScene extends Thing {
      * Set all the scene objects
      * @param sceneObjects Objects to set
      */
-    public void setSceneObjects(ObjRef[] sceneObjects) {
+    public void setSceneObjects(GameObject[] sceneObjects) {
         this.sceneObjects = sceneObjects;
     }
 
@@ -215,11 +214,11 @@ public class JScene extends Thing {
      */
     public void runStartBehaviors()
     {
-        for (ObjRef sceneObject : sceneObjects) {
+        for (GameObject sceneObject : sceneObjects) {
             if (sceneObject != null) {
-                if(sceneObject.objRef.getActive())
+                if(sceneObject.getActive())
                 {
-                    sceneObject.objRef.Start();
+                    sceneObject.Start();
                 }
             }
         }
@@ -238,34 +237,34 @@ public class JScene extends Thing {
      * @param searchType The type of search you would like to do. (SearchByName, SearchByTag, SearchByNameAndTag)
      * @return JObject reference from the scene
      */
-    public JObject[] findObjectsByIdentity(String name, String tag, SearchType searchType) {
+    public GameObject[] findObjectsByIdentity(String name, String tag, SearchType searchType) {
         int count = 0;
-        JObject[] sceneSize = new JObject[sceneObjects.length];
+        GameObject[] sceneSize = new GameObject[sceneObjects.length];
 
         for (int i = 0; i < sceneObjects.length; i++) {
             if (sceneObjects[i] != null) {
 
                 if (searchType == SearchType.SearchByName) {
-                    if (sceneObjects[i].objRef.getJIdentity().compareName(name)) {
-                        sceneSize[i] = sceneObjects[i].objRef;
+                    if (sceneObjects[i].getJIdentity().compareName(name)) {
+                        sceneSize[i] = sceneObjects[i];
                         count++;
                     }
                 } else if (searchType == SearchType.SearchByTag) {
-                    if (sceneObjects[i].objRef.getJIdentity().compareTag(tag)) {
-                        sceneSize[i] = sceneObjects[i].objRef;
+                    if (sceneObjects[i].getJIdentity().compareTag(tag)) {
+                        sceneSize[i] = sceneObjects[i];
                         count++;
                     }
                 } else {
-                    if (sceneObjects[i].objRef.getJIdentity().compareTag(tag) && sceneObjects[i].objRef.getJIdentity().compareName(name)) {
-                        sceneSize[i] = sceneObjects[i].objRef;
+                    if (sceneObjects[i].getJIdentity().compareTag(tag) && sceneObjects[i].getJIdentity().compareName(name)) {
+                        sceneSize[i] = sceneObjects[i];
                         count++;
                     }
                 }
             }
         }
-        JObject[] searchResult = new JObject[count];
+        GameObject[] searchResult = new GameObject[count];
         int i = 0;
-        for (JObject o:
+        for (GameObject o:
              sceneSize) {
             if(o != null)
             {
@@ -279,20 +278,20 @@ public class JScene extends Thing {
     /**
      * Find all objects of the same class
      */
-    public JObject[] findObjectsByClass(String className) {
+    public GameObject[] findObjectsByClass(String className) {
         int count = 0;
-        JObject[] searchResult = new JObject[1];
+        GameObject[] searchResult = new GameObject[1];
 
         for (int i = 0; i < sceneObjects.length; i++) {
             if (sceneObjects[i] != null) {
-                if (sceneObjects[i].objRef.getJIdentity().getClass().getSimpleName().equals(className)) {
+                if (sceneObjects[i].getJIdentity().getClass().getSimpleName().equals(className)) {
                     if(count>searchResult.length)
                     {
-                        JObject[] temp = new JObject[searchResult.length*2];
+                        GameObject[] temp = new GameObject[searchResult.length*2];
                         System.arraycopy(searchResult, 0, temp, 0, searchResult.length);
                         searchResult = temp;
                     }
-                    searchResult[count] = sceneObjects[i].objRef;
+                    searchResult[count] = sceneObjects[i];
                     count++;
                 }
             }
@@ -306,7 +305,7 @@ public class JScene extends Thing {
      * @param force If the new scene has a lower maxObjectCount, discard the objects that cannot fit in
      * @param switchSceneUponCompletion Automatically switch scenes when migration is complete?
      */
-    public void migrateScene(JScene newScene, boolean force, boolean switchSceneUponCompletion)
+    public void migrateScene(GameScene newScene, boolean force, boolean switchSceneUponCompletion)
     {
         if((newScene.sceneObjects.length < sceneObjects.length) && !force)
         {
@@ -349,7 +348,7 @@ public class JScene extends Thing {
      */
     public void purge()
     {
-        sceneObjects = new ObjRef[sceneObjects.length];
+        sceneObjects = new GameObject[sceneObjects.length];
         LogInfo(String.format("Purged scene: '%s' of ALL contents.", getSceneName()));
     }
 }

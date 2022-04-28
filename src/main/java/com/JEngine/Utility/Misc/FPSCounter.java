@@ -2,17 +2,17 @@ package com.JEngine.Utility.Misc;
 
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.GameObject;
 import javafx.scene.text.Text;
 
 /** FPSCounter (c) Noah Freelove
  * Create a JavaFX text that updates every second and displays the current FPS.
  */
-public class FPSCounter extends JObject {
+public class FPSCounter extends GameObject {
 
     private static int framesSinceLastSecond;
     private static int avgFPS;
-    private static final JTimer resetFPS = new JTimer(1000, new GenericMethodCall[]{args -> reset()});
+    private static final GameTimer resetFPS = new GameTimer(1000, new GenericMethod[]{args -> reset()});
     public Text fpsText;
 
     public FPSCounter() {

@@ -5,11 +5,11 @@ package com.JEngine.Utility.Settings;
  * It is static, so you need to initialize it before using it.
  */
 
-public class JSettingManager {
-    static JSettingCategory[] settingCategories;
+public class GameSettingManager {
+    static GameSettingCategory[] settingCategories;
 
     // make sure to init with the categories!
-    public static void init(JSettingCategory[] categories){
+    public static void init(GameSettingCategory[] categories){
         settingCategories = categories;
     }
 
@@ -17,16 +17,16 @@ public class JSettingManager {
      * Get the settings categories
      * @return settings categories
      */
-    public JSettingCategory[] getSettingCategories() {return settingCategories;}
+    public GameSettingCategory[] getSettingCategories() {return settingCategories;}
 
     /**
      * Get a setting category by name
      * @param name name of the category
      * @return the category
      */
-    public static JSettingCategory getSettingCategoryByName(String name)
+    public static GameSettingCategory getSettingCategoryByName(String name)
     {
-        for (JSettingCategory category :
+        for (GameSettingCategory category :
                 settingCategories) {
             if(category.getCategoryName().equals(name))
             {
@@ -42,15 +42,15 @@ public class JSettingManager {
      * @param categoryName name of the category
      * @return the setting
      */
-    public static JSetting getSpecificSetting(String categoryName, String settingName)
+    public static GameSetting getSpecificSetting(String categoryName, String settingName)
     {
-        JSettingCategory category = getSettingCategoryByName(categoryName);
+        GameSettingCategory category = getSettingCategoryByName(categoryName);
         if(category == null)
         {
             return null;
         }
 
-        JSetting setting = category.getSettingByName(settingName);
+        GameSetting setting = category.getSettingByName(settingName);
 
         if(setting == null)
         {

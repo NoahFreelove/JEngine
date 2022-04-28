@@ -1,20 +1,20 @@
 package com.JEngine.Utility.Settings;
 
-import com.JEngine.Utility.Misc.GenericMethodCall;
+import com.JEngine.Utility.Misc.GenericMethod;
 
 /** JSetting (c) Noah Freelove
  * Holds an object value that has events for changing and getting the value.
  */
 
-public class JSetting {
+public class GameSetting {
     private final String settingName;
-    GenericMethodCall valueChangedEvent = null;
+    GenericMethod valueChangedEvent = null;
 
     /**
      * Creates a new generic setting
      * @param settingName Setting name to use
      */
-    public JSetting(String settingName) {
+    public GameSetting(String settingName) {
         this.settingName = settingName;
     }
 
@@ -40,7 +40,7 @@ public class JSetting {
      * set the event called when the value is updated
      * @param w Event to call
      */
-    public void setEventValueChanged(GenericMethodCall w)
+    public void setEventValueChanged(GenericMethod w)
     {
         valueChangedEvent = w;
     }

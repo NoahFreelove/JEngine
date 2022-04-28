@@ -2,22 +2,22 @@ package com.JEngine.Utility.Misc;
 
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 
-/** JTimer (c) Noah Freelove
- * JTimer is a very useful class for running methods every interval
+/** GameTimer (c) Noah Freelove
+ * GameTimer is a very useful class for running methods every interval
  */
 
-public class JTimer {
+public class GameTimer {
     private long interval;
     private long intervalRemaining;
     private boolean isRunning;
-    private GenericMethodCall[] runEvents;
+    private GenericMethod[] runEvents;
 
     /**
      * Create a timer that ticks every interval
      * @param interval interval for each tick in milliseconds
      * @param runEvents events to run each tick
      */
-    public JTimer(long interval, GenericMethodCall[] runEvents) {
+    public GameTimer(long interval, GenericMethod[] runEvents) {
         this.interval = interval;
         this.runEvents = runEvents;
     }
@@ -60,7 +60,7 @@ public class JTimer {
      * Runs the interval behaviors
      */
     private void runBehaviors() {
-        for (GenericMethodCall method :
+        for (GenericMethod method :
                 runEvents) {
          method.call(null);
         }

@@ -1,35 +1,29 @@
 package com.basicexample;
 
-import com.JEngine.Game.PlayersAndPawns.Colliders.JBoxCollider;
-import com.JEngine.Game.PlayersAndPawns.JPlayer;
-import com.JEngine.Game.Visual.Scenes.JSceneManager;
-import com.JEngine.PrimitiveTypes.JImage;
+import com.JEngine.Game.PlayersAndPawns.Colliders.BoxCollider;
+import com.JEngine.Game.PlayersAndPawns.Player;
+import com.JEngine.Game.Visual.Scenes.SceneManager;
+import com.JEngine.PrimitiveTypes.GameImage;
 import com.JEngine.PrimitiveTypes.Position.Direction;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JObject;
 import com.JEngine.Utility.Input;
-import com.JEngine.Utility.JMath;
 import javafx.scene.input.KeyCode;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
-public class CustomPlayer extends JPlayer {
+public class CustomPlayer extends Player {
     public boolean canMove;
     public int moveSpeed;
     private boolean flipFlop;
 
     Rectangle rect;
 
-    public CustomPlayer(Transform transform, JImage newSprite, JIdentity identity, boolean move, int moveSpeed) {
+    public CustomPlayer(Transform transform, GameImage newSprite, JIdentity identity, boolean move, int moveSpeed) {
         super(transform, newSprite, identity);
         this.moveSpeed = moveSpeed;
-        setCollider(new JBoxCollider(transform, identity,128,128,this, false));
+        setCollider(new BoxCollider(transform, identity,128,128,this, false));
         this.canMove = move;
         // create rect center screen
-        rect = new Rectangle(JSceneManager.getWindow().getStage().getWidth()/2, JSceneManager.getWindow().getStage().getHeight()/2, 30, 30);
-        JSceneManager.getActiveScene().uiObjects.getChildren().add(rect);
     }
 
     @Override
@@ -37,16 +31,13 @@ public class CustomPlayer extends JPlayer {
         if(key == KeyCode.X)
         {
             flipFlop = !flipFlop;
-            JSceneManager.getWindow().setWindowScale((flipFlop)? 0.5f:1);
+            SceneManager.getWindow().setWindowScale((flipFlop)? 0.5f:1);
         }
     }
 
     @Override
     public void Update()
     {
-        Color c = (Color)rect.getFill();
-        rect.setFill(new Color(JMath.repeat((float)c.getRed(), 0, 0.9f,0.01f), JMath.repeat((float)c.getGreen(), 0, 0.5f,0.01f), JMath.repeat((float)c.getBlue(), 0, 0.3f,0.01f),1));
-
         if(canMove && getJIdentity().compareName("Player 1")) {
             if (Input.W_Pressed)
                 Move(Direction.Up, moveSpeed);

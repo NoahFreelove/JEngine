@@ -1,6 +1,6 @@
 package com.JEngine.Utility.ImageProcessing;
 
-import com.JEngine.Game.Visual.JWindow;
+import com.JEngine.Game.Visual.GameWindow;
 import com.JEngine.Game.Visual.Scenes.SceneManager;
 
 import javax.imageio.ImageIO;
@@ -23,7 +23,7 @@ public class Screenshot {
     {
         BufferedImage image = null;
         try {
-            JWindow window = SceneManager.getWindow();
+            GameWindow window = SceneManager.getWindow();
             Rectangle screenRect = new Rectangle((int) window.getStage().getX()+10,(int) window.getStage().getY(),(int)(1280*window.getScaleMultiplier()),(int)(720*window.getScaleMultiplier()));
             image = new Robot().createScreenCapture(new Rectangle(screenRect));
         }catch (Exception ignored) {

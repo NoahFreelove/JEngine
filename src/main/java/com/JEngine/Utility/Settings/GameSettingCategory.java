@@ -3,11 +3,11 @@ package com.JEngine.Utility.Settings;
 /** JSettingCategory (c) Noah Freelove
  * Holds an array of settings with a name.
  */
-public class JSettingCategory {
+public class GameSettingCategory {
     private final String categoryName;
-    JSetting[] settings;
+    GameSetting[] settings;
 
-    public JSettingCategory(String name, JSetting[] settings) {
+    public GameSettingCategory(String name, GameSetting[] settings) {
         this.categoryName = name;
         this.settings = settings;
     }
@@ -17,9 +17,9 @@ public class JSettingCategory {
      * @param name The name of the setting.
      * @return the setting.
      */
-    public JSetting getSettingByName(String name)
+    public GameSetting getSettingByName(String name)
     {
-        for (JSetting setting :
+        for (GameSetting setting :
                 settings) {
             if(setting.getName().equals(name))
             {

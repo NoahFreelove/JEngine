@@ -1,8 +1,9 @@
 package com.JEngine.Utility;
 
-import com.JEngine.Game.PlayersAndPawns.JPlayer;
+import com.JEngine.Game.PlayersAndPawns.Player;
 import com.JEngine.Game.Visual.Scenes.SceneManager;
 import com.JEngine.PrimitiveTypes.ObjRef;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.GameObject;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -83,11 +84,10 @@ public class Input {
      * @param scene JavaFX scene to add handlers to
      */
     public static void init(Scene scene) {
-        if (SceneManager.getActiveScene() != null)
-        {
-            scene.addEventHandler(KeyEvent.KEY_PRESSED, Input::keyPressEvent);
-            scene.addEventHandler(KeyEvent.KEY_RELEASED, Input::keyReleaseEvent);
-        }
+
+        scene.addEventHandler(KeyEvent.KEY_PRESSED, Input::keyPressEvent);
+        scene.addEventHandler(KeyEvent.KEY_RELEASED, Input::keyReleaseEvent);
+
     }
 
     /**
@@ -96,11 +96,11 @@ public class Input {
      */
     private static void keyPressEvent(KeyEvent key)
     {
-        for (ObjRef o :
+        for (GameObject o :
                 SceneManager.getActiveScene().getObjects()) {
             try
             {
-                ((JPlayer)o.objRef).onKeyPressed(key.getCode());
+                ((Player)o).onKeyPressed(key.getCode());
             }
             catch (Exception ignore){}
         }
@@ -113,11 +113,11 @@ public class Input {
      */
     private static void keyReleaseEvent(KeyEvent key)
     {
-        for (ObjRef o :
+        for (GameObject o :
                 SceneManager.getActiveScene().getObjects()) {
             try
             {
-                ((JPlayer)o.objRef).onKeyReleased(key.getCode());
+                ((Player)o).onKeyReleased(key.getCode());
             }
             catch (Exception ignore){}
         }

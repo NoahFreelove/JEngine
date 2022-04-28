@@ -8,7 +8,7 @@ import static com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing.LogError;
 /** JMath (c) Noah Freelove
  * A collection of useful math functions.
  */
-public class JMath {
+public class GameMath {
     /**
      * Clamp value between min and max. if x<min, return min; if x>max, return max; else return x
      * @param min minimum value
@@ -43,7 +43,7 @@ public class JMath {
      */
     public static Vector3 interpolateClamped(Vector3 vA, Vector3 vB, float t)
     {
-        t = JMath.clamp(0,1,t);
+        t = GameMath.clamp(0,1,t);
         vA = vA.multiply(1-t);
         Vector3 vC = vB.multiply(t);
         return vA.add(vC);
@@ -191,6 +191,7 @@ public class JMath {
     {
         return Math.abs(a-b)<delta;
     }
+
 
     /**
      * Calculate the newtons of force that gravity on earth would have on you.

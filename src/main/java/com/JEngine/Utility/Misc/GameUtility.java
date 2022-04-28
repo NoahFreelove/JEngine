@@ -5,7 +5,7 @@ import javafx.stage.WindowEvent;
 /** JUtility (c) Noah Freelove
  * A collection of useful methods.
  */
-public class JUtility {
+public class GameUtility {
 
     /**
      * Wait for seconds then run method
@@ -13,7 +13,7 @@ public class JUtility {
      * @param event The event to run
      * @param args The arguments to pass to the event
      */
-    public static void waitForSeconds(double seconds, GenericMethodCall event, Object[] args) {
+    public static void waitForSeconds(double seconds, GenericMethod event, Object[] args) {
         new Thread(() -> {
             try {
                 long milliseconds = (long)(seconds * 1000);

@@ -1,6 +1,6 @@
 package com.JEngine.Game.Visual;
 
-import com.JEngine.PrimitiveTypes.JImage;
+import com.JEngine.PrimitiveTypes.GameImage;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 
@@ -9,8 +9,8 @@ import javafx.scene.Scene;
  * JPointer overrides the default mouse image and allows for tracking its exact position in the window, and key presses.
  * **/
 
-public class JPointer {
-    JImage cursorIcon;
+public class MousePointer {
+    GameImage cursorIcon;
     private double posX;
     private double posY;
 
@@ -18,7 +18,7 @@ public class JPointer {
      * Create a new cursor
      * @param cursorIcon The image of the cursor
      */
-    public JPointer(JImage cursorIcon) {
+    public MousePointer(GameImage cursorIcon) {
         this.cursorIcon = cursorIcon;
     }
 

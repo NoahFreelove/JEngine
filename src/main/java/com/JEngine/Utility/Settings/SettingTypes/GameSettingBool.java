@@ -1,15 +1,15 @@
 package com.JEngine.Utility.Settings.SettingTypes;
 
-import com.JEngine.Utility.Settings.JSetting;
+import com.JEngine.Utility.Settings.GameSetting;
 
 /** JSettingBool (c) Noah Freelove
  * Holds a boolean value that has events for changing and getting the value.
  */
 
-public class JSettingBool extends JSetting {
+public class GameSettingBool extends GameSetting {
     boolean enabled;
 
-    public JSettingBool(String name, boolean enabled) {
+    public GameSettingBool(String name, boolean enabled) {
         super(name);
         this.enabled = enabled;
     }

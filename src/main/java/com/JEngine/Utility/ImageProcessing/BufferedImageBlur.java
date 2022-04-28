@@ -1,6 +1,6 @@
 package com.JEngine.Utility.ImageProcessing;
 
-import com.JEngine.PrimitiveTypes.JImage;
+import com.JEngine.PrimitiveTypes.GameImage;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 import javafx.scene.image.Image;
 
@@ -77,12 +77,12 @@ public class BufferedImageBlur {
 
     /**
      * Blur an image using a Gaussian kernel.
-     * @param jImage The image to blur.
+     * @param gameImage The image to blur.
      * @param radius The radius of the Gaussian kernel.
      * @return The blurred image.
      */
-    public static JImage blurImage(JImage jImage, int radius)
+    public static GameImage blurImage(GameImage gameImage, int radius)
     {
-        return new JImage(blurImage(jImage.getImage(), radius));
+        return new GameImage(blurImage(gameImage.getImage(), radius));
     }
 }

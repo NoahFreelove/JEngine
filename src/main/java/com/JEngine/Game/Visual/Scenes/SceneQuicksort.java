@@ -1,10 +1,11 @@
 package com.JEngine.Game.Visual.Scenes;
 
 import com.JEngine.PrimitiveTypes.ObjRef;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.GameObject;
 
 public class SceneQuicksort {
     // Quicksort implementation
-    public static void quickSortZ(ObjRef arr[], int begin, int end) {
+    public static void quickSortZ(GameObject arr[], int begin, int end) {
         if (begin < end) {
             int partitionIndex = partition(arr, begin, end);
             quickSortZ(arr, begin, partitionIndex-1);
@@ -12,10 +13,10 @@ public class SceneQuicksort {
         }
     }
 
-    private static int partition(ObjRef arr[], int begin, int end) {
+    private static int partition(GameObject arr[], int begin, int end) {
         if(arr[end] == null)
             return end;
-        int pivot = (int)arr[end].objRef.getTransform().position.z;
+        int pivot = (int)arr[end].getTransform().position.z;
         int i = (begin-1);
 
         for (int j = begin; j < end; j++) {
@@ -25,16 +26,16 @@ public class SceneQuicksort {
                 continue;
             }
 
-            if ((int)arr[j].objRef.getTransform().position.z <= pivot) {
+            if ((int)arr[j].getTransform().position.z <= pivot) {
                 i++;
 
-                ObjRef swapTemp = arr[i];
+                GameObject swapTemp = arr[i];
                 arr[i] = arr[j];
                 arr[j] = swapTemp;
             }
         }
 
-        ObjRef swapTemp = arr[i+1];
+        GameObject swapTemp = arr[i+1];
         arr[i+1] = arr[end];
         arr[end] = swapTemp;
 

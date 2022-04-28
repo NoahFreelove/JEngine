@@ -10,12 +10,12 @@ import com.JEngine.PrimitiveTypes.Position.Transform;
  * An object cannot be controlled directly, but it's position can be updated by doing Object.getTransform().setTransform
  * **/
 
-public class JObject extends Thing {
+public class GameObject extends Thing {
     private Transform transform;
     private final JIdentity jIdentity;
     private boolean queuedForDeletion;
 
-    public JObject(Transform transform, JIdentity jIdentity) {
+    public GameObject(Transform transform, JIdentity jIdentity) {
         super(true);
         this.transform = transform;
         this.jIdentity = jIdentity;

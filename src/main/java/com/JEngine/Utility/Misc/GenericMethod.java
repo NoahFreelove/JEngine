@@ -6,6 +6,6 @@ package com.JEngine.Utility.Misc;
  *
  * The method call is the way to run a series of actions or methods from another class
  */
-public interface GenericMethodCall {
+public interface GenericMethod {
     void call(Object[] args);
 }
