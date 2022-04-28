@@ -41,9 +41,9 @@ public class Main extends Application {
         GameInfo.authors = new String[]{"Noah Freelove"};
         GameInfo.appName = "JEngine";
         GameInfo.appVersionMajor = 0;
-        GameInfo.appVersionMinor = 1.6f;
+        GameInfo.appVersionMinor = 1.9f;
         GameInfo.year = 2022;
-        GameInfo.buildID = "2022.04.21.1";
+        GameInfo.buildID = "2022.04.27.1";
         GameInfo.isCopyright = false;
 
         //Print app info

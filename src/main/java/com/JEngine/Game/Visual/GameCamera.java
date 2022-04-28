@@ -46,6 +46,7 @@ public class GameCamera extends GameObject {
         this.fovY = window.getScaleMultiplier()*720;
         SceneManager.init(scene, window, this);
     }
+
     /**
      * Default constructor
      * @param position init position
