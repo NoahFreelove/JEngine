@@ -27,8 +27,10 @@ public class GameCamera extends GameObject {
     private GameScene scene;
     private final GameWindow window;
     private GameObject parent;
+    public Vector3 virtualPosition;
     private Sprite[] sprites;
 
+    private Vector2 zoom = new Vector2(1f,1f);
     /**
      * Default constructor
      * @param position init position
@@ -126,8 +128,8 @@ public class GameCamera extends GameObject {
             }
 
             try {
-                float xPos = (sprite.getTransform().position.x * window.getScaleMultiplier() - getTransform().position.x);
-                float yPos = (sprite.getTransform().position.y * window.getScaleMultiplier() - getTransform().position.y);
+                float xPos = (sprite.getTransform().position.x * window.getScaleMultiplier() - getPosition().x);
+                float yPos = (sprite.getTransform().position.y * window.getScaleMultiplier() - getPosition().y);
 
                 Image image = sprite.getSprite().getImage();
                 ImageView imageView = new ImageView(image);
@@ -142,6 +144,8 @@ public class GameCamera extends GameObject {
                 LogDebug("Didn't add object: " + sprite.getIdentity().getName() + " to render queue: " + e.getMessage());
             }
         }
+        gameObjects.setScaleX(zoom.x);
+        gameObjects.setScaleY(zoom.y);
         return gameObjects;
     }
 
@@ -163,6 +167,14 @@ public class GameCamera extends GameObject {
     public void setActiveScene(GameScene activeScene){
         scene = activeScene;
         LogInfo("Changed active scene");
+    }
+
+    public Vector2 getZoom() {
+        return zoom;
+    }
+
+    public void setZoom(Vector2 zoom) {
+        this.zoom = zoom;
     }
 
     /**
@@ -188,21 +200,25 @@ public class GameCamera extends GameObject {
     public GameObject getParentObject() {
         return parent;
     }
+
     @Override
     public void Update(){
         if(parent !=null)
         {
-            Vector2 offset = new Vector2(0,0);
-            offset.x = 1280*window.getScaleMultiplier()/2;
-            offset.y = 720*window.getScaleMultiplier()/2;
+            Vector2 offset = new Vector2(1280*window.getScaleMultiplier()/2,720*window.getScaleMultiplier()/2);
+
             if(parent instanceof Sprite sprite)
             {
                 offset.x = offset.x-(sprite.getSprite().getWidth() * sprite.getTransform().getScale().x)/2;
                 offset.y = offset.y-(sprite.getSprite().getHeight() * sprite.getTransform().getScale().y)/2;
             }
-
-
-            this.getTransform().setPosition(new Vector3(parent.getTransform().getPosition().x - offset.x, parent.getTransform().getPosition().y - offset.y, getTransform().position.z));
+            else if(parent instanceof MousePointer mp)
+            {
+                Vector2 pos = mp.pointerPosToWorldPoint();
+                virtualPosition = new Vector3(pos.x,pos.y,0);
+                return;
+            }
+            this.getTransform().setPosition(new Vector3(parent.getTransform().getPosition().x - offset.x, parent.getTransform().getPosition().y - offset.y, getTransform().position.z).multiply(new Vector3(zoom.x, zoom.y, 1)));
         }
     }
 }

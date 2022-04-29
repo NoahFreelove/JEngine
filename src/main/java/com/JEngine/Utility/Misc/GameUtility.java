@@ -1,5 +1,6 @@
 package com.JEngine.Utility.Misc;
 
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 import javafx.stage.WindowEvent;
 
 /** JUtility (c) Noah Freelove
@@ -27,6 +28,14 @@ public class GameUtility {
     // Exit the program (background process still runs)
     static void systemExit() {
         System.exit(0);
+    }
+
+    static void gc(){
+        long beforeUsedMem=Runtime.getRuntime().totalMemory();
+        System.gc();
+        long afterUsedMem=Runtime.getRuntime().totalMemory();
+        long savedMemory = beforeUsedMem-afterUsedMem;
+        Thing.LogExtra("Freed " + savedMemory/1024/1024 + " MB");
     }
 
     // Close the window

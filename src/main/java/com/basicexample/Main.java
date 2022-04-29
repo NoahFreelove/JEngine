@@ -77,10 +77,13 @@ public class Main extends Application {
 
         // create a player object
         player = new CustomPlayer(Transform.exSimpleTransform(550,100), image, new Identity("Player 1", "Player"),true, 10);
-
-        camera = new GameCamera(new Vector3(0,0,1), window, scene, player, new Identity("Main Camera","camera"));
-
         player2 = new CustomPlayer(Transform.exSimpleTransform(700,100), image2, new Identity("Player 2", "Player"),true, 10);
+
+        camera = new GameCamera(new Vector3(0,0,1), window, scene, null, new Identity("Main Camera","camera"));
+
+        Pointer pointer = new Pointer(null);
+        camera.setParent(pointer);
+
         new ScreenBorder(new Vector3(0,0,0));
         BackgroundImage background = new BackgroundImage(new File(binFolder + "/background.png").getAbsolutePath());
         scene.add(background);
@@ -88,6 +91,7 @@ public class Main extends Application {
         scene.add(camera);
         scene.add(player);
         scene.add(player2);
+        scene.add(pointer);
         Text titleText = new Text(10, 50, "JEngine Moving Squares Example");
         titleText.setFont(Font.font ("arial", 25));
         titleText.setFill(Color.WHITE);

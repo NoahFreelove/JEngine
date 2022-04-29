@@ -1,5 +1,6 @@
 package com.JEngine.PrimitiveTypes.VeryPrimitiveTypes;
 import com.JEngine.PrimitiveTypes.Position.Transform;
+import com.JEngine.PrimitiveTypes.Position.Vector3;
 
 /** JObject (c) Noah Freelove
  * Brief Explanation:
@@ -20,6 +21,11 @@ public class GameObject extends Thing {
         this.transform = transform;
         this.identity = identity;
     }
+    public GameObject(Transform transform, Identity identity, boolean isActive) {
+        super(isActive);
+        this.transform = transform;
+        this.identity = identity;
+    }
 
     // Called upon object's creation
     public void Start(){}
@@ -33,6 +39,12 @@ public class GameObject extends Thing {
     }
     public Transform getTransform() {
         return transform;
+    }
+    public Vector3 getPosition(){
+        return transform.getPosition();
+    }
+    public void setPosition(Vector3 position) {
+        transform.setPosition(position);
     }
     public boolean isQueuedForDeletion() {
         return queuedForDeletion;
