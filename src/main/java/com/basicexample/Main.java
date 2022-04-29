@@ -3,14 +3,17 @@ package com.basicexample;
 import com.JEngine.Game.Visual.GameCamera;
 import com.JEngine.Game.Visual.Scenes.GameScene;
 import com.JEngine.Game.Visual.GameWindow;
+import com.JEngine.PrimitiveTypes.FlipFlop;
 import com.JEngine.PrimitiveTypes.GameImage;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.Position.Vector3;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Identity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.GameObject;
 import com.JEngine.TemplateObjects.BackgroundImage;
 import com.JEngine.TemplateObjects.ScreenBorder;
 import com.JEngine.Utility.About.GameInfo;
+import com.JEngine.Utility.Input;
+import com.JEngine.Utility.Misc.GenericMethod;
 import com.JEngine.Utility.Settings.EnginePrefs;
 import javafx.application.Application;
 import javafx.scene.paint.Color;
@@ -18,6 +21,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.awt.dnd.InvalidDnDOperationException;
 import java.io.File;
 
 public class Main extends Application {
@@ -28,6 +32,9 @@ public class Main extends Application {
 
     public static String binFolder = System.getProperty("user.home") + "\\Documents\\JEngine\\bin\\";
 
+    public static FlipFlop cameraFlipFlop = new FlipFlop();
+    public static CustomPlayer player;
+    public static CustomPlayer player2;
     static void setEnginePrefs()
     {
         //Set engine preferences
@@ -47,7 +54,7 @@ public class Main extends Application {
         GameInfo.isCopyright = false;
 
         //Print app info
-        GameInfo.logAppInfo(true);
+        GameInfo.logGameInfo(true);
     }
 
     public void start(Stage stage) {
@@ -63,15 +70,17 @@ public class Main extends Application {
         // create a new window
         GameWindow window = new GameWindow(scene,1f,"JEngine", stage);
         // create camera
-        camera = new GameCamera(new Vector3(0,0,1), window, scene, new GameObject(null, null), new JIdentity("Main Camera","camera"));
 
         // create player image
         GameImage image = new GameImage(filepath, 128, 128);
         GameImage image2 = new GameImage(filepath2, 128,128);
 
         // create a player object
-        CustomPlayer player = new CustomPlayer(Transform.exSimpleTransform(550,100), image, new JIdentity("Player 1", "Player"),true, 10);
-        CustomPlayer player2 = new CustomPlayer(Transform.exSimpleTransform(700,100), image2, new JIdentity("Player 2", "Player"),true, 10);
+        player = new CustomPlayer(Transform.exSimpleTransform(550,100), image, new Identity("Player 1", "Player"),true, 10);
+
+        camera = new GameCamera(new Vector3(0,0,1), window, scene, player, new Identity("Main Camera","camera"));
+
+        player2 = new CustomPlayer(Transform.exSimpleTransform(700,100), image2, new Identity("Player 2", "Player"),true, 10);
         new ScreenBorder(new Vector3(0,0,0));
         BackgroundImage background = new BackgroundImage(new File(binFolder + "/background.png").getAbsolutePath());
         scene.add(background);
@@ -90,7 +99,6 @@ public class Main extends Application {
 
         // run Start function on other thread so the update functions doesn't stop the rest of the main function
         window.start();
-
     }
 
     public static void main(String[] args) {

@@ -121,7 +121,7 @@ public class GameScene extends Thing {
         for (int i = 0; i < sceneObjects.length; i++) {
             if (sceneObjects[i] == null) {
                 sceneObjects[i] = o;
-                LogExtra(String.format("Added '%s' (%s) to the scene Successfully", o.getJIdentity().getName(), o.getClass().getSimpleName()));
+                LogExtra(String.format("Added '%s' (%s) to the scene Successfully", o.getIdentity().getName(), o.getClass().getSimpleName()));
                 // sort by z to make sure the objects are in the correct order, not just how they're added to the array
                 sortByZ();
                 return;
@@ -129,7 +129,7 @@ public class GameScene extends Thing {
             else if(sceneObjects[i].isQueuedForDeletion() && !sceneHasRoom())
             {
                 sceneObjects[i] = o;
-                LogExtra(String.format("Overwrote '%s' (%s) queued for deletion. Added '%s' (%s) to the scene Successfully",sceneObjects[i].getJIdentity().getName(), sceneObjects[i].getClass().getSimpleName(), o.getJIdentity().getName(), o.getClass().getSimpleName()));
+                LogExtra(String.format("Overwrote '%s' (%s) queued for deletion. Added '%s' (%s) to the scene Successfully",sceneObjects[i].getIdentity().getName(), sceneObjects[i].getClass().getSimpleName(), o.getIdentity().getName(), o.getClass().getSimpleName()));
                 // sort by z to make sure the objects are in the correct order, not just how they're added to the array
                 sortByZ();
                 return;
@@ -143,7 +143,7 @@ public class GameScene extends Thing {
         temp[temp.length - 1] = o;
         sceneObjects = temp;
         sortByZ();
-        LogExtra(String.format("Added '%s' (%s) to the scene Successfully", o.getJIdentity().getName(), o.getClass().getSimpleName()));
+        LogExtra(String.format("Added '%s' (%s) to the scene Successfully", o.getIdentity().getName(), o.getClass().getSimpleName()));
     }
 
     /**
@@ -161,7 +161,7 @@ public class GameScene extends Thing {
         if(o== null)
             return;
         o.setQueuedForDeletion(true);
-        LogExtra(String.format("Queued object '%s' (%s) for deletion.", o.getJIdentity().getName(), o.getClass().getSimpleName()));
+        LogExtra(String.format("Queued object '%s' (%s) for deletion.", o.getIdentity().getName(), o.getClass().getSimpleName()));
     }
 
     /**
@@ -175,11 +175,11 @@ public class GameScene extends Thing {
             if(ref == o && ref.isQueuedForDeletion())
             {
                 o.setQueuedForDeletion(false);
-                LogExtra(String.format("Un-deleted '%s' (%s)", o.getJIdentity().getName(), o.getClass().getSimpleName()));
+                LogExtra(String.format("Un-deleted '%s' (%s)", o.getIdentity().getName(), o.getClass().getSimpleName()));
                 return;
             }
         }
-        LogExtra(String.format("Could not Un-delete '%s' (%s)", o.getJIdentity().getName(), o.getClass().getSimpleName()));
+        LogExtra(String.format("Could not Un-delete '%s' (%s)", o.getIdentity().getName(), o.getClass().getSimpleName()));
     }
     /**
      * Attempt to restore an object Queued For Deletion
@@ -189,10 +189,10 @@ public class GameScene extends Thing {
     {
         for (GameObject ref :
                 sceneObjects) {
-            if(ref.getJIdentity().toString().equals(identity.getName() + " : " + identity.getTag()) && ref.isQueuedForDeletion())
+            if(ref.getIdentity().toString().equals(identity.getName() + " : " + identity.getTag()) && ref.isQueuedForDeletion())
             {
                 ref.setQueuedForDeletion(false);
-                LogExtra(String.format("Un-deleted '%s' (%s)", ref.getJIdentity().getName(), ref.getClass().getSimpleName()));
+                LogExtra(String.format("Un-deleted '%s' (%s)", ref.getIdentity().getName(), ref.getClass().getSimpleName()));
                 return;
             }
         }
@@ -247,17 +247,17 @@ public class GameScene extends Thing {
             if (sceneObjects[i] != null) {
 
                 if (searchType == SearchType.SearchByName) {
-                    if (sceneObjects[i].getJIdentity().compareName(name)) {
+                    if (sceneObjects[i].getIdentity().compareName(name)) {
                         sceneSize[i] = sceneObjects[i];
                         count++;
                     }
                 } else if (searchType == SearchType.SearchByTag) {
-                    if (sceneObjects[i].getJIdentity().compareTag(tag)) {
+                    if (sceneObjects[i].getIdentity().compareTag(tag)) {
                         sceneSize[i] = sceneObjects[i];
                         count++;
                     }
                 } else {
-                    if (sceneObjects[i].getJIdentity().compareTag(tag) && sceneObjects[i].getJIdentity().compareName(name)) {
+                    if (sceneObjects[i].getIdentity().compareTag(tag) && sceneObjects[i].getIdentity().compareName(name)) {
                         sceneSize[i] = sceneObjects[i];
                         count++;
                     }
@@ -286,7 +286,7 @@ public class GameScene extends Thing {
 
         for (int i = 0; i < sceneObjects.length; i++) {
             if (sceneObjects[i] != null) {
-                if (sceneObjects[i].getJIdentity().getClass().getSimpleName().equals(className)) {
+                if (sceneObjects[i].getIdentity().getClass().getSimpleName().equals(className)) {
                     if(count>searchResult.length)
                     {
                         GameObject[] temp = new GameObject[searchResult.length*2];

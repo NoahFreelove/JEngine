@@ -4,6 +4,7 @@ import com.JEngine.Game.PlayersAndPawns.Sprite;
 import com.JEngine.Game.Visual.Scenes.GameScene;
 import com.JEngine.Game.Visual.Scenes.SceneManager;
 import com.JEngine.PrimitiveTypes.Position.Transform;
+import com.JEngine.PrimitiveTypes.Position.Vector2;
 import com.JEngine.PrimitiveTypes.Position.Vector3;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Identity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.GameObject;
@@ -138,7 +139,7 @@ public class GameCamera extends GameObject {
                 gameObjects.getChildren().add(imageView);
 
             } catch (Exception e) {
-                LogDebug("Didn't add object: " + sprite.getJIdentity().getName() + " to render queue: " + e.getMessage());
+                LogDebug("Didn't add object: " + sprite.getIdentity().getName() + " to render queue: " + e.getMessage());
             }
         }
         return gameObjects;
@@ -186,5 +187,22 @@ public class GameCamera extends GameObject {
      */
     public GameObject getParentObject() {
         return parent;
+    }
+    @Override
+    public void Update(){
+        if(parent !=null)
+        {
+            Vector2 offset = new Vector2(0,0);
+            offset.x = 1280*window.getScaleMultiplier()/2;
+            offset.y = 720*window.getScaleMultiplier()/2;
+            if(parent instanceof Sprite sprite)
+            {
+                offset.x = offset.x-(sprite.getSprite().getWidth() * sprite.getTransform().getScale().x)/2;
+                offset.y = offset.y-(sprite.getSprite().getHeight() * sprite.getTransform().getScale().y)/2;
+            }
+
+
+            this.getTransform().setPosition(new Vector3(parent.getTransform().getPosition().x - offset.x, parent.getTransform().getPosition().y - offset.y, getTransform().position.z));
+        }
     }
 }

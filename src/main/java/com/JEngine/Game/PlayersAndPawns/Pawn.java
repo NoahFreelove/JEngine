@@ -58,8 +58,8 @@ public class Pawn extends Sprite {
         amount = GameMath.clamp(0,Float.MAX_VALUE, amount);
 
         int d = clockwise ? 1 : -1;
-        direction.setX(getTransform().getRotation().x + direction.getX()*amount*d);
-        direction.setY(getTransform().getRotation().y + direction.getY()*amount*d);
+        direction.setX(getTransform().getRotation().x + direction.x*amount*d);
+        direction.setY(getTransform().getRotation().y + direction.x*amount*d);
 
         getTransform().setRotation(new Vector3(direction,getTransform().rotation.z));
     }

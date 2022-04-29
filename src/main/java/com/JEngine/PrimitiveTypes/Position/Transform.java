@@ -69,7 +69,7 @@ public class Transform {
     // Create a transform with just a vector2
     public static Transform exSimpleTransform(Vector2 pos)
     {
-        return new Transform(new Vector3(pos.getX(),pos.getY(),0),defaultRotation(),defaultScale());
+        return new Transform(new Vector3(pos.x,pos.y,0),defaultRotation(),defaultScale());
     }
 
     // Make toString method output something readable

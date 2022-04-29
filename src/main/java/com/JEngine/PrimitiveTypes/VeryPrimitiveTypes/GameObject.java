@@ -28,7 +28,7 @@ public class GameObject extends Thing {
     public void Update(){}
 
     // Getters
-    public Identity getJIdentity() {
+    public Identity getIdentity() {
         return identity;
     }
     public Transform getTransform() {

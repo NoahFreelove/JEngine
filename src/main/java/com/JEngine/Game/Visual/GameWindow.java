@@ -8,6 +8,7 @@ import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
 import com.JEngine.Utility.Input;
 import com.JEngine.Utility.Misc.FPSCounter;
 import com.JEngine.Utility.Misc.GameUtility;
+import com.JEngine.Utility.Misc.GenericMethod;
 import com.JEngine.Utility.Settings.EnginePrefs;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -44,6 +45,9 @@ public class GameWindow extends Thing {
     private float scaleMultiplier = 1;
     private Group prevObj;
 
+
+    private GenericMethod[] updateEvents= new GenericMethod[0];
+    private int updateEventsIndex = 0;
     /**
      * Default constructor
      * @param title Title of the window
@@ -190,7 +194,7 @@ public class GameWindow extends Thing {
     {
         if(isActive)
         {
-            LogError("Window is already active! Cannot start another update thread.");
+            LogExtra("Window is already active! Cannot start another window thread.");
             return;
         }
         SceneManager.getActiveScene().runStartBehaviors();
@@ -254,6 +258,11 @@ public class GameWindow extends Thing {
             mainCamera.startRender();
         }
 
+        for (GenericMethod  method : updateEvents) {
+            if(method!=null)
+                method.call(null);
+        }
+
         // very laggy
         if(EnginePrefs.aggressiveGC)
             System.gc();
@@ -298,5 +307,19 @@ public class GameWindow extends Thing {
     public void resume()
     {
         isPaused = false;
+    }
+
+    public void addUpdateEvent(GenericMethod method)
+    {
+        // if array is full, make it larger
+        if(updateEvents.length == updateEventsIndex)
+        {
+            GenericMethod[] newArray = new GenericMethod[updateEvents.length +1];
+            System.arraycopy(updateEvents, 0, newArray, 0, updateEvents.length);
+            updateEvents = newArray;
+            updateEvents[updateEventsIndex] = method;
+            return;
+        }
+        updateEvents[updateEventsIndex++] = method;
     }
 }

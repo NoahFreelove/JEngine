@@ -25,7 +25,9 @@ public class Vector3 {
         z = _z;
     }
     public Vector3(Vector2 xy, float z) {
-        this(xy.getX(), xy.getY(), z);
+        this.x = xy.x;
+        this.y = xy.y;
+        this.z = z;
     }
 
     // region Vector3 Operations

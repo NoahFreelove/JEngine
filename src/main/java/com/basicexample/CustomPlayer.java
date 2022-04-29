@@ -6,7 +6,7 @@ import com.JEngine.Game.Visual.Scenes.SceneManager;
 import com.JEngine.PrimitiveTypes.GameImage;
 import com.JEngine.PrimitiveTypes.Position.Direction;
 import com.JEngine.PrimitiveTypes.Position.Transform;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.JIdentity;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Identity;
 import com.JEngine.Utility.Input;
 import javafx.scene.input.KeyCode;
 import javafx.scene.shape.Rectangle;
@@ -18,7 +18,7 @@ public class CustomPlayer extends Player {
 
     Rectangle rect;
 
-    public CustomPlayer(Transform transform, GameImage newSprite, JIdentity identity, boolean move, int moveSpeed) {
+    public CustomPlayer(Transform transform, GameImage newSprite, Identity identity, boolean move, int moveSpeed) {
         super(transform, newSprite, identity);
         this.moveSpeed = moveSpeed;
         setCollider(new BoxCollider(transform, identity,128,128,this, false));
@@ -28,17 +28,24 @@ public class CustomPlayer extends Player {
 
     @Override
     public void onKeyReleased(KeyCode key) {
-        if(key == KeyCode.X)
-        {
+        if (key == KeyCode.X) {
             flipFlop = !flipFlop;
-            SceneManager.getWindow().setWindowScale((flipFlop)? 0.5f:1);
+            SceneManager.getWindow().setWindowScale((flipFlop) ? 0.5f : 1);
+        } else if (key == KeyCode.Z && getIdentity().compareName("Player 1")) {
+            {
+                if (Main.cameraFlipFlop.getState()) {
+                    Main.camera.setParent(Main.player);
+                } else {
+                    Main.camera.setParent(Main.player2);
+                }
+            }
         }
     }
 
     @Override
     public void Update()
     {
-        if(canMove && getJIdentity().compareName("Player 1")) {
+        if(canMove && getIdentity().compareName("Player 1")) {
             if (Input.W_Pressed)
                 Move(Direction.Up, moveSpeed);
             if(Input.S_Pressed)
@@ -48,7 +55,7 @@ public class CustomPlayer extends Player {
             if(Input.D_Pressed)
                 Move(Direction.Right, moveSpeed);
         }
-        else if (canMove && getJIdentity().compareName("Player 2")) {
+        else if (canMove && getIdentity().compareName("Player 2")) {
             if (Input.UArrow_Pressed)
                 Move(Direction.Up, moveSpeed);
             if(Input.DArrow_Pressed)
