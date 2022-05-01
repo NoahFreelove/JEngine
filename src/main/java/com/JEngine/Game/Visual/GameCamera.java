@@ -22,15 +22,16 @@ import javafx.scene.image.ImageView;
  * **/
 public class GameCamera extends GameObject {
     // fov is added to the right and bottom of the camera, does not start from the middle of the camera
-    public float fovX;
-    public float fovY;
+
     private GameScene scene;
     private final GameWindow window;
     private GameObject parent;
-    public Vector3 virtualPosition;
     private Sprite[] sprites;
 
-    private Vector2 zoom = new Vector2(1f,1f);
+
+    private Vector2 zoom = new Vector2(1f,1f); // Doesn't work the intended way yet
+
+
     /**
      * Default constructor
      * @param position init position
@@ -45,8 +46,6 @@ public class GameCamera extends GameObject {
         this.window = window;
         this.scene = scene;
         this.parent = parent;
-        this.fovX = window.getScaleMultiplier()*1280;
-        this.fovY = window.getScaleMultiplier()*720;
         SceneManager.init(scene, window, this);
     }
 
@@ -62,8 +61,7 @@ public class GameCamera extends GameObject {
 
         this.window = window;
         this.scene = scene;
-        this.fovX = window.getScaleMultiplier()*1280;
-        this.fovY = window.getScaleMultiplier()*720;
+
         SceneManager.init(scene, window, this);
     }
 
@@ -128,8 +126,8 @@ public class GameCamera extends GameObject {
             }
 
             try {
-                float xPos = (sprite.getTransform().position.x * window.getScaleMultiplier() - getPosition().x);
-                float yPos = (sprite.getTransform().position.y * window.getScaleMultiplier() - getPosition().y);
+                float xPos = (sprite.getTransform().position.x * window.getScaleMultiplier() - getPosition().x* window.getScaleMultiplier());
+                float yPos = (sprite.getTransform().position.y * window.getScaleMultiplier() - getPosition().y* window.getScaleMultiplier());
 
                 Image image = sprite.getSprite().getImage();
                 ImageView imageView = new ImageView(image);
@@ -144,6 +142,7 @@ public class GameCamera extends GameObject {
                 LogDebug("Didn't add object: " + sprite.getIdentity().getName() + " to render queue: " + e.getMessage());
             }
         }
+
         gameObjects.setScaleX(zoom.x);
         gameObjects.setScaleY(zoom.y);
         return gameObjects;
@@ -205,20 +204,25 @@ public class GameCamera extends GameObject {
     public void Update(){
         if(parent !=null)
         {
-            Vector2 offset = new Vector2(1280*window.getScaleMultiplier()/2,720*window.getScaleMultiplier()/2);
+            Vector2 offset = new Vector2(1280* window.getScaleMultiplier()*zoom.x,720* window.getScaleMultiplier()*zoom.y);
 
             if(parent instanceof Sprite sprite)
             {
-                offset.x = offset.x-(sprite.getSprite().getWidth() * sprite.getTransform().getScale().x)/2;
-                offset.y = offset.y-(sprite.getSprite().getHeight() * sprite.getTransform().getScale().y)/2;
+                offset.x -= (sprite.getSprite().getWidth() * sprite.getTransform().getScale().x)/2;
+                offset.y -= (sprite.getSprite().getHeight() * sprite.getTransform().getScale().y)/2;
+                setPosition(new Vector3(parent.getTransform().getPosition().x - offset.x, parent.getTransform().getPosition().y - offset.y, getTransform().position.z));
+
             }
-            else if(parent instanceof MousePointer mp)
-            {
+            else if(parent instanceof MousePointer mp) {
                 Vector2 pos = mp.pointerPosToWorldPoint();
-                virtualPosition = new Vector3(pos.x,pos.y,0);
-                return;
+
+                if (mp.cameraFollowOffset())
+                {
+                    pos.x -= getWindow().getStage().getWidth() / 2;
+                    pos.y -= getWindow().getStage().getHeight() / 2;
+                }
+                setPosition(new Vector3(pos.x, pos.y, getTransform().position.z));
             }
-            this.getTransform().setPosition(new Vector3(parent.getTransform().getPosition().x - offset.x, parent.getTransform().getPosition().y - offset.y, getTransform().position.z).multiply(new Vector3(zoom.x, zoom.y, 1)));
         }
     }
 }

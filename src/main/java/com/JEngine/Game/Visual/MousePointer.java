@@ -1,10 +1,10 @@
 package com.JEngine.Game.Visual;
 
+import com.JEngine.Game.PlayersAndPawns.Player;
 import com.JEngine.Game.Visual.Scenes.SceneManager;
 import com.JEngine.PrimitiveTypes.GameImage;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.Position.Vector2;
-import com.JEngine.PrimitiveTypes.Position.Vector3;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.GameObject;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Identity;
 import javafx.scene.ImageCursor;
@@ -15,18 +15,27 @@ import javafx.scene.Scene;
  * JPointer overrides the default mouse image and allows for tracking its exact position in the window, and key presses.
  * **/
 
-public class MousePointer extends GameObject {
+public class MousePointer extends Player {
     GameImage cursorIcon;
     private double posX;
     private double posY;
+
+    private boolean cameraFollowOffset;
 
     /**
      * Create a new cursor
      * @param cursorIcon The image of the cursor
      */
     public MousePointer(GameImage cursorIcon) {
-        super(Transform.exSimpleTransform(0,0), new Identity("MousePointer", "pointer"));
+        super(Transform.exSimpleTransform(0,0), null, new Identity("MousePointer", "pointer"));
         this.cursorIcon = cursorIcon;
+        init();
+    }
+
+    public MousePointer(GameImage cursorIcon, boolean cameraFollowOffset) {
+        super(Transform.exSimpleTransform(0,0), null, new Identity("MousePointer", "pointer"));
+        this.cursorIcon = cursorIcon;
+        this.cameraFollowOffset = cameraFollowOffset;
         init();
     }
 
@@ -46,7 +55,10 @@ public class MousePointer extends GameObject {
         });
 
         scene.setOnMousePressed(mouseEvent -> {
-            onMousePressed();
+            if(mouseEvent.isPrimaryButtonDown())
+            {
+                onMousePressed();
+            }
         });
         scene.setOnMouseReleased(mouseEvent -> {
             onMouseReleased();
@@ -77,15 +89,27 @@ public class MousePointer extends GameObject {
 
     @Override
     public void Update() {
-        Vector2 pos = pointerPosToWorldPoint();
-        setPosition(new Vector3(pos.x, pos.y, 0));
-        System.out.println(pos);
+
     }
 
     public Vector2 pointerPosToWorldPoint(){
-        // factor in zoom level, window scale, pointer position, and camera position
-        double x = (SceneManager.getActiveCamera().getPosition().x + posX) * (1/SceneManager.getActiveCamera().getZoom().x*SceneManager.getActiveCamera().getZoom().x);
-        double y = (SceneManager.getActiveCamera().getPosition().y + posY) * (1/SceneManager.getActiveCamera().getZoom().y*SceneManager.getActiveCamera().getZoom().x);
+
+        // mouse position
+        double x = posX;
+        double y = posY;
+        GameCamera camera = SceneManager.getActiveCamera();
+        // factor in camera position
+        x += camera.getPosition().x;
+        y += camera.getPosition().y;
+
         return new Vector2((float) x, (float) y);
+    }
+
+    public boolean cameraFollowOffset() {
+        return cameraFollowOffset;
+    }
+
+    public void setCameraFollowOffset(boolean cameraFollowOffset) {
+        this.cameraFollowOffset = cameraFollowOffset;
     }
 }

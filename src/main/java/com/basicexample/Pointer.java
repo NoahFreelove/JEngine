@@ -15,18 +15,14 @@ public class Pointer extends MousePointer {
     public Pointer(GameImage cursorIcon) {
         super(cursorIcon);
     }
-    FlipFlop flipFlop = new FlipFlop();
+
+    public Pointer(GameImage cursorIcon, boolean cameraFollowOffset) {
+        super(cursorIcon, cameraFollowOffset);
+    }
 
     @Override
-    protected void onMouseReleased(){
-        if(flipFlop.getState())
-        {
-            SceneManager.getActiveCamera().setZoom(new Vector2(1,1));
-        }
-        else
-        {
-            SceneManager.getActiveCamera().setZoom(new Vector2(2,2));
-        }
+    protected void onMousePressed(){
+
     }
 
 

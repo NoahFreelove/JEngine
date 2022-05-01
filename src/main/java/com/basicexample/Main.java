@@ -79,9 +79,9 @@ public class Main extends Application {
         player = new CustomPlayer(Transform.exSimpleTransform(550,100), image, new Identity("Player 1", "Player"),true, 10);
         player2 = new CustomPlayer(Transform.exSimpleTransform(700,100), image2, new Identity("Player 2", "Player"),true, 10);
 
-        camera = new GameCamera(new Vector3(0,0,1), window, scene, null, new Identity("Main Camera","camera"));
+        camera = new GameCamera(new Vector3(-20,0,1), window, scene, null, new Identity("Main Camera","camera"));
 
-        Pointer pointer = new Pointer(null);
+        Pointer pointer = new Pointer(null, true);
         camera.setParent(pointer);
 
         new ScreenBorder(new Vector3(0,0,0));
