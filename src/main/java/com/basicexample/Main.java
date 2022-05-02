@@ -3,6 +3,7 @@ package com.basicexample;
 import com.JEngine.Game.Visual.GameCamera;
 import com.JEngine.Game.Visual.Scenes.GameScene;
 import com.JEngine.Game.Visual.GameWindow;
+import com.JEngine.Game.Visual.Scenes.SceneLoader;
 import com.JEngine.PrimitiveTypes.FlipFlop;
 import com.JEngine.PrimitiveTypes.GameImage;
 import com.JEngine.PrimitiveTypes.Position.Transform;
@@ -79,7 +80,7 @@ public class Main extends Application {
         player = new CustomPlayer(Transform.exSimpleTransform(550,100), image, new Identity("Player 1", "Player"),true, 10);
         player2 = new CustomPlayer(Transform.exSimpleTransform(700,100), image2, new Identity("Player 2", "Player"),true, 10);
 
-        camera = new GameCamera(new Vector3(-20,0,1), window, scene, null, new Identity("Main Camera","camera"));
+        camera = new GameCamera(new Vector3(0,0,1), window, scene, null, new Identity("Main Camera","camera"));
 
         Pointer pointer = new Pointer(null, true);
         camera.setParent(pointer);
@@ -91,7 +92,8 @@ public class Main extends Application {
         scene.add(camera);
         scene.add(player);
         scene.add(player2);
-        scene.add(pointer);
+
+
         Text titleText = new Text(10, 50, "JEngine Moving Squares Example");
         titleText.setFont(Font.font ("arial", 25));
         titleText.setFill(Color.WHITE);

@@ -25,7 +25,7 @@
 
 package com.JEngine.Utility.ImageProcessing;
 
-import javafx.scene.image.Image;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Image;
 import javafx.scene.image.*;
 import javafx.scene.paint.Color;
 

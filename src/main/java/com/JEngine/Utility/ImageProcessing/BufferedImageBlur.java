@@ -2,7 +2,8 @@ package com.JEngine.Utility.ImageProcessing;
 
 import com.JEngine.PrimitiveTypes.GameImage;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
-import javafx.scene.image.Image;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Image;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Image;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
@@ -67,7 +68,8 @@ public class BufferedImageBlur {
             BufferedImage blurred = op.filter(img, BufferedImageBlur.img);
             Thing.LogDebug("Successfully blurred image");
 
-            return SwingFXUtils.toFXImage(blurred, null);
+            return null;
+            //return SwingFXUtils.toFXImage(blurred, null);
 
         } catch (Exception e) {
             System.out.println("Error: " + e);

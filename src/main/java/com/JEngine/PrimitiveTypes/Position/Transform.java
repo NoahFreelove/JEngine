@@ -1,5 +1,7 @@
 package com.JEngine.PrimitiveTypes.Position;
 
+import java.io.Serializable;
+
 /** Transform (c) Noah Freelove
  * Brief Explanation:
  * A transform is made of 3 Vector3 variables that hold position, rotation, and scale.
@@ -9,7 +11,7 @@ package com.JEngine.PrimitiveTypes.Position;
  * All objects have a transform value as they must hold an in-game position, even if not visible.
  * **/
 
-public class Transform {
+public class Transform implements Serializable {
     public Vector3 position;
     public Vector3 rotation;
     public Vector3 scale;

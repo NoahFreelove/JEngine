@@ -6,14 +6,13 @@ import com.JEngine.Game.Visual.Scenes.SceneManager;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.Position.Vector2;
 import com.JEngine.PrimitiveTypes.Position.Vector3;
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Group;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Identity;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.GameObject;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
-import javafx.scene.Group;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Image;
 
 /** GameCamera (c) Noah Freelove
  * Brief Explanation:
@@ -208,6 +207,8 @@ public class GameCamera extends GameObject {
 
             if(parent instanceof Sprite sprite)
             {
+                if(sprite.getSprite() == null)
+                    return;
                 offset.x -= (sprite.getSprite().getWidth() * sprite.getTransform().getScale().x)/2;
                 offset.y -= (sprite.getSprite().getHeight() * sprite.getTransform().getScale().y)/2;
                 setPosition(new Vector3(parent.getTransform().getPosition().x - offset.x, parent.getTransform().getPosition().y - offset.y, getTransform().position.z));

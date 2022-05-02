@@ -59,6 +59,8 @@ public class FileOperations {
         try {
             FileWriter writer = new FileWriter(filepath);
             for(String str: arr) {
+                if(str == null)
+                    continue;
                 writer.write(str + System.lineSeparator());
             }
             writer.close();

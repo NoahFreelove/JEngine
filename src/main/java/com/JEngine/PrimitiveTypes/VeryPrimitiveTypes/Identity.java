@@ -1,5 +1,7 @@
 package com.JEngine.PrimitiveTypes.VeryPrimitiveTypes;
 
+import java.io.Serializable;
+
 /** JIdentity (c) Noah Freelove
  * Brief Explanation:
  * A JIdentity holds information about an object that helps to distinguish it from the rest.
@@ -11,7 +13,7 @@ package com.JEngine.PrimitiveTypes.VeryPrimitiveTypes;
  * which you can't tell apart.
  * **/
 
-public class Identity {
+public class Identity implements Serializable {
     String name;
     String tag;
 

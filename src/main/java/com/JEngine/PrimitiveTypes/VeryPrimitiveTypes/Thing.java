@@ -2,13 +2,15 @@ package com.JEngine.PrimitiveTypes.VeryPrimitiveTypes;
 
 import com.JEngine.Utility.Settings.EnginePrefs;
 
+import java.io.Serializable;
+
 /** Thing (c) Noah Freelove
  * Brief Explanation:
  * A Thing is the most basic type in com.JEngine. It does not require a transform, just an active state.
  * Things are useless on their own but can be used to create more complex objects.
  * **/
 
-public class Thing {
+public class Thing implements Serializable {
     boolean isActive;
 
     public Thing(boolean isActive) {

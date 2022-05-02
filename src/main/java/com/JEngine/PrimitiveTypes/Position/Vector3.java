@@ -1,5 +1,7 @@
 package com.JEngine.PrimitiveTypes.Position;
 
+import java.io.Serializable;
+
 /** Vector3 (c) Noah Freelove
  * A Vector 3 is a simple structure that has an x y and z value.
  *
@@ -8,7 +10,7 @@ package com.JEngine.PrimitiveTypes.Position;
  * Vector3 values can also be handy for holding simple points or structures with 3 float values
  * **/
 
-public class Vector3 {
+public class Vector3 implements Serializable {
     public float x;
     public float y;
     public float z;

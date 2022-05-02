@@ -2,6 +2,8 @@ package com.JEngine.PrimitiveTypes.VeryPrimitiveTypes;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.Position.Vector3;
 
+import java.io.Serializable;
+
 /** JObject (c) Noah Freelove
  * Brief Explanation:
  * A object is a simple class that has a transform value and is a primitive base for (nearly) everything that exists.
@@ -11,7 +13,7 @@ import com.JEngine.PrimitiveTypes.Position.Vector3;
  * An object cannot be controlled directly, but it's position can be updated by doing Object.getTransform().setTransform
  * **/
 
-public class GameObject extends Thing {
+public class GameObject extends Thing implements Serializable {
     private Transform transform;
     private final Identity identity;
     private boolean queuedForDeletion;

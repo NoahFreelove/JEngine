@@ -1,7 +1,7 @@
 package com.JEngine.PrimitiveTypes;
 
+import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Image;
 import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
-import javafx.scene.image.Image;
 
 import java.io.File;
 
