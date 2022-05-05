@@ -3,8 +3,8 @@ package com.JEngine.Game.PlayersAndPawns;
 import com.JEngine.Game.PlayersAndPawns.Colliders.BoxCollider;
 import com.JEngine.PrimitiveTypes.GameImage;
 import com.JEngine.PrimitiveTypes.Position.*;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Identity;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.GameObject;
+import com.JEngine.PrimitiveTypes.Identity;
+import com.JEngine.PrimitiveTypes.GameObject;
 import com.JEngine.Utility.GameMath;
 
 /** JPawn (c) Noah Freelove
@@ -82,7 +82,7 @@ public class Pawn extends Sprite {
      * @param direction direction to move the pawn (8 cardinal directions)
      * @param speed amount to move the pawn
      */
-    public void Move(Direction direction, int speed)
+    public boolean Move(Direction direction, int speed)
     {
         Angle angle = new Angle(0);
         Vector3 oldPos = super.getTransform().position;
@@ -163,6 +163,20 @@ public class Pawn extends Sprite {
                 }
             }
         }
+        LogDebug(String.format("Moved pawn %.2f° %d unit(s) | OLD POS {%.2f,%.2f,%.2f} | NEW POS {%.2f,%.2f,%.2f}", angle.angle, originalSpeed, oldPos.x, oldPos.y, oldPos.z, super.getTransform().position.x, super.getTransform().position.y, super.getTransform().position.z));
+        return Move(totalXMovement,totalYMovement);
+    }
+    public boolean Move(Vector2 direction, float speed)
+    {
+        direction = new Vector2(GameMath.clamp(-1,1,direction.x), GameMath.clamp(-1,1,direction.y));
+        direction = direction.multiply(speed);
+        float totalXMovement = direction.x;
+        float totalYMovement = direction.y;
+        // if the collider is hard, check if you will collide with another hard collider
+        return Move(totalXMovement,totalYMovement);
+    }
+
+    private boolean Move(float totalXMovement, float totalYMovement){
         // if the collider is hard, check if you will collide with another hard collider
         if(getCollider() != null)
         {
@@ -172,12 +186,11 @@ public class Pawn extends Sprite {
                 {
                     super.getTransform().setPosition(new Vector3(super.getTransform().position.x + totalXMovement, super.getTransform().position.y + totalYMovement, super.getTransform().position.z));
                 }
-                return;
+                return true;
             }
         }
-
         // actual logic that moves pawn
         super.getTransform().setPosition(new Vector3(super.getTransform().position.x + totalXMovement, super.getTransform().position.y + totalYMovement, super.getTransform().position.z));
-        LogDebug(String.format("Moved pawn %.2f° %d unit(s) | OLD POS {%.2f,%.2f,%.2f} | NEW POS {%.2f,%.2f,%.2f}", angle.angle, originalSpeed, oldPos.x, oldPos.y, oldPos.z, super.getTransform().position.x, super.getTransform().position.y, super.getTransform().position.z));
+        return false;
     }
 }

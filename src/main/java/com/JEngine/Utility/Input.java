@@ -2,8 +2,7 @@ package com.JEngine.Utility;
 
 import com.JEngine.Game.PlayersAndPawns.Player;
 import com.JEngine.Game.Visual.Scenes.SceneManager;
-import com.JEngine.PrimitiveTypes.ObjRef;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.GameObject;
+import com.JEngine.PrimitiveTypes.GameObject;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;

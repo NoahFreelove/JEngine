@@ -6,13 +6,13 @@ import com.JEngine.Game.Visual.Scenes.SceneManager;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.Position.Vector2;
 import com.JEngine.PrimitiveTypes.Position.Vector3;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Group;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Identity;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.GameObject;
+import com.JEngine.PrimitiveTypes.Group;
+import com.JEngine.PrimitiveTypes.Identity;
+import com.JEngine.PrimitiveTypes.GameObject;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.image.ImageView;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Image;
+import com.JEngine.PrimitiveTypes.Image;
 
 /** GameCamera (c) Noah Freelove
  * Brief Explanation:
@@ -29,7 +29,6 @@ public class GameCamera extends GameObject {
 
 
     private Vector2 zoom = new Vector2(1f,1f); // Doesn't work the intended way yet
-
 
     /**
      * Default constructor
@@ -201,6 +200,7 @@ public class GameCamera extends GameObject {
 
     @Override
     public void Update(){
+        super.Update();
         if(parent !=null)
         {
             Vector2 offset = new Vector2(1280* window.getScaleMultiplier()*zoom.x,720* window.getScaleMultiplier()*zoom.y);

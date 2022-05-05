@@ -23,6 +23,11 @@ public class Vector2 {
         this.y = y;
     }
 
+    public Vector2 multiply(double v)
+    {
+        return new Vector2((float)(x * v), (float)(y * v));
+    }
+
     public String toString()
     {
         return String.format("(x:%f y:%f)", x, y);

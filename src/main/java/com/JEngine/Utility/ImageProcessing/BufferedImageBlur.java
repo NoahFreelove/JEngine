@@ -1,9 +1,8 @@
 package com.JEngine.Utility.ImageProcessing;
 
 import com.JEngine.PrimitiveTypes.GameImage;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Image;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Image;
+import com.JEngine.PrimitiveTypes.Thing;
+import com.JEngine.PrimitiveTypes.Image;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;

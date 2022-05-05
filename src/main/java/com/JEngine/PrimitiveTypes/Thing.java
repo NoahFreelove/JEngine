@@ -1,4 +1,4 @@
-package com.JEngine.PrimitiveTypes.VeryPrimitiveTypes;
+package com.JEngine.PrimitiveTypes;
 
 import com.JEngine.Utility.Settings.EnginePrefs;
 

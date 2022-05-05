@@ -1,8 +1,8 @@
 package com.JEngine.Utility.Misc;
 
 import com.JEngine.PrimitiveTypes.Position.Transform;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Identity;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.GameObject;
+import com.JEngine.PrimitiveTypes.Identity;
+import com.JEngine.PrimitiveTypes.GameObject;
 import javafx.scene.text.Text;
 
 /** FPSCounter (c) Noah Freelove

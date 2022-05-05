@@ -5,8 +5,7 @@ import com.JEngine.Game.Visual.Scenes.SceneManager;
 import com.JEngine.PrimitiveTypes.GameImage;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.Position.Vector2;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.GameObject;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Identity;
+import com.JEngine.PrimitiveTypes.Identity;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 
@@ -89,7 +88,7 @@ public class MousePointer extends Player {
 
     @Override
     public void Update() {
-
+        super.Update();
     }
 
     public Vector2 pointerPosToWorldPoint(){

@@ -4,7 +4,7 @@ import com.JEngine.PrimitiveTypes.Position.Vector3;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-import static com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing.LogError;
+import static com.JEngine.PrimitiveTypes.Thing.LogError;
 /** JMath (c) Noah Freelove
  * A collection of useful math functions.
  */

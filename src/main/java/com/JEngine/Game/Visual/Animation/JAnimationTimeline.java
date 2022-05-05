@@ -1,7 +1,7 @@
 package com.JEngine.Game.Visual.Animation;
 
 import com.JEngine.PrimitiveTypes.GameImage;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
+import com.JEngine.PrimitiveTypes.Thing;
 
 /** JAnimationTimeline (c) Noah Freelove
  * Brief Explanation:

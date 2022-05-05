@@ -5,7 +5,7 @@ import com.JEngine.Game.PlayersAndPawns.Pawn;
 import com.JEngine.Game.Visual.Scenes.SceneManager;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.Position.Vector3;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Identity;
+import com.JEngine.PrimitiveTypes.Identity;
 
 /** ScreenBorder
  * Create a hard collection of JBoxColliders to create a border around the screen.

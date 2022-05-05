@@ -1,6 +1,6 @@
 package com.JEngine.Utility.About;
 
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
+import com.JEngine.PrimitiveTypes.Thing;
 
 /** JAppInfo (c) Noah Freelove
  * Easily store and get your application's information.

@@ -86,6 +86,11 @@ public class Vector3 implements Serializable {
     }
     //endregion
 
+    public static float getMaxValue(Vector3 input)
+    {
+        return Math.max(Math.max(Math.abs(input.x), Math.abs(input.y)), Math.abs(input.z));
+    }
+
     // Make toString() readable
     public String toString() {return String.format("{x:%f y:%f z:%f}", x,y,z);}
 }

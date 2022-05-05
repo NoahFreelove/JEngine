@@ -4,7 +4,7 @@ import com.JEngine.Game.PlayersAndPawns.Sprite;
 import com.JEngine.Game.Visual.Scenes.SceneManager;
 import com.JEngine.PrimitiveTypes.GameImage;
 import com.JEngine.PrimitiveTypes.Position.Transform;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Identity;
+import com.JEngine.PrimitiveTypes.Identity;
 /** BackgroundImage
  *  A background image that can be used in a scene.
  *  Automatically takes the full size of the window

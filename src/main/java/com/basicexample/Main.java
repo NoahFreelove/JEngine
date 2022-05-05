@@ -1,20 +1,18 @@
 package com.basicexample;
 
+import com.JEngine.Game.PlayersAndPawns.Player;
 import com.JEngine.Game.Visual.GameCamera;
-import com.JEngine.Game.Visual.Scenes.GameScene;
 import com.JEngine.Game.Visual.GameWindow;
-import com.JEngine.Game.Visual.Scenes.SceneLoader;
+import com.JEngine.Game.Visual.Scenes.GameScene;
 import com.JEngine.PrimitiveTypes.FlipFlop;
 import com.JEngine.PrimitiveTypes.GameImage;
+import com.JEngine.PrimitiveTypes.GameObject;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.Position.Vector3;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Identity;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.GameObject;
+import com.JEngine.PrimitiveTypes.Identity;
 import com.JEngine.TemplateObjects.BackgroundImage;
 import com.JEngine.TemplateObjects.ScreenBorder;
 import com.JEngine.Utility.About.GameInfo;
-import com.JEngine.Utility.Input;
-import com.JEngine.Utility.Misc.GenericMethod;
 import com.JEngine.Utility.Settings.EnginePrefs;
 import javafx.application.Application;
 import javafx.scene.paint.Color;
@@ -22,7 +20,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.awt.dnd.InvalidDnDOperationException;
 import java.io.File;
 
 public class Main extends Application {
@@ -91,8 +88,8 @@ public class Main extends Application {
         // add objects to scene
         scene.add(camera);
         scene.add(player);
+        player2.addChild(player);
         scene.add(player2);
-
 
         Text titleText = new Text(10, 50, "JEngine Moving Squares Example");
         titleText.setFont(Font.font ("arial", 25));
@@ -103,7 +100,13 @@ public class Main extends Application {
 
         window.setTargetFPS(60);
 
-        // run Start function on other thread so the update functions doesn't stop the rest of the main function
+        GameObject go = new GameObject(Transform.exSimpleTransform(0,0), new Identity("Test", "Test"), true);
+        PhysicsComponent comp = new PhysicsComponent();
+        comp.setParent(player);
+        player.addComponent(comp);
+        player.physicsComp = comp;
+
+        scene.add(go);
         window.start();
     }
 

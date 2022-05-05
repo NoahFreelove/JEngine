@@ -1,7 +1,6 @@
 package com.JEngine.PrimitiveTypes;
 
 import com.JEngine.PrimitiveTypes.Position.Vector3;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.GameObject;
 
 /** ObjRef (c) Noah Freelove
  * Brief Explanation:

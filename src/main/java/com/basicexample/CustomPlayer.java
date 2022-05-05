@@ -3,10 +3,12 @@ package com.basicexample;
 import com.JEngine.Game.PlayersAndPawns.Colliders.BoxCollider;
 import com.JEngine.Game.PlayersAndPawns.Player;
 import com.JEngine.Game.Visual.Scenes.SceneManager;
+import com.JEngine.PrimitiveTypes.Component;
 import com.JEngine.PrimitiveTypes.GameImage;
 import com.JEngine.PrimitiveTypes.Position.Direction;
 import com.JEngine.PrimitiveTypes.Position.Transform;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Identity;
+import com.JEngine.PrimitiveTypes.Identity;
+import com.JEngine.PrimitiveTypes.Position.Vector2;
 import com.JEngine.Utility.Input;
 import javafx.scene.input.KeyCode;
 import javafx.scene.shape.Rectangle;
@@ -15,8 +17,8 @@ public class CustomPlayer extends Player {
     public boolean canMove;
     public int moveSpeed;
     private boolean flipFlop;
-
-    Rectangle rect;
+    Component physicsComp;
+    public Rectangle rect;
 
     public CustomPlayer(Transform transform, GameImage newSprite, Identity identity, boolean move, int moveSpeed) {
         super(transform, newSprite, identity);
@@ -54,6 +56,11 @@ public class CustomPlayer extends Player {
                 Move(Direction.Left, moveSpeed);
             if(Input.D_Pressed)
                 Move(Direction.Right, moveSpeed);
+
+            if(Input.Shift_Pressed)
+            {
+                jump();
+            }
         }
         else if (canMove && getIdentity().compareName("Player 2")) {
             if (Input.UArrow_Pressed)
@@ -66,5 +73,11 @@ public class CustomPlayer extends Player {
                 Move(Direction.Right, moveSpeed);
         }
         getCollider().checkAllCollision();
+        super.Update();
+
+    }
+
+    void jump(){
+        Move(new Vector2(0,-1), 50);
     }
 }

@@ -2,8 +2,8 @@ package com.JEngine.Game.PlayersAndPawns;
 
 import com.JEngine.PrimitiveTypes.GameImage;
 import com.JEngine.PrimitiveTypes.Position.Transform;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Identity;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.GameObject;
+import com.JEngine.PrimitiveTypes.Identity;
+import com.JEngine.PrimitiveTypes.GameObject;
 
 /** Sprite (c) Noah Freelove
  * Brief Explanation:

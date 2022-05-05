@@ -1,8 +1,5 @@
 package com.JEngine.PrimitiveTypes;
 
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Image;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
-
 import java.io.File;
 
 /** JImage (c) Noah Freelove

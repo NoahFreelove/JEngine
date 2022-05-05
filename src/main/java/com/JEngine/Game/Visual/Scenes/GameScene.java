@@ -1,10 +1,10 @@
 package com.JEngine.Game.Visual.Scenes;
 
 import com.JEngine.Game.Visual.SearchType;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Group;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Identity;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.GameObject;
-import com.JEngine.PrimitiveTypes.VeryPrimitiveTypes.Thing;
+import com.JEngine.PrimitiveTypes.Group;
+import com.JEngine.PrimitiveTypes.Identity;
+import com.JEngine.PrimitiveTypes.GameObject;
+import com.JEngine.PrimitiveTypes.Thing;
 import javafx.fxml.FXMLLoader;
 
 import java.io.IOException;
