@@ -14,7 +14,7 @@ public class PhysicsComponent extends Component {
     private Vector2 gravity;
     private boolean hasGravity = true;
     private boolean onGround = false;
-    private boolean frictionInAir = false;
+    private boolean frictionInAir = true;
     @Override
     public void Update(){
         // multiply by delta time for smooth movement and not instant teleporting
@@ -23,22 +23,24 @@ public class PhysicsComponent extends Component {
 
         // add gravity if applicable
         if(hasGravity)
-            acceleration = acceleration.add(gravity.multiply(deltaTime));
-
+            acceleration = acceleration.add(gravity);
 
         // Slow down based on friction
         velocity = velocity.add(acceleration.multiply(deltaTime));
-        if((!onGround && frictionInAir) || onGround)
+        if(onGround || frictionInAir)
         {
             velocity = velocity.multiply(new Vector2(1-friction.x,1-friction.y));
         }
         if(getParent() ==null) return;
 
-        if(getParent() instanceof Pawn pawn)
-        {
+        if(getParent() instanceof Pawn pawn) {
             // move in directions separately by delta time
-            onGround = !pawn.Move(new Vector2(0,1), velocity.y);
 
+            onGround = !pawn.Move(new Vector2(0, 1), velocity.y);
+            if (!onGround)
+            {
+                pawn.Move(new Vector2(0, 1), velocity.y/3);
+            }
             // These statements make it so if you run into a wall you don't infinitely accelerate
             if(onGround) {
                 velocity.y = 0;
@@ -60,7 +62,7 @@ public class PhysicsComponent extends Component {
         this.gravity =  new Vector2(0f,9.8f);
         this.velocity = new Vector2(0,0);
         this.acceleration = new Vector2(0,0);
-        this.friction = new Vector2(0.4f,0);
+        this.friction = new Vector2(0.2f,0);
         if(hasGravity)
             velocity = new Vector2(gravity.x, gravity.y);
     }

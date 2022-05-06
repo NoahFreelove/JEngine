@@ -72,7 +72,7 @@ public class Main extends Application {
         GameImage image2 = new GameImage(filepath2, 128,128);
 
         // create a player object
-        player = new CustomPlayer(Transform.exSimpleTransform(550,100), image, new Identity("Player 1", "Player"),true, 10);
+        player = new CustomPlayer(Transform.exSimpleTransform(550,100), image, new Identity("Player 1", "Player"),true, 5);
         player2 = new CustomPlayer(Transform.exSimpleTransform(700,100), image2, new Identity("Player 2", "Player"),true, 10);
 
         camera = new GameCamera(new Vector3(0,0,1), window, scene, null, new Identity("Main Camera","camera"));

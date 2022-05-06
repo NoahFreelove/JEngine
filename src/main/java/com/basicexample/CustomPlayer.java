@@ -17,7 +17,7 @@ public class CustomPlayer extends Player {
     public int moveSpeed;
     private boolean flipFlop;
     PhysicsComponent physicsComp;
-    private float jumpZAcceleration = 15f;
+    private float jumpAcceleration = 130f;
 
     public CustomPlayer(Transform transform, GameImage newSprite, Identity identity, boolean move, int moveSpeed) {
         super(transform, newSprite, identity);
@@ -70,16 +70,15 @@ public class CustomPlayer extends Player {
 
     }
 
-    public float getJumpZAcceleration() {
-        return jumpZAcceleration;
+    public float getJumpAcceleration() {
+        return jumpAcceleration;
     }
 
-    public void setJumpZAcceleration(float jumpZAcceleration) {
-        this.jumpZAcceleration = jumpZAcceleration;
+    public void setJumpAcceleration(float jumpAcceleration) {
+        this.jumpAcceleration = jumpAcceleration;
     }
 
     void jump(){
-        physicsComp.addAcceleration(new Vector2(0, jumpZAcceleration));
-        physicsComp.addVelocity(new Vector2(0, -jumpZAcceleration));
+        physicsComp.addAcceleration(new Vector2(0, -jumpAcceleration));
     }
 }
