@@ -1,5 +1,6 @@
 package com.JEngine.Game.Visual;
 
+import com.JEngine.Game.PlayersAndPawns.Pawn;
 import com.JEngine.Game.PlayersAndPawns.Sprite;
 import com.JEngine.Game.Visual.Scenes.GameScene;
 import com.JEngine.Game.Visual.Scenes.SceneManager;
@@ -19,7 +20,7 @@ import com.JEngine.PrimitiveTypes.Image;
  * Camera converts the objects in a scene to a rendered panel which JWindow can show.
  * Camera's output depends on its position and FOV (in pixels)
  * **/
-public class GameCamera extends GameObject {
+public class GameCamera extends Pawn {
     // fov is added to the right and bottom of the camera, does not start from the middle of the camera
 
     private GameScene scene;
@@ -39,7 +40,7 @@ public class GameCamera extends GameObject {
      * @param Identity Identity
      */
     public GameCamera(Vector3 position, GameWindow window, GameScene scene, GameObject parent, Identity Identity) {
-        super(new Transform(position, new Vector3(0,0,0), new Vector3(1,1,1)), Identity);
+        super(new Transform(position, new Vector3(0,0,0), new Vector3(1,1,1)),null, Identity);
 
         this.window = window;
         this.scene = scene;
@@ -55,7 +56,7 @@ public class GameCamera extends GameObject {
      * @param Identity Identity
      */
     public GameCamera(Vector3 position, GameWindow window, GameScene scene, Identity Identity) {
-        super(new Transform(position, new Vector3(0,0,0), new Vector3(1,1,1)), Identity);
+        super(new Transform(position, new Vector3(0,0,0), new Vector3(1,1,1)),null, Identity);
 
         this.window = window;
         this.scene = scene;

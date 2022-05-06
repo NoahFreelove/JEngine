@@ -100,8 +100,7 @@ public class Main extends Application {
 
         GameObject go = new GameObject(Transform.exSimpleTransform(0,0), new Identity("Test", "Test"), true);
         PhysicsComponent comp = new PhysicsComponent(true);
-        comp.setParent(player);
-        player.addComponent(comp);
+        player.addComponent(comp, player);
         player.physicsComp = comp;
 
         scene.add(go);

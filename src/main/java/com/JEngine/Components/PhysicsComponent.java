@@ -14,21 +14,24 @@ public class PhysicsComponent extends Component {
     private Vector2 gravity;
     private boolean hasGravity = true;
     private boolean onGround = false;
-
+    private boolean frictionInAir = false;
     @Override
     public void Update(){
         // multiply by delta time for smooth movement and not instant teleporting
         double deltaTime = SceneManager.getWindow().getDeltaTime()/1000d;
         // Speed up based on acceleration
-        velocity = velocity.add(acceleration.multiply(deltaTime));
 
         // add gravity if applicable
         if(hasGravity)
             acceleration = acceleration.add(gravity.multiply(deltaTime));
 
-        // Slow down based on friction
-        velocity.multiply(new Vector2(1,1).subtract(friction.multiply(deltaTime)));
 
+        // Slow down based on friction
+        velocity = velocity.add(acceleration.multiply(deltaTime));
+        if((!onGround && frictionInAir) || onGround)
+        {
+            velocity = velocity.multiply(new Vector2(1-friction.x,1-friction.y));
+        }
         if(getParent() ==null) return;
 
         if(getParent() instanceof Pawn pawn)
@@ -45,9 +48,9 @@ public class PhysicsComponent extends Component {
                 velocity.x = 0;
                 acceleration.x = 0;
             }
-            System.out.println("V:"+velocity);
+            /*System.out.println("V:"+velocity);
             System.out.println("A:"+acceleration);
-            System.out.println("OnGround?:"+onGround);
+            System.out.println("OnGround?:"+onGround);*/
         }
 
     }
@@ -57,7 +60,7 @@ public class PhysicsComponent extends Component {
         this.gravity =  new Vector2(0f,9.8f);
         this.velocity = new Vector2(0,0);
         this.acceleration = new Vector2(0,0);
-        this.friction = new Vector2(0,0);
+        this.friction = new Vector2(0.4f,0);
         if(hasGravity)
             velocity = new Vector2(gravity.x, gravity.y);
     }

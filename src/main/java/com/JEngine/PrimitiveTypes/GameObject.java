@@ -116,9 +116,10 @@ public class GameObject extends Thing implements Serializable {
         }
         children = newChildren;
     }
-    public void addComponent(Component component) {
+    public void addComponent(Component component, GameObject parent) {
         Component[] newComponents = new Component[components.length + 1];
         System.arraycopy(components, 0, newComponents, 0, components.length);
+        component.setParent(parent);
         newComponents[components.length] = component;
         components = newComponents;
     }
