@@ -1,6 +1,6 @@
 package com.basicexample;
 
-import com.JEngine.Game.PlayersAndPawns.Player;
+import com.JEngine.Components.PhysicsComponent;
 import com.JEngine.Game.Visual.GameCamera;
 import com.JEngine.Game.Visual.GameWindow;
 import com.JEngine.Game.Visual.Scenes.GameScene;
@@ -101,7 +101,7 @@ public class Main extends Application {
         window.setTargetFPS(60);
 
         GameObject go = new GameObject(Transform.exSimpleTransform(0,0), new Identity("Test", "Test"), true);
-        PhysicsComponent comp = new PhysicsComponent();
+        PhysicsComponent comp = new PhysicsComponent(true);
         comp.setParent(player);
         player.addComponent(comp);
         player.physicsComp = comp;

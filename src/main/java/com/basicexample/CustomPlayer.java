@@ -1,24 +1,23 @@
 package com.basicexample;
 
+import com.JEngine.Components.PhysicsComponent;
 import com.JEngine.Game.PlayersAndPawns.Colliders.BoxCollider;
 import com.JEngine.Game.PlayersAndPawns.Player;
 import com.JEngine.Game.Visual.Scenes.SceneManager;
-import com.JEngine.PrimitiveTypes.Component;
 import com.JEngine.PrimitiveTypes.GameImage;
+import com.JEngine.PrimitiveTypes.Identity;
 import com.JEngine.PrimitiveTypes.Position.Direction;
 import com.JEngine.PrimitiveTypes.Position.Transform;
-import com.JEngine.PrimitiveTypes.Identity;
 import com.JEngine.PrimitiveTypes.Position.Vector2;
 import com.JEngine.Utility.Input;
 import javafx.scene.input.KeyCode;
-import javafx.scene.shape.Rectangle;
 
 public class CustomPlayer extends Player {
     public boolean canMove;
     public int moveSpeed;
     private boolean flipFlop;
-    Component physicsComp;
-    public Rectangle rect;
+    PhysicsComponent physicsComp;
+    private float jumpZHeight = 400;
 
     public CustomPlayer(Transform transform, GameImage newSprite, Identity identity, boolean move, int moveSpeed) {
         super(transform, newSprite, identity);
@@ -57,7 +56,7 @@ public class CustomPlayer extends Player {
             if(Input.D_Pressed)
                 Move(Direction.Right, moveSpeed);
 
-            if(Input.Shift_Pressed)
+            if(Input.Shift_Pressed && physicsComp.isOnGround())
             {
                 jump();
             }
@@ -78,6 +77,6 @@ public class CustomPlayer extends Player {
     }
 
     void jump(){
-        Move(new Vector2(0,-1), 50);
+        Move(new Vector2(0,-1), jumpZHeight);
     }
 }

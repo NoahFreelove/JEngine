@@ -7,4 +7,6 @@ module com.example.jengine {
 
     opens com.basicexample to javafx.fxml;
     exports com.basicexample;
+    exports com.JEngine.Components;
+    opens com.JEngine.Components to javafx.fxml;
 }

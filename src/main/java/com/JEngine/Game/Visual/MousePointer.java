@@ -9,9 +9,9 @@ import com.JEngine.PrimitiveTypes.Identity;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 
-/** JPointer (c) Noah Freelove
+/** MousePointer (c) Noah Freelove
  * Brief Explanation:
- * JPointer overrides the default mouse image and allows for tracking its exact position in the window, and key presses.
+ * MousePointer overrides the default mouse image and allows for tracking its exact position in the window, and key presses.
  * **/
 
 public class MousePointer extends Player {
@@ -39,7 +39,7 @@ public class MousePointer extends Player {
     }
 
     /**
-     * Init the scene's cursor'
+     * Init the scene's cursor
      */
     private void init()
     {

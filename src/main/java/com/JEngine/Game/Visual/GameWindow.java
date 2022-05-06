@@ -28,11 +28,12 @@ public class GameWindow extends Thing {
     private boolean isPaused;
     private final Stage stage;
     public Scene scene;
-    public GameScene jscene;
+    public GameScene activeScene;
 
     private Thread updateThread;
 
     private double fpsMili = 1000/30;
+    public long deltaTime;
     private float targetFPS = 30;
     public int totalFrames = 1;
 
@@ -60,7 +61,7 @@ public class GameWindow extends Thing {
             parent.getChildren().add(sceneObjects);
             parent.getChildren().add(scene.uiObjects);
             this.scene = new Scene(parent,1280*scaleMultiplier,720*scaleMultiplier);
-            this.jscene = scene;
+            this.activeScene = scene;
             Input.init(this.scene);
         }
         catch (Exception e){
@@ -214,9 +215,9 @@ public class GameWindow extends Thing {
     {
         try
         {
-            updateThread.interrupt();
             FPSCounter.stop();
             isActive = false;
+            updateThread.interrupt();
             LogInfo("Successfully stopped window");
         }
         catch (Exception ignored)
@@ -234,9 +235,8 @@ public class GameWindow extends Thing {
         while (isActive) {
             while (System.currentTimeMillis() > nextTick) {
                 nextTick += fpsMili;
+                if(isPaused) continue;
 
-                if(isPaused)
-                    continue;
                 totalFrames++;
                 update(totalFrames);
                 FPSCounter.updateFrame();

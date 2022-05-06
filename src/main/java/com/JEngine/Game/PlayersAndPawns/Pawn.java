@@ -71,7 +71,7 @@ public class Pawn extends Sprite {
      * @return true if the pawn can move, false if it cannot
      */
     public boolean canMove(float xDisplacement, float yDisplacement) {
-        BoxCollider tmpCollider = new BoxCollider(new Transform(getTransform()), new Identity("tmpCollider", "boxCollider"), getSprite().getWidth(), getSprite().getHeight(), this, false);
+        BoxCollider tmpCollider = new BoxCollider(new Transform(getTransform()), new Identity("tmpCollider", "boxCollider"), (getSprite().getWidth()), (getSprite().getHeight()), this, false);
 
         tmpCollider.getTransform().setPosition(new Vector3(getTransform().getPosition().x + xDisplacement, getTransform().getPosition().y + yDisplacement, getTransform().getPosition().z));
         return !tmpCollider.isCollidingWithHard();
@@ -176,21 +176,36 @@ public class Pawn extends Sprite {
         return Move(totalXMovement,totalYMovement);
     }
 
+    public boolean Move(Vector2 direction, Vector2 magnitude)
+    {
+        direction = new Vector2(GameMath.clamp(-1,1,direction.x), GameMath.clamp(-1,1,direction.y));
+        direction = direction.multiply(magnitude);
+        float totalXMovement = direction.x;
+        float totalYMovement = direction.y;
+        // if the collider is hard, check if you will collide with another hard collider
+        return Move(totalXMovement,totalYMovement);
+    }
+
     private boolean Move(float totalXMovement, float totalYMovement){
         // if the collider is hard, check if you will collide with another hard collider
         if(getCollider() != null)
         {
-            if(!getCollider().isTrigger())
+            if(getCollider().isTrigger())
             {
-                if(canMove(totalXMovement, totalYMovement))
-                {
-                    super.getTransform().setPosition(new Vector3(super.getTransform().position.x + totalXMovement, super.getTransform().position.y + totalYMovement, super.getTransform().position.z));
-                }
+                // if the collider is soft, you can move wherever
+                super.getTransform().setPosition(new Vector3(super.getTransform().position.x + totalXMovement, super.getTransform().position.y + totalYMovement, super.getTransform().position.z));
                 return true;
             }
+            else if(canMove(totalXMovement, totalYMovement))
+            {
+                super.getTransform().setPosition(new Vector3(super.getTransform().position.x + totalXMovement, super.getTransform().position.y + totalYMovement, super.getTransform().position.z));
+
+                return true;
+            }
+            // return false if you can't move
+            return false;
         }
         // actual logic that moves pawn
-        super.getTransform().setPosition(new Vector3(super.getTransform().position.x + totalXMovement, super.getTransform().position.y + totalYMovement, super.getTransform().position.z));
         return false;
     }
 }
