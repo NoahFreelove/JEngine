@@ -211,6 +211,8 @@ public class GameCamera extends GameObject {
                     return;
                 offset.x -= (sprite.getSprite().getWidth() * sprite.getTransform().getScale().x)/2;
                 offset.y -= (sprite.getSprite().getHeight() * sprite.getTransform().getScale().y)/2;
+                offset = offset.subtract(SceneManager.getWindow().getCameraWindowOffset().add(new Vector2(0,-150)));
+
                 setPosition(new Vector3(parent.getTransform().getPosition().x - offset.x, parent.getTransform().getPosition().y - offset.y, getTransform().position.z));
 
             }

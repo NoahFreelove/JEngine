@@ -24,8 +24,6 @@ import java.io.File;
 
 public class Main extends Application {
 
-    //TODO: Add children to objects
-
     public static GameCamera camera;
 
     public static String binFolder = System.getProperty("user.home") + "\\Documents\\JEngine\\bin\\";
@@ -90,7 +88,7 @@ public class Main extends Application {
         scene.add(player);
         //player2.addChild(player);
         //scene.add(player2);
-
+        camera.setParent(player);
         Text titleText = new Text(10, 50, "JEngine Moving Squares Example");
         titleText.setFont(Font.font ("arial", 25));
         titleText.setFill(Color.WHITE);

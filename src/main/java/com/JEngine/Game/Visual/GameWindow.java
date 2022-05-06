@@ -5,6 +5,7 @@ import com.JEngine.Game.Visual.Scenes.SceneManager;
 import com.JEngine.PrimitiveTypes.GameImage;
 import com.JEngine.PrimitiveTypes.GameObject;
 import com.JEngine.PrimitiveTypes.Group;
+import com.JEngine.PrimitiveTypes.Position.Vector2;
 import com.JEngine.PrimitiveTypes.Thing;
 import com.JEngine.Utility.Input;
 import com.JEngine.Utility.Misc.FPSCounter;
@@ -47,6 +48,7 @@ public class GameWindow extends Thing {
     private float scaleMultiplier = 1;
     private Group prevObj;
 
+    public Vector2 cameraWindowOffset = new Vector2(640, 360);
 
     private GenericMethod[] updateEvents= new GenericMethod[0];
     private int updateEventsIndex = 0;
@@ -81,6 +83,8 @@ public class GameWindow extends Thing {
         this.stage.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, GameUtility::exitWindow);
         window.focusedProperty().addListener((newValue, onHidden, onShown) -> onFocusChange(newValue.getValue()));
         this.scaleMultiplier = scaleMultiplier;
+        setWindowScale(scaleMultiplier);
+
     }
 
     /**
@@ -106,6 +110,7 @@ public class GameWindow extends Thing {
         window.focusedProperty().addListener((newValue, onHidden, onShown) -> onFocusChange(newValue.getValue()));
         this.scaleMultiplier = scaleMultiplier;
         Input.init(this.scene);
+        setWindowScale(scaleMultiplier);
 
     }
 
@@ -163,6 +168,7 @@ public class GameWindow extends Thing {
         stage.setWidth(1280*newScale);
         stage.setHeight(720*newScale);
         scaleMultiplier = newScale;
+        cameraWindowOffset = new Vector2(1280*newScale/2, 720*newScale/2);
     }
 
     /**
@@ -328,5 +334,9 @@ public class GameWindow extends Thing {
 
     public long getDeltaTime() {
         return deltaTime;
+    }
+
+    public Vector2 getCameraWindowOffset() {
+        return cameraWindowOffset;
     }
 }

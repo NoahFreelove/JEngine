@@ -17,7 +17,7 @@ public class CustomPlayer extends Player {
     public int moveSpeed;
     private boolean flipFlop;
     PhysicsComponent physicsComp;
-    private float jumpZHeight = 50;
+    private float jumpZAcceleration = 5;
 
     public CustomPlayer(Transform transform, GameImage newSprite, Identity identity, boolean move, int moveSpeed) {
         super(transform, newSprite, identity);
@@ -47,10 +47,6 @@ public class CustomPlayer extends Player {
     public void Update()
     {
         if(canMove && getIdentity().compareName("Player 1")) {
-            if (Input.W_Pressed)
-                Move(Direction.Up, moveSpeed);
-            if(Input.S_Pressed)
-                Move(Direction.Down, moveSpeed);
             if(Input.A_Pressed)
                 Move(Direction.Left, moveSpeed);
             if(Input.D_Pressed)
@@ -62,8 +58,6 @@ public class CustomPlayer extends Player {
             }
         }
         else if (canMove && getIdentity().compareName("Player 2")) {
-            if (Input.UArrow_Pressed)
-                Move(Direction.Up, moveSpeed);
             if(Input.DArrow_Pressed)
                 Move(Direction.Down, moveSpeed);
             if(Input.LArrow_Pressed)
@@ -76,7 +70,15 @@ public class CustomPlayer extends Player {
 
     }
 
+    public float getJumpZAcceleration() {
+        return jumpZAcceleration;
+    }
+
+    public void setJumpZAcceleration(float jumpZAcceleration) {
+        this.jumpZAcceleration = jumpZAcceleration;
+    }
+
     void jump(){
-        physicsComp.addVelocity(new Vector2(0, -jumpZHeight));
+        physicsComp.addVelocity(new Vector2(0, -jumpZAcceleration));
     }
 }
