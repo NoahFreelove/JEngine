@@ -2,9 +2,9 @@ package com.JEngine.TemplateObjects;
 
 import com.JEngine.Game.PlayersAndPawns.Sprite;
 import com.JEngine.Game.Visual.Scenes.SceneManager;
-import com.JEngine.PrimitiveTypes.GameImage;
-import com.JEngine.PrimitiveTypes.Position.Transform;
-import com.JEngine.PrimitiveTypes.Identity;
+import com.JEngine.Core.GameImage;
+import com.JEngine.Core.Position.Transform;
+import com.JEngine.Core.Identity;
 /** BackgroundImage
  *  A background image that can be used in a scene.
  *  Automatically takes the full size of the window

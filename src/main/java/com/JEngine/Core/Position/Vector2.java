@@ -1,4 +1,4 @@
-package com.JEngine.PrimitiveTypes.Position;
+package com.JEngine.Core.Position;
 
 /** Vector2 (c) Noah Freelove
  * Brief Explanation:

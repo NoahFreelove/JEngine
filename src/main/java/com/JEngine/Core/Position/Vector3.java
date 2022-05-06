@@ -1,4 +1,4 @@
-package com.JEngine.PrimitiveTypes.Position;
+package com.JEngine.Core.Position;
 
 import java.io.Serializable;
 

@@ -1,11 +1,11 @@
-package com.JEngine.PrimitiveTypes;
+package com.JEngine.Core;
 import com.JEngine.Game.PlayersAndPawns.Pawn;
-import com.JEngine.PrimitiveTypes.Position.Direction;
-import com.JEngine.PrimitiveTypes.Position.Transform;
-import com.JEngine.PrimitiveTypes.Position.Vector2;
-import com.JEngine.PrimitiveTypes.Position.Vector3;
+import com.JEngine.Core.Position.Transform;
+import com.JEngine.Core.Position.Vector2;
+import com.JEngine.Core.Position.Vector3;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 /** JObject (c) Noah Freelove
  * Brief Explanation:
@@ -116,10 +116,10 @@ public class GameObject extends Thing implements Serializable {
         }
         children = newChildren;
     }
-    public void addComponent(Component component, GameObject parent) {
+    public void addComponent(Component component) {
         Component[] newComponents = new Component[components.length + 1];
         System.arraycopy(components, 0, newComponents, 0, components.length);
-        component.setParent(parent);
+        component.setParent(this);
         newComponents[components.length] = component;
         components = newComponents;
     }
@@ -131,5 +131,14 @@ public class GameObject extends Thing implements Serializable {
                 newComponents[index++] = c;
         }
         components = newComponents;
+    }
+    @Override
+    public String toString() {
+        return "GameObject{" +
+                "identity=" + identity +
+                ", transform=" + transform +
+                ", children=" + Arrays.toString(children) +
+                ", components=" + Arrays.toString(components) +
+                '}';
     }
 }

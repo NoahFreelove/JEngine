@@ -1,10 +1,10 @@
 package com.JEngine.Game.Visual.Scenes;
 
 import com.JEngine.Game.Visual.SearchType;
-import com.JEngine.PrimitiveTypes.Group;
-import com.JEngine.PrimitiveTypes.Identity;
-import com.JEngine.PrimitiveTypes.GameObject;
-import com.JEngine.PrimitiveTypes.Thing;
+import com.JEngine.Core.Group;
+import com.JEngine.Core.Identity;
+import com.JEngine.Core.GameObject;
+import com.JEngine.Core.Thing;
 import javafx.fxml.FXMLLoader;
 
 import java.io.IOException;
@@ -108,8 +108,8 @@ public class GameScene extends Thing {
     }
 
     /**
-     * Adds an object to the active scene
-     * Wil over-write the object if it is queued for deletion
+     * Adds an object to the active scene.
+     * Will over-write objects if they're queued for deletion.
      * @param o Object to add to the scene
      */
     public void add(GameObject o) {
@@ -136,7 +136,7 @@ public class GameScene extends Thing {
             }
         }
         // if scene is full, create a new array with 2 more spaces
-        GameObject[] temp = new GameObject[sceneObjects.length + 2];
+        GameObject[] temp = new GameObject[sceneObjects.length + 20];
         for (int i = 0; i < sceneObjects.length; i++) {
             temp[i] = sceneObjects[i];
         }
@@ -352,5 +352,16 @@ public class GameScene extends Thing {
     {
         sceneObjects = new GameObject[sceneObjects.length];
         LogInfo(String.format("Purged scene: '%s' of ALL contents.", getSceneName()));
+    }
+
+    public boolean contains(GameObject o)
+    {
+        for (GameObject g: sceneObjects) {
+            if(g == o)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

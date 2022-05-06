@@ -1,9 +1,18 @@
-package com.JEngine.PrimitiveTypes;
+package com.JEngine.Core;
 
+/** Component (c) Noah Freelove
+ * Brief Explanation:
+ * Components can be applied to any GameObject and are used to extend the functionality of the GameObject.
+ * Components are added to the GameObjects via the GameObject's addComponent() method.
+ * Components are removed from the GameObjects via the GameObject's removeComponent() method.
+ * Components have their own Update() method which is called automatically when attached to a GameObject.
+ *
+ * By default, Components have fields which aren't required but could be useful.
+ * **/
 public class Component extends Thing {
     private String componentName;
     private Object[] fields = new Object[0];
-    private Object parent = null;
+    private GameObject parent = null;
 
 
     public Object[] getFields() {
@@ -58,11 +67,11 @@ public class Component extends Thing {
         this.componentName = componentName;
     }
 
-    public Object getParent() {
+    public GameObject getParent() {
         return parent;
     }
 
-    public void setParent(Object parent) {
+    public void setParent(GameObject parent) {
         this.parent = parent;
     }
 }

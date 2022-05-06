@@ -1,6 +1,6 @@
 package com.Tests;
 
-import com.JEngine.PrimitiveTypes.Position.Vector3;
+import com.JEngine.Core.Position.Vector3;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

@@ -8,7 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
-import static com.JEngine.PrimitiveTypes.Thing.LogError;
+import static com.JEngine.Core.Thing.LogError;
 
 /** FileOperations (c) Noah Freelove
  * Lets you easily read and write strings to files

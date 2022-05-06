@@ -1,5 +1,7 @@
 package com.JEngine.Game.Visual.Scenes;
 
+import com.JEngine.Core.Component;
+import com.JEngine.Core.GameObject;
 import com.JEngine.Game.Visual.GameCamera;
 import com.JEngine.Game.Visual.GameWindow;
 import javafx.application.Platform;
@@ -47,10 +49,11 @@ public class SceneManager {
      */
     public static void switchScene(GameScene newScene) {
         Platform.runLater(() -> {
+            addDontDestroys(newScene);
             activeCamera.setActiveScene(newScene);
             window.parent.getChildren().remove(activeScene.uiObjects);
             SceneManager.activeScene = newScene;
-            window.parent.getChildren().add(activeScene.uiObjects);
+            window.parent.getChildren().add(newScene.uiObjects);
         } );
     }
 
@@ -87,5 +90,27 @@ public class SceneManager {
      */
     public static GameCamera getActiveCamera() {
         return activeCamera;
+    }
+
+    private static void addDontDestroys(GameScene newScene){
+        for (GameObject o : activeScene.getObjects()
+             ) {
+            if(o==null)
+                continue;
+            Component[] c = o.getComponentByName("DontDestroyOnLoad");
+            for (Component c1 : c) {
+                if(c1 != null)
+                {
+                    if(c1.getActive())
+                    {
+                        if(!newScene.contains(o))
+                        {
+                            newScene.add(o);
+                            System.out.println("Added:" + o.getIdentity().getName());
+                        }
+                    }
+                }
+            }
+        }
     }
 }

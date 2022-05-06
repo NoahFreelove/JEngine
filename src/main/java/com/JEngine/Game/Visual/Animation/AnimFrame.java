@@ -1,6 +1,6 @@
 package com.JEngine.Game.Visual.Animation;
 
-import com.JEngine.PrimitiveTypes.GameImage;
+import com.JEngine.Core.GameImage;
 
 /** AnimFrame (c) Noah Freelove
  * Brief Explanation:

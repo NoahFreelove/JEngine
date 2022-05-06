@@ -1,6 +1,6 @@
 package com.basicexample;
 
-import com.JEngine.PrimitiveTypes.Component;
+import com.JEngine.Core.Component;
 
 public class CompTest extends Component {
     public CompTest() {

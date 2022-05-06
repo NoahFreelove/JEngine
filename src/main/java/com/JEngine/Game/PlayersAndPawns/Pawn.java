@@ -1,10 +1,10 @@
 package com.JEngine.Game.PlayersAndPawns;
 
 import com.JEngine.Game.PlayersAndPawns.Colliders.BoxCollider;
-import com.JEngine.PrimitiveTypes.GameImage;
-import com.JEngine.PrimitiveTypes.Position.*;
-import com.JEngine.PrimitiveTypes.Identity;
-import com.JEngine.PrimitiveTypes.GameObject;
+import com.JEngine.Core.GameImage;
+import com.JEngine.Core.Position.*;
+import com.JEngine.Core.Identity;
+import com.JEngine.Core.GameObject;
 import com.JEngine.Utility.GameMath;
 
 /** JPawn (c) Noah Freelove

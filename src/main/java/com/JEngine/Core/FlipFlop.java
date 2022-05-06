@@ -1,4 +1,4 @@
-package com.JEngine.PrimitiveTypes;
+package com.JEngine.Core;
 
 /**
  *  FlipFlop is a class that is used to create a flip flop.

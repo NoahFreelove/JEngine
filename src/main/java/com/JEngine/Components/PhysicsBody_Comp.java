@@ -2,19 +2,21 @@ package com.JEngine.Components;
 
 import com.JEngine.Game.PlayersAndPawns.Pawn;
 import com.JEngine.Game.Visual.Scenes.SceneManager;
-import com.JEngine.PrimitiveTypes.Component;
-import com.JEngine.PrimitiveTypes.Position.Vector2;
+import com.JEngine.Core.Component;
+import com.JEngine.Core.Position.Vector2;
 import com.JEngine.Utility.GameMath;
 
-public class PhysicsComponent extends Component {
-    private float mass;
-    private Vector2 velocity;
-    private Vector2 acceleration;
-    private Vector2 friction;
-    private Vector2 gravity;
-    private boolean hasGravity = true;
-    private boolean onGround = false;
-    private boolean frictionInAir = true;
+public class PhysicsBody_Comp extends Component {
+    private float mass; //in kg
+    private Vector2 velocity; // in m/s
+    private Vector2 acceleration; // in m/s^2
+    private Vector2 friction; // in that fancy u symbol
+    private Vector2 gravity; // in m/s^2
+    private boolean hasGravity = true; // should gravity be applied?
+    private boolean onGround = false; // is the pawn on the ground?
+    private boolean frictionInAir = true; // should friction be applied in air?
+    private boolean allowAddAccelerationInAir = false; // should acceleration be applied in air?
+    private boolean allowAddVelocityInAir = false; // should velocity be applied in air?
     @Override
     public void Update(){
         // multiply by delta time for smooth movement and not instant teleporting
@@ -37,6 +39,7 @@ public class PhysicsComponent extends Component {
             // move in directions separately by delta time
 
             onGround = !pawn.Move(new Vector2(0, 1), velocity.y);
+
             if (!onGround)
             {
                 pawn.Move(new Vector2(0, 1), velocity.y/3);
@@ -56,7 +59,7 @@ public class PhysicsComponent extends Component {
         }
 
     }
-    public PhysicsComponent(boolean hasGravity){
+    public PhysicsBody_Comp(boolean hasGravity){
         super(true, "PhysicsComponent");
         this.hasGravity = hasGravity;
         this.gravity =  new Vector2(0f,9.8f);
@@ -67,7 +70,7 @@ public class PhysicsComponent extends Component {
             velocity = new Vector2(gravity.x, gravity.y);
     }
 
-    public PhysicsComponent(Vector2 gravity)
+    public PhysicsBody_Comp(Vector2 gravity)
     {
         super(true, "PhysicsComponent");
         this.gravity = gravity;
@@ -106,16 +109,17 @@ public class PhysicsComponent extends Component {
         this.hasGravity = hasGravity;
     }
 
-    public Vector2 addVelocity(Vector2 velocity)
+    public void addVelocity(Vector2 velocity)
     {
-        this.velocity = this.velocity.add(velocity);
-        return this.velocity;
+        if(allowAddVelocityInAir || onGround)
+            this.velocity = this.velocity.add(velocity);
     }
 
-    public Vector2 addAcceleration(Vector2 acceleration)
+    public void addAcceleration(Vector2 acceleration)
     {
-        this.acceleration = this.acceleration.add(acceleration);
-        return this.acceleration;
+        if(allowAddAccelerationInAir || onGround)
+            this.acceleration = this.acceleration.add(acceleration);
+
     }
 
     public Vector2 addFriction(Vector2 friction)
@@ -137,10 +141,10 @@ public class PhysicsComponent extends Component {
         return this.acceleration;
     }
     
-    public Vector2 remvoeVelocity(Vector2 velocity)
+    public Vector2 removeVelocity(Vector2 velocity)
     {
         Vector2 subtracted = this.velocity.subtract(velocity);
-        this.velocity = new Vector2(subtract.x, subtract.y);
+        this.velocity = new Vector2(subtracted.x, subtracted.y);
         return this.velocity;        
     }
 

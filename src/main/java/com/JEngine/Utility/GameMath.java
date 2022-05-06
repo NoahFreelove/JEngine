@@ -1,10 +1,10 @@
 package com.JEngine.Utility;
 
-import com.JEngine.PrimitiveTypes.Position.Vector3;
+import com.JEngine.Core.Position.Vector3;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-import static com.JEngine.PrimitiveTypes.Thing.LogError;
+import static com.JEngine.Core.Thing.LogError;
 /** JMath (c) Noah Freelove
  * A collection of useful math functions.
  */

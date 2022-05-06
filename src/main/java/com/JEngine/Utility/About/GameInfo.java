@@ -1,8 +1,8 @@
 package com.JEngine.Utility.About;
 
-import com.JEngine.PrimitiveTypes.Thing;
+import com.JEngine.Core.Thing;
 
-/** JAppInfo (c) Noah Freelove
+/** GameInfo (c) Noah Freelove
  * Easily store and get your application's information.
  */
 

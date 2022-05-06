@@ -2,9 +2,9 @@ package com.JEngine.Game.PlayersAndPawns.Colliders;
 
 import com.JEngine.Game.PlayersAndPawns.Pawn;
 import com.JEngine.Game.Visual.Scenes.SceneManager;
-import com.JEngine.PrimitiveTypes.Position.Transform;
-import com.JEngine.PrimitiveTypes.Identity;
-import com.JEngine.PrimitiveTypes.GameObject;
+import com.JEngine.Core.Position.Transform;
+import com.JEngine.Core.Identity;
+import com.JEngine.Core.GameObject;
 
 /**
  * JBoxCollider (c) Noah Freelove

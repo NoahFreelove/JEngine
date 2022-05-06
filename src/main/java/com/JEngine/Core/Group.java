@@ -1,8 +1,7 @@
-package com.JEngine.PrimitiveTypes;
+package com.JEngine.Core;
 
 import javafx.scene.Node;
 
-import java.io.Serial;
 import java.io.Serializable;
 import java.util.Collection;
 

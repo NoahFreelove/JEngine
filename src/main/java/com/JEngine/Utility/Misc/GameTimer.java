@@ -1,6 +1,6 @@
 package com.JEngine.Utility.Misc;
 
-import com.JEngine.PrimitiveTypes.Thing;
+import com.JEngine.Core.Thing;
 
 /** GameTimer (c) Noah Freelove
  * GameTimer is a very useful class for running methods every interval

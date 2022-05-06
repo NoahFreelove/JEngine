@@ -1,6 +1,6 @@
 package com.JEngine.Utility.Misc;
 
-import com.JEngine.PrimitiveTypes.Thing;
+import com.JEngine.Core.Thing;
 import javafx.stage.WindowEvent;
 
 /** JUtility (c) Noah Freelove

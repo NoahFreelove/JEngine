@@ -1,20 +1,25 @@
 package com.basicexample;
 
-import com.JEngine.Components.PhysicsComponent;
+import com.JEngine.Components.DontDestroyOnLoad_Comp;
+import com.JEngine.Components.PhysicsBody_Comp;
 import com.JEngine.Game.Visual.GameCamera;
 import com.JEngine.Game.Visual.GameWindow;
 import com.JEngine.Game.Visual.Scenes.GameScene;
-import com.JEngine.PrimitiveTypes.FlipFlop;
-import com.JEngine.PrimitiveTypes.GameImage;
-import com.JEngine.PrimitiveTypes.GameObject;
-import com.JEngine.PrimitiveTypes.Position.Transform;
-import com.JEngine.PrimitiveTypes.Position.Vector3;
-import com.JEngine.PrimitiveTypes.Identity;
+import com.JEngine.Core.FlipFlop;
+import com.JEngine.Core.GameImage;
+import com.JEngine.Core.GameObject;
+import com.JEngine.Core.Position.Transform;
+import com.JEngine.Core.Position.Vector3;
+import com.JEngine.Core.Identity;
+import com.JEngine.Game.Visual.Scenes.SceneManager;
 import com.JEngine.TemplateObjects.BackgroundImage;
 import com.JEngine.TemplateObjects.ScreenBorder;
 import com.JEngine.Utility.About.GameInfo;
 import com.JEngine.Utility.Settings.EnginePrefs;
 import javafx.application.Application;
+import javafx.event.EventHandler;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -31,12 +36,14 @@ public class Main extends Application {
     public static FlipFlop cameraFlipFlop = new FlipFlop();
     public static CustomPlayer player;
     public static CustomPlayer player2;
+
+    private static FlipFlop sceneFlop = new FlipFlop();
     static void setEnginePrefs()
     {
         //Set engine preferences
         EnginePrefs.logImportant = true;
         EnginePrefs.logInfo = true;
-        EnginePrefs.logExtra = false;
+        EnginePrefs.logExtra = true;
         EnginePrefs.logDebug = false;
         EnginePrefs.aggressiveGC = false;
 
@@ -62,6 +69,7 @@ public class Main extends Application {
 
         // create a new scene
         GameScene scene = new GameScene(15, "Scene 1");
+        GameScene scene2 = new GameScene(15, "Scene 2");
 
         // create a new window
         GameWindow window = new GameWindow(scene,1f,"JEngine", stage);
@@ -99,14 +107,31 @@ public class Main extends Application {
         window.setTargetFPS(60);
 
         GameObject go = new GameObject(Transform.exSimpleTransform(0,0), new Identity("Test", "Test"), true);
-        PhysicsComponent comp = new PhysicsComponent(true);
-        PhysicsComponent comp2 = new PhysicsComponent(true);
-        player.addComponent(comp, player);
+        PhysicsBody_Comp comp = new PhysicsBody_Comp(true);
+        PhysicsBody_Comp comp2 = new PhysicsBody_Comp(true);
+
+        //player.addComponent(comp);
         player.physicsComp = comp;
-        player2.addComponent(comp, player);
-        player2.physicsComp = comp;
+        player.addComponent(new DontDestroyOnLoad_Comp());
+        camera.addComponent(new DontDestroyOnLoad_Comp());
+        //player2.addComponent(comp2);
+        //player2.physicsComp = comp2;
         scene.add(go);
         window.start();
+
+        window.getStage().addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if(event.getCode() == KeyCode.C) {
+                    if(!sceneFlop.getState())
+                    {
+                        SceneManager.switchScene(scene2);
+                    }
+                    else
+                        SceneManager.switchScene(scene);
+                }
+            }
+        });
     }
 
     public static void main(String[] args) {

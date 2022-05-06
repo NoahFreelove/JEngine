@@ -1,7 +1,7 @@
 package com.Tests;
 
-import com.JEngine.PrimitiveTypes.Position.Transform;
-import com.JEngine.PrimitiveTypes.Position.Vector3;
+import com.JEngine.Core.Position.Transform;
+import com.JEngine.Core.Position.Vector3;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

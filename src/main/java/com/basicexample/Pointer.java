@@ -1,10 +1,7 @@
 package com.basicexample;
 
 import com.JEngine.Game.Visual.MousePointer;
-import com.JEngine.Game.Visual.Scenes.SceneManager;
-import com.JEngine.PrimitiveTypes.FlipFlop;
-import com.JEngine.PrimitiveTypes.GameImage;
-import com.JEngine.PrimitiveTypes.Position.Vector2;
+import com.JEngine.Core.GameImage;
 
 public class Pointer extends MousePointer {
     /**

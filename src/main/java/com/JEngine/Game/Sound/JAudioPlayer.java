@@ -4,8 +4,8 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import java.io.File;
 
-import static com.JEngine.PrimitiveTypes.Thing.LogError;
-import static com.JEngine.PrimitiveTypes.Thing.LogExtra;
+import static com.JEngine.Core.Thing.LogError;
+import static com.JEngine.Core.Thing.LogExtra;
 
 /** JAudioPlayer (c) Noah Freelove
  * Brief Explanation:

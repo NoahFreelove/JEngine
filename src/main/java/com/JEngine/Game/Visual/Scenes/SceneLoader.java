@@ -1,6 +1,6 @@
 package com.JEngine.Game.Visual.Scenes;
 
-import com.JEngine.PrimitiveTypes.GameObject;
+import com.JEngine.Core.GameObject;
 import com.JEngine.Utility.IO.FileOperations;
 
 import java.io.*;

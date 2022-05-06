@@ -1,6 +1,6 @@
 package com.JEngine.Game.Visual.Scenes;
 
-import com.JEngine.PrimitiveTypes.GameObject;
+import com.JEngine.Core.GameObject;
 
 public class SceneQuicksort {
     // Quicksort implementation

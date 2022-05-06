@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
-import static com.JEngine.PrimitiveTypes.Thing.LogError;
+import static com.JEngine.Core.Thing.LogError;
 
 /** Screenshot (c) Noah Freelove
  * Take a screenshot of the current window, save to file or return as BufferedImage.

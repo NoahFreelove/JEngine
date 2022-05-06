@@ -1,14 +1,14 @@
 package com.basicexample;
 
-import com.JEngine.Components.PhysicsComponent;
+import com.JEngine.Components.PhysicsBody_Comp;
 import com.JEngine.Game.PlayersAndPawns.Colliders.BoxCollider;
 import com.JEngine.Game.PlayersAndPawns.Player;
 import com.JEngine.Game.Visual.Scenes.SceneManager;
-import com.JEngine.PrimitiveTypes.GameImage;
-import com.JEngine.PrimitiveTypes.Identity;
-import com.JEngine.PrimitiveTypes.Position.Direction;
-import com.JEngine.PrimitiveTypes.Position.Transform;
-import com.JEngine.PrimitiveTypes.Position.Vector2;
+import com.JEngine.Core.GameImage;
+import com.JEngine.Core.Identity;
+import com.JEngine.Core.Position.Direction;
+import com.JEngine.Core.Position.Transform;
+import com.JEngine.Core.Position.Vector2;
 import com.JEngine.Utility.Input;
 import com.JEngine.Utility.Misc.GameUtility;
 import javafx.scene.input.KeyCode;
@@ -17,7 +17,7 @@ public class CustomPlayer extends Player {
     public boolean canMove;
     public int moveSpeed;
     private boolean flipFlop;
-    PhysicsComponent physicsComp;
+    PhysicsBody_Comp physicsComp;
     private float jumpAcceleration = 130f;
 
     public CustomPlayer(Transform transform, GameImage newSprite, Identity identity, boolean move, int moveSpeed) {
@@ -49,10 +49,15 @@ public class CustomPlayer extends Player {
     {
         if(canMove && getIdentity().compareName("Player 1")) {
             if(Input.A_Pressed)
-                physicsComp.addVelocity(new Vector2(-moveSpeed,0));
+            {
+                //physicsComp.addVelocity(new Vector2(-moveSpeed,0));
+                Move(Direction.Left, moveSpeed);
+            }
             if(Input.D_Pressed)
-                physicsComp.addVelocity(new Vector2(moveSpeed,0));
-
+            {
+                //physicsComp.addVelocity(new Vector2(moveSpeed,0));
+                Move(Direction.Right, moveSpeed);
+            }
             if(Input.Space_Pressed && physicsComp.isOnGround())
             {
                 jump();
@@ -63,12 +68,14 @@ public class CustomPlayer extends Player {
             }
         }
         else if (canMove && getIdentity().compareName("Player 2")) {
-            if(Input.DArrow_Pressed)
-                Move(Direction.Down, moveSpeed);
             if(Input.LArrow_Pressed)
                 Move(Direction.Left, moveSpeed);
             if(Input.RArrow_Pressed)
                 Move(Direction.Right, moveSpeed);
+            if(Input.Enter_Pressed && physicsComp.isOnGround())
+            {
+                jump();
+            }
         }
         getCollider().checkAllCollision();
         super.Update();

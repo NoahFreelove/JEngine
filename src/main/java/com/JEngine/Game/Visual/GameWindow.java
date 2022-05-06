@@ -2,11 +2,11 @@ package com.JEngine.Game.Visual;
 
 import com.JEngine.Game.Visual.Scenes.GameScene;
 import com.JEngine.Game.Visual.Scenes.SceneManager;
-import com.JEngine.PrimitiveTypes.GameImage;
-import com.JEngine.PrimitiveTypes.GameObject;
-import com.JEngine.PrimitiveTypes.Group;
-import com.JEngine.PrimitiveTypes.Position.Vector2;
-import com.JEngine.PrimitiveTypes.Thing;
+import com.JEngine.Core.GameImage;
+import com.JEngine.Core.GameObject;
+import com.JEngine.Core.Group;
+import com.JEngine.Core.Position.Vector2;
+import com.JEngine.Core.Thing;
 import com.JEngine.Utility.Input;
 import com.JEngine.Utility.Misc.FPSCounter;
 import com.JEngine.Utility.Misc.GameUtility;
