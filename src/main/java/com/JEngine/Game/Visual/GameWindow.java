@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
-/** JWindow (c) Noah Freelove
+/** GameWindow (c) Noah Freelove
  * Brief Explanation:
  * JWindow is a way to create a window and have it display camera content.
  * JWindow provides the actual update function
@@ -33,7 +33,8 @@ public class GameWindow extends Thing {
     private Thread updateThread;
 
     private double fpsMili = 1000/30;
-    public long deltaTime;
+    private long prevFrameTime = 0;
+    private long deltaTime = 0;
     private float targetFPS = 30;
     public int totalFrames = 1;
 
@@ -251,6 +252,8 @@ public class GameWindow extends Thing {
      */
     private void update(int frameNumber) {
         LogDebug(String.format("New frame (#%d)", frameNumber));
+        deltaTime = System.currentTimeMillis()- prevFrameTime;
+        prevFrameTime = System.currentTimeMillis();
         runUpdateBehaviors();
         GameCamera mainCamera = SceneManager.getActiveCamera();
         if(mainCamera !=null && mainCamera.getActive())
@@ -321,5 +324,9 @@ public class GameWindow extends Thing {
             return;
         }
         updateEvents[updateEventsIndex++] = method;
+    }
+
+    public long getDeltaTime() {
+        return deltaTime;
     }
 }

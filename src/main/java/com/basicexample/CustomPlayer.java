@@ -17,7 +17,7 @@ public class CustomPlayer extends Player {
     public int moveSpeed;
     private boolean flipFlop;
     PhysicsComponent physicsComp;
-    private float jumpZHeight = 400;
+    private float jumpZHeight = 250;
 
     public CustomPlayer(Transform transform, GameImage newSprite, Identity identity, boolean move, int moveSpeed) {
         super(transform, newSprite, identity);
