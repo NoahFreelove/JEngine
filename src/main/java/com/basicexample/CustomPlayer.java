@@ -10,6 +10,7 @@ import com.JEngine.PrimitiveTypes.Position.Direction;
 import com.JEngine.PrimitiveTypes.Position.Transform;
 import com.JEngine.PrimitiveTypes.Position.Vector2;
 import com.JEngine.Utility.Input;
+import com.JEngine.Utility.Misc.GameUtility;
 import javafx.scene.input.KeyCode;
 
 public class CustomPlayer extends Player {
@@ -37,7 +38,7 @@ public class CustomPlayer extends Player {
                 if (Main.cameraFlipFlop.getState()) {
                     Main.camera.setParent(Main.player);
                 } else {
-                    Main.camera.setParent(Main.player2);
+                    //Main.camera.setParent(Main.player2);
                 }
             }
         }
@@ -52,9 +53,13 @@ public class CustomPlayer extends Player {
             if(Input.D_Pressed)
                 physicsComp.addVelocity(new Vector2(moveSpeed,0));
 
-            if(Input.Shift_Pressed && physicsComp.isOnGround())
+            if(Input.Space_Pressed && physicsComp.isOnGround())
             {
                 jump();
+            }
+            if(Input.Escape_Pressed)
+            {
+                GameUtility.exitApp();
             }
         }
         else if (canMove && getIdentity().compareName("Player 2")) {

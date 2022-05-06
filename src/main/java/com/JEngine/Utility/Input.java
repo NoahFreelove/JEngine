@@ -55,6 +55,7 @@ public class Input {
     public static boolean I_Pressed;
     public static boolean O_Pressed;
     public static boolean P_Pressed;
+    public static boolean Space_Pressed;
     //endregion
 
     //region Number Keys
@@ -76,6 +77,35 @@ public class Input {
     public static boolean Alt_Pressed;
     public static boolean Tab_Pressed;
     //endregion
+
+    //region Function Keys
+    public static boolean F1_Pressed;
+    public static boolean F2_Pressed;
+    public static boolean F3_Pressed;
+    public static boolean F4_Pressed;
+    public static boolean F5_Pressed;
+    public static boolean F6_Pressed;
+    public static boolean F7_Pressed;
+    public static boolean F8_Pressed;
+    public static boolean F9_Pressed;
+    public static boolean F10_Pressed;
+    public static boolean F11_Pressed;
+    public static boolean F12_Pressed;
+    //endregion
+
+    //region Option Keys
+    public static boolean PageUp_Pressed;
+    public static boolean PageDown_Pressed;
+    public static boolean Home_Pressed;
+    public static boolean End_Pressed;
+    public static boolean Insert_Pressed;
+    public static boolean Delete_Pressed;
+    public static boolean Backspace_Pressed;
+    public static boolean Enter_Pressed;
+    public static boolean Escape_Pressed;
+    //endregion
+
+    public static KeyCode keyPressed;
     //endregion
 
     /**
@@ -181,6 +211,8 @@ public class Input {
         I_Pressed = false;
         O_Pressed = false;
         P_Pressed = false;
+        Space_Pressed = false;
+        keyPressed = null;
         checkKeyCombos();
     }
 
@@ -236,8 +268,30 @@ public class Input {
             case I -> I_Pressed = state;
             case O -> O_Pressed = state;
             case P -> P_Pressed = state;
-
+            case SPACE -> Space_Pressed = state;
+            case ENTER -> Enter_Pressed = state;
+            case ESCAPE -> Escape_Pressed = state;
+            case BACK_SPACE -> Backspace_Pressed = state;
+            case DELETE -> Delete_Pressed = state;
+            case INSERT -> Insert_Pressed = state;
+            case HOME -> Home_Pressed = state;
+            case END -> End_Pressed = state;
+            case PAGE_UP -> PageUp_Pressed = state;
+            case PAGE_DOWN -> PageDown_Pressed = state;
+            case F1 -> F1_Pressed = state;
+            case F2 -> F2_Pressed = state;
+            case F3 -> F3_Pressed = state;
+            case F4 -> F4_Pressed = state;
+            case F5 -> F5_Pressed = state;
+            case F6 -> F6_Pressed = state;
+            case F7 -> F7_Pressed = state;
+            case F8 -> F8_Pressed = state;
+            case F9 -> F9_Pressed = state;
+            case F10 -> F10_Pressed = state;
+            case F11 -> F11_Pressed = state;
+            case F12 -> F12_Pressed = state;
         }
+        keyPressed = key;
         checkKeyCombos();
     }
 
