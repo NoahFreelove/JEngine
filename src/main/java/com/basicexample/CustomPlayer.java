@@ -17,7 +17,7 @@ public class CustomPlayer extends Player {
     public int moveSpeed;
     private boolean flipFlop;
     PhysicsComponent physicsComp;
-    private float jumpZHeight = 250;
+    private float jumpZHeight = 50;
 
     public CustomPlayer(Transform transform, GameImage newSprite, Identity identity, boolean move, int moveSpeed) {
         super(transform, newSprite, identity);
@@ -77,6 +77,6 @@ public class CustomPlayer extends Player {
     }
 
     void jump(){
-        Move(new Vector2(0,-1), jumpZHeight);
+        physicsComp.addVelocity(new Vector2(0, -jumpZHeight));
     }
 }

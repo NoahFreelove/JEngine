@@ -88,8 +88,8 @@ public class Main extends Application {
         // add objects to scene
         scene.add(camera);
         scene.add(player);
-        player2.addChild(player);
-        scene.add(player2);
+        //player2.addChild(player);
+        //scene.add(player2);
 
         Text titleText = new Text(10, 50, "JEngine Moving Squares Example");
         titleText.setFont(Font.font ("arial", 25));

@@ -21,6 +21,10 @@ public class PhysicsComponent extends Component {
         // Speed up based on acceleration
         velocity = velocity.add(acceleration.multiply(deltaTime));
 
+        // add gravity if applicable
+        if(hasGravity)
+            acceleration = acceleration.add(gravity.multiply(deltaTime));
+
         // Slow down based on friction
         velocity.multiply(new Vector2(1,1).subtract(friction.multiply(deltaTime)));
 
@@ -41,9 +45,9 @@ public class PhysicsComponent extends Component {
     public PhysicsComponent(boolean hasGravity){
         super(true, "PhysicsComponent");
         this.hasGravity = hasGravity;
-        this.gravity =  new Vector2(0f,5f);
+        this.gravity =  new Vector2(0f,9.8f);
         this.velocity = new Vector2(0,0);
-        this.acceleration = new Vector2(5,0);
+        this.acceleration = new Vector2(0,0);
         this.friction = new Vector2(0,0);
         if(hasGravity)
             velocity = new Vector2(gravity.x, gravity.y);
@@ -84,13 +88,12 @@ public class PhysicsComponent extends Component {
     }
 
     public void setHasGravity(boolean hasGravity) {
-        if(hasGravity == this.hasGravity)
-            return;
-        if(hasGravity)
-            velocity = velocity.add(gravity);
-        else
-            velocity = velocity.subtract(gravity);
-
         this.hasGravity = hasGravity;
+    }
+
+    public Vector2 addVelocity(Vector2 velocity)
+    {
+        this.velocity = this.velocity.add(velocity);
+        return this.velocity;
     }
 }
