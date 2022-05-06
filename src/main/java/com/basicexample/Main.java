@@ -87,7 +87,7 @@ public class Main extends Application {
         scene.add(camera);
         scene.add(player);
         //player2.addChild(player);
-        //scene.add(player2);
+        scene.add(player2);
         camera.setParent(player);
         Text titleText = new Text(10, 50, "JEngine Moving Squares Example");
         titleText.setFont(Font.font ("arial", 25));
@@ -100,9 +100,11 @@ public class Main extends Application {
 
         GameObject go = new GameObject(Transform.exSimpleTransform(0,0), new Identity("Test", "Test"), true);
         PhysicsComponent comp = new PhysicsComponent(true);
+        PhysicsComponent comp2 = new PhysicsComponent(true);
         player.addComponent(comp, player);
         player.physicsComp = comp;
-
+        player2.addComponent(comp, player);
+        player2.physicsComp = comp;
         scene.add(go);
         window.start();
     }

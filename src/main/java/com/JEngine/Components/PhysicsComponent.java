@@ -66,6 +66,7 @@ public class PhysicsComponent extends Component {
         if(hasGravity)
             velocity = new Vector2(gravity.x, gravity.y);
     }
+
     public PhysicsComponent(Vector2 gravity)
     {
         super(true, "PhysicsComponent");
@@ -134,6 +135,13 @@ public class PhysicsComponent extends Component {
         Vector2 subtracted = this.acceleration.subtract(acceleration);
         this.acceleration = new Vector2(GameMath.clamp(0, 1, subtracted.x), GameMath.clamp(0, 1, subtracted.y));
         return this.acceleration;
+    }
+    
+    public Vector2 remvoeVelocity(Vector2 velocity)
+    {
+        Vector2 subtracted = this.velocity.subtract(velocity);
+        this.velocity = new Vector2(subtract.x, subtract.y);
+        return this.velocity;        
     }
 
 }

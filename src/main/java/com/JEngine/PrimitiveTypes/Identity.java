@@ -2,10 +2,10 @@ package com.JEngine.PrimitiveTypes;
 
 import java.io.Serializable;
 
-/** JIdentity (c) Noah Freelove
+/** Identity (c) Noah Freelove
  * Brief Explanation:
- * A JIdentity holds information about an object that helps to distinguish it from the rest.
- * A JIdentity holds a name and a tag.
+ * A Identity holds information about an object that helps to distinguish it from the rest.
+ * A Identity holds a name and a tag.
  * This lets you log the name of a specific object, get all objects in a scene by tag or by name
  *
  * Every object has an identity.
@@ -14,8 +14,8 @@ import java.io.Serializable;
  * **/
 
 public class Identity implements Serializable {
-    String name;
-    String tag;
+    private String name;
+    private String tag;
 
     /**
      * Default constructor
