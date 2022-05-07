@@ -1,7 +1,7 @@
 package com.basicexample;
 
 import com.JEngine.Components.PhysicsBody_Comp;
-import com.JEngine.Game.PlayersAndPawns.Colliders.BoxCollider;
+import com.JEngine.Core.Position.Vector3;
 import com.JEngine.Game.PlayersAndPawns.Player;
 import com.JEngine.Game.Visual.Scenes.SceneManager;
 import com.JEngine.Core.GameImage;
@@ -18,12 +18,12 @@ public class CustomPlayer extends Player {
     public int moveSpeed;
     private boolean flipFlop;
     PhysicsBody_Comp physicsComp;
-    private float jumpAcceleration = 130f;
+    private float jumpAcceleration = 70f;
 
     public CustomPlayer(Transform transform, GameImage newSprite, Identity identity, boolean move, int moveSpeed) {
         super(transform, newSprite, identity);
         this.moveSpeed = moveSpeed;
-        setCollider(new BoxCollider(transform, identity,128,128,this, false));
+        //setCollider(new BoxCollider(transform, identity,128,128,this, false));
         this.canMove = move;
         // create rect center screen
     }
@@ -50,13 +50,27 @@ public class CustomPlayer extends Player {
         if(canMove && getIdentity().compareName("Player 1")) {
             if(Input.A_Pressed)
             {
-                //physicsComp.addVelocity(new Vector2(-moveSpeed,0));
-                Move(Direction.Left, moveSpeed);
+                physicsComp.addVelocity(new Vector2(-moveSpeed,0));
+                //Move(Direction.Left, moveSpeed);
+                //setPosition(new Vector3(getPosition().x - moveSpeed, getPosition().y, getPosition().z));
             }
             if(Input.D_Pressed)
             {
-                //physicsComp.addVelocity(new Vector2(moveSpeed,0));
-                Move(Direction.Right, moveSpeed);
+                physicsComp.addVelocity(new Vector2(moveSpeed,0));
+                //Move(Direction.Right, moveSpeed);
+                //setPosition(new Vector3(getPosition().x + moveSpeed, getPosition().y, getPosition().z));
+            }
+            if(Input.W_Pressed)
+            {
+                physicsComp.addVelocity(new Vector2(-moveSpeed,0));
+                //Move(Direction.Up, moveSpeed);
+                //setPosition(new Vector3(getPosition().x - moveSpeed, getPosition().y, getPosition().z));
+            }
+            if(Input.S_Pressed)
+            {
+                physicsComp.addVelocity(new Vector2(moveSpeed,0));
+                //Move(Direction.Down, moveSpeed);
+                //setPosition(new Vector3(getPosition().x + moveSpeed, getPosition().y, getPosition().z));
             }
             if(Input.Space_Pressed && physicsComp.isOnGround())
             {
@@ -69,15 +83,15 @@ public class CustomPlayer extends Player {
         }
         else if (canMove && getIdentity().compareName("Player 2")) {
             if(Input.LArrow_Pressed)
-                Move(Direction.Left, moveSpeed);
+                physicsComp.addVelocity(new Vector2(-moveSpeed,0));
             if(Input.RArrow_Pressed)
-                Move(Direction.Right, moveSpeed);
+                physicsComp.addVelocity(new Vector2(moveSpeed,0));
+
             if(Input.Enter_Pressed && physicsComp.isOnGround())
             {
                 jump();
             }
         }
-        getCollider().checkAllCollision();
         super.Update();
 
     }

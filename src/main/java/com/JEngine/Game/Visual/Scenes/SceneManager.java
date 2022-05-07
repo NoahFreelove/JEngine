@@ -1,5 +1,6 @@
 package com.JEngine.Game.Visual.Scenes;
 
+import com.JEngine.Components.DontDestroyOnLoad_Comp;
 import com.JEngine.Core.Component;
 import com.JEngine.Core.GameObject;
 import com.JEngine.Game.Visual.GameCamera;
@@ -101,7 +102,7 @@ public class SceneManager {
             for (Component c1 : c) {
                 if(c1 != null)
                 {
-                    if(c1.getActive())
+                    if(c1.getActive() && c1 instanceof DontDestroyOnLoad_Comp)
                     {
                         if(!newScene.contains(o))
                         {

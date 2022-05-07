@@ -37,6 +37,10 @@ public class Identity implements Serializable {
     // Comparers
     public boolean compareTag(String tagToCompare) {return (tag.equals(tagToCompare));}
     public boolean compareName(String nameToCompare) {return (name.equals(nameToCompare));}
+    public boolean compareIdentity(Identity id) {
+        return compareTag(id.getTag()) && compareName(id.getName());
+    }
+
 
     // Make toString readable
     public String toString()

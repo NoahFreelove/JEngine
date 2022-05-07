@@ -2,6 +2,7 @@ package com.basicexample;
 
 import com.JEngine.Components.DontDestroyOnLoad_Comp;
 import com.JEngine.Components.PhysicsBody_Comp;
+import com.JEngine.Components.BoxCollider_Comp;
 import com.JEngine.Game.Visual.GameCamera;
 import com.JEngine.Game.Visual.GameWindow;
 import com.JEngine.Game.Visual.Scenes.GameScene;
@@ -43,7 +44,7 @@ public class Main extends Application {
         //Set engine preferences
         EnginePrefs.logImportant = true;
         EnginePrefs.logInfo = true;
-        EnginePrefs.logExtra = true;
+        EnginePrefs.logExtra = false;
         EnginePrefs.logDebug = false;
         EnginePrefs.aggressiveGC = false;
 
@@ -51,13 +52,16 @@ public class Main extends Application {
         GameInfo.authors = new String[]{"Noah Freelove"};
         GameInfo.appName = "JEngine";
         GameInfo.appVersionMajor = 0;
-        GameInfo.appVersionMinor = 1.9f;
+        GameInfo.appVersionMinor = 2f;
         GameInfo.year = 2022;
-        GameInfo.buildID = "2022.04.27.1";
+        GameInfo.buildID = "2022.05.07.5";
         GameInfo.isCopyright = false;
+        GameInfo.changeLog = "JEngine 2.0: Added 'physics' engine, children, and components";
 
         //Print app info
-        GameInfo.logGameInfo(true);
+        GameInfo.logGameInfo(false);
+        System.out.println(GameInfo.getChangeLog());
+        System.out.println();
     }
 
     public void start(Stage stage) {
@@ -81,7 +85,7 @@ public class Main extends Application {
 
         // create a player object
         player = new CustomPlayer(Transform.exSimpleTransform(550,100), image, new Identity("Player 1", "Player"),true, 5);
-        player2 = new CustomPlayer(Transform.exSimpleTransform(700,100), image2, new Identity("Player 2", "Player"),true, 10);
+        player2 = new CustomPlayer(Transform.exSimpleTransform(700,100), image2, new Identity("Player 2", "Player"),true, 5);
 
         camera = new GameCamera(new Vector3(0,0,1), window, scene, null, new Identity("Main Camera","camera"));
 
@@ -91,12 +95,14 @@ public class Main extends Application {
         new ScreenBorder(new Vector3(0,0,0));
         BackgroundImage background = new BackgroundImage(new File(binFolder + "/background.png").getAbsolutePath());
         scene.add(background);
+
         // add objects to scene
         scene.add(camera);
         scene.add(player);
         //player2.addChild(player);
         scene.add(player2);
-        camera.setParent(player);
+        //camera.setParent(player);
+
         Text titleText = new Text(10, 50, "JEngine Moving Squares Example");
         titleText.setFont(Font.font ("arial", 25));
         titleText.setFill(Color.WHITE);
@@ -107,29 +113,31 @@ public class Main extends Application {
         window.setTargetFPS(60);
 
         GameObject go = new GameObject(Transform.exSimpleTransform(0,0), new Identity("Test", "Test"), true);
-        PhysicsBody_Comp comp = new PhysicsBody_Comp(true);
-        PhysicsBody_Comp comp2 = new PhysicsBody_Comp(true);
+        PhysicsBody_Comp physicsBody = new PhysicsBody_Comp(true);
+        PhysicsBody_Comp physicsBody2 = new PhysicsBody_Comp(true);
 
-        //player.addComponent(comp);
-        player.physicsComp = comp;
+        BoxCollider_Comp squareCollider = new BoxCollider_Comp(new Vector3(0,0,0), player.getSprite().getWidth(), player.getSprite().getHeight(), false, player);
+        BoxCollider_Comp squareCollider2 = new BoxCollider_Comp(new Vector3(0,0,0), player2.getSprite().getWidth(), player2.getSprite().getHeight(), false, player2);
+        player.addComponent(squareCollider);
+        player2.addComponent(squareCollider2);
+
+        player.addComponent(physicsBody);
+        player.physicsComp = physicsBody;
+        player2.addComponent(physicsBody2);
+        player2.physicsComp = physicsBody2;
+
         player.addComponent(new DontDestroyOnLoad_Comp());
         camera.addComponent(new DontDestroyOnLoad_Comp());
-        //player2.addComponent(comp2);
-        //player2.physicsComp = comp2;
+
         scene.add(go);
         window.start();
 
-        window.getStage().addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                if(event.getCode() == KeyCode.C) {
-                    if(!sceneFlop.getState())
-                    {
-                        SceneManager.switchScene(scene2);
-                    }
-                    else
-                        SceneManager.switchScene(scene);
-                }
+        window.getStage().addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.C) {
+                if (!sceneFlop.getState()) {
+                    SceneManager.switchScene(scene2);
+                } else
+                    SceneManager.switchScene(scene);
             }
         });
     }

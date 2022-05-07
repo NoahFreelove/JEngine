@@ -15,8 +15,9 @@ public class PhysicsBody_Comp extends Component {
     private boolean hasGravity = true; // should gravity be applied?
     private boolean onGround = false; // is the pawn on the ground?
     private boolean frictionInAir = true; // should friction be applied in air?
-    private boolean allowAddAccelerationInAir = false; // should acceleration be applied in air?
-    private boolean allowAddVelocityInAir = false; // should velocity be applied in air?
+    private boolean allowAddAccelerationInAir = true; // should acceleration be applied in air?
+    private boolean allowAddVelocityInAir = true; // should velocity be applied in air?
+
     @Override
     public void Update(){
         // multiply by delta time for smooth movement and not instant teleporting
@@ -29,10 +30,12 @@ public class PhysicsBody_Comp extends Component {
 
         // Slow down based on friction
         velocity = velocity.add(acceleration.multiply(deltaTime));
+
         if(onGround || frictionInAir)
         {
             velocity = velocity.multiply(new Vector2(1-friction.x,1-friction.y));
         }
+
         if(getParent() ==null) return;
 
         if(getParent() instanceof Pawn pawn) {
@@ -40,10 +43,6 @@ public class PhysicsBody_Comp extends Component {
 
             onGround = !pawn.Move(new Vector2(0, 1), velocity.y);
 
-            if (!onGround)
-            {
-                pawn.Move(new Vector2(0, 1), velocity.y/3);
-            }
             // These statements make it so if you run into a wall you don't infinitely accelerate
             if(onGround) {
                 velocity.y = 0;
@@ -62,7 +61,7 @@ public class PhysicsBody_Comp extends Component {
     public PhysicsBody_Comp(boolean hasGravity){
         super(true, "PhysicsComponent");
         this.hasGravity = hasGravity;
-        this.gravity =  new Vector2(0f,9.8f);
+        this.gravity =  new Vector2(0f,5f);
         this.velocity = new Vector2(0,0);
         this.acceleration = new Vector2(0,0);
         this.friction = new Vector2(0.2f,0);
@@ -111,15 +110,18 @@ public class PhysicsBody_Comp extends Component {
 
     public void addVelocity(Vector2 velocity)
     {
+        //System.out.println("Adding velocity:"+velocity);
         if(allowAddVelocityInAir || onGround)
             this.velocity = this.velocity.add(velocity);
+        //System.out.println("New velocity:"+this.velocity);
     }
 
     public void addAcceleration(Vector2 acceleration)
     {
+        //System.out.println("Adding acceleration:"+acceleration);
         if(allowAddAccelerationInAir || onGround)
             this.acceleration = this.acceleration.add(acceleration);
-
+        //System.out.println("New acceleration:"+this.acceleration);
     }
 
     public Vector2 addFriction(Vector2 friction)

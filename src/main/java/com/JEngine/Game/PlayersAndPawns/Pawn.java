@@ -1,6 +1,7 @@
 package com.JEngine.Game.PlayersAndPawns;
 
-import com.JEngine.Game.PlayersAndPawns.Colliders.BoxCollider;
+import com.JEngine.Components.Collider_Comp;
+import com.JEngine.Core.Component;
 import com.JEngine.Core.GameImage;
 import com.JEngine.Core.Position.*;
 import com.JEngine.Core.Identity;
@@ -18,34 +19,9 @@ import com.JEngine.Utility.GameMath;
  * **/
 
 public class Pawn extends Sprite {
-    // Every JPawn has a collider, it must be initialized though
-    private BoxCollider collider;
 
     public Pawn(Transform transform, GameImage newSprite, Identity identity) {
         super(transform,newSprite, identity);
-    }
-
-    /**
-     * onCollisionEnter event, called when the Pawn's collider hits another object
-     * @param other the other object that the collider has collided with
-     */
-    public void onCollisionEnter(GameObject other) {
-    }
-
-    /**
-     * get the pawn's collider
-     * @return the pawn's collider
-     */
-    public BoxCollider getCollider() {
-        return collider;
-    }
-
-    /**
-     * set the pawn's collider
-     * @param collider the new collider
-     */
-    public void setCollider(BoxCollider collider) {
-        this.collider = collider;
     }
 
     /**
@@ -62,19 +38,6 @@ public class Pawn extends Sprite {
         direction.setY(getTransform().getRotation().y + direction.x*amount*d);
 
         getTransform().setRotation(new Vector3(direction,getTransform().rotation.z));
-    }
-
-    /**
-     * Check if the pawn can move if it has a hard collider
-     * @param xDisplacement desired x displacement
-     * @param yDisplacement desired y displacement
-     * @return true if the pawn can move, false if it cannot
-     */
-    public boolean canMove(float xDisplacement, float yDisplacement) {
-        BoxCollider tmpCollider = new BoxCollider(new Transform(getTransform()), new Identity("tmpCollider", "boxCollider"), (getSprite().getWidth()), (getSprite().getHeight()), this, false);
-
-        tmpCollider.getTransform().setPosition(new Vector3(getTransform().getPosition().x + xDisplacement, getTransform().getPosition().y + yDisplacement, getTransform().getPosition().z));
-        return !tmpCollider.isCollidingWithHard();
     }
 
     /**
@@ -173,7 +136,9 @@ public class Pawn extends Sprite {
         float totalXMovement = direction.x;
         float totalYMovement = direction.y;
         // if the collider is hard, check if you will collide with another hard collider
-        return Move(totalXMovement,totalYMovement);
+        boolean result = Move(totalXMovement,totalYMovement);
+        //System.out.println("Result:" + result);
+        return result;
     }
 
     public boolean Move(Vector2 direction, Vector2 magnitude)
@@ -187,25 +152,29 @@ public class Pawn extends Sprite {
     }
 
     private boolean Move(float totalXMovement, float totalYMovement){
-        // if the collider is hard, check if you will collide with another hard collider
-        if(getCollider() != null)
-        {
-            if(getCollider().isTrigger())
-            {
-                // if the collider is soft, you can move wherever
-                super.getTransform().setPosition(new Vector3(super.getTransform().position.x + totalXMovement, super.getTransform().position.y + totalYMovement, super.getTransform().position.z));
-                return true;
-            }
-            else if(canMove(totalXMovement, totalYMovement))
-            {
-                super.getTransform().setPosition(new Vector3(super.getTransform().position.x + totalXMovement, super.getTransform().position.y + totalYMovement, super.getTransform().position.z));
+        boolean foundCollider = false;
 
-                return true;
+        for (Component component: getComponentByName("Collider")) {
+            if(component == null)
+                continue;
+            if (component instanceof Collider_Comp collider) {
+                foundCollider = true;
+                if(collider.isTrigger())
+                {
+                   setPosition(new Vector3(getPosition().x + totalXMovement, getPosition().y + totalYMovement, getPosition().z));
+                   return true;
+                }
+                else if(collider.canMove(totalXMovement, totalYMovement))
+                {
+                    setPosition(new Vector3(getPosition().x + totalXMovement, getPosition().y + totalYMovement, getPosition().z));
+                    //System.out.println("Moved: " + totalXMovement + "," + totalYMovement);
+                    return true;
+                }
             }
-            // return false if you can't move
-            return false;
         }
-        // actual logic that moves pawn
-        return false;
+        if(foundCollider)
+            return false;
+        setPosition(new Vector3(getPosition().x + totalXMovement, getPosition().y + totalYMovement, getPosition().z));
+        return true;
     }
 }

@@ -1,6 +1,7 @@
 package com.JEngine.TemplateObjects;
 
-import com.JEngine.Game.PlayersAndPawns.Colliders.BoxCollider;
+import com.JEngine.Components.BoxCollider_Comp;
+import com.JEngine.Core.GameObject;
 import com.JEngine.Game.PlayersAndPawns.Pawn;
 import com.JEngine.Game.Visual.Scenes.SceneManager;
 import com.JEngine.Core.Position.Transform;
@@ -8,7 +9,7 @@ import com.JEngine.Core.Position.Vector3;
 import com.JEngine.Core.Identity;
 
 /** ScreenBorder
- * Create a hard collection of JBoxColliders to create a border around the screen.
+ * Create 4 hard Box colliders to create a border around the screen from a given position.
  */
 public class ScreenBorder {
 
@@ -17,34 +18,24 @@ public class ScreenBorder {
     }
 
     void createWalls(Vector3 basePos){
-        Pawn wall1 = new Pawn(Transform.simpleTransform(basePos),null,
-                new Identity("ScreenBorderWall1", "border"));
+        int scaleX = (int)(1280* SceneManager.getWindow().getScaleMultiplier());
+        int scaleY = (int)(720* SceneManager.getWindow().getScaleMultiplier());
+        GameObject parent = new GameObject(Transform.simpleTransform(basePos), new Identity("ScreenBorder", "ScreenBorder"));
+        //Top wall
+        BoxCollider_Comp wall1 = new BoxCollider_Comp(new Vector3(0,0,0),scaleX,1,false,parent);
+        // Bottom wall
+        BoxCollider_Comp wall2 = new BoxCollider_Comp(new Vector3(0,720-35,0),1280,1,false,parent);
+        // Left wall
+        BoxCollider_Comp wall3 = new BoxCollider_Comp(new Vector3(0,0,0),1,scaleY,false,parent);
+        // Right wall
+        BoxCollider_Comp wall4 = new BoxCollider_Comp(new Vector3(1280,0,0),1,scaleY,false,parent);
 
-        wall1.setCollider(new BoxCollider(Transform.simpleTransform(basePos), new Identity("ScreenBorderWallTop", "border"),
-                (int)(1280* SceneManager.getWindow().getScaleMultiplier()),
-                1, wall1, false));
 
-        Pawn wall2 = new Pawn(Transform.exSimpleTransform(basePos.x,basePos.y + (int)(720* SceneManager.getWindow().getScaleMultiplier())),null,
-                new Identity("ScreenBorderWall2", "border"));
-        wall2.setCollider(new BoxCollider(wall2.getTransform(), new Identity("ScreenBorderWallBottom", "border"),
-                (int)(1280* SceneManager.getWindow().getScaleMultiplier()),
-                1, wall2, false));
 
-        Pawn wall3 = new Pawn(Transform.exSimpleTransform(basePos.x + (int)(1280* SceneManager.getWindow().getScaleMultiplier()), basePos.y),null,
-                new Identity("ScreenBorderWall3", "border"));
-        wall3.setCollider(new BoxCollider(wall3.getTransform(), new Identity("ScreenBorderWallRight", "border"),
-                1,
-                (int)(720* SceneManager.getWindow().getScaleMultiplier()), wall3, false));
-
-        Pawn wall4 = new Pawn(Transform.exSimpleTransform(basePos.x, basePos.y),null,
-                new Identity("ScreenBorderWall4", "border"));
-        wall4.setCollider(new BoxCollider(wall4.getTransform(), new Identity("ScreenBorderWallLeft", "border"),
-                1,
-                (int)(720* SceneManager.getWindow().getScaleMultiplier()), wall4, false));
-
-        SceneManager.getActiveScene().add(wall1);
-        SceneManager.getActiveScene().add(wall2);
-        SceneManager.getActiveScene().add(wall3);
-        SceneManager.getActiveScene().add(wall4);
+        parent.addComponent(wall1);
+        parent.addComponent(wall2);
+        parent.addComponent(wall3);
+        parent.addComponent(wall4);
+        SceneManager.getActiveScene().add(parent);
     }
 }

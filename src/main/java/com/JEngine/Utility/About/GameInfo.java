@@ -14,7 +14,7 @@ public class GameInfo {
     public static float appVersionMinor;
     public static boolean isCopyright;
     public static String buildID;
-
+    public static String changeLog;
     /**
      * Get the app info neatly formatted in a string.
      * @return The app's info
@@ -67,5 +67,9 @@ public class GameInfo {
             return;
         }
         Thing.LogInfo(getAppInfo());
+    }
+
+    public static String getChangeLog() {
+        return changeLog;
     }
 }
