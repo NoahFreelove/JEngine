@@ -158,4 +158,31 @@ public class PhysicsBody_Comp extends Component {
         return this.velocity;        
     }
 
+    public void setFriction(Vector2 friction) {
+        this.friction = friction;
+    }
+
+    public void setGravity(Vector2 gravity) {
+        this.gravity = gravity;
+    }
+
+    public boolean isFrictionInAir() {
+        return frictionInAir;
+    }
+
+    public boolean isAllowAddAccelerationInAir() {
+        return allowAddAccelerationInAir;
+    }
+
+    public boolean isAllowAddVelocityInAir() {
+        return allowAddVelocityInAir;
+    }
+
+    public Vector2 getMaxVelocity() {
+        return maxVelocity;
+    }
+
+    public Vector2 getMaxAcceleration() {
+        return maxAcceleration;
+    }
 }

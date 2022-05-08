@@ -25,7 +25,8 @@ public class GameCamera extends Pawn {
 
     private GameScene scene;
     private final GameWindow window;
-    private GameObject parent;
+    private GameObject objectToFocus;
+    private Vector2 focusOffset = new Vector2(0,0);
     private Sprite[] sprites;
 
 
@@ -44,7 +45,7 @@ public class GameCamera extends Pawn {
 
         this.window = window;
         this.scene = scene;
-        this.parent = parent;
+        this.objectToFocus = parent;
         SceneManager.init(scene, window, this);
     }
 
@@ -68,13 +69,14 @@ public class GameCamera extends Pawn {
      * Default setter for parent
      * @param newParent new parent
      */
-    public void setFocus(GameObject newParent) {parent = newParent;}
+    public void setFocus(GameObject newParent) {
+        objectToFocus = newParent;}
 
     /**
      * Default getter for parent
      * @return parent
      */
-    public GameObject getParent() {return parent;}
+    public GameObject getObjectToFocus() {return objectToFocus;}
 
     /**
      * Start converting objects in the scene to sprites
@@ -196,28 +198,28 @@ public class GameCamera extends Pawn {
      * @return the camera's parent object
      */
     public GameObject getParentObject() {
-        return parent;
+        return objectToFocus;
     }
 
     @Override
     public void Update(){
         super.Update();
-        if(parent !=null)
+        if(objectToFocus !=null)
         {
             Vector2 offset = new Vector2(1280* window.getScaleMultiplier()*zoom.x,720* window.getScaleMultiplier()*zoom.y);
 
-            if(parent instanceof Sprite sprite)
+            if(objectToFocus instanceof Sprite sprite)
             {
                 if(sprite.getSprite() == null)
                     return;
                 offset.x -= (sprite.getSprite().getWidth() * sprite.getTransform().getScale().x)/2;
                 offset.y -= (sprite.getSprite().getHeight() * sprite.getTransform().getScale().y)/2;
                 offset = offset.subtract(SceneManager.getWindow().getCameraWindowOffset().add(new Vector2(0,-150)));
-
-                setPosition(new Vector3(parent.getTransform().getPosition().x - offset.x, parent.getTransform().getPosition().y - offset.y, getTransform().position.z));
+                offset = offset.add(focusOffset);
+                setPosition(new Vector3(objectToFocus.getTransform().getPosition().x - offset.x, objectToFocus.getTransform().getPosition().y - offset.y, getTransform().position.z));
 
             }
-            else if(parent instanceof MousePointer mp) {
+            else if(objectToFocus instanceof MousePointer mp) {
                 Vector2 pos = mp.pointerPosToWorldPoint();
 
                 if (mp.cameraFollowOffset())
@@ -228,5 +230,9 @@ public class GameCamera extends Pawn {
                 setPosition(new Vector3(pos.x, pos.y, getTransform().position.z));
             }
         }
+    }
+
+    public void setFocusOffset(Vector2 focusOffset) {
+        this.focusOffset = focusOffset;
     }
 }
