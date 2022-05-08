@@ -98,7 +98,7 @@ public class SceneManager {
              ) {
             if(o==null)
                 continue;
-            Component[] c = o.getComponentByName("DontDestroyOnLoad");
+            Component[] c = o.getComponents();
             for (Component c1 : c) {
                 if(c1 != null)
                 {

@@ -91,6 +91,15 @@ public class Vector3 implements Serializable {
         return Math.max(Math.max(Math.abs(input.x), Math.abs(input.y)), Math.abs(input.z));
     }
 
+    public boolean equals(Vector3 a)
+    {
+        if(a == null)
+        {
+            return false;
+        }
+        return x == a.x && y == a.y && z == a.z;
+    }
+
     // Make toString() readable
     public String toString() {return String.format("{x:%f y:%f z:%f}", x,y,z);}
 }

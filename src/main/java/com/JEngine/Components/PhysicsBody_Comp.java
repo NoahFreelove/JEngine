@@ -18,6 +18,8 @@ public class PhysicsBody_Comp extends Component {
     private boolean allowAddAccelerationInAir = true; // should acceleration be applied in air?
     private boolean allowAddVelocityInAir = true; // should velocity be applied in air?
 
+    private Vector2 maxVelocity; // in m/s
+    private Vector2 maxAcceleration; // in m/s^2
     @Override
     public void Update(){
         // multiply by delta time for smooth movement and not instant teleporting
@@ -36,6 +38,8 @@ public class PhysicsBody_Comp extends Component {
             velocity = velocity.multiply(new Vector2(1-friction.x,1-friction.y));
         }
 
+        velocity = GameMath.clamp(maxVelocity.multiply(-1), maxVelocity, velocity);
+        acceleration = GameMath.clamp(maxAcceleration.multiply(-1), maxAcceleration, acceleration);
         if(getParent() ==null) return;
 
         if(getParent() instanceof Pawn pawn) {
@@ -58,13 +62,17 @@ public class PhysicsBody_Comp extends Component {
         }
 
     }
-    public PhysicsBody_Comp(boolean hasGravity){
+    public PhysicsBody_Comp(boolean hasGravity, Vector2 initGravity){
         super(true, "PhysicsComponent");
         this.hasGravity = hasGravity;
-        this.gravity =  new Vector2(0f,5f);
+        this.gravity = initGravity;
+        if(initGravity == null)
+            this.gravity = new Vector2(0,5f); // 5 is a pretty good value. 9.8 is a little harsh
         this.velocity = new Vector2(0,0);
         this.acceleration = new Vector2(0,0);
         this.friction = new Vector2(0.2f,0);
+        this.maxVelocity = new Vector2(1000,1000);
+        this.maxAcceleration = new Vector2(1000,1000);
         if(hasGravity)
             velocity = new Vector2(gravity.x, gravity.y);
     }

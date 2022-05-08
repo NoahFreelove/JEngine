@@ -1,5 +1,6 @@
 package com.JEngine.Utility;
 
+import com.JEngine.Core.Position.Vector2;
 import com.JEngine.Core.Position.Vector3;
 
 import java.util.concurrent.ThreadLocalRandom;
@@ -32,6 +33,10 @@ public class GameMath {
         if(value<=min)
             return min;
         return Math.min(value, max);
+    }
+
+    public static Vector2 clamp(Vector2 min, Vector2 max, Vector2 value) {
+        return new Vector2(clamp(min.x, max.x, value.x), clamp(min.y, max.y, value.y));
     }
 
     /**

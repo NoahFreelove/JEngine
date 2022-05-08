@@ -154,9 +154,11 @@ public class Pawn extends Sprite {
     private boolean Move(float totalXMovement, float totalYMovement){
         boolean foundCollider = false;
 
-        for (Component component: getComponentByName("Collider")) {
+        for (Component component: getComponentByName("Collider"))
+        {
             if(component == null)
                 continue;
+
             if (component instanceof Collider_Comp collider) {
                 foundCollider = true;
                 if(collider.isTrigger())
@@ -172,8 +174,11 @@ public class Pawn extends Sprite {
                 }
             }
         }
+        // if a collider was found, but was in the way, it couldn't move.
         if(foundCollider)
             return false;
+
+        // if there is no collider anywhere, just move
         setPosition(new Vector3(getPosition().x + totalXMovement, getPosition().y + totalYMovement, getPosition().z));
         return true;
     }

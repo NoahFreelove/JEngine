@@ -5,8 +5,10 @@ module com.example.jengine {
     requires com.dlsc.formsfx;
     requires java.desktop;
 
-    opens com.basicexample to javafx.fxml;
-    exports com.basicexample;
     exports com.JEngine.Components;
     opens com.JEngine.Components to javafx.fxml;
+    exports com.Examples.MovingSquares;
+    opens com.Examples.MovingSquares to javafx.fxml;
+    exports com.Examples.AudioTest;
+    opens com.Examples.AudioTest to javafx.fxml;
 }

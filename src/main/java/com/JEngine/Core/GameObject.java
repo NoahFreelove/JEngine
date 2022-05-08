@@ -92,6 +92,18 @@ public class GameObject extends Thing implements Serializable {
         }
         return result;
     }
+    public Component[] getComponentByType(Class<? extends Component> type) {
+        Component[] result = new Component[0];
+        for(Component c : components) {
+            if(c.getClass().equals(type)) {
+                Component[] newResult = new Component[result.length + 1];
+                System.arraycopy(result, 0, newResult, 0, result.length);
+                newResult[result.length] = c;
+                result = newResult;
+            }
+        }
+        return result;
+    }
 
     // Setters
     public void setQueuedForDeletion(boolean queuedForDeletion) {

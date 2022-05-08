@@ -3,6 +3,7 @@ package com.JEngine.Utility;
 import com.JEngine.Game.PlayersAndPawns.Player;
 import com.JEngine.Game.Visual.Scenes.SceneManager;
 import com.JEngine.Core.GameObject;
+import com.JEngine.Utility.Misc.GenericMethod;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -105,6 +106,9 @@ public class Input {
     public static boolean Escape_Pressed;
     //endregion
 
+    private static GenericMethod[] onKeyPressEvents = new GenericMethod[0];
+    private static GenericMethod[] onKeyReleaseEvents = new GenericMethod[0];
+
     public static KeyCode keyPressed;
     //endregion
 
@@ -134,6 +138,10 @@ public class Input {
             catch (Exception ignore){}
         }
         setKeys(key.getCode(), true);
+        for (GenericMethod m : onKeyPressEvents)
+        {
+            m.call(new Object[]{key});
+        }
     }
 
     /**
@@ -151,6 +159,10 @@ public class Input {
             catch (Exception ignore){}
         }
         setKeys(key.getCode(), false);
+        for (GenericMethod m : onKeyReleaseEvents)
+        {
+            m.call(new Object[]{key});
+        }
     }
 
     /**
@@ -293,6 +305,42 @@ public class Input {
         }
         keyPressed = key;
         checkKeyCombos();
+    }
+
+    public static void addKeyPressEvent(GenericMethod method) {
+        // if array is full, increase size
+        int i = 0;
+        for (GenericMethod m: onKeyPressEvents) {
+            if (m == null) {
+                onKeyPressEvents[i] = method;
+                return;
+            }
+        }
+        GenericMethod[] newArray = new GenericMethod[onKeyPressEvents.length + 1];
+        for (GenericMethod m: onKeyPressEvents) {
+            newArray[i] = m;
+            i++;
+        }
+        newArray[i] = method;
+        onKeyPressEvents = newArray;
+    }
+
+    public static void addKeyReleaseEvent(GenericMethod method) {
+        // if array is full, increase size
+        int i = 0;
+        for (GenericMethod m: onKeyReleaseEvents) {
+            if (m == null) {
+                onKeyReleaseEvents[i] = method;
+                return;
+            }
+        }
+        GenericMethod[] newArray = new GenericMethod[onKeyReleaseEvents.length + 1];
+        for (GenericMethod m: onKeyReleaseEvents) {
+            newArray[i] = m;
+            i++;
+        }
+        newArray[i] = method;
+        onKeyReleaseEvents = newArray;
     }
 
 }

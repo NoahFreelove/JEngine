@@ -68,7 +68,7 @@ public class GameCamera extends Pawn {
      * Default setter for parent
      * @param newParent new parent
      */
-    public void setParent(GameObject newParent) {parent = newParent;}
+    public void setFocus(GameObject newParent) {parent = newParent;}
 
     /**
      * Default getter for parent
