@@ -20,48 +20,16 @@ public class PhysicsBody_Comp extends Component {
 
     private Vector2 maxVelocity; // in m/s
     private Vector2 maxAcceleration; // in m/s^2
+
+    private final Vector2 up = new Vector2(0,-1);
+
     @Override
     public void Update(){
-        // multiply by delta time for smooth movement and not instant teleporting
-        double deltaTime = SceneManager.getWindow().getDeltaTime()/1000d;
-        // Speed up based on acceleration
-
-        // add gravity if applicable
-        if(hasGravity)
-            acceleration = acceleration.add(gravity);
-
-        // Slow down based on friction
-        velocity = velocity.add(acceleration.multiply(deltaTime));
-
-        if(onGround || frictionInAir)
-        {
-            velocity = velocity.multiply(new Vector2(1-friction.x,1-friction.y));
-        }
-
-        velocity = GameMath.clamp(maxVelocity.multiply(-1), maxVelocity, velocity);
-        acceleration = GameMath.clamp(maxAcceleration.multiply(-1), maxAcceleration, acceleration);
-        if(getParent() ==null) return;
-
-        if(getParent() instanceof Pawn pawn) {
-            // move in directions separately by delta time
-
-            onGround = !pawn.Move(new Vector2(0, 1), velocity.y);
-
-            // These statements make it so if you run into a wall you don't infinitely accelerate
-            if(onGround) {
-                velocity.y = 0;
-                acceleration.y = 0;
-            }
-            if(!pawn.Move(new Vector2(1,0),velocity.x)){
-                velocity.x = 0;
-                acceleration.x = 0;
-            }
-            /*System.out.println("V:"+velocity);
-            System.out.println("A:"+acceleration);
-            System.out.println("OnGround?:"+onGround);*/
-        }
+        calculatePhysics();
+        applyPhysics();
 
     }
+
     public PhysicsBody_Comp(boolean hasGravity, Vector2 initGravity){
         super(true, "PhysicsComponent");
         this.hasGravity = hasGravity;
@@ -184,5 +152,55 @@ public class PhysicsBody_Comp extends Component {
 
     public Vector2 getMaxAcceleration() {
         return maxAcceleration;
+    }
+
+    // Called after physics calculations are done
+    private void LateUpdate(Pawn p){
+        if(p.isCollidingWithAny())
+        {
+            p.Move(new Vector2(-1,0), 50);
+            p.Move(new Vector2(0,-1), 50);
+        }
+    }
+
+    private void calculatePhysics(){
+        // multiply by delta time for smooth movement and not instant teleporting
+        double deltaTime = SceneManager.getWindow().getDeltaTime()/1000d;
+        // Speed up based on acceleration
+
+        // add gravity if applicable
+        if(hasGravity)
+            acceleration = acceleration.add(gravity);
+
+        // Slow down based on friction
+        velocity = velocity.add(acceleration.multiply(deltaTime));
+
+        if(onGround || frictionInAir)
+        {
+            velocity = velocity.multiply(new Vector2(1-friction.x,1-friction.y));
+        }
+
+        velocity = GameMath.clamp(maxVelocity.multiply(-1), maxVelocity, velocity);
+        acceleration = GameMath.clamp(maxAcceleration.multiply(-1), maxAcceleration, acceleration);
+    }
+
+    private void applyPhysics() {
+        if(getParent() ==null) return;
+
+        if(getParent() instanceof Pawn pawn) {
+            // move in directions separately by delta time
+            onGround = !pawn.Move(new Vector2(0, 1), velocity.y);
+
+            // These statements make it so if you run into a wall you don't infinitely accelerate
+            if(onGround) {
+                velocity.y = 0;
+                acceleration.y = 0;
+            }
+            if(!pawn.Move(new Vector2(1,0),velocity.x)){
+                velocity.x = 0;
+                acceleration.x = 0;
+            }
+            LateUpdate(pawn);
+        }
     }
 }

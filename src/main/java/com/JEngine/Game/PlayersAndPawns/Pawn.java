@@ -182,4 +182,15 @@ public class Pawn extends Sprite {
         setPosition(new Vector3(getPosition().x + totalXMovement, getPosition().y + totalYMovement, getPosition().z));
         return true;
     }
+
+    public boolean isCollidingWithAny(){
+        for (Component component :
+                getComponents()) {
+            if(component instanceof Collider_Comp collider)
+            {
+                return collider.isCollidingWithAny(!collider.isTrigger());
+            }
+        }
+        return false;
+    }
 }

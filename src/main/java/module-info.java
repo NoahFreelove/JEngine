@@ -7,8 +7,5 @@ module com.example.jengine {
 
     exports com.JEngine.Components;
     opens com.JEngine.Components to javafx.fxml;
-    exports com.Examples.MovingSquares;
-    opens com.Examples.MovingSquares to javafx.fxml;
-    exports com.Examples.AudioTest;
-    opens com.Examples.AudioTest to javafx.fxml;
+    opens com.Examples.MovingSquare to javafx.graphics;
 }
