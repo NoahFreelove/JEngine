@@ -21,6 +21,9 @@ public class PhysicsBody_Comp extends Component {
     private Vector2 maxAcceleration; // in m/s^2
 
     private final Vector2 up = new Vector2(0,-1);
+    private final Vector2 right = new Vector2(1,0);
+    private final Vector2 down = new Vector2(0,1);
+    private final Vector2 left = new Vector2(-1,0);
 
     @Override
     public void Update(){
@@ -151,8 +154,8 @@ public class PhysicsBody_Comp extends Component {
     private void LateUpdate(Pawn p){
         if(p.isCollidingWithAny())
         {
-            p.Move(new Vector2(-1,0), 50);
-            p.Move(new Vector2(0,-1), 50);
+            p.Move(left, 50);
+            p.Move(up, 50);
         }
     }
 
@@ -183,14 +186,14 @@ public class PhysicsBody_Comp extends Component {
         if(getParent() instanceof Pawn pawn) {
             // move in directions separately by delta time
 
-            onGround = !pawn.Move(new Vector2(0, 1), velocity.y);
+            onGround = !pawn.Move(down, velocity.y);
 
             // These statements make it so if you run into a wall you don't infinitely accelerate
             if(onGround) {
                 velocity.y = 0;
                 acceleration.y = 0;
             }
-            if(!pawn.Move(new Vector2(1,0),velocity.x)){
+            if(!pawn.Move(right,velocity.x)){
                 velocity.x = 0;
                 acceleration.x = 0;
             }
