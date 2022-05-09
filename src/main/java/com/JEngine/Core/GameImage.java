@@ -2,8 +2,8 @@ package com.JEngine.Core;
 
 import java.io.File;
 
-/** JImage (c) Noah Freelove
- * JImage is a way to convert images to sprites and ui objects
+/** GameImage (c) Noah Freelove
+ * GameImage is a way to convert images to sprites and ui objects
  **/
 
 public class GameImage extends Thing {
@@ -84,16 +84,6 @@ public class GameImage extends Thing {
             tmpImage = new Image(filepath);
             this.image = tmpImage;
             return;
-        }
-        try {
-            assert false;
-            this.xSize = (int)tmpImage.getWidth();
-            this.ySize = (int)tmpImage.getHeight();
-
-        }catch (Exception ignore)
-        {
-            this.xSize = 64;
-            this.ySize = 64;
         }
 
         LogWarning(String.format("Image File: '%s' does not exist!", filepath));

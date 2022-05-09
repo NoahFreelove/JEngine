@@ -1,26 +1,47 @@
 package com.JEngine.Game.Sound;
 
-import javax.sound.sampled.AudioFormat;
+import com.JEngine.Core.Component;
+import com.JEngine.Core.Position.Vector3;
+import com.JEngine.Game.Visual.Scenes.SceneManager;
+import com.JEngine.Utility.GameMath;
+
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import java.io.File;
-
-import static com.JEngine.Core.Thing.LogError;
-import static com.JEngine.Core.Thing.LogExtra;
 
 /** AudioPlayer (c) Noah Freelove
  * Brief Explanation:
  * A simple way to play audio files.
  * Not advanced yet, planning to add more functionality.
  * **/
-public class AudioPlayer {
+public class AudioPlayer extends Component {
     private final String filePath;
     private Clip clip;
+    private boolean playInWorldSpace = true;
+    private float volume = 1f;
+    private FloatControl gainControl;
 
     public AudioPlayer(String filepath) {
+        super(true, "AudioPlayer");
         this.filePath = filepath;
         setClip(filePath);
+        gainControl  = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+    }
+
+    @Override
+    public void Update(){
+        if(playInWorldSpace)
+        {
+            Vector3 distanceFromCamera = SceneManager.getActiveCamera().getPosition();
+            Vector3 soundPosition = getParent().getPosition();
+            Vector3 newPosition = soundPosition.subtract(distanceFromCamera);
+            float totalDistance = newPosition.x + newPosition.y;
+            setVolume(5-(Math.abs(totalDistance)/100));
+
+        }
+        gainControl.setValue(volume*5);
     }
 
     /**
@@ -83,5 +104,13 @@ public class AudioPlayer {
 
     public AudioInputStream getAudioInputStream() {
         return null;
+    }
+
+    public float getVolume() {
+        return volume;
+    }
+
+    public void setVolume(float volume) {
+        this.volume = GameMath.clamp(-16f, 1f, volume);
     }
 }

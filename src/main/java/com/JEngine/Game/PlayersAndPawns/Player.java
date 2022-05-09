@@ -5,7 +5,7 @@ import com.JEngine.Core.Position.Transform;
 import com.JEngine.Core.Identity;
 import javafx.scene.input.KeyCode;
 
-/** 2022 - Noah Freelove
+/** Player (c) Noah Freelove
  * Brief Explanation:
  * A Player is form of pawn which has events for key presses
  * **/

@@ -13,8 +13,7 @@ public class EnginePrefs {
     //endregion
 
     //region garbage collection
-    // will force gc every frame. Will have noticeable impact on memory usage
-    // Cpu effects not measured but could be high with larger scenes.
+    // will force gc every frame. Will have noticeable impact on frame rate
     public static boolean aggressiveGC;
     //endregion
 }
