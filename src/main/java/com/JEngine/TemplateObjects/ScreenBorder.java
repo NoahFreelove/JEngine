@@ -1,8 +1,7 @@
 package com.JEngine.TemplateObjects;
 
-import com.JEngine.Components.BoxCollider_Comp;
+import com.JEngine.Components.Colliders.BoxCollider_Comp;
 import com.JEngine.Core.GameObject;
-import com.JEngine.Game.PlayersAndPawns.Pawn;
 import com.JEngine.Game.Visual.Scenes.SceneManager;
 import com.JEngine.Core.Position.Transform;
 import com.JEngine.Core.Position.Vector3;

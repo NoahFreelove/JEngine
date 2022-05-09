@@ -107,7 +107,6 @@ public class SceneManager {
                         if(!newScene.contains(o))
                         {
                             newScene.add(o);
-                            System.out.println("Added:" + o.getIdentity().getName());
                         }
                     }
                 }

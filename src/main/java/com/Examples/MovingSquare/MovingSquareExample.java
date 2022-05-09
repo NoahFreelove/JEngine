@@ -15,10 +15,14 @@ public class MovingSquareExample extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+    public static GameScene scene;
+    public static GameScene scene2;
 
     @Override
     public void start(Stage stage) throws Exception {
-        GameScene scene = new GameScene(5, "Moving Square Example");
+        scene = new GameScene(5, "Moving Square Example");
+        scene2 = new GameScene(2, "Second Scene");
+
         GameWindow window = new GameWindow(scene, 1f, "Moving Squares", stage);
         window.setTargetFPS(60);
         window.setBackgroundColor(Color.MEDIUMPURPLE);
@@ -37,6 +41,5 @@ public class MovingSquareExample extends Application {
 
         scene.add(player1);
         scene.add(player2);
-
     }
 }

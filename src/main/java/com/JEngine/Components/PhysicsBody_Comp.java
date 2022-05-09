@@ -7,7 +7,6 @@ import com.JEngine.Core.Position.Vector2;
 import com.JEngine.Utility.GameMath;
 
 public class PhysicsBody_Comp extends Component {
-    private float mass; //in kg
     private Vector2 velocity; // in m/s
     private Vector2 acceleration; // in m/s^2
     private Vector2 friction; // in that fancy u symbol
@@ -27,7 +26,6 @@ public class PhysicsBody_Comp extends Component {
     public void Update(){
         calculatePhysics();
         applyPhysics();
-
     }
 
     public PhysicsBody_Comp(boolean hasGravity, Vector2 initGravity){
@@ -49,11 +47,6 @@ public class PhysicsBody_Comp extends Component {
     {
         super(true, "PhysicsComponent");
         this.gravity = gravity;
-    }
-
-
-    public float getMass() {
-        return mass;
     }
 
     public Vector2 getVelocity() {
@@ -189,6 +182,7 @@ public class PhysicsBody_Comp extends Component {
 
         if(getParent() instanceof Pawn pawn) {
             // move in directions separately by delta time
+
             onGround = !pawn.Move(new Vector2(0, 1), velocity.y);
 
             // These statements make it so if you run into a wall you don't infinitely accelerate

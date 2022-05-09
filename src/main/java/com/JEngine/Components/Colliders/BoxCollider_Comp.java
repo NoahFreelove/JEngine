@@ -1,4 +1,4 @@
-package com.JEngine.Components;
+package com.JEngine.Components.Colliders;
 
 import com.JEngine.Core.GameObject;
 import com.JEngine.Core.Position.Vector3;

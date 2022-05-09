@@ -1,15 +1,19 @@
 package com.Examples.MovingSquare;
 
-import com.JEngine.Components.BoxCollider_Comp;
+import com.JEngine.Components.Colliders.BoxCollider_Comp;
+import com.JEngine.Components.DontDestroyOnLoad_Comp;
 import com.JEngine.Components.PhysicsBody_Comp;
+import com.JEngine.Core.FlipFlop;
 import com.JEngine.Core.GameImage;
 import com.JEngine.Core.Identity;
 import com.JEngine.Core.Position.Transform;
 import com.JEngine.Core.Position.Vector2;
 import com.JEngine.Core.Position.Vector3;
 import com.JEngine.Game.PlayersAndPawns.Player;
+import com.JEngine.Game.Visual.Scenes.SceneManager;
 import com.JEngine.Utility.GameMath;
 import com.JEngine.Utility.Input;
+import javafx.scene.input.KeyCode;
 
 import java.io.File;
 
@@ -18,7 +22,7 @@ public class MovingSquare extends Player {
     private BoxCollider_Comp collider;
     private float moveSpeed = 5f;
     private final int playerNum;
-
+    private FlipFlop sceneFlip = new FlipFlop();
     public MovingSquare(Vector3 initPos, int playerNum) {
         super(new Transform(initPos, new Vector3(0,0,0), new Vector3(0,0,0)), new GameImage(new File("bin/player"+ playerNum + ".png").getAbsolutePath(), 128, 128), new Identity("Player: " + playerNum, "player"));
         this.playerNum = GameMath.clamp(1,2,playerNum);
@@ -27,6 +31,11 @@ public class MovingSquare extends Player {
         collider = new BoxCollider_Comp(new Vector3(0,0,0), getSprite().getWidth(), getSprite().getWidth(), false, this);
         addComponent(physicsBody);
         addComponent(collider);
+
+        if(playerNum == 1)
+        {
+            addComponent(new DontDestroyOnLoad_Comp());
+        }
     }
 
     @Override
@@ -73,6 +82,22 @@ public class MovingSquare extends Player {
             if(physicsBody.isOnGround())
             {
                 physicsBody.addVelocity(new Vector2(0,-15));
+            }
+        }
+    }
+
+    @Override
+    public void onKeyPressed(KeyCode key){
+        if(playerNum == 2)
+            return;
+        if(key == KeyCode.C)
+        {
+            if(!sceneFlip.getState())
+            {
+                SceneManager.switchScene(MovingSquareExample.scene2);
+            }
+            else {
+                SceneManager.switchScene(MovingSquareExample.scene);
             }
         }
     }

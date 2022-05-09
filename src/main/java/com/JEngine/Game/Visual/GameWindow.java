@@ -55,9 +55,9 @@ public class GameWindow extends Thing {
     /**
      * Default constructor
      * @param title Title of the window
-     * @param window Default stage (Typically given by JavaFX public void start(Stage stage)
+     * @param stage Default stage (Typically given by JavaFX public void start(Stage stage)
      */
-    public GameWindow(GameScene scene, float scaleMultiplier, String title, Stage window) {
+    public GameWindow(GameScene scene, float scaleMultiplier, String title, Stage stage) {
         super(true);
         try
         {
@@ -75,13 +75,13 @@ public class GameWindow extends Thing {
 
         }
 
-        this.stage = window;
+        this.stage = stage;
         this.stage.setTitle(title);
         this.stage.setResizable(false);
         this.stage.setScene(this.scene);
         this.stage.show();
         this.stage.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, GameUtility::exitWindow);
-        window.focusedProperty().addListener((newValue, onHidden, onShown) -> onFocusChange(newValue.getValue()));
+        stage.focusedProperty().addListener((newValue, onHidden, onShown) -> onFocusChange(newValue.getValue()));
         this.scaleMultiplier = scaleMultiplier;
         setWindowScale(scaleMultiplier);
 

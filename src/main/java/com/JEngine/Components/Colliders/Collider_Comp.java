@@ -1,9 +1,8 @@
-package com.JEngine.Components;
+package com.JEngine.Components.Colliders;
 
 import com.JEngine.Core.Component;
 import com.JEngine.Core.GameObject;
 import com.JEngine.Core.Position.Vector3;
-import com.JEngine.Game.PlayersAndPawns.Pawn;
 import com.JEngine.Game.Visual.Scenes.SceneManager;
 import com.JEngine.Utility.Misc.GenericMethod;
 
