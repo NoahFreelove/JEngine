@@ -151,11 +151,14 @@ public class PhysicsBody_Comp extends Component {
     }
 
     // Called after physics calculations are done
-    private void LateUpdate(Pawn p){
+    private void Unstick(Pawn p){
         if(p.isCollidingWithAny())
         {
-            p.Move(left, 50);
-            p.Move(up, 50);
+            System.out.println("In object");
+            // If an object ends up in another one, we need to force it out of it.
+            // We can do this by getting the direction that it just moved and try to undo it
+            // You could also just force it out in a random direction
+
         }
     }
 
@@ -185,19 +188,20 @@ public class PhysicsBody_Comp extends Component {
 
         if(getParent() instanceof Pawn pawn) {
             // move in directions separately by delta time
-
-            onGround = !pawn.Move(down, velocity.y);
+            int result = pawn.Move(down, velocity.y);
+            onGround = !(result == 1 || result == 2);
 
             // These statements make it so if you run into a wall you don't infinitely accelerate
-            if(onGround) {
+            if(onGround || result == 2) {
                 velocity.y = 0;
                 acceleration.y = 0;
             }
-            if(!pawn.Move(right,velocity.x)){
+            if(pawn.Move(right,velocity.x) == 0){
                 velocity.x = 0;
                 acceleration.x = 0;
             }
-            LateUpdate(pawn);
+
+            Unstick(pawn);
         }
     }
 }

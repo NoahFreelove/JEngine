@@ -38,6 +38,8 @@ public class MovingSquareExample extends Application {
 
         MovingSquare player1 = new MovingSquare(new Vector3(300,200,0), 1);
         MovingSquare player2 = new MovingSquare(new Vector3(500,200,0), 2);
+        scene.add(new Floor(2, new Vector3(0,400,0)));
+        scene.add(new Floor(1, new Vector3(700,500,0)));
 
         scene.add(player1);
         scene.add(player2);
