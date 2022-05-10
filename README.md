@@ -6,7 +6,8 @@ Check out `src/main/java/com/Examples/MovingSquare/` to see a working example of
 
 ## Quick Start
 
-Firstly! If it isn't already, add the following to your module-info.java file:
+Firstly! If you haven't already, add the following to your module-info.java file:
+
 `requires javafx.controls;`
 
 `requires javafx.fxml;`
