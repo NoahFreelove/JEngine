@@ -13,7 +13,7 @@ import java.io.Serializable;
  * which you can't tell apart.
  * **/
 
-public class Identity implements Serializable {
+public class Identity {
     private String name;
     private String tag;
 

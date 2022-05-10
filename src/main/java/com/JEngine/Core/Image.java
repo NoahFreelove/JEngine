@@ -3,7 +3,7 @@ package com.JEngine.Core;
 import java.io.InputStream;
 import java.io.Serializable;
 
-public class Image extends javafx.scene.image.Image implements Serializable {
+public class Image extends javafx.scene.image.Image {
 
     public Image(String s) {
         super(s);

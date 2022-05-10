@@ -11,7 +11,8 @@ import java.util.Scanner;
 import static com.JEngine.Core.Thing.LogError;
 
 /** FileOperations (c) Noah Freelove
- * Lets you easily read and write strings to files
+ * Lets you easily read and write strings to file
+ * Helpful for save files in a game which contains simple save data
  */
 
 public class FileOperations {

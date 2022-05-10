@@ -14,8 +14,10 @@ import static com.JEngine.Game.Visual.Scenes.SceneQuicksort.quickSortZ;
 
 /** 2022 - Noah Freelove
  * Brief Explanation:
- * JScene is how you hold and load all the objects in your scene into memory.
- * Helpful for loading and switching between levels in a game for example.
+ * GameScene is how you hold and load all the objects in your scene into memory.
+ * Use SceneManager to switch the scene.
+ * When a scene is not active, the update method will not run on any of the object in the scene, and it will not be rendered.
+ * You can switch between scenes as much as you'd like, scene size may affect how quickly it loads.
  */
 public class GameScene extends Thing {
     // Objects in the scene
@@ -26,12 +28,12 @@ public class GameScene extends Thing {
 
     // The UI Group
     public Group uiObjects = new Group();
-    // Loaded UI
-    private Group loadedUI = new Group();
+
     // The URL to the FXML UI file
     public URL uiURL = null;
 
     /**
+     * @param sceneDefaultSize initial size of scene array. Not crucial as during play it will increase in size accordingly.
      * @param sceneName Name of the scene. Can be changed with setSceneName(String newName)
      */
     public GameScene(int sceneDefaultSize, String sceneName) {
@@ -48,12 +50,12 @@ public class GameScene extends Thing {
         super(true);
         setUiURL(url);
         try {
-            loadedUI = FXMLLoader.load(uiURL);
+            Group loadedUI = FXMLLoader.load(uiURL);
+            loadUI(loadedUI);
         } catch (IOException e) {
-            //ignore
+            LogError("Couldn't load scene UI from file: " + url.toString());
         }
 
-        loadUI();
         this.sceneName = sceneName;
         sceneObjects = new GameObject[sceneDefaultSize];
     }
@@ -61,7 +63,7 @@ public class GameScene extends Thing {
     /**
      * Load UI from loaded FXML file
      */
-    public void loadUI()
+    public void loadUI(Group loadedUI)
     {
         if(uiURL == null)
         {

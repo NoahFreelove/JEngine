@@ -16,7 +16,7 @@ import java.util.Arrays;
  * An object cannot be controlled directly, but it's position can be updated by doing Object.getTransform().setTransform
  * **/
 
-public class GameObject extends Thing implements Serializable {
+public class GameObject extends Thing {
     private Transform transform;
     private Vector3 prevPos;
     private Component[] components = new Component[0];

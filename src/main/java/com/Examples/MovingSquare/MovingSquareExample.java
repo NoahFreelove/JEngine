@@ -21,7 +21,7 @@ public class MovingSquareExample extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         scene = new GameScene(5, "Moving Square Example");
-        scene2 = new GameScene(2, "Second Scene");
+        scene2 = new GameScene(5, "Second Scene");
 
         GameWindow window = new GameWindow(scene, 1f, "Moving Squares", stage);
         window.setTargetFPS(60);
@@ -38,8 +38,10 @@ public class MovingSquareExample extends Application {
 
         MovingSquare player1 = new MovingSquare(new Vector3(300,200,0), 1);
         MovingSquare player2 = new MovingSquare(new Vector3(500,200,0), 2);
-        scene.add(new Floor(2, new Vector3(0,400,0)));
-        scene.add(new Floor(1, new Vector3(700,500,0)));
+        Floor floor1 = new Floor(2, new Vector3(0,400,0));
+        Floor floor2 = new Floor(1, new Vector3(700,500,0));
+        scene.add(floor1);
+        scene.add(floor2);
 
         scene.add(player1);
         scene.add(player2);

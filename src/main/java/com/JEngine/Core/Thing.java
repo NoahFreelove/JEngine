@@ -10,7 +10,7 @@ import java.io.Serializable;
  * Things are useless on their own but can be used to create more complex objects.
  * **/
 
-public class Thing implements Serializable {
+public class Thing {
     boolean isActive;
 
     public Thing(boolean isActive) {
