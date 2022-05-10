@@ -1,11 +1,12 @@
 package com.JEngine.Game.Visual.Scenes;
 
-import com.JEngine.Game.Visual.SearchType;
+import com.JEngine.Core.GameObject;
 import com.JEngine.Core.Group;
 import com.JEngine.Core.Identity;
-import com.JEngine.Core.GameObject;
 import com.JEngine.Core.Thing;
+import com.JEngine.Game.Visual.SearchType;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 
 import java.io.IOException;
 import java.net.URL;
@@ -146,6 +147,15 @@ public class GameScene extends Thing {
         sceneObjects = temp;
         sortByZ();
         LogExtra(String.format("Added '%s' (%s) to the scene Successfully", o.getIdentity().getName(), o.getClass().getSimpleName()));
+    }
+
+    public void addUI(Node node){
+        try {
+            uiObjects.getChildren().add(node);
+        }
+        catch (Exception e){
+            LogWarning("UI already exists in scene or is Null!");
+        }
     }
 
     /**

@@ -8,6 +8,7 @@ import com.JEngine.Game.Visual.Scenes.GameScene;
 import com.JEngine.TemplateObjects.ScreenBorder;
 import javafx.application.Application;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class MovingSquareExample extends Application {
@@ -15,6 +16,7 @@ public class MovingSquareExample extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
     public static GameScene scene;
     public static GameScene scene2;
 
@@ -38,6 +40,7 @@ public class MovingSquareExample extends Application {
 
         MovingSquare player1 = new MovingSquare(new Vector3(300,200,0), 1);
         MovingSquare player2 = new MovingSquare(new Vector3(500,200,0), 2);
+
         Floor floor1 = new Floor(2, new Vector3(0,400,0));
         Floor floor2 = new Floor(1, new Vector3(700,500,0));
         scene.add(floor1);
@@ -45,5 +48,12 @@ public class MovingSquareExample extends Application {
 
         scene.add(player1);
         scene.add(player2);
+
+        Text text = new Text("JEngine - Moving Square Example");
+        text.setFill(Color.WHITE);
+        text.setStyle("-fx-font-size: 40px;");
+        text.setX(50);
+        text.setY(50);
+        scene.addUI(text);
     }
 }

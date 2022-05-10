@@ -13,6 +13,7 @@ import com.JEngine.Game.PlayersAndPawns.Player;
 import com.JEngine.Game.Visual.Scenes.SceneManager;
 import com.JEngine.Utility.GameMath;
 import com.JEngine.Utility.Input;
+import com.JEngine.Utility.Misc.GameUtility;
 import javafx.scene.input.KeyCode;
 
 import java.io.File;
@@ -22,14 +23,15 @@ public class MovingSquare extends Player {
     private final BoxCollider_Comp collider;
     private final int playerNum;
     private final FlipFlop sceneFlip = new FlipFlop();
+
     private float moveSpeed = 5f;
 
     public MovingSquare(Vector3 initPos, int playerNum) {
-        super(new Transform(initPos, new Vector3(0,0,0), new Vector3(0,0,0)), new GameImage(new File("bin/player"+ playerNum + ".png").getAbsolutePath(), 128, 128), new Identity("Player: " + playerNum, "player"));
+        super(new Transform(initPos, new Vector3(0,0,0), new Vector3(1,1,1)), new GameImage(new File("bin/player"+ playerNum + ".png").getAbsolutePath(), 128, 128), new Identity("Player: " + playerNum, "player"));
         this.playerNum = GameMath.clamp(1,2,playerNum);
 
         physicsBody = new PhysicsBody_Comp(true, new Vector2(0,4));
-        collider = new BoxCollider_Comp(new Vector3(0,0,0), getSprite().getWidth(), getSprite().getHeight(), false, this);
+        collider = new BoxCollider_Comp(new Vector3(0,0,0), getTransform().getScale().x*getSprite().getWidth(), getTransform().getScale().y*getSprite().getHeight(), false, this);
         addComponent(physicsBody);
         addComponent(collider);
 
@@ -41,6 +43,9 @@ public class MovingSquare extends Player {
 
     @Override
     public void Update(){
+        if(Input.Escape_Pressed)
+            GameUtility.exitApp();
+
         if(playerNum == 1)
         {
             player1Controls();

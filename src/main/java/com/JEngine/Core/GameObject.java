@@ -1,10 +1,10 @@
 package com.JEngine.Core;
-import com.JEngine.Game.PlayersAndPawns.Pawn;
+
 import com.JEngine.Core.Position.Transform;
 import com.JEngine.Core.Position.Vector2;
 import com.JEngine.Core.Position.Vector3;
+import com.JEngine.Game.PlayersAndPawns.Pawn;
 
-import java.io.Serializable;
 import java.util.Arrays;
 
 /** JObject (c) Noah Freelove
@@ -48,6 +48,7 @@ public class GameObject extends Thing {
                 // convert vector3 to direction
                 Vector3 delta = prevPos.subtract(getPosition());
                 p.Move(new Vector2(delta.x*-1, delta.y*-1), (int)Vector3.getMaxValue(delta));
+                p.setScale(getTransform().scale);
             }
             child.Update();
         }
@@ -152,5 +153,10 @@ public class GameObject extends Thing {
                 ", children=" + Arrays.toString(children) +
                 ", components=" + Arrays.toString(components) +
                 '}';
+    }
+
+    public void setScale(Vector3 newScale)
+    {
+        getTransform().setScale(newScale);
     }
 }
