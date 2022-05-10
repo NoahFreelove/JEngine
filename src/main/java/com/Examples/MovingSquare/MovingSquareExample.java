@@ -26,12 +26,14 @@ public class MovingSquareExample extends Application {
         scene2 = new GameScene(5, "Second Scene");
 
         GameWindow window = new GameWindow(scene, 1f, "Moving Squares", stage);
-        window.setTargetFPS(60);
-        window.setBackgroundColor(Color.MEDIUMPURPLE);
+
         GameCamera camera = new GameCamera(new Vector3(0,0,0), window, scene,null, new Identity("MainCamera", "camera"));
         scene.add(camera);
 
         createSceneObjects(scene);
+
+        window.setTargetFPS(60);
+        window.setBackgroundColor(Color.MEDIUMPURPLE);
         window.start();
     }
 
