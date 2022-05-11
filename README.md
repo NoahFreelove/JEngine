@@ -66,6 +66,13 @@ Check out the MovingSquare example to see how to create a moving player, right n
 * 64 - The width of the image
 * 64 - The height of the image
 
+Alternatively, you can create a GameImage with a solid color:
+
+`GameImage image = new GameImage(GenerateSolidTexture.generateImage(64,64,0xFFFF007F));`
+* 64 - width of texture
+* 64 - height of texture
+* 0xFFFF007F the hex code of the color, Alpha - FF, Red - FF, Green - 00, Blue - 7F
+
 ### Create your transform
 `Transform transform = new Transform(new Vector3(0,0,0), new Vector3(0,0,0), new Vector3(1,1,1));`
 * new Vector3(0,0,0) - The initial position of the image
