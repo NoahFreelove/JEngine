@@ -6,10 +6,14 @@ import com.JEngine.Game.Visual.GameCamera;
 import com.JEngine.Game.Visual.GameWindow;
 import com.JEngine.Game.Visual.Scenes.GameScene;
 import com.JEngine.TemplateObjects.ScreenBorder;
+import com.JEngine.Utility.ImageProcessing.GenerateSolidTexture;
 import javafx.application.Application;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import javax.imageio.ImageIO;
+import java.io.File;
 
 public class MovingSquareExample extends Application {
 
@@ -57,5 +61,13 @@ public class MovingSquareExample extends Application {
         text.setX(50);
         text.setY(50);
         scene.addUI(text);
+
+        try {
+            File f = new File("C:/Users/s201063813/Desktop/texture.png");
+            ImageIO.write(GenerateSolidTexture.generate(128,128, 0xFF0000FF), "PNG", f);
+        }
+        catch (Exception e){
+            System.err.println(e);
+        }
     }
 }

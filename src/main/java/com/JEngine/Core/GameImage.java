@@ -1,5 +1,8 @@
 package com.JEngine.Core;
 
+import com.JEngine.Utility.ImageProcessing.MissingTexture;
+import javafx.scene.image.Image;
+
 import java.io.File;
 
 /** GameImage (c) Noah Freelove
@@ -29,6 +32,7 @@ public class GameImage extends Thing {
             return;
         }
         LogWarning(String.format("Image File: '%s' does not exist!", filepath));
+        image = MissingTexture.getMissingTextureImage();
     }
 
     /**
@@ -44,10 +48,12 @@ public class GameImage extends Thing {
         File imgFile = new File(filepath);
         if(imgFile.exists())
         {
-            image = new Image(filepath);
+            image = new Image(imgFile.getAbsolutePath());
             return;
         }
         LogWarning(String.format("Image File: '%s' does not exist!", filepath));
+        image = MissingTexture.getMissingTextureImage();
+
     }
 
     // Create a JImage with a JavaFX image
@@ -71,6 +77,7 @@ public class GameImage extends Thing {
         this.ySize = (int)image.getHeight();
         this.xSize = (int)image.getWidth();
         LogWarning(String.format("Image File: '%s' does not exist!", file.getAbsolutePath()));
+        image = MissingTexture.getMissingTextureImage();
     }
 
     // Create a JImage with a filepath
@@ -87,6 +94,7 @@ public class GameImage extends Thing {
         }
 
         LogWarning(String.format("Image File: '%s' does not exist!", filepath));
+        image = MissingTexture.getMissingTextureImage();
     }
 
     /**

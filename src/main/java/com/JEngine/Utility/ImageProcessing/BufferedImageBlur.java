@@ -2,7 +2,7 @@ package com.JEngine.Utility.ImageProcessing;
 
 import com.JEngine.Core.GameImage;
 import com.JEngine.Core.Thing;
-import com.JEngine.Core.Image;
+import javafx.scene.image.Image;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
