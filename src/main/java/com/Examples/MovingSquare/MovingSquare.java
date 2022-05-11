@@ -25,7 +25,7 @@ public class MovingSquare extends Player {
     private float moveSpeed = 5f;
 
     public MovingSquare(Vector3 initPos, int playerNum) {
-        super(new Transform(initPos, new Vector3(0,0,0), new Vector3(1,1,1)), new GameImage("bin/player"+ playerNum + ".png", 128, 128), new Identity("Player: " + playerNum, "player"));
+        super(new Transform(initPos, new Vector3(0,0,0), new Vector3(1,1,1)), new GameImage("bin/player"+ playerNum + ".png"), new Identity("Player: " + playerNum, "player"));
         this.playerNum = GameMath.clamp(1,2,playerNum);
 
         physicsBody = new PhysicsBody_Comp(true, new Vector2(0,4));
@@ -87,7 +87,7 @@ public class MovingSquare extends Player {
     private void jump(){
         if(physicsBody.isOnGround())
         {
-            physicsBody.addVelocity(new Vector2(0,-15));
+            physicsBody.addVelocity(new Vector2(0,-20));
         }
     }
 

@@ -33,6 +33,8 @@ public class GameImage extends Thing {
         }
         LogWarning(String.format("Image File: '%s' does not exist!", filepath));
         image = MissingTexture.getMissingTextureImage();
+        this.ySize = 128;
+        this.xSize = 128;
     }
 
     /**
@@ -53,10 +55,11 @@ public class GameImage extends Thing {
         }
         LogWarning(String.format("Image File: '%s' does not exist!", filepath));
         image = MissingTexture.getMissingTextureImage();
-
+        this.ySize = 128;
+        this.xSize = 128;
     }
 
-    // Create a JImage with a JavaFX image
+    // Create an Image with a JavaFX image
     public GameImage(Image image)
     {
         super(true);
@@ -65,36 +68,27 @@ public class GameImage extends Thing {
         this.ySize = (int)image.getHeight();
     }
 
-    // Create a JImage with a File
+    // Create a Image with a File
     public GameImage(File file)
     {
         super(true);
         if(file.exists())
         {
             image = new Image(file.getAbsolutePath());
+            this.ySize = (int)image.getHeight();
+            this.xSize = (int)image.getWidth();
             return;
         }
-        this.ySize = (int)image.getHeight();
-        this.xSize = (int)image.getWidth();
         LogWarning(String.format("Image File: '%s' does not exist!", file.getAbsolutePath()));
         image = MissingTexture.getMissingTextureImage();
+        this.ySize = 128;
+        this.xSize = 128;
     }
 
-    // Create a JImage with a filepath
+    // Create a Image with a filepath
     public GameImage(String filepath)
     {
-        super(true);
-        Image tmpImage = null;
-        File imgFile = new File(filepath);
-        if(imgFile.exists())
-        {
-            tmpImage = new Image(filepath);
-            this.image = tmpImage;
-            return;
-        }
-
-        LogWarning(String.format("Image File: '%s' does not exist!", filepath));
-        image = MissingTexture.getMissingTextureImage();
+        this(new File(filepath));
     }
 
     /**

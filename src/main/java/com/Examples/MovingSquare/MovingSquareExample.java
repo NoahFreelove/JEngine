@@ -6,14 +6,10 @@ import com.JEngine.Game.Visual.GameCamera;
 import com.JEngine.Game.Visual.GameWindow;
 import com.JEngine.Game.Visual.Scenes.GameScene;
 import com.JEngine.TemplateObjects.ScreenBorder;
-import com.JEngine.Utility.ImageProcessing.GenerateSolidTexture;
 import javafx.application.Application;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
-import javax.imageio.ImageIO;
-import java.io.File;
 
 public class MovingSquareExample extends Application {
 
@@ -48,7 +44,7 @@ public class MovingSquareExample extends Application {
         MovingSquare player2 = new MovingSquare(new Vector3(500,200,0), 2);
 
         Floor floor1 = new Floor(2, new Vector3(0,400,0));
-        Floor floor2 = new Floor(1, new Vector3(700,500,0));
+        Floor floor2 = new Floor(1, new Vector3(700,480,0));
         scene.add(floor1);
         scene.add(floor2);
 
@@ -61,13 +57,5 @@ public class MovingSquareExample extends Application {
         text.setX(50);
         text.setY(50);
         scene.addUI(text);
-
-        try {
-            File f = new File("C:/Users/s201063813/Desktop/texture.png");
-            ImageIO.write(GenerateSolidTexture.generate(128,128, 0xFF0000FF), "PNG", f);
-        }
-        catch (Exception e){
-            System.err.println(e);
-        }
     }
 }
