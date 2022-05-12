@@ -40,6 +40,10 @@ public class Vector2 {
         return new Vector2(x - v.x, y - v.y);
     }
 
+    public static Vector2 inverse(Vector2 v){
+        return new Vector2(v.x * -1, v.y * -1);
+    }
+
     public String toString()
     {
         return String.format("(x:%f y:%f)", x, y);

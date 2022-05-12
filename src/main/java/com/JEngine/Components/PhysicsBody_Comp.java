@@ -25,6 +25,7 @@ public class PhysicsBody_Comp extends Component {
     private final Vector2 down = new Vector2(0,1);
     private final Vector2 left = new Vector2(-1,0);
 
+    private Vector2 currDirection = new Vector2(0,0);
     @Override
     public void Update(){
         calculatePhysics();
@@ -154,11 +155,8 @@ public class PhysicsBody_Comp extends Component {
     private void Unstick(Pawn p){
         if(p.isCollidingWithAny())
         {
-            System.out.println("In object");
-            // If an object ends up in another one, we need to force it out of it.
-            // We can do this by getting the direction that it just moved and try to undo it
-            // You could also just force it out in a random direction
-
+            velocity = Vector2.inverse(currDirection).multiply(5);
+            acceleration = new Vector2(0,0);
         }
     }
 
@@ -190,6 +188,8 @@ public class PhysicsBody_Comp extends Component {
             // move in directions separately by delta time
             int result = pawn.Move(down, velocity.y);
             onGround = !(result == 1 || result == 2);
+
+            currDirection = new Vector2(GameMath.clamp(-1, 1, velocity.x), GameMath.clamp(-1, 1, velocity.y));
 
             // These statements make it so if you run into a wall you don't infinitely accelerate
             if(onGround || result == 2) {
