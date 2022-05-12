@@ -130,13 +130,7 @@ public class Pawn extends Sprite {
     }
     public int Move(Vector2 direction, float speed)
     {
-        direction = new Vector2(GameMath.clamp(-1,1,direction.x), GameMath.clamp(-1,1,direction.y));
-        direction = direction.multiply(speed);
-        float totalXMovement = direction.x;
-        float totalYMovement = direction.y;
-        // if the collider is hard, check if you will collide with another hard collider
-
-        return Move(totalXMovement,totalYMovement);
+        return Move(direction,new Vector2(speed,speed));
     }
 
     public int Move(Vector2 direction, Vector2 magnitude)
@@ -152,13 +146,11 @@ public class Pawn extends Sprite {
     private int Move(float totalXMovement, float totalYMovement){
         boolean foundCollider = false;
 
-        for (Component component: getComponentByName("Collider"))
+        for (Collider_Comp collider: getColliders())
         {
-            if(component == null)
+            if(collider == null)
                 continue;
-
-            if (component instanceof Collider_Comp collider) {
-                foundCollider = true;
+             foundCollider = true;
                 if(collider.isTrigger())
                 {
                    setPosition(new Vector3(getPosition().x + totalXMovement, getPosition().y + totalYMovement, getPosition().z));
@@ -170,7 +162,6 @@ public class Pawn extends Sprite {
                     //System.out.println("Moved: " + totalXMovement + "," + totalYMovement);
                     return 1;
                 }
-            }
         }
         // if a collider was found, but was in the way, it couldn't move.
         if(foundCollider)
@@ -188,7 +179,7 @@ public class Pawn extends Sprite {
 
     public boolean isCollidingWithAny(){
         for (Component component :
-                getComponents()) {
+                getColliders()) {
             if(component instanceof Collider_Comp collider)
             {
                 return collider.isCollidingWithAny(!collider.isTrigger());

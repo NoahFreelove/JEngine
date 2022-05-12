@@ -41,16 +41,12 @@ public class Collider_Comp extends Component {
     public boolean isCollidingWithAny(boolean checkHardOnly)
     {
         // go through every scene object check for hard collider
-        for (GameObject o :
-                SceneManager.getActiveScene().getObjects()) {
+        for (GameObject o : SceneManager.getActiveScene().getObjects()) {
             if (o == null || o == getParent()) continue;
-            for (Component c : o.getComponents()
-            ) {
+            for (Collider_Comp c : o.getColliders()) {
                 if (c != null) {
-                    if (c instanceof Collider_Comp collider) {
-                        if (collider.isCollidingWith(this)) {
-                            return true;
-                        }
+                    if (c.isCollidingWith(this)) {
+                        return true;
                     }
                 }
             }

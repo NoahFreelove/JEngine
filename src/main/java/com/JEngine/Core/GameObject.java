@@ -1,5 +1,6 @@
 package com.JEngine.Core;
 
+import com.JEngine.Components.Colliders.Collider_Comp;
 import com.JEngine.Core.Position.Transform;
 import com.JEngine.Core.Position.Vector2;
 import com.JEngine.Core.Position.Vector3;
@@ -21,6 +22,7 @@ public class GameObject extends Thing {
     private Vector3 prevPos;
     private Component[] components = new Component[0];
     private GameObject[] children = new GameObject[0];
+    private Collider_Comp[] colliders = new Collider_Comp[0];
     private final Identity identity;
     private boolean queuedForDeletion;
 
@@ -106,6 +108,10 @@ public class GameObject extends Thing {
         return result;
     }
 
+    public Collider_Comp[] getColliders() {
+        return colliders;
+    }
+
     // Setters
     public void setQueuedForDeletion(boolean queuedForDeletion) {
         this.queuedForDeletion = queuedForDeletion;
@@ -135,6 +141,17 @@ public class GameObject extends Thing {
         component.setParent(this);
         newComponents[components.length] = component;
         components = newComponents;
+        if(component instanceof Collider_Comp) {
+            addCollider((Collider_Comp)component);
+        }
+    }
+
+    public void addCollider(Collider_Comp collider) {
+        Collider_Comp[] newColliders = new Collider_Comp[colliders.length + 1];
+        System.arraycopy(colliders, 0, newColliders, 0, colliders.length);
+        collider.setParent(this);
+        newColliders[colliders.length] = collider;
+        colliders = newColliders;
     }
     public void removeComponent(Component component) {
         Component[] newComponents = new Component[components.length - 1];

@@ -7,25 +7,32 @@ import com.JEngine.Core.Position.Vector2;
 import com.JEngine.Utility.GameMath;
 
 public class PhysicsBody_Comp extends Component {
+
+    // Vectors
     private Vector2 velocity; // in m/s
     private Vector2 acceleration; // in m/s^2
     private Vector2 friction; // in that fancy u symbol
     private Vector2 gravity; // in m/s^2
+
+    // Restrictions
     private boolean hasGravity = true; // should gravity be applied?
     private boolean onGround = false; // is the pawn on the ground?
-    private boolean frictionInAir = true; // should friction be applied in air?
+    private boolean frictionInAir = false; // should friction be applied in air?
     private boolean allowAddAccelerationInAir = true; // should acceleration be applied in air?
     private boolean allowAddVelocityInAir = true; // should velocity be applied in air?
 
+    // Limits
     private Vector2 maxVelocity; // in m/s
     private Vector2 maxAcceleration; // in m/s^2
 
+    // Directions
     private final Vector2 up = new Vector2(0,-1);
     private final Vector2 right = new Vector2(1,0);
     private final Vector2 down = new Vector2(0,1);
     private final Vector2 left = new Vector2(-1,0);
 
     private Vector2 currDirection = new Vector2(0,0);
+
     @Override
     public void Update(){
         calculatePhysics();
@@ -155,7 +162,7 @@ public class PhysicsBody_Comp extends Component {
     private void Unstick(Pawn p){
         if(p.isCollidingWithAny())
         {
-            velocity = Vector2.inverse(currDirection).multiply(5);
+            velocity = Vector2.inverse(currDirection).multiply(10);
             acceleration = new Vector2(0,0);
         }
     }
@@ -167,7 +174,9 @@ public class PhysicsBody_Comp extends Component {
 
         // add gravity if applicable
         if(hasGravity)
+        {
             acceleration = acceleration.add(gravity);
+        }
 
         // Slow down based on friction
         velocity = velocity.add(acceleration.multiply(deltaTime));
@@ -203,5 +212,17 @@ public class PhysicsBody_Comp extends Component {
 
             Unstick(pawn);
         }
+    }
+
+    public void setFrictionInAir(boolean frictionInAir) {
+        this.frictionInAir = frictionInAir;
+    }
+
+    public void setAllowAddAccelerationInAir(boolean allowAddAccelerationInAir) {
+        this.allowAddAccelerationInAir = allowAddAccelerationInAir;
+    }
+
+    public void setAllowAddVelocityInAir(boolean allowAddVelocityInAir) {
+        this.allowAddVelocityInAir = allowAddVelocityInAir;
     }
 }
