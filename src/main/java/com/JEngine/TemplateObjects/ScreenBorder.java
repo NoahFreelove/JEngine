@@ -1,6 +1,7 @@
 package com.JEngine.TemplateObjects;
 
 import com.JEngine.Components.Colliders.BoxCollider_Comp;
+import com.JEngine.Components.DontDestroyOnLoad_Comp;
 import com.JEngine.Core.GameObject;
 import com.JEngine.Game.Visual.Scenes.SceneManager;
 import com.JEngine.Core.Position.Transform;
@@ -12,11 +13,11 @@ import com.JEngine.Core.Identity;
  */
 public class ScreenBorder {
 
-    public ScreenBorder(Vector3 basePos){
-        createWalls(basePos);
+    public ScreenBorder(Vector3 basePos, boolean dontDestroyOnLoad){
+        createWalls(basePos, dontDestroyOnLoad);
     }
 
-    void createWalls(Vector3 basePos){
+    void createWalls(Vector3 basePos, boolean dontDestroyOnLoad){
         int scaleX = (int)(1280* SceneManager.getWindow().getScaleMultiplier());
         int scaleY = (int)(720* SceneManager.getWindow().getScaleMultiplier());
         GameObject parent = new GameObject(Transform.simpleTransform(basePos), new Identity("ScreenBorder", "ScreenBorder"));
@@ -35,6 +36,8 @@ public class ScreenBorder {
         parent.addComponent(wall2);
         parent.addComponent(wall3);
         parent.addComponent(wall4);
+        if(dontDestroyOnLoad)
+            parent.addComponent(new DontDestroyOnLoad_Comp());
         SceneManager.getActiveScene().add(parent);
     }
 }

@@ -68,7 +68,7 @@ public class GameImage extends Thing {
         this.ySize = (int)image.getHeight();
     }
 
-    // Create a Image with a File
+    // Create an Image with a File
     public GameImage(File file)
     {
         super(true);
@@ -85,7 +85,7 @@ public class GameImage extends Thing {
         this.xSize = 128;
     }
 
-    // Create a Image with a filepath
+    // Create an Image with a filepath
     public GameImage(String filepath)
     {
         this(new File(filepath));

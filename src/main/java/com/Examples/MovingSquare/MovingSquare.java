@@ -25,9 +25,8 @@ public class MovingSquare extends Player {
     private float moveSpeed = 5f;
 
     public MovingSquare(Vector3 initPos, int playerNum) {
-        super(new Transform(initPos, new Vector3(0,0,0), new Vector3(1,1,1)), new GameImage("bin/player"+ playerNum + ".png"), new Identity("Player: " + playerNum, "player"));
+        super(new Transform(initPos, new Vector3(0,0,0), new Vector3(1,1,1)), new GameImage("bin/player"+playerNum+".png"), new Identity("Player: " + playerNum, "player"));
         this.playerNum = GameMath.clamp(1,2,playerNum);
-
         physicsBody = new PhysicsBody_Comp(true, new Vector2(0,5f));
         collider = new BoxCollider_Comp(new Vector3(0,0,0), getTransform().getScale().x*getSprite().getWidth(), getTransform().getScale().y*getSprite().getHeight(), false, this);
         addComponent(physicsBody);

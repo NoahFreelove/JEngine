@@ -17,7 +17,7 @@ public class PhysicsBody_Comp extends Component {
     // Restrictions
     private boolean hasGravity = true; // should gravity be applied?
     private boolean onGround = false; // is the pawn on the ground?
-    private boolean frictionInAir = false; // should friction be applied in air?
+    private boolean frictionInAir = true; // should friction be applied in air?
     private boolean allowAddAccelerationInAir = true; // should acceleration be applied in air?
     private boolean allowAddVelocityInAir = true; // should velocity be applied in air?
 

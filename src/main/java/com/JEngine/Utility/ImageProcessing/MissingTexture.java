@@ -25,7 +25,6 @@ public class MissingTexture {
                 }
             }
         }
-
         return image;
     }
 
