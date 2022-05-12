@@ -10,7 +10,6 @@ import com.JEngine.Utility.GameMath;
 public class Pathfinding_Comp extends Component {
     private GameObject target;
     private float moveSpeed = 5;
-
     public Pathfinding_Comp(GameObject target) {
         super("Pathfinding");
         this.target = target;
@@ -45,7 +44,10 @@ public class Pathfinding_Comp extends Component {
                 delta.y = 0;
             }
             for (Component c: getParent().getComponentByType(PhysicsBody_Comp.class)){
-                ((PhysicsBody_Comp)c).addVelocity(new Vector2(GameMath.clamp(-1,1,delta.x*moveSpeed), GameMath.clamp(-1,1,delta.y*moveSpeed)));
+                if(c instanceof PhysicsBody_Comp phy)
+                {
+                    phy.addVelocity(new Vector2(GameMath.clamp(-1,1,delta.x*moveSpeed), GameMath.clamp(-1,1,delta.y*moveSpeed)));
+                }
                 return;
             }
             pawn.Move(new Vector2(delta.x, delta.y), moveSpeed);

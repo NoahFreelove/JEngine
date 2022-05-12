@@ -66,7 +66,7 @@ public class MovingSquareExample extends Application {
         scene.add(player1);
         scene.add(player2);
 
-        Text text = new Text("JEngine - Moving Square Example");
+        Text text = new Text("JEngine - Moving Square Example - Press C to Toggle Other Objects");
         text.setFill(Color.WHITE);
         text.setStyle("-fx-font-size: 40px;");
         text.setX(50);
