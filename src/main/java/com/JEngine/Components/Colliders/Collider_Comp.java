@@ -123,5 +123,7 @@ public class Collider_Comp extends Component {
         return true;
     }
 
-    public void onHit(Collider_Comp other){}
+    public void onHit(Collider_Comp other){
+
+    }
 }
