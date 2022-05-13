@@ -1,11 +1,11 @@
 package com.JEngine.Game.Visual.Scenes;
 
 import com.JEngine.Core.GameObject;
-import com.JEngine.Core.Group;
 import com.JEngine.Core.Identity;
 import com.JEngine.Core.Thing;
 import com.JEngine.Game.Visual.SearchType;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Node;
 
 import java.io.IOException;

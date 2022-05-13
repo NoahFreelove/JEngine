@@ -1,7 +1,6 @@
 package com.JEngine.Game.Visual;
 
 import com.JEngine.Core.GameObject;
-import com.JEngine.Core.Group;
 import com.JEngine.Core.Identity;
 import com.JEngine.Core.Position.Transform;
 import com.JEngine.Core.Position.Vector2;
@@ -12,6 +11,7 @@ import com.JEngine.Game.Visual.Scenes.GameScene;
 import com.JEngine.Game.Visual.Scenes.SceneManager;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
+import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
