@@ -46,6 +46,7 @@ public class Collider_Comp extends Component {
             for (Collider_Comp c : o.getColliders()) {
                 if (c != null) {
                     if (c.isCollidingWith(this)) {
+                        onHit(c);
                         return true;
                     }
                 }
@@ -121,4 +122,6 @@ public class Collider_Comp extends Component {
     public boolean canMove(float totalXMovement, float totalYMovement) {
         return true;
     }
+
+    public void onHit(Collider_Comp other){}
 }

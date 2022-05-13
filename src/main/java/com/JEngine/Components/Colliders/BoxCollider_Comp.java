@@ -40,4 +40,9 @@ public class BoxCollider_Comp extends Collider_Comp {
         tmpCollider.setPosition(new Vector3(getPosition().x + xDisplacement, getPosition().y + yDisplacement, getPosition().z));
         return !tmpCollider.isCollidingWithAny(isTrigger());
     }
+
+    @Override
+    public void onHit(Collider_Comp other){
+        System.out.println(other.getParent().getIdentity().getName());
+    }
 }

@@ -102,4 +102,11 @@ public class Vector3 implements Serializable {
 
     // Make toString() readable
     public String toString() {return String.format("{x:%f y:%f z:%f}", x,y,z);}
+
+    public static Vector3 emptyVector(){
+        return new Vector3(0,0,0);
+    }
+    public static Vector3 oneVector(){
+        return new Vector3(1,1,1);
+    }
 }

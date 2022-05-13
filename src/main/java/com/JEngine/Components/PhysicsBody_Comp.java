@@ -225,4 +225,8 @@ public class PhysicsBody_Comp extends Component {
     public void setAllowAddVelocityInAir(boolean allowAddVelocityInAir) {
         this.allowAddVelocityInAir = allowAddVelocityInAir;
     }
+
+    public static Vector2 defaultGravity(){
+        return new Vector2(0,5f);
+    }
 }
