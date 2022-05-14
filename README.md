@@ -6,7 +6,7 @@ Check out `src/main/java/com/Examples/MovingSquare/` to see a working example of
 
 ## Quick Start
 
-Firstly! If you haven't already, add the following to your module-info.java file:
+Firstly, Create a new JavaFX project (preferably in IntelliJ). If you haven't already, add the following to your module-info.java file:
 
 `requires javafx.controls;`
 
@@ -15,7 +15,7 @@ Firstly! If you haven't already, add the following to your module-info.java file
 `requires java.desktop;`
 
 ### Create your Scene, Window, and Camera
-In a new JavaFX project, go to the `start(Stage stage)` method.
+In the new JavaFX project, go to the `start(Stage stage)` method. If you created the project with IntelliJ the default run class will be called `HelloApplication.java` remove all the code from the start method. (don't remove the method itself!)
 
 Now write the following code:
 
