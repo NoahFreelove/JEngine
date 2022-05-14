@@ -2,7 +2,7 @@
 A Simple 2D JavaFX Based Game Engine
 
 ## Example
-Check out `src/main/java/com/Examples/MovingSquare/` to see a working example of a simple game with 2 moving squares with physics.
+Check out [`src/main/java/com/Examples/MovingSquare/`](https://github.com/NoahFreelove/JEngine/tree/main/src/main/java/com/Examples/MovingSquare) to see a working example of a simple game with 2 moving squares with physics.
 
 ## Quick Start
 
