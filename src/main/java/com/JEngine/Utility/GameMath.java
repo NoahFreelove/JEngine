@@ -203,24 +203,7 @@ public class GameMath {
     }
 
 
-    /**
-     * Calculate the newtons of force that gravity on earth would have on you.
-     * @param mass mass of object
-     * @return newtons of gravity
-     */
-    public static float gravity(float mass)
-    {
-        return mass*9.8f;
-    }
-
-    /**
-     * Calculate the newtons of force that gravity on a planet would have.
-     * @param mass mass of object
-     * @param g gravity of planet (m/s^2)
-     * @return newtons of gravity
-     */
-    public static float gravity(float mass, float g)
-    {
-        return mass*g;
+    public static float reciprocal(float input){
+        return 1/input;
     }
 }

@@ -37,6 +37,13 @@ public class GameImage extends Thing {
         this.xSize = 128;
     }
 
+    public GameImage(GameImage newGameImage) {
+        super(true);
+        this.xSize = newGameImage.xSize;
+        this.ySize = newGameImage.ySize;
+        this.image = newGameImage.image;
+    }
+
     /**
      * Create an image with just a filepath, and size
      * @param filepath filepath for the image

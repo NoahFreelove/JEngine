@@ -10,10 +10,10 @@ import com.JEngine.Utility.Misc.GenericMethod;
 
 public class Pathfinding_Comp extends Component {
     private GameObject target;
-    private float moveSpeed = 5;
+    private float moveSpeed = 1f;
 
     private GenericMethod onTargetReachedEvent;
-
+    private long timeWhenStarted;
     // The range to the target in which the pathfinding is considered to be successful
     // Raise this value to leave more wiggle room
     private float successRange = 50f;
@@ -28,6 +28,7 @@ public class Pathfinding_Comp extends Component {
     }
 
     public void setTarget(GameObject target) {
+        timeWhenStarted = System.currentTimeMillis();
         this.target = target;
     }
 
@@ -59,7 +60,7 @@ public class Pathfinding_Comp extends Component {
             for (Component c: getParent().getComponentByType(PhysicsBody_Comp.class)){
                 if(c instanceof PhysicsBody_Comp phy)
                 {
-                    phy.addVelocity(new Vector2(GameMath.clamp(-1,1,delta.x*moveSpeed), GameMath.clamp(-1,1,delta.y*moveSpeed)));
+                    phy.addVelocity(new Vector2(GameMath.clamp(-1,1,delta.x)*moveSpeed, GameMath.clamp(-1,1,delta.y)*moveSpeed));
                 }
                 CheckSuccess();
                 return;
@@ -75,7 +76,7 @@ public class Pathfinding_Comp extends Component {
 
         if(distanceToTarget.x<successRange && distanceToTarget.y < successRange)
         {
-            onTargetReachedEvent.call(null);
+            onTargetReachedEvent.call(new Object[]{System.currentTimeMillis()-timeWhenStarted});
         }
     }
 
@@ -90,6 +91,8 @@ public class Pathfinding_Comp extends Component {
     public void setOnTargetReachedEvent(GenericMethod onTargetReachedEvent) {
         this.onTargetReachedEvent = onTargetReachedEvent;
     }
+
+
 
     @Override
     public void Update(){

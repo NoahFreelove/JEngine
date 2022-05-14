@@ -53,6 +53,11 @@ public class MousePointer extends Player {
             posY = event.getY();
         });
 
+        scene.setOnMouseDragged(mouseEvent -> {
+            posX = mouseEvent.getX();
+            posY = mouseEvent.getY();
+        });
+
         scene.setOnMousePressed(mouseEvent -> {
             if(mouseEvent.isPrimaryButtonDown())
             {
