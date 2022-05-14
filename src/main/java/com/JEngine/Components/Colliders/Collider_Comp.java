@@ -9,7 +9,6 @@ import com.JEngine.Utility.Misc.GenericMethod;
 public class Collider_Comp extends Component {
     private Vector3 offsetFromParent = new Vector3(0, 0, 0);
     private Vector3 position;
-    public Collider_Comp player2;
 
     private boolean isTrigger;
 
@@ -45,9 +44,13 @@ public class Collider_Comp extends Component {
             if (o == null || o == getParent()) continue;
             for (Collider_Comp c : o.getColliders()) {
                 if (c != null) {
-                    if (c.isCollidingWith(this)) {
-                        onHit(c);
-                        return true;
+                    if ((!c.isTrigger || !checkHardOnly) && c.isCollidingWith(this)) {
+                        if(c.getActive())
+                        {
+                            onHit(c);
+                            c.onHit(this);
+                            return true;
+                        }
                     }
                 }
             }
@@ -123,7 +126,5 @@ public class Collider_Comp extends Component {
         return true;
     }
 
-    public void onHit(Collider_Comp other){
-
-    }
+    public void onHit(Collider_Comp other){}
 }

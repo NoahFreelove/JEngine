@@ -4,6 +4,7 @@ import com.JEngine.Core.GameObject;
 import com.JEngine.Core.Identity;
 import com.JEngine.Core.Thing;
 import com.JEngine.Game.Visual.SearchType;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Node;

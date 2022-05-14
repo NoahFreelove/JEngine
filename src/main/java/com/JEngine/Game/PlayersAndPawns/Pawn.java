@@ -143,6 +143,9 @@ public class Pawn extends Sprite {
         return Move(totalXMovement,totalYMovement);
     }
 
+    // 0 - could not move
+    // 1 - moved
+    // 2 - hit ceiling
     private int Move(float totalXMovement, float totalYMovement){
         boolean foundCollider = false;
 
@@ -166,6 +169,7 @@ public class Pawn extends Sprite {
         // if a collider was found, but was in the way, it couldn't move.
         if(foundCollider)
         {
+            // if you hit ceiling, don't move, and return 2
             if(totalYMovement<=0){
                 return 2;
             }

@@ -2,12 +2,9 @@ package com.JEngine.Components.Colliders;
 
 import com.JEngine.Core.GameObject;
 import com.JEngine.Core.Position.Vector3;
-import com.JEngine.Utility.Misc.GenericMethod;
-import com.jengineplatformer.LevelEditor.EditorRenderer;
 
 public class BoxCollider_Comp extends Collider_Comp {
 
-    public GenericMethod onHitMethod = null;
     public BoxCollider_Comp(Vector3 initialOffset, float width, float height, boolean isTrigger, GameObject parent) {
         super(initialOffset, width, height, isTrigger, parent);
     }
@@ -45,7 +42,7 @@ public class BoxCollider_Comp extends Collider_Comp {
     }
 
     @Override
-    public void onHit(Collider_Comp other){
-        System.out.println("Box");
+    public void onHit(Collider_Comp other) {
+        super.onHit(other);
     }
 }

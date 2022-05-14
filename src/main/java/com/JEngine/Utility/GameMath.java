@@ -39,6 +39,11 @@ public class GameMath {
         return new Vector2(clamp(min.x, max.x, value.x), clamp(min.y, max.y, value.y));
     }
 
+    public static Vector3 abs(Vector3 input)
+    {
+        return new Vector3(Math.abs(input.x), Math.abs(input.y), Math.abs(input.z));
+    }
+
     /**
      * Interpolate position between two vectors clamped (0<x<1)
      * @param vA vector A

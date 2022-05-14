@@ -192,6 +192,8 @@ public class PhysicsBody_Comp extends Component {
 
     private void applyPhysics() {
         if(getParent() ==null) return;
+        if(!getActive())
+            return;
 
         if(getParent() instanceof Pawn pawn) {
             // move in directions separately by delta time

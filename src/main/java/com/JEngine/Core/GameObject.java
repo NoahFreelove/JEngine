@@ -32,6 +32,13 @@ public class GameObject extends Thing {
         this.prevPos = transform.getPosition();
         this.identity = identity;
     }
+
+    public GameObject(Vector2 pos) {
+        super(true);
+        this.transform = Transform.exSimpleTransform(pos.x, pos.y);
+        this.prevPos = transform.getPosition();
+        this.identity = new Identity("GameObject","gameobject");
+    }
     public GameObject(Transform transform, Identity identity, boolean isActive) {
         super(isActive);
         this.transform = transform;
@@ -143,6 +150,11 @@ public class GameObject extends Thing {
         components = newComponents;
         if(component instanceof Collider_Comp) {
             addCollider((Collider_Comp)component);
+        }
+    }
+    public void addComponents(Component... components) {
+        for(Component c : components) {
+            addComponent(c);
         }
     }
 
