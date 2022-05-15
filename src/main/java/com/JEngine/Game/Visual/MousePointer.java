@@ -19,6 +19,8 @@ public class MousePointer extends Player {
     private double posX;
     private double posY;
 
+    private boolean leftMouseDown;
+    private boolean rightMouseDown;
     private boolean cameraFollowOffset;
 
     /**
@@ -61,11 +63,28 @@ public class MousePointer extends Player {
         scene.setOnMousePressed(mouseEvent -> {
             if(mouseEvent.isPrimaryButtonDown())
             {
-                onMousePressed();
+                leftMouseDown = true;
+                onMousePressed(true);
+
+            }
+            if (mouseEvent.isSecondaryButtonDown())
+            {
+                rightMouseDown = true;
+                onMousePressed(false);
             }
         });
         scene.setOnMouseReleased(mouseEvent -> {
-            onMouseReleased();
+            if(!mouseEvent.isPrimaryButtonDown() && leftMouseDown)
+            {
+                leftMouseDown = false;
+                onMouseReleased(true);
+
+            }
+            if (!mouseEvent.isSecondaryButtonDown() && isRightMouseDown())
+            {
+                rightMouseDown = false;
+                onMouseReleased(false);
+            }
         });
     }
 
@@ -84,12 +103,12 @@ public class MousePointer extends Player {
     /**
      * Override this method to set events when the mouse is pressed
      */
-    protected void onMousePressed(){}
+    protected void onMousePressed(boolean isLeftDown){}
 
     /**
      * Override this method to set events when the mouse is released
      */
-    protected void onMouseReleased(){}
+    protected void onMouseReleased(boolean isLeftDown){}
 
     @Override
     public void Update() {
@@ -115,5 +134,13 @@ public class MousePointer extends Player {
 
     public void setCameraFollowOffset(boolean cameraFollowOffset) {
         this.cameraFollowOffset = cameraFollowOffset;
+    }
+
+    public boolean isLeftMouseDown() {
+        return leftMouseDown;
+    }
+
+    public boolean isRightMouseDown() {
+        return rightMouseDown;
     }
 }

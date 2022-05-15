@@ -1,4 +1,4 @@
-JEngine Version: 2.1
+JEngine Version: 2.2
 
 README.md Version: 5
 
