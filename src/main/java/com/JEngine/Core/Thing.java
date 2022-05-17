@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 /** Thing (c) Noah Freelove
  * Brief Explanation:
- * A Thing is the most basic type in com.JEngine. It does not require a transform, just an active state.
+ * A Thing is the most basic type in JEngine. It does not require a transform, just an active state.
  * Things are useless on their own but can be used to create more complex objects.
  * **/
 

@@ -30,8 +30,9 @@ public class PhysicsBody_Comp extends Component {
     private final Vector2 right = new Vector2(1,0);
     private final Vector2 down = new Vector2(0,1);
     private final Vector2 left = new Vector2(-1,0);
-
     private Vector2 currDirection = new Vector2(0,0);
+
+    private boolean removedForceBecauseOnGround = false;
 
     @Override
     public void Update(){
@@ -200,13 +201,22 @@ public class PhysicsBody_Comp extends Component {
             int result = pawn.Move(down, velocity.y);
             onGround = !(result == 1 || result == 2);
 
+            if(!onGround)
+            {
+                removedForceBecauseOnGround = false;
+            }
             currDirection = new Vector2(GameMath.clamp(-1, 1, velocity.x), GameMath.clamp(-1, 1, velocity.y));
 
             // These statements make it so if you run into a wall you don't infinitely accelerate
-            if(onGround || result == 2) {
-                velocity.y = 0;
+            if((onGround || result == 2)) {
                 acceleration.y = 0;
+                if(!removedForceBecauseOnGround)
+                {
+                    removedForceBecauseOnGround = true;
+                    velocity.y = 0;
+                }
             }
+
             if(pawn.Move(right,velocity.x) == 0){
                 velocity.x = 0;
                 acceleration.x = 0;
@@ -230,5 +240,13 @@ public class PhysicsBody_Comp extends Component {
 
     public static Vector2 defaultGravity(){
         return new Vector2(0,5f);
+    }
+
+    public void setOnGround(boolean newValue) {
+        this.onGround = newValue;
+    }
+
+    public boolean isRemovedForceBecauseOnGround() {
+        return removedForceBecauseOnGround;
     }
 }
