@@ -51,7 +51,11 @@ public class SceneManager {
     public static void switchScene(GameScene newScene) {
         Platform.runLater(() -> {
             addDontDestroys(newScene);
-            activeCamera.setActiveScene(newScene);
+            if (activeCamera != null)
+            {
+                activeCamera.setActiveScene(newScene);
+            }
+
             window.parent.getChildren().remove(activeScene.uiObjects);
             SceneManager.activeScene = newScene;
             window.parent.getChildren().add(newScene.uiObjects);

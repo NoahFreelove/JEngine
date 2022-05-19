@@ -46,6 +46,15 @@ public class GameScene extends Thing {
 
     /**
      * @param sceneName Name of the scene. Can be changed with setSceneName(String newName)
+     */
+    public GameScene(String sceneName) {
+        super(true);
+        this.sceneName = sceneName;
+        sceneObjects = new GameObject[25];
+    }
+
+    /**
+     * @param sceneName Name of the scene. Can be changed with setSceneName(String newName)
      * @param url URL to the FXML file
      */
     public GameScene(int sceneDefaultSize, String sceneName, URL url) {
@@ -376,5 +385,9 @@ public class GameScene extends Thing {
             }
         }
         return false;
+    }
+
+    public Group getUiObjects() {
+        return uiObjects;
     }
 }

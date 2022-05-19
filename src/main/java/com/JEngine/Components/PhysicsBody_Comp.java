@@ -34,6 +34,8 @@ public class PhysicsBody_Comp extends Component {
 
     private boolean removedForceBecauseOnGround = false;
 
+    private static Vector2 globalGravity = new Vector2(0,5f);
+
     @Override
     public void Update(){
         calculatePhysics();
@@ -174,7 +176,7 @@ public class PhysicsBody_Comp extends Component {
         // Speed up based on acceleration
 
         // add gravity if applicable
-        if(hasGravity)
+        if(hasGravity && !onGround)
         {
             acceleration = acceleration.add(gravity);
         }
@@ -186,7 +188,6 @@ public class PhysicsBody_Comp extends Component {
         {
             velocity = velocity.multiply(new Vector2(1-friction.x,1-friction.y));
         }
-
         velocity = GameMath.clamp(maxVelocity.multiply(-1), maxVelocity, velocity);
         acceleration = GameMath.clamp(maxAcceleration.multiply(-1), maxAcceleration, acceleration);
     }
@@ -238,15 +239,19 @@ public class PhysicsBody_Comp extends Component {
         this.allowAddVelocityInAir = allowAddVelocityInAir;
     }
 
-    public static Vector2 defaultGravity(){
-        return new Vector2(0,5f);
-    }
-
     public void setOnGround(boolean newValue) {
         this.onGround = newValue;
     }
 
     public boolean isRemovedForceBecauseOnGround() {
         return removedForceBecauseOnGround;
+    }
+
+    public static Vector2 getGlobalGravity() {
+        return globalGravity;
+    }
+
+    public static void setGlobalGravity(Vector2 globalGravity) {
+        PhysicsBody_Comp.globalGravity = globalGravity;
     }
 }
