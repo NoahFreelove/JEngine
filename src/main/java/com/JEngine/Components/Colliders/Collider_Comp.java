@@ -30,6 +30,7 @@ public class Collider_Comp extends Component {
     @Override
     public void Update(){
         this.position = getParent().getPosition().add(offsetFromParent);
+        isCollidingWithAny(false);
     }
 
     public boolean isCollidingWith(Collider_Comp otherObject)

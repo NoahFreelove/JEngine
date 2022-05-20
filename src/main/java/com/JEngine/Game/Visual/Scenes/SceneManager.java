@@ -102,6 +102,7 @@ public class SceneManager {
              ) {
             if(o==null)
                 continue;
+            o.OnUnload();
             Component[] c = o.getComponents();
             for (Component c1 : c) {
                 if(c1 != null)

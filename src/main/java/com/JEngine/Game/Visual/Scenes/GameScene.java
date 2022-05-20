@@ -137,6 +137,7 @@ public class GameScene extends Thing {
                 LogExtra(String.format("Added '%s' (%s) to the scene Successfully", o.getIdentity().getName(), o.getClass().getSimpleName()));
                 // sort by z to make sure the objects are in the correct order, not just how they're added to the array
                 sortByZ();
+                o.OnAdded();
                 return;
             }
             else if(sceneObjects[i].isQueuedForDeletion() && !sceneHasRoom())
@@ -169,19 +170,20 @@ public class GameScene extends Thing {
     }
 
     /**
-     * Remove a JObject from the scene.
-     * Note: Removing a JObject from the scene just stops it from being rendered and any update functions being called
+     * Remove a GameObject from the scene.
+     * Note: Removing a GameObject from the scene just stops it from being rendered and any update functions being called
      * on it. It is not cleared from memory just yet...
      * It will be the first in line to be overwritten when there is no more space in the scene.
      *
      * Because of the soft way its being 'removed' from the scene, you are able to unDelete() an object if you have
      * its name and tag, or reference
-     * @param o The JObject to remove
+     * @param o The GameObject to remove
      */
     public void remove(GameObject o)
     {
         if(o== null)
             return;
+        o.OnDestroy();
         o.setQueuedForDeletion(true);
         LogExtra(String.format("Queued object '%s' (%s) for deletion.", o.getIdentity().getName(), o.getClass().getSimpleName()));
     }

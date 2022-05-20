@@ -38,7 +38,7 @@ public class BoxCollider_Comp extends Collider_Comp {
         BoxCollider_Comp tmpCollider = new BoxCollider_Comp(getPosition(), getWidth(), getHeight(), isTrigger(), getParent());
 
         tmpCollider.setPosition(new Vector3(getPosition().x + xDisplacement, getPosition().y + yDisplacement, getPosition().z));
-        return !tmpCollider.isCollidingWithAny(isTrigger());
+        return !tmpCollider.isCollidingWithAny(true);
     }
 
     @Override

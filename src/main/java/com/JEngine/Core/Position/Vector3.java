@@ -17,6 +17,7 @@ public class Vector3 implements Serializable {
 
     /**
      * Create a new Vector 3
+     *
      * @param _x the x Value
      * @param _y the y Value
      * @param _z the z Value
@@ -26,6 +27,7 @@ public class Vector3 implements Serializable {
         y = _y;
         z = _z;
     }
+
     public Vector3(Vector2 xy, float z) {
         this.x = xy.x;
         this.y = xy.y;
@@ -34,38 +36,38 @@ public class Vector3 implements Serializable {
 
     // region Vector3 Operations
     // Vector 3 Operations
-    public Vector3 multiply(Vector3 a){
-        if(a == null)
-        {
-            return new Vector3(0,0,0);
+    public Vector3 multiply(Vector3 a) {
+        if (a == null) {
+            return new Vector3(0, 0, 0);
         }
-        return new Vector3(x*a.x, y*a.y, z*a.z);
-    }
-    public Vector3 multiply(float a)
-    {
-        return new Vector3(x*a, y*a, z*a);
+        return new Vector3(x * a.x, y * a.y, z * a.z);
     }
 
-    public Vector3 divide(Vector3 a)
-    {
-        if(a == null)
-        {
-            return new Vector3(0,0,0);
-        }
-        return new Vector3(x/a.x, y/a.y, z/a.z);
-    }
-    public Vector3 divide(float a)
-    {
-        return new Vector3(x/a, y/a, z/a);
+    public Vector3 multiply(float a) {
+        return new Vector3(x * a, y * a, z * a);
     }
 
-    public Vector3 add(Vector3 a)
-    {
-        if(a == null)
-        {
-            return new Vector3(0,0,0);
+    public Vector3 divide(Vector3 a) {
+        if (a == null) {
+            return new Vector3(0, 0, 0);
         }
-        return new Vector3(x+a.x, y+a.y, z+a.z);
+        return new Vector3(x / a.x, y / a.y, z / a.z);
+    }
+
+    public Vector3 divide(float a) {
+        return new Vector3(x / a, y / a, z / a);
+    }
+
+    public Vector3 add(Vector3 a) {
+        if (a == null) {
+            return new Vector3(0, 0, 0);
+        }
+        return new Vector3(x + a.x, y + a.y, z + a.z);
+    }
+
+    public Vector3 add(Vector2 v)
+    {
+        return new Vector3(x+v.x, y+v.y, z);
     }
     public Vector3 add(float a)
     {

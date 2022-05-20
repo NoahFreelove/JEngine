@@ -1,6 +1,8 @@
 package com.JEngine.Utility.Misc;
 
 import com.JEngine.Core.Thing;
+import com.JEngine.Game.Visual.Scenes.GameScene;
+import com.JEngine.Game.Visual.Scenes.SceneManager;
 
 /** GameTimer (c) Noah Freelove
  * GameTimer is a very useful class for running methods every interval
@@ -40,15 +42,14 @@ public class GameTimer {
     // Ticks down and until 0, then runs the behaviors
     private void tick() throws InterruptedException {
 
-        for (int i = 0; i < interval; i+=2) {
-            intervalRemaining = interval-i;
+        for (int i = 0; i < interval; i += 2) {
+            intervalRemaining = interval - i;
             Thread.sleep(1);
-            if(!isRunning){
+            if (!isRunning) {
                 return;
             }
         }
         runBehaviors();
-
         if(isRunning)
         {
             tick();

@@ -86,6 +86,9 @@ public class MousePointer extends Player {
                 onMouseReleased(false);
             }
         });
+        scene.setOnScroll(mouseEvent -> {
+            onScroll(mouseEvent.getDeltaY());
+        });
     }
 
     /**
@@ -143,4 +146,5 @@ public class MousePointer extends Player {
     public boolean isRightMouseDown() {
         return rightMouseDown;
     }
+    public void onScroll(double scroll){}
 }

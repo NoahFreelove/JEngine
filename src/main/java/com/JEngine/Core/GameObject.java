@@ -68,6 +68,10 @@ public class GameObject extends Thing {
         prevPos = getPosition();
     }
 
+    public void OnDestroy(){}
+    public void OnUnload(){}
+    public void OnAdded(){}
+
     // Getters
     public Identity getIdentity() {
         return identity;
