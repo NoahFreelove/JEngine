@@ -1,4 +1,4 @@
-package com.JEngine.Game.Visual.UI;
+package com.JEngine.Components.UI;
 
 import com.JEngine.Game.PlayersAndPawns.Player;
 import com.JEngine.Game.Visual.GameCamera;

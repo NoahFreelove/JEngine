@@ -1,4 +1,4 @@
-package com.JEngine.Game.Visual.UI;
+package com.JEngine.Components.UI;
 
 import com.JEngine.Core.Component;
 import com.JEngine.Core.Position.Vector2;
