@@ -26,6 +26,11 @@ public class Identity {
         this.name = name;
         this.tag = tag;
     }
+
+    public Identity(String tag) {
+        this.name = "Object";
+        this.tag = tag;
+    }
     // Setters
     public void setName(String newName){name = newName;}
     public void setTag(String newTag){tag = newTag;}

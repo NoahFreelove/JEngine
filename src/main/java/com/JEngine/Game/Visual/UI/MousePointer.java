@@ -1,6 +1,7 @@
-package com.JEngine.Game.Visual;
+package com.JEngine.Game.Visual.UI;
 
 import com.JEngine.Game.PlayersAndPawns.Player;
+import com.JEngine.Game.Visual.GameCamera;
 import com.JEngine.Game.Visual.Scenes.SceneManager;
 import com.JEngine.Core.GameImage;
 import com.JEngine.Core.Position.Transform;

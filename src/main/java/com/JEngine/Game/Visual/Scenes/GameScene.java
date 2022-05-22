@@ -375,6 +375,7 @@ public class GameScene extends Thing {
     public void purge()
     {
         sceneObjects = new GameObject[sceneObjects.length];
+        uiObjects.getChildren().clear();
         LogInfo(String.format("Purged scene: '%s' of ALL contents.", getSceneName()));
     }
 
@@ -392,4 +393,6 @@ public class GameScene extends Thing {
     public Group getUiObjects() {
         return uiObjects;
     }
+
+    public void OnSceneActive(){}
 }

@@ -25,6 +25,7 @@ import javafx.stage.WindowEvent;
  * **/
 
 public class GameWindow extends Thing {
+    private static GameWindow instance;
     private boolean isActive;
     private boolean isPaused;
     private final Stage stage;
@@ -59,6 +60,15 @@ public class GameWindow extends Thing {
      */
     public GameWindow(GameScene scene, float scaleMultiplier, String title, Stage stage) {
         super(true);
+        if(GameWindow.instance != null)
+        {
+            LogError("GameWindow already exists!");
+            this.stage = null;
+            return;
+        }
+        else {
+            GameWindow.instance = this;
+        }
         try
         {
             parent.getChildren().add(sceneObjects);
@@ -338,5 +348,13 @@ public class GameWindow extends Thing {
 
     public Vector2 getCameraWindowOffset() {
         return cameraWindowOffset;
+    }
+
+    public static GameWindow getInstance() {
+        return instance;
+    }
+
+    public float getTargetFPS() {
+        return targetFPS;
     }
 }

@@ -147,14 +147,16 @@ public class GameObject extends Thing {
         children = newChildren;
     }
     public void addComponent(Component component) {
+        for (Component c : getComponents()) {
+            if(c == component)
+                return;
+        }
         Component[] newComponents = new Component[components.length + 1];
         System.arraycopy(components, 0, newComponents, 0, components.length);
         component.setParent(this);
         newComponents[components.length] = component;
         components = newComponents;
-        if(component instanceof Collider_Comp) {
-            addCollider((Collider_Comp)component);
-        }
+
     }
     public void addComponents(Component... components) {
         for(Component c : components) {
@@ -168,6 +170,7 @@ public class GameObject extends Thing {
         collider.setParent(this);
         newColliders[colliders.length] = collider;
         colliders = newColliders;
+        addComponent(collider);
     }
     public void removeComponent(Component component) {
         Component[] newComponents = new Component[components.length - 1];

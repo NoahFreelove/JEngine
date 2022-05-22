@@ -13,6 +13,10 @@ public class Vector2 {
         this.x = x;
         this.y = y;
     }
+    public Vector2(double x, double y) {
+        this.x = (float) x;
+        this.y = (float) y;
+    }
     public Vector2(Vector3 vector3) {
         this.x = vector3.x;
         this.y = vector3.y;

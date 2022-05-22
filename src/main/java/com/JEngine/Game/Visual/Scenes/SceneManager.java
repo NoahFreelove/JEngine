@@ -38,6 +38,7 @@ public class SceneManager {
             return;
         hasInit = true;
         SceneManager.activeScene = newScene;
+        newScene.OnSceneActive();
         SceneManager.window = newWindow;
         SceneManager.activeCamera = newMainCamera;
         SceneManager.activeCamera.setActive(true);
@@ -58,6 +59,7 @@ public class SceneManager {
 
             window.parent.getChildren().remove(activeScene.uiObjects);
             SceneManager.activeScene = newScene;
+            newScene.OnSceneActive();
             window.parent.getChildren().add(newScene.uiObjects);
         } );
     }
