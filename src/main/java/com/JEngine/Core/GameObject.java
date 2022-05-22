@@ -172,6 +172,15 @@ public class GameObject extends Thing {
         colliders = newColliders;
         addComponent(collider);
     }
+
+    public void addComponent(Collider_Comp collider) {
+        Collider_Comp[] newColliders = new Collider_Comp[colliders.length + 1];
+        System.arraycopy(colliders, 0, newColliders, 0, colliders.length);
+        collider.setParent(this);
+        newColliders[colliders.length] = collider;
+        colliders = newColliders;
+        addComponent((Component) collider);
+    }
     public void removeComponent(Component component) {
         Component[] newComponents = new Component[components.length - 1];
         int index = 0;

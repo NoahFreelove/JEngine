@@ -186,7 +186,7 @@ public class Pawn extends Sprite {
                 getColliders()) {
             if(component instanceof Collider_Comp collider)
             {
-                return collider.isCollidingWithAny(!collider.isTrigger());
+                return collider.isTrigger()? collider.isCollidingWithAny() : collider.isCollidingWithHard();
             }
         }
         return false;

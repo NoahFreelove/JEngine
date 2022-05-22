@@ -9,6 +9,7 @@ import com.JEngine.Utility.Misc.GenericMethod;
 public class Collider_Comp extends Component {
     private Vector3 offsetFromParent = new Vector3(0, 0, 0);
     private Vector3 position;
+    private String ignoreTag = "";
 
     private boolean isTrigger;
 
@@ -26,11 +27,21 @@ public class Collider_Comp extends Component {
         this.setParent(parent);
         this.position = getParent().getPosition().add(initialOffset);
     }
+    public Collider_Comp(Vector3 initialOffset, float width, float height, boolean isTrigger, GameObject parent, String ignoreTag) {
+        super("Collider");
+        this.height = height;
+        this.width = width;
+        this.isTrigger = isTrigger;
+        this.offsetFromParent = initialOffset;
+        this.setParent(parent);
+        this.position = getParent().getPosition().add(initialOffset);
+        this.ignoreTag = ignoreTag;
+    }
 
     @Override
     public void Update(){
         this.position = getParent().getPosition().add(offsetFromParent);
-        isCollidingWithAny(false);
+        isCollidingWithAny();
     }
 
     public boolean isCollidingWith(Collider_Comp otherObject)
@@ -38,19 +49,43 @@ public class Collider_Comp extends Component {
         return false;
     }
 
-    public boolean isCollidingWithAny(boolean checkHardOnly)
+    public boolean isCollidingWithHard()
     {
         // go through every scene object check for hard collider
         for (GameObject o : SceneManager.getActiveScene().getObjects()) {
             if (o == null || o == getParent()) continue;
             for (Collider_Comp c : o.getColliders()) {
                 if (c != null) {
-                    if ((!c.isTrigger || !checkHardOnly) && c.isCollidingWith(this)) {
-                        if(c.getActive())
-                        {
-                            onHit(c);
-                            c.onHit(this);
-                            return true;
+                    if(!o.getIdentity().compareTag(ignoreTag))
+                    {
+                        if (!c.isTrigger && c.isCollidingWith(this)) {
+                            if(c.getActive())
+                            {
+                                onHit(c);
+                                c.onHit(this);
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    public boolean isCollidingWithAny(){
+        for (GameObject o : SceneManager.getActiveScene().getObjects()) {
+            if (o == null || o == getParent()) continue;
+            for (Collider_Comp c : o.getColliders()) {
+                if (c != null) {
+                    if(!o.getIdentity().compareTag(ignoreTag))
+                    {
+                        if (c.isCollidingWith(this)) {
+                            if(c.getActive())
+                            {
+                                onHit(c);
+                                c.onHit(this);
+                                return true;
+                            }
                         }
                     }
                 }
@@ -128,4 +163,12 @@ public class Collider_Comp extends Component {
     }
 
     public void onHit(Collider_Comp other){}
+
+    public String getIgnoreTag() {
+        return ignoreTag;
+    }
+
+    public void setIgnoreTag(String ignoreTag) {
+        this.ignoreTag = ignoreTag;
+    }
 }

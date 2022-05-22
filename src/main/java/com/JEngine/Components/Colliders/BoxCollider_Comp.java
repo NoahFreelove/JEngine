@@ -9,6 +9,10 @@ public class BoxCollider_Comp extends Collider_Comp {
         super(initialOffset, width, height, isTrigger, parent);
     }
 
+    public BoxCollider_Comp(Vector3 initialOffset, float width, float height, boolean isTrigger, GameObject parent, String ignoreTag) {
+        super(initialOffset, width, height, isTrigger, parent, ignoreTag);
+    }
+
     @Override
     public boolean isCollidingWith(Collider_Comp collider) {
         if(collider == null)
@@ -35,10 +39,10 @@ public class BoxCollider_Comp extends Collider_Comp {
      */
     @Override
     public boolean canMove(float xDisplacement, float yDisplacement) {
-        BoxCollider_Comp tmpCollider = new BoxCollider_Comp(getPosition(), getWidth(), getHeight(), isTrigger(), getParent());
+        BoxCollider_Comp tmpCollider = new BoxCollider_Comp(getPosition(), getWidth(), getHeight(), isTrigger(), getParent(), getIgnoreTag());
 
         tmpCollider.setPosition(new Vector3(getPosition().x + xDisplacement, getPosition().y + yDisplacement, getPosition().z));
-        return !tmpCollider.isCollidingWithAny(true);
+        return !tmpCollider.isCollidingWithHard();
     }
 
     @Override
