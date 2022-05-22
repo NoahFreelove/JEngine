@@ -9,7 +9,6 @@ import com.JEngine.Game.PlayersAndPawns.Pawn;
 import com.JEngine.Game.PlayersAndPawns.Sprite;
 import com.JEngine.Game.Visual.Scenes.GameScene;
 import com.JEngine.Game.Visual.Scenes.SceneManager;
-import com.JEngine.Components.UI.MousePointer;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.Group;

@@ -5,6 +5,7 @@ import com.JEngine.Core.Position.Vector2;
 import com.JEngine.Core.Position.Vector3;
 import com.JEngine.Game.Visual.GameWindow;
 import com.JEngine.Utility.GameMath;
+import com.JEngine.Utility.Misc.GenericMethod;
 import javafx.scene.Node;
 
 public class UIAnimator extends Component {
@@ -14,6 +15,8 @@ public class UIAnimator extends Component {
     private Vector2 endScale;
 
     private Node node;
+
+    private GenericMethod onComplete;
 
     private float progress;
     private float timeTarget = 1;
@@ -27,6 +30,16 @@ public class UIAnimator extends Component {
         this.startScale = new Vector2(node.getScaleX(), node.getScaleY());
         this.endScale = new Vector2(node.getScaleX(), node.getScaleY());
     }
+    public UIAnimator(Vector2 startPos, Vector2 endPos, Node node, float timeTarget, GenericMethod onComplete) {
+        super("animator");
+        this.startPos = startPos;
+        this.endPos = endPos;
+        this.node = node;
+        this.timeTarget = timeTarget;
+        this.startScale = new Vector2(node.getScaleX(), node.getScaleY());
+        this.endScale = new Vector2(node.getScaleX(), node.getScaleY());
+        this.onComplete = onComplete;
+    }
 
     public UIAnimator(Vector2 startPos, Vector2 endPos, Vector2 startScale, Vector2 endScale, Node node, float timeTarget) {
         super("animator");
@@ -36,6 +49,16 @@ public class UIAnimator extends Component {
         this.endScale = endScale;
         this.node = node;
         this.timeTarget = timeTarget;
+    }
+    public UIAnimator(Vector2 startPos, Vector2 endPos, Vector2 startScale, Vector2 endScale, Node node, float timeTarget, GenericMethod onComplete) {
+        super("animator");
+        this.startPos = startPos;
+        this.endPos = endPos;
+        this.startScale = startScale;
+        this.endScale = endScale;
+        this.node = node;
+        this.timeTarget = timeTarget;
+        this.onComplete = onComplete;
     }
 
     public void play(){
@@ -68,7 +91,12 @@ public class UIAnimator extends Component {
                 node.setScaleX(newScale.x);
                 node.setScaleY(newScale.y);
                 progress += 1/GameWindow.getInstance().getTargetFPS()/timeTarget;
-
+                if(progress>=1)
+                {
+                    if(onComplete !=null)
+                        onComplete.call(null);
+                    stop();
+                }
             }
         }
     }

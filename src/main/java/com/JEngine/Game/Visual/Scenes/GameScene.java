@@ -5,6 +5,7 @@ import com.JEngine.Core.Identity;
 import com.JEngine.Core.Thing;
 import com.JEngine.Game.Visual.SearchType;
 
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -162,7 +163,9 @@ public class GameScene extends Thing {
 
     public void addUI(Node node){
         try {
-            uiObjects.getChildren().add(node);
+            Platform.runLater(() -> {
+                uiObjects.getChildren().add(node);
+            });
         }
         catch (Exception e){
             LogWarning("UI already exists in scene or is Null!");
