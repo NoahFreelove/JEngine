@@ -1,6 +1,7 @@
 package com.JEngine.Components.UI;
 
 import com.JEngine.Core.Component;
+import com.JEngine.Core.FlipFlop;
 import com.JEngine.Game.Visual.GameWindow;
 import com.JEngine.Utility.GameMath;
 import com.JEngine.Utility.Misc.GenericMethod;
@@ -59,11 +60,12 @@ public class TextScroller extends Component {
 
     @Override
     public void Update(){
+
         if(isPlaying)
         {
             if(progress < 1)
             {
-                progress += 1/ GameWindow.getInstance().getTargetFPS()/timeTarget;
+                progress += 1/GameWindow.getInstance().getTargetFPS()/timeTarget;
                 index = (int) (progress * content.length());
                 animText.setText(content.substring(0, GameMath.clamp( 0, content.length(), index)));
                 if(progress >= 1)

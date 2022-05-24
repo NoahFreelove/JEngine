@@ -25,6 +25,17 @@ public class GameUtility {
             }
         }).start();
     }
+    public static void waitForSeconds(double seconds, GenericMethod event) {
+        new Thread(() -> {
+            try {
+                long milliseconds = (long)(seconds * 1000);
+                Thread.sleep(milliseconds);
+                event.call(null);
+            } catch (InterruptedException e) {
+                System.out.println(e);
+            }
+        }).start();
+    }
     // Exit the program (background process still runs)
     static void systemExit() {
         System.exit(0);

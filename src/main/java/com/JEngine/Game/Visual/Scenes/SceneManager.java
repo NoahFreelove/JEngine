@@ -50,8 +50,22 @@ public class SceneManager {
      * @param newScene new active scene
      */
     public static void switchScene(GameScene newScene) {
+
+        doSceneSwitch(newScene, false);
+
+    }
+
+    public static void switchScene(GameScene newScene,boolean ignoreDontDestroyOnLoad) {
+
+        doSceneSwitch(newScene, ignoreDontDestroyOnLoad);
+
+    }    private static void doSceneSwitch(GameScene newScene, boolean ignoreDontDestroyOnLoad) {
+
         Platform.runLater(() -> {
-            addDontDestroys(newScene);
+            if(!ignoreDontDestroyOnLoad)
+            {
+                addDontDestroys(newScene);
+            }
             if (activeCamera != null)
             {
                 activeCamera.setActiveScene(newScene);
@@ -62,6 +76,7 @@ public class SceneManager {
             newScene.OnSceneActive();
             window.parent.getChildren().add(newScene.uiObjects);
         } );
+
     }
 
     /**

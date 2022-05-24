@@ -1,6 +1,7 @@
 package com.JEngine.Components.UI;
 
 import com.JEngine.Core.Component;
+import com.JEngine.Core.FlipFlop;
 import com.JEngine.Core.Position.Vector2;
 import com.JEngine.Core.Position.Vector3;
 import com.JEngine.Game.Visual.GameWindow;
@@ -21,6 +22,7 @@ public class UIAnimator extends Component {
     private float progress;
     private float timeTarget = 1;
     private boolean isPlaying;
+
     public UIAnimator(Vector2 startPos, Vector2 endPos, Node node, float timeTarget) {
         super("animator");
         this.startPos = startPos;

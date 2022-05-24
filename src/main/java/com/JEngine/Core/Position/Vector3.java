@@ -33,6 +33,11 @@ public class Vector3 implements Serializable {
         this.y = xy.y;
         this.z = z;
     }
+    public Vector3(float x, float y) {
+        this.x = x;
+        this.y = y;
+        this.z = 0;
+    }
     public Vector3(Vector2 vec)
     {
         this.x = vec.x;

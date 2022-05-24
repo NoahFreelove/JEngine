@@ -1,5 +1,6 @@
 package com.JEngine.Game.Visual.Scenes;
 
+import com.JEngine.Core.Component;
 import com.JEngine.Core.GameObject;
 import com.JEngine.Core.Identity;
 import com.JEngine.Core.Thing;
@@ -188,6 +189,11 @@ public class GameScene extends Thing {
             return;
         o.OnDestroy();
         o.setQueuedForDeletion(true);
+        for (Component c: o.getComponents()) {
+            if(c == null)
+                continue;
+             c.setActive(false);
+        }
         LogExtra(String.format("Queued object '%s' (%s) for deletion.", o.getIdentity().getName(), o.getClass().getSimpleName()));
     }
 
@@ -202,6 +208,11 @@ public class GameScene extends Thing {
             if(ref == o && ref.isQueuedForDeletion())
             {
                 o.setQueuedForDeletion(false);
+                for (Component c: o.getComponents()) {
+                    if(c == null)
+                        continue;
+                    c.setActive(true);
+                }
                 LogExtra(String.format("Un-deleted '%s' (%s)", o.getIdentity().getName(), o.getClass().getSimpleName()));
                 return;
             }

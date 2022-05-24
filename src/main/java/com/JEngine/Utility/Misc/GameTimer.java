@@ -23,6 +23,10 @@ public class GameTimer {
         this.interval = interval;
         this.runEvents = runEvents;
     }
+    public GameTimer(long interval, GenericMethod runEvents) {
+        this.interval = interval;
+        this.runEvents = new GenericMethod[]{runEvents};
+    }
     // check if timer is running
     public boolean isRunning(){return isRunning;}
     // get interval remaining

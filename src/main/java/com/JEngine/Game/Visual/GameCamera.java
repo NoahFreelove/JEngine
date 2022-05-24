@@ -65,6 +65,7 @@ public class GameCamera extends Pawn {
         SceneManager.init(scene, window, this);
     }
 
+
     /**
      * Default setter for parent
      * @param newParent new parent
@@ -157,7 +158,6 @@ public class GameCamera extends Pawn {
         LogDebug("Start Object Render");
         window.refreshWindow(RenderObjects());
         LogDebug("Rendered Objects");
-
     }
 
     /**

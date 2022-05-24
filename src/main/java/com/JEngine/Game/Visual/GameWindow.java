@@ -11,7 +11,9 @@ import com.JEngine.Utility.Misc.FPSCounter;
 import com.JEngine.Utility.Misc.GameUtility;
 import com.JEngine.Utility.Misc.GenericMethod;
 import com.JEngine.Utility.Settings.EnginePrefs;
+import javafx.application.Platform;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -34,17 +36,18 @@ public class GameWindow extends Thing {
 
     private Thread updateThread;
 
-    private double fpsMili = 1000/30;
     private long prevFrameTime = 0;
     private long deltaTime = 0;
-    private float targetFPS = 30;
+    private float targetFPS = 60;
+    private double fpsMili = 1000/targetFPS;
+
     public int totalFrames = 1;
 
     private Color backgroundColor = Color.WHITE;
 
     public Group parent = new Group();
     public Group sceneObjects = new Group();
-
+    public Group permanentUI = new Group();
     private boolean isFocused = true;
     private float scaleMultiplier = 1;
     private Group prevObj;
@@ -94,7 +97,7 @@ public class GameWindow extends Thing {
         stage.focusedProperty().addListener((newValue, onHidden, onShown) -> onFocusChange(newValue.getValue()));
         this.scaleMultiplier = scaleMultiplier;
         setWindowScale(scaleMultiplier);
-
+        parent.getChildren().add(permanentUI);
     }
 
     /**
@@ -121,6 +124,7 @@ public class GameWindow extends Thing {
         this.scaleMultiplier = scaleMultiplier;
         Input.init(this.scene);
         setWindowScale(scaleMultiplier);
+        parent.getChildren().add(permanentUI);
 
     }
 
@@ -263,7 +267,7 @@ public class GameWindow extends Thing {
     }
 
     /**
-     * JWindow's update method. Called every refresh cycle to start the render and run the Update() behaviors
+     * GameWindow's update method. Called every refresh cycle to start the render and run the Update() behaviors
      * @param frameNumber Total frame number. Useful for keeping track of frames.
      */
     private void update(int frameNumber) {
@@ -356,5 +360,15 @@ public class GameWindow extends Thing {
 
     public float getTargetFPS() {
         return targetFPS;
+    }
+
+    public void addPermanentUI(Node n)
+    {
+        Platform.runLater(() -> {
+            try {
+                permanentUI.getChildren().add(n);
+            }
+            catch (Exception ignore){}
+        });
     }
 }

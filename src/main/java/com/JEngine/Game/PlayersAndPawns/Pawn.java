@@ -44,13 +44,13 @@ public class Pawn extends Sprite {
      * @param direction direction to move the pawn (8 cardinal directions)
      * @param speed amount to move the pawn
      */
-    public int Move(Direction direction, int speed)
+    public int Move(Direction direction, float speed)
     {
         Angle angle = new Angle(0);
         Vector3 oldPos = super.getTransform().position;
         float totalXMovement = 0;
         float totalYMovement = 0;
-        int originalSpeed = speed;
+        float originalSpeed = speed;
         switch (direction)
         {
             // need to check collision on every move
