@@ -160,7 +160,13 @@ public class GameObject extends Thing {
     }
     public void addComponents(Component... components) {
         for(Component c : components) {
-            addComponent(c);
+            if(c instanceof Collider_Comp collider)
+            {
+                addCollider(collider);
+            }
+            else {
+                addComponent(c);
+            }
         }
     }
 

@@ -14,6 +14,6 @@ public class Floor extends Sprite {
 
     public Floor(int size, Vector3 initPos) {
         super(new Transform(initPos, new Vector3(0,0,0), new Vector3(1,1,1)), new GameImage(new File("bin/wall.png").getAbsolutePath(), size*128,64), new Identity("Floor", "wall"));
-        addComponents(new BoxCollider_Comp(new Vector3(0,0,0), size*128, 64, false, this), new DontDestroyOnLoad_Comp());
+        addComponents(new DontDestroyOnLoad_Comp(), new BoxCollider_Comp(new Vector3(0,0,0), size*128, 64, false, this));
     }
 }

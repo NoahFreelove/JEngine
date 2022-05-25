@@ -5,7 +5,6 @@ import com.JEngine.Core.GameObject;
 import com.JEngine.Core.Position.Vector3;
 import com.JEngine.Game.Visual.Scenes.SceneManager;
 import com.JEngine.Utility.Misc.GenericMethod;
-import com.dungeoncrawler.GameObjects.PlayerCollider;
 
 public class Collider_Comp extends Component {
     private Vector3 offsetFromParent = new Vector3(0, 0, 0);
@@ -172,7 +171,7 @@ public class Collider_Comp extends Component {
     }
 
     public boolean canMove(float totalXMovement, float totalYMovement) {
-        PlayerCollider tmpCollider = new PlayerCollider(getPosition(), getWidth(), getHeight(), false, getParent());
+        Collider_Comp tmpCollider = new Collider_Comp(getPosition(), getWidth(), getHeight(), false, getParent());
         tmpCollider.setPosition(new Vector3(getPosition().x + totalXMovement, getPosition().y + totalYMovement, getPosition().z));
         return !tmpCollider.isCollidingWithHard();
     }
