@@ -5,6 +5,7 @@ import com.JEngine.Core.GameObject;
 import com.JEngine.Core.Position.Vector3;
 import com.JEngine.Game.Visual.Scenes.SceneManager;
 import com.JEngine.Utility.Misc.GenericMethod;
+import com.dungeoncrawler.GameObjects.PlayerCollider;
 
 public class Collider_Comp extends Component {
     private Vector3 offsetFromParent = new Vector3(0, 0, 0);
@@ -44,9 +45,21 @@ public class Collider_Comp extends Component {
         isCollidingWithAny();
     }
 
-    public boolean isCollidingWith(Collider_Comp otherObject)
-    {
-        return false;
+    public boolean isCollidingWith(Collider_Comp collider) {
+        if(collider == null)
+            return false;
+
+        // logic to check if positions are in range (checks only x and y values, z values are irrelevant)
+        float x1 = collider.getPosition().x;
+        float y1 = collider.getPosition().y;
+        float x2 = (collider.getPosition().x + collider.getWidth());
+        float y2 = (collider.getPosition().y + collider.getHeight());
+        float x3 = getPosition().x;
+        float y3 = getPosition().y;
+        float x4 = (getPosition().x + getWidth());
+        float y4 = (getPosition().y+ getHeight());
+
+        return (x1 <= x4) && (x3 <= x2) && (y1 <= y4) && (y3 <= y2);
     }
 
     public boolean isCollidingWithHard()
@@ -159,7 +172,9 @@ public class Collider_Comp extends Component {
     }
 
     public boolean canMove(float totalXMovement, float totalYMovement) {
-        return true;
+        PlayerCollider tmpCollider = new PlayerCollider(getPosition(), getWidth(), getHeight(), false, getParent());
+        tmpCollider.setPosition(new Vector3(getPosition().x + totalXMovement, getPosition().y + totalYMovement, getPosition().z));
+        return !tmpCollider.isCollidingWithHard();
     }
 
     public void onHit(Collider_Comp other){}

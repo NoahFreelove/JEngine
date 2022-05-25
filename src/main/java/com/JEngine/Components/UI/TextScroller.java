@@ -54,6 +54,7 @@ public class TextScroller extends Component {
     }
     public void skip(){
         progress = 1f;
+        animText.setText(content);
         if(onComplete != null)
             onComplete.call(null);
     }
