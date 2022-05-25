@@ -16,4 +16,13 @@ public class DirectionAngleConversion {
             default -> Direction.Up;
         };
     }
+    public static float dirToAngle(SimpleDirection dir)
+    {
+        return switch (dir) {
+            case LEFT -> 180;
+            case RIGHT -> 0;
+            case UP -> 270;
+            case DOWN -> 90;
+        };
+    }
 }
