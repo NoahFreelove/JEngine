@@ -101,15 +101,7 @@ public class GameCamera extends Pawn {
                 i++;
             }
         }
-        // Run on new thread, so we can run other things while rendering
-        Task<Void> task = new Task<>() {
-            @Override
-            protected Void call() {
-                Platform.runLater(() -> Render());
-                return null;
-            }
-        };
-        task.run();
+        Platform.runLater(this::Render);
     }
 
     /**

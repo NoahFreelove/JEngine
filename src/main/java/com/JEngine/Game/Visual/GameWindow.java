@@ -191,12 +191,20 @@ public class GameWindow extends Thing {
      * @param gameObjects Game object group
      */
     public void refreshWindow(Group gameObjects) {
-        sceneObjects = gameObjects;
-        parent.getChildren().add(sceneObjects);
-        parent.getChildren().remove(prevObj);
-        scene.setFill(backgroundColor);
-        prevObj = sceneObjects;
-        sceneObjects.toBack();
+        try {
+            Platform.runLater(() -> {
+                sceneObjects = gameObjects;
+                parent.getChildren().add(sceneObjects);
+                parent.getChildren().remove(prevObj);
+                scene.setFill(backgroundColor);
+                prevObj = sceneObjects;
+                sceneObjects.toBack();
+            });
+        }
+        catch (Exception e)
+        {
+            System.out.println("Error refreshing window: " + e.getMessage());
+        }
     }
 
 
@@ -255,12 +263,18 @@ public class GameWindow extends Thing {
 
         while (isActive) {
             while (System.currentTimeMillis() > nextTick) {
-                nextTick += fpsMili;
-                if(isPaused) continue;
+                try {
+                    nextTick += fpsMili;
+                    if(isPaused) continue;
 
-                totalFrames++;
-                update(totalFrames);
-                FPSCounter.updateFrame();
+                    totalFrames++;
+                    update(totalFrames);
+                    FPSCounter.updateFrame();
+                }
+                catch (Exception e)
+                {
+                    System.out.println(e.getMessage());
+                }
             }
 
         }

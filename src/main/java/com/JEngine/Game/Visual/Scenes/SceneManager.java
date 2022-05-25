@@ -59,22 +59,26 @@ public class SceneManager {
 
         doSceneSwitch(newScene, ignoreDontDestroyOnLoad);
 
-    }    private static void doSceneSwitch(GameScene newScene, boolean ignoreDontDestroyOnLoad) {
+    }
+    private static void doSceneSwitch(GameScene newScene, boolean ignoreDontDestroyOnLoad) {
 
         Platform.runLater(() -> {
-            if(!ignoreDontDestroyOnLoad)
-            {
+            if (!ignoreDontDestroyOnLoad) {
                 addDontDestroys(newScene);
             }
-            if (activeCamera != null)
-            {
+            if (activeCamera != null) {
                 activeCamera.setActiveScene(newScene);
             }
 
-            window.parent.getChildren().remove(activeScene.uiObjects);
-            SceneManager.activeScene = newScene;
-            newScene.OnSceneActive();
-            window.parent.getChildren().add(newScene.uiObjects);
+            try {
+                window.parent.getChildren().remove(activeScene.uiObjects);
+                SceneManager.activeScene = newScene;
+                newScene.OnSceneActive();
+                window.parent.getChildren().add(newScene.uiObjects);
+            } catch (Exception e)
+            {
+                //Ignore
+            }
         } );
 
     }
