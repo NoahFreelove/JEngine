@@ -1,6 +1,7 @@
 package com.JEngine.Utility.About;
 
 import com.JEngine.Core.Thing;
+import com.JEngine.Game.Visual.GameWindow;
 
 /** GameInfo (c) Noah Freelove
  * Easily store and get your application's information.
@@ -103,6 +104,13 @@ public class GameInfo {
 
     public static void setAppName(String appName) {
         GameInfo.appName = appName;
+    }
+    public static void setAppName(String appName, boolean changeWindowTitle) {
+        GameInfo.appName = appName;
+        if(GameWindow.getInstance() !=null)
+        {
+            GameWindow.getInstance().setTitle(appName);
+        }
     }
 
     public static void setAuthors(String[] authors) {

@@ -385,4 +385,9 @@ public class GameWindow extends Thing {
             catch (Exception ignore){}
         });
     }
+
+    public void setTitle(String newTitle)
+    {
+        stage.setTitle(newTitle);
+    }
 }
