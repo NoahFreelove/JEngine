@@ -13,6 +13,7 @@ import com.JEngine.Game.Visual.GameCamera;
 import com.JEngine.Game.Visual.GameWindow;
 import com.JEngine.Game.Visual.Scenes.GameScene;
 import com.JEngine.TemplateObjects.ScreenBorder;
+import com.JEngine.Utility.About.GameInfo;
 import javafx.application.Application;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;

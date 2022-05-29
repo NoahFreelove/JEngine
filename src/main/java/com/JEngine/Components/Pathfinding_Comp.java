@@ -18,6 +18,9 @@ public class Pathfinding_Comp extends Component {
     // Raise this value to leave more wiggle room
     private float successRange = 50f;
 
+    private boolean moveWhenSuccess = true;
+
+    private boolean isSuccessful = false;
     public Pathfinding_Comp(GameObject target) {
         super("Pathfinding");
         this.target = target;
@@ -43,6 +46,11 @@ public class Pathfinding_Comp extends Component {
     public void GenerateMoveDirection(){
         if(target == null)
             return;
+        if(!moveWhenSuccess && isSuccessful)
+        {
+            CheckSuccess();
+            return;
+        }
         ApplyMovement(target.getPosition().subtract(getParent().getPosition()));
     }
 
@@ -76,7 +84,14 @@ public class Pathfinding_Comp extends Component {
 
         if(distanceToTarget.x<successRange && distanceToTarget.y < successRange)
         {
-            onTargetReachedEvent.call(new Object[]{System.currentTimeMillis()-timeWhenStarted});
+            if(onTargetReachedEvent !=null)
+            {
+                onTargetReachedEvent.call(new Object[]{System.currentTimeMillis()-timeWhenStarted});
+            }
+            isSuccessful = true;
+        }
+        else {
+            isSuccessful = false;
         }
     }
 
@@ -92,7 +107,9 @@ public class Pathfinding_Comp extends Component {
         this.onTargetReachedEvent = onTargetReachedEvent;
     }
 
-
+    public void setMoveWhenSuccess(boolean moveWhenSuccess) {
+        this.moveWhenSuccess = moveWhenSuccess;
+    }
 
     @Override
     public void Update(){
