@@ -210,4 +210,9 @@ public class GameObject extends Thing {
     {
         getTransform().setScale(newScale);
     }
+
+    public void setRotation(Vector3 newRot)
+    {
+        getTransform().setRotation(newRot);
+    }
 }
