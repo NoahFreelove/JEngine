@@ -43,6 +43,10 @@ public class GameTimer {
         this.interval = interval;
     }
 
+    public void setRunEvents(GenericMethod[] runEvents) {
+        this.runEvents = runEvents;
+    }
+
     // Ticks down and until 0, then runs the behaviors
     private void tick() throws InterruptedException {
 
