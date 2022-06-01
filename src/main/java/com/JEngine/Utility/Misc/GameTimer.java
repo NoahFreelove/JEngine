@@ -13,6 +13,7 @@ public class GameTimer {
     private long intervalRemaining;
     private boolean isRunning;
     private GenericMethod[] runEvents;
+    private boolean stopOnFirstTick;
 
     /**
      * Create a timer that ticks every interval
@@ -26,6 +27,11 @@ public class GameTimer {
     public GameTimer(long interval, GenericMethod runEvents) {
         this.interval = interval;
         this.runEvents = new GenericMethod[]{runEvents};
+    }
+    public GameTimer(long interval, GenericMethod runEvents, boolean stopOnFirstTick) {
+        this.interval = interval;
+        this.runEvents = new GenericMethod[]{runEvents};
+        this.stopOnFirstTick = stopOnFirstTick;
     }
     // check if timer is running
     public boolean isRunning(){return isRunning;}
@@ -58,6 +64,10 @@ public class GameTimer {
             }
         }
         runBehaviors();
+        if(stopOnFirstTick)
+        {
+            stop();
+        }
         if(isRunning)
         {
             tick();
