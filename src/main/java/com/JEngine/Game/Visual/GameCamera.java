@@ -10,10 +10,11 @@ import com.JEngine.Game.PlayersAndPawns.Sprite;
 import com.JEngine.Game.Visual.Scenes.GameScene;
 import com.JEngine.Game.Visual.Scenes.SceneManager;
 import javafx.application.Platform;
-import javafx.concurrent.Task;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
 
 /** GameCamera (c) Noah Freelove
  * Brief Explanation:
@@ -124,13 +125,31 @@ public class GameCamera extends Pawn {
                 float yPos = (sprite.getTransform().position.y * window.getScaleMultiplier() - getPosition().y* window.getScaleMultiplier());
 
                 Image image = sprite.getSprite().getImage();
-                ImageView imageView = new ImageView(image);
-                imageView.setFitWidth(sprite.getTransform().getScale().x * window.getScaleMultiplier() * sprite.getSprite().getWidth());
-                imageView.setFitHeight(sprite.getTransform().getScale().y * window.getScaleMultiplier() * sprite.getSprite().getHeight());
-                imageView.setX(xPos);
-                imageView.setY(yPos);
-                imageView.setRotate(sprite.getTransform().rotation.x * window.getScaleMultiplier());
-                gameObjects.getChildren().add(imageView);
+                if(sprite.getSprite().isTiled())
+                {
+                    int tileX = sprite.getSprite().getTileSizeX();
+                    int tileY = sprite.getSprite().getTileSizeY();
+                    ImagePattern imagePattern = new ImagePattern(image,0,0,tileX,tileY,false);
+                    Rectangle rect = new Rectangle();
+                    rect.setWidth(sprite.getTransform().getScale().x * window.getScaleMultiplier() * sprite.getSprite().getWidth());
+                    rect.setHeight(sprite.getTransform().getScale().y * window.getScaleMultiplier() * sprite.getSprite().getHeight());
+                    rect.setX(xPos);
+                    rect.setY(yPos);
+                    rect.setFill(imagePattern);
+
+                    rect.setRotate(sprite.getTransform().rotation.x * window.getScaleMultiplier());
+                    gameObjects.getChildren().add(rect);
+                }
+                else {
+                    ImageView imageView = new ImageView(image);
+                    imageView.setFitWidth(sprite.getTransform().getScale().x * window.getScaleMultiplier() * sprite.getSprite().getWidth());
+                    imageView.setFitHeight(sprite.getTransform().getScale().y * window.getScaleMultiplier() * sprite.getSprite().getHeight());
+                    imageView.setX(xPos);
+                    imageView.setY(yPos);
+                    imageView.setRotate(sprite.getTransform().rotation.x * window.getScaleMultiplier());
+                    gameObjects.getChildren().add(imageView);
+                }
+
 
             } catch (Exception e) {
                 LogDebug("Didn't add object: " + sprite.getIdentity().getName() + " to render queue: " + e.getMessage());

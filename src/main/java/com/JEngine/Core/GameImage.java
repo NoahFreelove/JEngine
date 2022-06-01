@@ -13,9 +13,12 @@ public class GameImage extends Thing {
     private Image image;
     private int xSize;
     private int ySize;
+    private boolean tiled;
+    private int tileSizeX;
+    private int tileSizeY;
 
     /**
-     * Default JImage constructor
+     * Default GameImage constructor
      * @param isActive if the image is active by default. Will not render if not Active
      * @param filepath filepath for the image
      * @param xSize image x size
@@ -120,4 +123,27 @@ public class GameImage extends Thing {
 =    */
     public void setImage(Image newImage) {image = newImage;}
 
+    public boolean isTiled() {
+        return tiled;
+    }
+
+    public void setTiled(boolean tiled) {
+        this.tiled = tiled;
+    }
+
+    public int getTileSizeX() {
+        return tileSizeX;
+    }
+
+    public void setTileSizeX(int tileX) {
+        this.tileSizeX = tileX;
+    }
+
+    public int getTileSizeY() {
+        return tileSizeY;
+    }
+
+    public void setTileSizeY(int tileY) {
+        this.tileSizeY = tileY;
+    }
 }
