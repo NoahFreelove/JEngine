@@ -135,6 +135,7 @@ public class GameCamera extends Pawn {
                     rect.setHeight(sprite.getTransform().getScale().y * window.getScaleMultiplier() * sprite.getSprite().getHeight());
                     rect.setX(xPos);
                     rect.setY(yPos);
+                    rect.setEffect(sprite.getSprite().getColorAdjust());
                     rect.setFill(imagePattern);
 
                     rect.setRotate(sprite.getTransform().rotation.x * window.getScaleMultiplier());
@@ -146,6 +147,7 @@ public class GameCamera extends Pawn {
                     imageView.setFitHeight(sprite.getTransform().getScale().y * window.getScaleMultiplier() * sprite.getSprite().getHeight());
                     imageView.setX(xPos);
                     imageView.setY(yPos);
+                    imageView.setEffect(sprite.getSprite().getColorAdjust());
                     imageView.setRotate(sprite.getTransform().rotation.x * window.getScaleMultiplier());
                     gameObjects.getChildren().add(imageView);
                 }

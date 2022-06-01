@@ -1,6 +1,7 @@
 package com.JEngine.Core;
 
 import com.JEngine.Utility.ImageProcessing.MissingTexture;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 
 import java.io.File;
@@ -16,6 +17,7 @@ public class GameImage extends Thing {
     private boolean tiled;
     private int tileSizeX;
     private int tileSizeY;
+    private ColorAdjust colorAdjust = new ColorAdjust();
 
     /**
      * Default GameImage constructor
@@ -145,5 +147,13 @@ public class GameImage extends Thing {
 
     public void setTileSizeY(int tileY) {
         this.tileSizeY = tileY;
+    }
+
+    public ColorAdjust getColorAdjust() {
+        return colorAdjust;
+    }
+
+    public void setColorAdjust(ColorAdjust colorAdjust) {
+        this.colorAdjust = colorAdjust;
     }
 }
