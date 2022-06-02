@@ -2,6 +2,8 @@ package com.JEngine.Components;
 
 import com.JEngine.Core.Component;
 import com.JEngine.Core.GameObject;
+import com.JEngine.Core.Identity;
+import com.JEngine.Core.Position.Transform;
 import com.JEngine.Core.Position.Vector2;
 import com.JEngine.Core.Position.Vector3;
 import com.JEngine.Game.PlayersAndPawns.Pawn;
@@ -18,7 +20,7 @@ public class Pathfinding_Comp extends Component {
     // Raise this value to leave more wiggle room
     private float successRange = 50f;
 
-    private boolean moveWhenSuccess = true;
+    private boolean moveAfterSuccess = true;
 
     private boolean isSuccessful = false;
     public Pathfinding_Comp(GameObject target) {
@@ -30,9 +32,15 @@ public class Pathfinding_Comp extends Component {
         return target;
     }
 
+
+
     public void setTarget(GameObject target) {
         timeWhenStarted = System.currentTimeMillis();
         this.target = target;
+    }
+    public void setTarget(Vector3 target) {
+        timeWhenStarted = System.currentTimeMillis();
+        this.target = new GameObject(Transform.simpleTransform(target.x, target.y, target.z), new Identity("target"));
     }
 
     public float getMoveSpeed() {
@@ -46,7 +54,7 @@ public class Pathfinding_Comp extends Component {
     public void GenerateMoveDirection(){
         if(target == null)
             return;
-        if(!moveWhenSuccess && isSuccessful)
+        if(!moveAfterSuccess && isSuccessful)
         {
             CheckSuccess();
             return;
@@ -107,8 +115,8 @@ public class Pathfinding_Comp extends Component {
         this.onTargetReachedEvent = onTargetReachedEvent;
     }
 
-    public void setMoveWhenSuccess(boolean moveWhenSuccess) {
-        this.moveWhenSuccess = moveWhenSuccess;
+    public void setMoveAfterSuccess(boolean moveAfterSuccess) {
+        this.moveAfterSuccess = moveAfterSuccess;
     }
 
     @Override
