@@ -196,6 +196,16 @@ public class GameScene extends Thing {
         }
         LogExtra(String.format("Queued object '%s' (%s) for deletion.", o.getIdentity().getName(), o.getClass().getSimpleName()));
     }
+    public void removeUI(Node n)
+    {
+        if (n == null)
+            return;
+        Platform.runLater(() -> {
+            uiObjects.getChildren().remove(n);
+
+        });
+    }
+
 
     /**
      * Attempt to restore an object Queued For Deletion
