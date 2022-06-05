@@ -176,7 +176,12 @@ public class Collider_Comp extends Component {
         return !tmpCollider.isCollidingWithHard();
     }
 
-    public void onHit(Collider_Comp other){}
+    public void onHit(Collider_Comp other){
+        if(onCollision !=null)
+        {
+            onCollision.call(new Object[]{other});
+        }
+    }
 
     public String getIgnoreTag() {
         return ignoreTag;

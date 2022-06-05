@@ -46,6 +46,11 @@ public class GameScene extends Thing {
         sceneObjects = new GameObject[sceneDefaultSize];
     }
 
+    public GameScene() {
+        super(true);
+        this.sceneName = "Scene";
+        sceneObjects = new GameObject[25];
+    }
     /**
      * @param sceneName Name of the scene. Can be changed with setSceneName(String newName)
      */
@@ -200,10 +205,7 @@ public class GameScene extends Thing {
     {
         if (n == null)
             return;
-        Platform.runLater(() -> {
-            uiObjects.getChildren().remove(n);
-
-        });
+        Platform.runLater(() -> uiObjects.getChildren().remove(n));
     }
 
 

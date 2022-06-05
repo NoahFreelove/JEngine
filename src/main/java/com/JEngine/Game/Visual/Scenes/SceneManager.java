@@ -66,6 +66,12 @@ public class SceneManager {
             if (!ignoreDontDestroyOnLoad) {
                 addDontDestroys(newScene);
             }
+            for (GameObject o : activeScene.getObjects()
+            ) {
+                if (o == null)
+                    continue;
+                o.OnUnload();
+            }
             if (activeCamera != null) {
                 activeCamera.setActiveScene(newScene);
             }
@@ -123,7 +129,6 @@ public class SceneManager {
              ) {
             if(o==null)
                 continue;
-            o.OnUnload();
             Component[] c = o.getComponents();
             for (Component c1 : c) {
                 if(c1 != null)
