@@ -1,7 +1,7 @@
 package com.JEngine.Core.Position;
 
 
-/** Direction (c) Noah Freelove
+/** Direction
  * Brief Explanation:
  * Enum to represent 8 cardinal directions.
  * **/

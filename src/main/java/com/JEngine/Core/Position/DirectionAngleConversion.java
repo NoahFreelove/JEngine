@@ -4,7 +4,6 @@ public class DirectionAngleConversion {
 
     public static Direction vecToDir(Vector2 vec)
     {
-        // convert to angle
         return switch ((int) vec.x) {
             case 45 -> Direction.UpRight;
             case 90 -> Direction.Right;

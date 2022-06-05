@@ -46,7 +46,6 @@ public class Pawn extends Sprite {
      */
     public int Move(Direction direction, float speed)
     {
-        Angle angle = new Angle(0);
         Vector3 oldPos = super.getTransform().position;
         float totalXMovement = 0;
         float totalYMovement = 0;
@@ -55,7 +54,6 @@ public class Pawn extends Sprite {
         {
             // need to check collision on every move
             case Up -> {
-                angle.angle = 0;
                 while (speed>0)
                 {
                     totalYMovement -= 1;
@@ -63,7 +61,6 @@ public class Pawn extends Sprite {
                 }
             }
             case UpRight -> {
-                angle.angle = 45;
                 while (speed>0)
                 {
                     totalXMovement += 1;
@@ -72,7 +69,6 @@ public class Pawn extends Sprite {
                 }
             }
             case Right -> {
-                angle.angle = 90;
                 while (speed>0)
                 {
                     totalXMovement += 1;
@@ -80,7 +76,6 @@ public class Pawn extends Sprite {
                 }
             }
             case DownRight -> {
-                angle.angle = 135;
                 while (speed>0)
                 {
                     totalXMovement += 1;
@@ -89,7 +84,6 @@ public class Pawn extends Sprite {
                 }
             }
             case Down ->{
-                angle.angle = 180;
                 while (speed>0)
                 {
                     totalYMovement += 1;
@@ -97,7 +91,6 @@ public class Pawn extends Sprite {
                 }
             }
             case DownLeft -> {
-                angle.angle = 225;
                 totalXMovement = -speed;
                 totalYMovement = -speed*-1;
                 while (speed>0)
@@ -108,7 +101,6 @@ public class Pawn extends Sprite {
                 }
             }
             case Left -> {
-                angle.angle = 270;
                 while (speed>0)
                 {
                     totalXMovement -= 1;
@@ -116,7 +108,6 @@ public class Pawn extends Sprite {
                 }
             }
             case UpLeft -> {
-                angle.angle = 315;
                 while (speed>0)
                 {
                     totalXMovement -= 1;
@@ -125,7 +116,7 @@ public class Pawn extends Sprite {
                 }
             }
         }
-        LogDebug(String.format("Moved pawn %.2f° %d unit(s) | OLD POS {%.2f,%.2f,%.2f} | NEW POS {%.2f,%.2f,%.2f}", angle.angle, originalSpeed, oldPos.x, oldPos.y, oldPos.z, super.getTransform().position.x, super.getTransform().position.y, super.getTransform().position.z));
+        LogDebug(String.format("Moved pawn %f unit(s) | OLD POS {%.2f,%.2f,%.2f} | NEW POS {%.2f,%.2f,%.2f}", originalSpeed, oldPos.x, oldPos.y, oldPos.z, super.getTransform().position.x, super.getTransform().position.y, super.getTransform().position.z));
         return Move(totalXMovement,totalYMovement);
     }
     public int Move(Vector2 direction, float speed)
