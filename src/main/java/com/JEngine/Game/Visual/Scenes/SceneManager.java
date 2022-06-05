@@ -60,6 +60,7 @@ public class SceneManager {
         doSceneSwitch(newScene, ignoreDontDestroyOnLoad);
 
     }
+
     private static void doSceneSwitch(GameScene newScene, boolean ignoreDontDestroyOnLoad) {
 
         Platform.runLater(() -> {

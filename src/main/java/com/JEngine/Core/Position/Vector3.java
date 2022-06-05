@@ -44,6 +44,12 @@ public class Vector3 implements Serializable {
         this.y = vec.y;
         this.z = 0;
     }
+    public Vector3(Vector3 vec)
+    {
+        this.x = vec.x;
+        this.y = vec.y;
+        this.z = vec.z;
+    }
 
     // region Vector3 Operations
     // Vector 3 Operations
