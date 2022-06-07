@@ -11,6 +11,7 @@ import com.JEngine.Game.Visual.Scenes.GameScene;
 import com.JEngine.Game.Visual.Scenes.SceneManager;
 import javafx.application.Platform;
 import javafx.scene.Group;
+import javafx.scene.effect.Blend;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.ImagePattern;
@@ -106,7 +107,7 @@ public class GameCamera extends Pawn {
     }
 
     /**
-     * Returns A group of JImages converted into ImageViews in correct zOrder
+     * Returns A group of GameImages converted into ImageViews in correct zOrder
      */
     private Group RenderObjects()
     {
@@ -135,7 +136,10 @@ public class GameCamera extends Pawn {
                     rect.setHeight(sprite.getTransform().getScale().y * window.getScaleMultiplier() * sprite.getSprite().getHeight());
                     rect.setX(xPos);
                     rect.setY(yPos);
-                    rect.setEffect(sprite.getSprite().getColorAdjust());
+                    Blend blend = new Blend();
+                    blend.setTopInput(sprite.getSprite().getColorAdjust());
+                    blend.setBottomInput(sprite.getSprite().getImageEffect());
+                    rect.setEffect(blend);
                     rect.setFill(imagePattern);
 
                     rect.setRotate(sprite.getTransform().rotation.x * window.getScaleMultiplier());
@@ -147,7 +151,10 @@ public class GameCamera extends Pawn {
                     imageView.setFitHeight(sprite.getTransform().getScale().y * window.getScaleMultiplier() * sprite.getSprite().getHeight());
                     imageView.setX(xPos);
                     imageView.setY(yPos);
-                    imageView.setEffect(sprite.getSprite().getColorAdjust());
+                    Blend blend = new Blend();
+                    blend.setTopInput(sprite.getSprite().getColorAdjust());
+                    blend.setBottomInput(sprite.getSprite().getImageEffect());
+                    imageView.setEffect(blend);
                     imageView.setRotate(sprite.getTransform().rotation.x * window.getScaleMultiplier());
                     gameObjects.getChildren().add(imageView);
                 }

@@ -80,6 +80,11 @@ public class SceneManager {
             try {
                 window.parent.getChildren().remove(activeScene.uiObjects);
                 SceneManager.activeScene = newScene;
+                window.activeScene = newScene;
+                if(window.useSceneName())
+                {
+                    window.getStage().setTitle(newScene.getSceneName());
+                }
                 newScene.OnSceneActive();
                 window.parent.getChildren().add(newScene.uiObjects);
             } catch (Exception e)

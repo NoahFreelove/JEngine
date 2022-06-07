@@ -13,8 +13,9 @@ import com.JEngine.Game.Visual.GameCamera;
 import com.JEngine.Game.Visual.GameWindow;
 import com.JEngine.Game.Visual.Scenes.GameScene;
 import com.JEngine.TemplateObjects.ScreenBorder;
-import com.JEngine.Utility.About.GameInfo;
 import javafx.application.Application;
+import javafx.scene.effect.Light;
+import javafx.scene.effect.Lighting;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -36,7 +37,6 @@ public class MovingSquareExample extends Application {
         scene2 = new GameScene(5, "Second Scene");
 
         GameWindow window = new GameWindow(scene, 1f, "Moving Squares", stage);
-
         GameCamera camera = new GameCamera(new Vector3(0,0,0), window, scene,null, new Identity("MainCamera", "camera"));
         scene.add(camera);
 
@@ -45,6 +45,11 @@ public class MovingSquareExample extends Application {
         window.setTargetFPS(60);
         window.setBackgroundColor(Color.MEDIUMPURPLE);
         window.start();
+
+        scene2.enableLighting();
+        scene2.addLight(new Lighting(new Light.Distant(50,50,Color.WHITE)));
+        window.setUseSceneName(true);
+
     }
 
     private static void createSceneObjects(GameScene scene){
@@ -70,7 +75,7 @@ public class MovingSquareExample extends Application {
         Text text = new Text("JEngine - Moving Square Example - Press C to Toggle Other Objects");
         text.setFill(Color.WHITE);
         text.setStyle("-fx-font-size: 40px;");
-        text.setX(50);
+        text.setX(10);
         text.setY(50);
         scene.addUI(text);
     }

@@ -24,7 +24,7 @@ public class GenerateSolidTexture {
      *            0xAARRGGBB
      *            A = Alpha, R = Red, G = Green, B = Blue
      *            ex. 0xFF0000FF is Solid blue
-     * @return
+     * @return a JavaFX image of the solid color
      */
     public static Image generateImage(int width, int height, int RGB) {
         return  SwingFXUtils.toFXImage(generate(width, height, RGB), null);

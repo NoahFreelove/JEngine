@@ -14,6 +14,7 @@ import com.JEngine.Game.Visual.Scenes.SceneManager;
 import com.JEngine.Utility.GameMath;
 import com.JEngine.Utility.Input;
 import com.JEngine.Utility.Misc.GameUtility;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.input.KeyCode;
 
 public class MovingSquare extends Player {
@@ -35,6 +36,8 @@ public class MovingSquare extends Player {
         if(playerNum == 1)
         {
             addComponent(new DontDestroyOnLoad_Comp());
+            getSprite().setImageEffect(new BoxBlur(50,50,15));
+
         }
     }
 

@@ -22,8 +22,8 @@ import javafx.stage.WindowEvent;
 
 /** GameWindow (c) Noah Freelove
  * Brief Explanation:
- * JWindow is a way to create a window and have it display camera content.
- * JWindow provides the actual update function
+ * GameWindow is a way to create a window and have it display camera content.
+ * GameWindow provides the actual update function
  * **/
 
 public class GameWindow extends Thing {
@@ -56,6 +56,8 @@ public class GameWindow extends Thing {
 
     private GenericMethod[] updateEvents= new GenericMethod[0];
     private int updateEventsIndex = 0;
+
+    private boolean useSceneName = false;
     /**
      * Default constructor
      * @param title Title of the window
@@ -194,8 +196,15 @@ public class GameWindow extends Thing {
         try {
             Platform.runLater(() -> {
                 sceneObjects = gameObjects;
+                if(activeScene.getEnableLighting())
+                {
+                    sceneObjects.setEffect(activeScene.getLightEffect());
+                }else {
+                    sceneObjects.setEffect(null);
+                }
                 parent.getChildren().add(sceneObjects);
                 parent.getChildren().remove(prevObj);
+
                 scene.setFill(backgroundColor);
                 prevObj = sceneObjects;
                 sceneObjects.toBack();
@@ -389,5 +398,13 @@ public class GameWindow extends Thing {
     public void setTitle(String newTitle)
     {
         stage.setTitle(newTitle);
+    }
+
+    public boolean useSceneName() {
+        return useSceneName;
+    }
+
+    public void setUseSceneName(boolean useSceneName) {
+        this.useSceneName = useSceneName;
     }
 }
