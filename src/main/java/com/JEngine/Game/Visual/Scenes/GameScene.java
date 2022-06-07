@@ -6,6 +6,7 @@ import com.JEngine.Core.Identity;
 import com.JEngine.Core.Thing;
 import com.JEngine.Game.Visual.SearchType;
 
+import com.JEngine.Utility.ImageProcessingEffects.GameLight;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
@@ -39,8 +40,7 @@ public class GameScene extends Thing {
     // The URL to the FXML UI file
     public URL uiURL = null;
 
-    private ArrayList<Lighting> lights = new ArrayList<>(1);
-    private int lightsCount = 0;
+    private ArrayList<GameLight> lights = new ArrayList<>(1);
     public Effect lightEffect = new Lighting(new Light.Distant(50,50, Color.rgb(255,255,255,0.5)));
     private boolean enableLighting = false;
 
@@ -52,14 +52,14 @@ public class GameScene extends Thing {
         super(true);
         this.sceneName = sceneName;
         sceneObjects = new GameObject[sceneDefaultSize];
-        addLight(new Lighting(new Light.Distant(50,50, Color.rgb(255,255,255,0.5))));
+        addLight(new GameLight(new Lighting(new Light.Distant(50,50, Color.rgb(255,255,255,0.5))), false));
     }
 
     public GameScene() {
         super(true);
         this.sceneName = "Scene";
         sceneObjects = new GameObject[25];
-        addLight(new Lighting(new Light.Distant(50,50, Color.rgb(255,255,255,0.5))));
+        addLight(new GameLight(new Lighting(new Light.Distant(50,50, Color.rgb(255,255,255,0.5))), false));
     }
     /**
      * @param sceneName Name of the scene. Can be changed with setSceneName(String newName)
@@ -68,7 +68,7 @@ public class GameScene extends Thing {
         super(true);
         this.sceneName = sceneName;
         sceneObjects = new GameObject[25];
-        addLight(new Lighting(new Light.Distant(50,50, Color.rgb(255,255,255,0.5))));
+        addLight(new GameLight(new Lighting(new Light.Distant(50,50, Color.rgb(255,255,255,0.5))), false));
     }
 
     /**
@@ -87,7 +87,7 @@ public class GameScene extends Thing {
 
         this.sceneName = sceneName;
         sceneObjects = new GameObject[sceneDefaultSize];
-        addLight(new Lighting(new Light.Distant(50,50, Color.rgb(255,255,255,0.5))));
+        addLight(new GameLight(new Lighting(new Light.Distant(50,50, Color.rgb(255,255,255,0.5))), false));
     }
 
     /**
@@ -434,26 +434,24 @@ public class GameScene extends Thing {
 
     public void OnSceneActive(){}
 
-    public void addLight(Lighting light)
+    public void addLight(GameLight light)
     {
         lights.add(light);
-
-        Effect allLights = lights.get(0);
+        generateLightEffect();
+    }
+    public void generateLightEffect(){
+        Effect allLights = lights.get(0).light;
 
         for (Object lighting : lights.toArray()) {
-            allLights = new Blend(BlendMode.ADD, allLights, (Lighting)lighting);
+            allLights = new Blend(BlendMode.ADD, allLights, ((GameLight)lighting).light);
         }
 
         lightEffect = allLights;
     }
-    public void removeLight(Lighting light)
+    public void removeLight(GameLight light)
     {
         lights.remove(light);
-        Effect allLights = lights.get(0);
-        for (Object lighting : lights.toArray()) {
-            allLights = new Blend(BlendMode.ADD, allLights, (Lighting)lighting);
-        }
-        lightEffect = allLights;
+        generateLightEffect();
     }
 
     public Effect getLightEffect() {
@@ -475,5 +473,13 @@ public class GameScene extends Thing {
     public void disableLighting()
     {
         enableLighting = false;
+    }
+
+    public ArrayList<GameLight> getLights() {
+        return lights;
+    }
+
+    public void setLights(ArrayList<GameLight> lights) {
+        this.lights = lights;
     }
 }

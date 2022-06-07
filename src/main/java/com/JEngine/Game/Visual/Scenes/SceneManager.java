@@ -5,6 +5,7 @@ import com.JEngine.Core.Component;
 import com.JEngine.Core.GameObject;
 import com.JEngine.Game.Visual.GameCamera;
 import com.JEngine.Game.Visual.GameWindow;
+import com.JEngine.Utility.ImageProcessingEffects.GameLight;
 import javafx.application.Platform;
 
 /** SceneManager (c) Noah Freelove
@@ -51,22 +52,41 @@ public class SceneManager {
      */
     public static void switchScene(GameScene newScene) {
 
-        doSceneSwitch(newScene, false);
+        doSceneSwitch(newScene, false, false);
 
     }
 
     public static void switchScene(GameScene newScene,boolean ignoreDontDestroyOnLoad) {
 
-        doSceneSwitch(newScene, ignoreDontDestroyOnLoad);
+        doSceneSwitch(newScene, ignoreDontDestroyOnLoad, false);
 
     }
+    public static void switchScene(GameScene newScene,boolean ignoreDontDestroyOnLoad, boolean keepLighting) {
 
-    private static void doSceneSwitch(GameScene newScene, boolean ignoreDontDestroyOnLoad) {
+        doSceneSwitch(newScene, ignoreDontDestroyOnLoad, keepLighting);
+
+    }
+    private static void doSceneSwitch(GameScene newScene, boolean ignoreDontDestroyOnLoad, boolean keepLighting) {
 
         Platform.runLater(() -> {
             if (!ignoreDontDestroyOnLoad) {
                 addDontDestroys(newScene);
             }
+
+            if(keepLighting)
+            {
+                newScene.setLights(activeScene.getLights());
+            }else{
+                for (Object light :
+                        activeScene.getLights().toArray()) {
+                    if(((GameLight)light).keepOnSceneSwitch)
+                    {
+                        if(!newScene.getLights().contains(((GameLight)light)))
+                            newScene.addLight(((GameLight)light));
+                    }
+                }
+            }
+
             for (GameObject o : activeScene.getObjects()
             ) {
                 if (o == null)
@@ -79,6 +99,7 @@ public class SceneManager {
 
             try {
                 window.parent.getChildren().remove(activeScene.uiObjects);
+
                 SceneManager.activeScene = newScene;
                 window.activeScene = newScene;
                 if(window.useSceneName())

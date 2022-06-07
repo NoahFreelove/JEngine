@@ -13,6 +13,7 @@ import com.JEngine.Game.Visual.GameCamera;
 import com.JEngine.Game.Visual.GameWindow;
 import com.JEngine.Game.Visual.Scenes.GameScene;
 import com.JEngine.TemplateObjects.ScreenBorder;
+import com.JEngine.Utility.ImageProcessingEffects.GameLight;
 import javafx.application.Application;
 import javafx.scene.effect.Light;
 import javafx.scene.effect.Lighting;
@@ -47,7 +48,7 @@ public class MovingSquareExample extends Application {
         window.start();
 
         scene2.enableLighting();
-        scene2.addLight(new Lighting(new Light.Distant(50,50,Color.WHITE)));
+        scene2.addLight(new GameLight(new Lighting(new Light.Distant(50,50,Color.WHITE)), false));
         window.setUseSceneName(true);
 
     }
