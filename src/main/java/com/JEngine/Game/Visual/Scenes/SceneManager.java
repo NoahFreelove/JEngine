@@ -72,6 +72,14 @@ public class SceneManager {
             if (!ignoreDontDestroyOnLoad) {
                 addDontDestroys(newScene);
             }
+            for (Object light :
+                    newScene.getLights().toArray()) {
+                if(((GameLight)light).keepOnSceneSwitch)
+                {
+                    if(newScene.getLights().contains(((GameLight)light)))
+                        newScene.removeLight(((GameLight)light));
+                }
+            }
 
             if(keepLighting)
             {
