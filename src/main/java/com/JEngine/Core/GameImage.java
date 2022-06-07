@@ -1,6 +1,6 @@
 package com.JEngine.Core;
 
-import com.JEngine.Utility.ImageProcessing.MissingTexture;
+import com.JEngine.Utility.ImageProcessingEffects.MissingTexture;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 

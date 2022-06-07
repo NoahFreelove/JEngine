@@ -23,7 +23,7 @@
  * questions.
  */
 
-package com.JEngine.Utility.ImageProcessing;
+package com.JEngine.Utility.ImageProcessingEffects;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.*;

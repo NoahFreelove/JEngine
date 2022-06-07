@@ -1,4 +1,4 @@
-package com.JEngine.Utility.ImageProcessing;
+package com.JEngine.Utility.ImageProcessingEffects;
 /*
  * Copyright (c) 2008, Harald Kuhr
  * All rights reserved.

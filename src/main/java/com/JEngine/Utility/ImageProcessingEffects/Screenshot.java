@@ -1,4 +1,4 @@
-package com.JEngine.Utility.ImageProcessing;
+package com.JEngine.Utility.ImageProcessingEffects;
 
 import com.JEngine.Game.Visual.GameWindow;
 import com.JEngine.Game.Visual.Scenes.SceneManager;

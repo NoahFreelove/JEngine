@@ -1,4 +1,4 @@
-package com.JEngine.Utility.ImageProcessing;
+package com.JEngine.Utility.ImageProcessingEffects;
 
 import java.awt.image.BufferedImage;
 

@@ -1,4 +1,4 @@
-package com.JEngine.Utility.ImageProcessing;
+package com.JEngine.Utility.ImageProcessingEffects;
 
 import com.JEngine.Core.GameImage;
 import com.JEngine.Core.Thing;
