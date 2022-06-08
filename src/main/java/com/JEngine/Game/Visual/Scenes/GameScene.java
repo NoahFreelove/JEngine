@@ -178,6 +178,12 @@ public class GameScene extends Thing {
         sortByZ();
         LogExtra(String.format("Added '%s' (%s) to the scene Successfully", o.getIdentity().getName(), o.getClass().getSimpleName()));
     }
+    public void add(GameObject... objects){
+        for (GameObject object :
+                objects) {
+            add(object);
+        }
+    }
 
     public void addUI(Node node){
         try {
