@@ -28,10 +28,17 @@ public class GameTimer {
         this.interval = interval;
         this.runEvents = new GenericMethod[]{runEvents};
     }
-    public GameTimer(long interval, GenericMethod runEvents, boolean stopOnFirstTick) {
+    public GameTimer(long interval, GenericMethod runEvent, boolean stopOnFirstTick) {
         this.interval = interval;
-        this.runEvents = new GenericMethod[]{runEvents};
+        this.runEvents = new GenericMethod[]{runEvent};
         this.stopOnFirstTick = stopOnFirstTick;
+    }
+    public GameTimer(long interval, GenericMethod runEvent, boolean stopOnFirstTick, boolean startImmediately) {
+        this.interval = interval;
+        this.runEvents = new GenericMethod[]{runEvent};
+        this.stopOnFirstTick = stopOnFirstTick;
+        if(startImmediately)
+            start();
     }
     // check if timer is running
     public boolean isRunning(){return isRunning;}

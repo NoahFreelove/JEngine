@@ -20,10 +20,9 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
-/** GameWindow (c) Noah Freelove
- * Brief Explanation:
+/**
  * GameWindow is a way to create a window and have it display camera content.
- * GameWindow provides the actual update function
+ * GameWindow provides calls the active GameScene to update at a specified frame-rate
  * **/
 
 public class GameWindow extends Thing {
