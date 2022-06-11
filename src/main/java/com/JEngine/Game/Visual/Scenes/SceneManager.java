@@ -5,7 +5,7 @@ import com.JEngine.Core.Component;
 import com.JEngine.Core.GameObject;
 import com.JEngine.Game.Visual.GameCamera;
 import com.JEngine.Game.Visual.GameWindow;
-import com.JEngine.Utility.ImageProcessingEffects.GameLight;
+import com.JEngine.Utility.ImageProcessingAndEffects.GameLight;
 import javafx.application.Platform;
 
 /** SceneManager (c) Noah Freelove

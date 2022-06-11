@@ -6,7 +6,7 @@ import com.JEngine.Core.Identity;
 import com.JEngine.Core.Thing;
 import com.JEngine.Game.Visual.SearchType;
 
-import com.JEngine.Utility.ImageProcessingEffects.GameLight;
+import com.JEngine.Utility.ImageProcessingAndEffects.GameLight;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;

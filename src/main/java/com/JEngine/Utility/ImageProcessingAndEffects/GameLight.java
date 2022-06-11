@@ -1,4 +1,4 @@
-package com.JEngine.Utility.ImageProcessingEffects;
+package com.JEngine.Utility.ImageProcessingAndEffects;
 
 import javafx.scene.effect.Lighting;
 

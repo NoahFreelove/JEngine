@@ -6,7 +6,7 @@ import com.JEngine.Core.Position.Vector3;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static com.JEngine.Core.Thing.LogError;
-/** JMath (c) Noah Freelove
+/** GameMath
  * A collection of useful math functions.
  */
 public class GameMath {
