@@ -15,6 +15,7 @@ import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.effect.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -38,7 +39,7 @@ public class GameWindow extends Thing {
     private long prevFrameTime = 0;
     private long deltaTime = 0;
     private float targetFPS = 60;
-    private double fpsMili = 1000/targetFPS;
+    private double fpsMilliseconds = 1000/targetFPS;
 
     public int totalFrames = 1;
 
@@ -57,6 +58,8 @@ public class GameWindow extends Thing {
     private int updateEventsIndex = 0;
 
     private boolean useSceneName = false;
+
+    private Effect baseWindowEffect;
     /**
      * Default constructor
      * @param title Title of the window
@@ -99,6 +102,7 @@ public class GameWindow extends Thing {
         this.scaleMultiplier = scaleMultiplier;
         setWindowScale(scaleMultiplier);
         parent.getChildren().add(permanentUI);
+        parent.setEffect(baseWindowEffect);
     }
 
     /**
@@ -178,8 +182,6 @@ public class GameWindow extends Thing {
      */
     public void setWindowScale(float newScale)
     {
-        float preValue = scaleMultiplier;
-
         stage.setWidth(1280*newScale);
         stage.setHeight(720*newScale);
         scaleMultiplier = newScale;
@@ -195,6 +197,7 @@ public class GameWindow extends Thing {
         try {
             Platform.runLater(() -> {
                 sceneObjects = gameObjects;
+
                 if(activeScene.getEnableLighting())
                 {
                     sceneObjects.setEffect(activeScene.getLightEffect());
@@ -222,7 +225,7 @@ public class GameWindow extends Thing {
      */
     public void setTargetFPS(float newTargetFPS) {
         targetFPS = newTargetFPS;
-        fpsMili = 1000 / targetFPS;
+        fpsMilliseconds = 1000 / targetFPS;
     }
     public void setBackgroundColor(Color newColor){backgroundColor = newColor;}
     /**
@@ -246,7 +249,6 @@ public class GameWindow extends Thing {
 
     /**
      * Stop updating the window.
-     * I don't know when you would actually want to do this, but it's built in any way.
      */
     public void stop()
     {
@@ -272,7 +274,7 @@ public class GameWindow extends Thing {
         while (isActive) {
             while (System.currentTimeMillis() > nextTick) {
                 try {
-                    nextTick += fpsMili;
+                    nextTick += fpsMilliseconds;
                     if(isPaused) continue;
 
                     totalFrames++;
@@ -340,7 +342,7 @@ public class GameWindow extends Thing {
      * Runs when the window focus value changes. Can be overridden to do something when focus changes
      * @param isFocused New focus value
      */
-    public void onFocusChange(boolean isFocused){
+    private void onFocusChange(boolean isFocused){
         this.isFocused = isFocused;
     }
 
@@ -405,5 +407,14 @@ public class GameWindow extends Thing {
 
     public void setUseSceneName(boolean useSceneName) {
         this.useSceneName = useSceneName;
+    }
+
+    public Effect getBaseWindowEffect() {
+        return baseWindowEffect;
+    }
+
+    public void setBaseWindowEffect(Effect baseWindowEffect) {
+        this.baseWindowEffect = baseWindowEffect;
+        parent.setEffect(baseWindowEffect);
     }
 }

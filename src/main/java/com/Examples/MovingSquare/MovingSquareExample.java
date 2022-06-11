@@ -51,10 +51,10 @@ public class MovingSquareExample extends Application {
         window.setBackgroundColor(Color.MEDIUMPURPLE);
         window.start();
 
+        scene.disableLighting();
         scene2.enableLighting();
         scene2.addLight(new GameLight(new Lighting(new Light.Distant(50,50,Color.WHITE)), false));
         window.setUseSceneName(true);
-        
     }
 
     private static void createSceneObjects(GameScene scene){
