@@ -14,7 +14,7 @@ public class GameTimer {
     private boolean isRunning;
     private GenericMethod[] runEvents;
     private boolean stopOnFirstTick;
-
+    private boolean forceRunUpdate;
     /**
      * Create a timer that ticks every interval
      * @param interval interval for each tick in milliseconds
@@ -37,6 +37,14 @@ public class GameTimer {
         this.interval = interval;
         this.runEvents = new GenericMethod[]{runEvent};
         this.stopOnFirstTick = stopOnFirstTick;
+        if(startImmediately)
+            start();
+    }
+    public GameTimer(long interval, GenericMethod runEvent, boolean stopOnFirstTick, boolean startImmediately,boolean forceRunUpdate) {
+        this.interval = interval;
+        this.runEvents = new GenericMethod[]{runEvent};
+        this.stopOnFirstTick = stopOnFirstTick;
+        this.forceRunUpdate = forceRunUpdate;
         if(startImmediately)
             start();
     }
@@ -70,7 +78,10 @@ public class GameTimer {
                 return;
             }
         }
-        runBehaviors();
+        if(!SceneManager.getWindow().isPaused() || forceRunUpdate)
+        {
+            runBehaviors();
+        }
         if(stopOnFirstTick)
         {
             stop();

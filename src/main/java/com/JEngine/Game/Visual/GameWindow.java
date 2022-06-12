@@ -319,6 +319,10 @@ public class GameWindow extends Thing {
 
     }
 
+    public boolean isPaused() {
+        return isPaused;
+    }
+
     /**
      * Goes through every object in the scene to run their Update() functions.
      * Objects which don't override the function will not have any function

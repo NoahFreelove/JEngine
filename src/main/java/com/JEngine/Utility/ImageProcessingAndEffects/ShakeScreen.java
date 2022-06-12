@@ -15,16 +15,12 @@ public class ShakeScreen {
                 root.setTranslateX(Math.random() * intensity - intensity / 2f);
                 root.setTranslateY(Math.random() * intensity - intensity / 2f);
             }
-
         };
-        // set duration
-
         at.start();
-        GameTimer gt = new GameTimer((long) (duration * 1000), args -> {
+        new GameTimer((long) (duration * 1000), args -> {
             at.stop();
             root.setTranslateX(0);
             root.setTranslateY(0);
-        }, true);
-        gt.start();
+        }, true, true, true);
     }
 }
