@@ -80,6 +80,21 @@ public class UIAnimator extends Component {
         stop();
         play();
     }
+    public void skip(){
+        progress =1;
+        pause();
+        complete();
+    }
+
+    private void complete(){
+        node.setTranslateX(endPos.x);
+        node.setTranslateY(endPos.y);
+        node.setScaleX(endScale.x);
+        node.setScaleY(endScale.y);
+
+        if(onComplete !=null)
+            onComplete.call(null);
+    }
     @Override
     public void Update(){
         if(isPlaying)
@@ -95,8 +110,7 @@ public class UIAnimator extends Component {
                 progress += 1/GameWindow.getInstance().getTargetFPS()/timeTarget;
                 if(progress>=1)
                 {
-                    if(onComplete !=null)
-                        onComplete.call(null);
+                    complete();
                     stop();
                 }
             }

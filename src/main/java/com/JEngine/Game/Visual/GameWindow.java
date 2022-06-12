@@ -400,6 +400,16 @@ public class GameWindow extends Thing {
         });
     }
 
+    public void removePermanentUI(Node n)
+    {
+        Platform.runLater(() -> {
+            try {
+                permanentUI.getChildren().remove(n);
+            }
+            catch (Exception ignore){}
+        });
+    }
+
     public void setTitle(String newTitle)
     {
         stage.setTitle(newTitle);
