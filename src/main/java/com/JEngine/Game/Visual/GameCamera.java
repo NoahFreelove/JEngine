@@ -12,6 +12,7 @@ import com.JEngine.Game.Visual.Scenes.SceneManager;
 import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.effect.Blend;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.ImagePattern;
@@ -152,6 +153,7 @@ public class GameCamera extends Pawn {
                     imageView.setX(xPos);
                     imageView.setY(yPos);
                     Blend blend = new Blend();
+                    blend.setMode(BlendMode.OVERLAY);
                     blend.setTopInput(sprite.getSprite().getColorAdjust());
                     blend.setBottomInput(sprite.getSprite().getImageEffect());
                     imageView.setEffect(blend);

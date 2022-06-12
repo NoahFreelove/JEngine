@@ -37,7 +37,7 @@ public class Thing {
 
     public static void LogError(String log)
     {
-        if (EnginePrefs.logInfo) {
+        if (EnginePrefs.logError) {
             System.out.println("CAUGHT ERROR: " + log);
         }
     }

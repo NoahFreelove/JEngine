@@ -196,6 +196,13 @@ public class GameScene extends Thing {
         }
     }
 
+    public void addUI(Node... nodes){
+        for (Node n :
+                nodes) {
+            addUI(n);
+        }
+    }
+
     /**
      * Remove a GameObject from the scene.
      * Note: Removing a GameObject from the scene just stops it from being rendered and any update functions being called

@@ -10,6 +10,7 @@ public class EnginePrefs {
     public static boolean logExtra;
     public static boolean logDebug;
     public static boolean logImportant;
+    public static boolean logError;
     //endregion
 
     //region garbage collection
