@@ -41,7 +41,7 @@ public class GameScene extends Thing {
     public URL uiURL = null;
 
     private ArrayList<GameLight> lights = new ArrayList<>(1);
-    public Effect lightEffect = new Lighting(new Light.Distant(50,50, Color.rgb(255,255,255,0.5)));
+    public Effect lightEffect;
     private boolean enableLighting = false;
 
     /**
@@ -53,6 +53,7 @@ public class GameScene extends Thing {
         this.sceneName = sceneName;
         sceneObjects = new GameObject[sceneDefaultSize];
         addLight(new GameLight(new Lighting(new Light.Distant(50,50, Color.rgb(255,255,255,0.5))), false));
+        generateLightEffect();
     }
 
     public GameScene() {
@@ -60,6 +61,7 @@ public class GameScene extends Thing {
         this.sceneName = "Scene";
         sceneObjects = new GameObject[25];
         addLight(new GameLight(new Lighting(new Light.Distant(50,50, Color.rgb(255,255,255,0.5))), false));
+        generateLightEffect();
     }
     /**
      * @param sceneName Name of the scene. Can be changed with setSceneName(String newName)
@@ -69,6 +71,7 @@ public class GameScene extends Thing {
         this.sceneName = sceneName;
         sceneObjects = new GameObject[25];
         addLight(new GameLight(new Lighting(new Light.Distant(50,50, Color.rgb(255,255,255,0.5))), false));
+        generateLightEffect();
     }
 
     /**
@@ -88,6 +91,7 @@ public class GameScene extends Thing {
         this.sceneName = sceneName;
         sceneObjects = new GameObject[sceneDefaultSize];
         addLight(new GameLight(new Lighting(new Light.Distant(50,50, Color.rgb(255,255,255,0.5))), false));
+        generateLightEffect();
     }
 
     /**
@@ -494,5 +498,11 @@ public class GameScene extends Thing {
 
     public void setLights(ArrayList<GameLight> lights) {
         this.lights = lights;
+    }
+
+    public void removeAmbientLighting(){
+        lights.clear();
+        lights.add(new GameLight(new Lighting(new Light.Distant(0,0,Color.TRANSPARENT)), false));
+        generateLightEffect();
     }
 }
