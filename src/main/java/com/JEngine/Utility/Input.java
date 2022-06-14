@@ -224,7 +224,7 @@ public class Input {
         O_Pressed = false;
         P_Pressed = false;
         Space_Pressed = false;
-        keyPressed = null;
+        keyPressed = KeyCode.UNDEFINED;
         checkKeyCombos();
     }
 

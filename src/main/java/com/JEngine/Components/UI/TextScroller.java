@@ -30,7 +30,7 @@ public class TextScroller extends Component {
         this.animText = text;
         this.timeTarget = time;
         this.content = content;
-        this.onComplete = null;
+        this.onComplete = args -> {};
         this.progress = 0f;
     }
 

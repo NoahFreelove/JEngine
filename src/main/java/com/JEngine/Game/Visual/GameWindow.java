@@ -70,7 +70,7 @@ public class GameWindow extends Thing {
         if(GameWindow.instance != null)
         {
             LogError("GameWindow already exists!");
-            this.stage = null;
+            this.stage = new Stage();
             return;
         }
         else {
