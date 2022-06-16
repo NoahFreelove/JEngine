@@ -18,9 +18,8 @@ public class FlipFlop {
     }
 
     public boolean getState() {
-        boolean oldState = state;
         flip();
-        return oldState;
+        return !state;
     }
 
     public void setState(boolean state) {

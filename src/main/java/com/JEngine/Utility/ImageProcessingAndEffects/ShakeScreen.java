@@ -21,6 +21,6 @@ public class ShakeScreen {
             at.stop();
             root.setTranslateX(0);
             root.setTranslateY(0);
-        }, true, true, true);
+        }, false, true, true, 5);
     }
 }
