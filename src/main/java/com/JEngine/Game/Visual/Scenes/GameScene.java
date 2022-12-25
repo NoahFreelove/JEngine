@@ -16,7 +16,7 @@ import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import static com.JEngine.Game.Visual.Scenes.SceneQuicksort.quickSortZ;
 
@@ -40,7 +40,7 @@ public class GameScene extends Thing {
     // The URL to the FXML UI file
     public URL uiURL = null;
 
-    private ArrayList<GameLight> lights = new ArrayList<>(1);
+    private CopyOnWriteArrayList<GameLight> lights = new CopyOnWriteArrayList<>();
     public Effect lightEffect;
     private boolean enableLighting = false;
 
@@ -492,11 +492,11 @@ public class GameScene extends Thing {
         enableLighting = false;
     }
 
-    public ArrayList<GameLight> getLights() {
+    public CopyOnWriteArrayList getLights() {
         return lights;
     }
 
-    public void setLights(ArrayList<GameLight> lights) {
+    public void setLights(CopyOnWriteArrayList lights) {
         this.lights = lights;
     }
 
